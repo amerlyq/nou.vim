@@ -1,5 +1,6 @@
 if exists("b:did_ftplugin")| finish |else| let b:did_ftplugin = 1 |endif
 let b:undo_ftplugin = "setl ts< sw<"
+call nou#opts#init()
 
 " Line-format has no sense for widechar lines, being treated as one long word
 setl autoindent nocindent indentexpr=
