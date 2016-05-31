@@ -17,12 +17,17 @@ endf
 
 fun! nou#syntax#_highlight(nm, c)
   if a:c =~ '^#\x\+$'| let c = 'guifg='.a:c |else| let c = a:c |en
+  " TODO: if =~ '\w\+' -> hi def link
+  " CHECK: if used 'def link' -- can't change colors on fly w/o vim restart
+  " BAD: don't work user override like with 'def link'
   exe 'hi! '. a:nm .' '. c
 endf
 
 fun! nou#syntax#outline(i)
   let nm = 'nouOutline'.a:i
+  " THINK: don't use 'keepend/excludenl' to allow wrapping multiline 'url'
   exe 'syn region '.nm.' display oneline keepend'
+    \.' contains=Comment,nouArtifactUrl'
     \.' start='.s:p(nou#syntax#_indent(a:i))
     \.' excludenl end='.s:p('$')
   call nou#syntax#_highlight(nm, g:nou.outline.colors[a:i])

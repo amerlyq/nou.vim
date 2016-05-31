@@ -18,14 +18,15 @@ let s:nou.delimit.colors = [
 let s:nou.outline = {}
 " NOTE: whole 'hi' cmdline can be specified
 let s:nou.outline.colors = [
-  \ '#dc322f',
-  \ '#dd6616',
   \ '#859900',
-  \ '#586e75',
   \ '#268bd2',
-  \ '#6c71c4',
-  \ '#d33682',
+  \ '#2aa198',
   \ '#c5a900',
+  \ '#dd6616',
+  \ '#dc322f',
+  \ '#d33682',
+  \ '#6c71c4',
+  \ '#586e75',
   \ ]
 
 " THINK:TRY: using text bg colors
