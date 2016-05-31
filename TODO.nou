@@ -1,0 +1,75 @@
+> Outline
+
+SEE:(seize)
+  https://github.com/xolox/vim-notes/blob/master/autoload/xolox/notes.vim
+
+
+THINK
+  Write back-end core in python
+  Provide interface to manipulate of outline DOM objects by API
+    : THINK? base it on XHTML-dom manipulation classes?
+  Use vim only as front-end to that API
+    Parse .otl and keep in sync the in-memory DOM at python
+    Convert current export format (.otl) into cursor position in DOM
+    Launch specific API by keymaps
+    Populate changes from in-memory DOM into export of (.otl)
+  Then I will be able create another front-end api like OpenGL, etc
+IDEA:(graph navigation)
+  By default vim works in terminal with isotropic character metric
+    All textobj form aligned tree with distinct leaves
+  But what about browsers, based on vim experience?
+    It's clusters of text pieces with different font sizes
+    They form anisotropic graph, placed on isotropic screen
+    Maybe some kind of fast navigation in graph space is also possible?
+  Файлменеджер на графе
+    а что если слепить вместе vim, поиск по графам (через команды вима) и
+    файловый менеджер, который представляет файловые деревья в виде
+    графов?
+    Например группировка файлов по расширению, размерам, датам итп с
+    динамичным перестраиванием деревьев после ввода команд вима. Но вот
+    как отобразить атрибуды чтобы не перегружать систему?...
+  MindMap
+    Автоматический поиск по всему тексту и проброс ссылок на сходные слова
+    на других ветках и даже картах (выпадающий список найденного). Нужен
+    всвязи с трудностями поддержки вспоминания где на какой ветке были
+    разбросаны ранее похожие куски.
+    Важно: скорость и качество (гладкость) рендеринга -- должно давать
+    качественную эппловую картинку, а не коробить взгляд как вим своими
+    шрифтами на винде.
+DEV
+  THINK extend Markdown by indented outline syntax and new marks instead of own?
+  [_] TODO switchable colorschemes 'on the fly'
+    : different info requires different indent nesting, but similar coloring!
+  Amount of '[>:~]{n}' in line prefix -- changes 256 color to more dim/bright
+    : In 8 color term all them will have one color
+    :* Allows to accentuate intent/attention -- like in lists/music.otl
+  After $ -- use complete bash syntax until end of line
+  SEE multi syntax regions for this -- or include all syntax into region
+  SEE ft=cucumber bundle/sideways.vim/examples/example.feature -- maybe as prototype?
+  SEE embedded syntax regions highlighting
+    : https://github.com/xolox/vim-notes
+  [_] Allow mixed block/flow syntax as in yaml -- for one-word branches in graphviz
+  Use cycleable '*/[_]/\d./' list markers (cycle for all list -- not for item)
+  [_] Highlight in different colors text in `..`, '..', "..", $..# etc, use conceal
+    Make $..# to have another color of left/right separator
+    :* quotes must be surrounded by \s or ^$ -- to not escape them inside blocks
+    := it will allow distinguish hotkeys, shell commands, code, etc
+    :SEE markdown syntax
+    Set default embedded ft (used in bare `...`) through modeline
+    := so I could simplify bash/haskell snippets in otl
+  [_] Use space instead tab -- generate regexes based on values in ts=2:sw=2:sts=2
+    ALT: query color from cached map with spaces as keys =~ '\s{i,i+2}'
+  [_] Block -- used even without indent (like ```) for long text massives
+  [_] Tagbar -- always open, shows outer outline (useful for music.otl)
+  [_] Interlace/variate rows colors on the same level (like html/css tables)
+    := Darker/Lighter then current header -- for long lists of multiline items
+    := ALT: the same spectrum for all sub-topics in any level -- for decision-making
+
+[o] Vimoutliner
+  [_] TODO Remove insert mappings
+  2015-06-01 [X] Change mapping to more easily pressed :> use everywhere ',.'
+  [_] Disable autoformating on pasting
+  [_] Test and compare with vimoutliner
+    : https://github.com/vimwiki/vimwiki
+    : http://tiddlywiki.com  -- one-page wiki
+    Extract all scripts (~8) in github for converting
