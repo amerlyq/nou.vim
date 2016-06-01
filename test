@@ -1,0 +1,28 @@
+#!/bin/bash -e
+# vim:ts=2:sw=2:sts=2
+cd "$(dirname "$(readlink -m "$0")")"
+
+[[ " $* " =~ " -v " ]] ||
+  exec 2> >(sed -n '/^Starting Vader/,$p')
+
+[[ $EDITOR =~ ^n?vim$ ]] || EDITOR=vim
+[[ $TMPDIR ]] || export TMPDIR=/tmp
+
+[[ -d $TMPDIR/vader.vim ]] ||
+  git clone -b master --depth=1 --single-branch \
+  'https://github.com/junegunn/vader.vim' \
+  "$TMPDIR/vader.vim"
+
+$EDITOR -i NONE -U NONE -u <(cat <<<'
+  filetype off
+  set rtp+=$TMPDIR/vader.vim,.
+  filetype plugin indent on
+  syntax enable
+') -nNesS <(cat <<<'
+  Vader! t/*.vader
+  qall!
+') || exit $(($?-1))
+
+# ALT: [[ $? -eq 1 && $EDITOR == nvim ]]
+# BUG: on ubuntu/travis exit code ok:1 err:2 for nvim/vim ~7.4.712
+# BUT: for newest vim ~7.4.1797 its ok:0 err:1
