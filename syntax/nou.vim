@@ -45,6 +45,9 @@ endfor
 
 """ Accents
 " '"`{[(_: -- symmetrical pair
+" ALSO: -strikethrough-  ~wavy~  >small<  <big>  __word__
+" BUT:NEED: distinguish accents from hashtags!
+" USE: conceal in syntax, but disable conceal in ftplugin (if horrible)
 
 " THINK: blue asteriks/nums for lists inside comments (part of notches?)
 " -- support extended comments in any text file

@@ -37,6 +37,18 @@ IDEA:(graph navigation)
     качественную эппловую картинку, а не коробить взгляд как вим своими
     шрифтами на винде.
 DEV
+  [_] Priority
+    MAYBE override highlighting of whole line?
+      BUT how about mixed coloring of priority/outline/decision?
+      THINK don't mix them at all -- all are placed in different sections of notes
+        # Each section -- indented block at 1st level
+        ? THINK what if to allow nested blocks indented relative to current level?
+          = Too complex. Moreover -- what if I need only one decision-like line inside outline?
+    THINK how to combine with decision-making markers to order statements
+      Maybe simply add number before/after decision markers?
+      # USE:(formats)  *1 8* 4% %3 #2 ~2 !3
+      Repeating marker -- several highest priorities (accentuation)
+      # USE:(like) * ** ***  OR ! !! !!!
   THINK extend Markdown by indented outline syntax and new marks instead of own?
   [_] TODO switchable colorschemes 'on the fly'
     : different info requires different indent nesting, but similar coloring!
