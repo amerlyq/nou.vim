@@ -85,3 +85,24 @@ DEV
     : https://github.com/vimwiki/vimwiki
     : http://tiddlywiki.com  -- one-page wiki
     Extract all scripts (~8) in github for converting
+
+----- Multiline -----
+  NEED special way to continue long entries on next line
+    -/ C: trailing '\' on current line
+    -/ vimscript: leading '\' on next line
+    -/ yaml: indented block after special ending ': |'
+    ?/ custom:
+      another indent but same color -- distinguishes this entry
+      no prefixed symbols -- simplify 'y', 'gq', etc
+      indent in one tab -- simplify 'g>'
+
+======== Syntax ==========
+  decision
+    ~ higlight in pre-defined color only marker (start/end match)
+      .. and keep
+  key-value
+    < USE instead of mixed/unfolded tables
+    */ treat keys similar to unordered markers
+    ~/ embedded yaml
+    ?/ own syntax (key-value dif colors, highlight ops like 'A -> B', etc)
+    MAYBE:(like accent) highlight everywhere OR at beginning of line?
