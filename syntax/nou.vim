@@ -8,6 +8,8 @@ endif
 syntax case match       " Individual ignorecase done by '\c' prefix (performance)
 syntax spell toplevel   " Check for spelling errors in all text.
 
+" ENH:THINK if array of colors is empty -- don't generate this syntax part
+
 """ Outline (cyclic N-colors)
 " ALT:BAD? reuse spaces as colormap keys \z%(\s*)\S -> g:nou.color[\z1]
 " THINK: using other symbols beside spaces
@@ -36,12 +38,18 @@ endfor
 
 """ Decision
 " %([?*><]|--)\s -- separated from words by space
+" NOTE: also works on 0-level
 
+" THINK: colorize only marker, keep color from level
 " THINK: using decision markers in the middle of sentence?
 " -- MAYBE surround them like PL: (? good idea) or [< because of] or {> bad}
 " THINK: notches include in 'plugin/' of nou.vim
 " -- as them are mark-up for notes throughout all text files
 " -- can setup include/exclude ft
+
+for i in range(len(g:nou.decision.colors))
+  call nou#syntax#decision(i)
+endfor
 
 """ Accents
 " '"`{[(_: -- symmetrical pair
@@ -61,10 +69,12 @@ endfor
 " -- EXPL: @some #tag &link
 " -- multiple: #(tag1,tag2,tag3) OR:(can't 'ga') #tag1,#tag2 BAD #tag1#tag2
 
-syn match Comment display excludenl '#\s.*$'
+syn region Comment display oneline keepend
+  \ start='^#\s' start='\s\s\zs#\s' excludenl end='\s#\ze\s\s' end='$'
 
 " EXPL: https, ftp, news, file
 hi def link nouArtifactUrl Underlined
+syn cluster nouArtifactQ add=nouArtifactUrl
 syn match nouArtifactUrl display excludenl
   \ '\v<%(\w{3,}://|www\.|%(mailto|javascript):)\S*'
 

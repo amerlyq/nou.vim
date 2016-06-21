@@ -8,6 +8,19 @@ let s:nou.widesp = 0  " indent by also \u3000 (OR: only spaces/tabs)
 let s:nou.loose = 0   " round inexact indent to prev lvl
 
 
+let s:nou.decision = {}
+let s:nou.decision.colors = [
+  \ ['*', '#268bd2'],
+  \ ['+', '#859900'],
+  \ ['-', '#2aa198'],
+  \ ['=:', '#d33682'],
+  \ ['~', '#d33682'],
+  \ ['?', '#dd6616'],
+  \ ['!', '#dc322f'],
+  \ ['<', '#c5a900'],
+  \ ['>', '#6c71c4'],
+  \ ]
+
 let s:nou.delimit = {}
 let s:nou.delimit.colors = [
   \ ['=', '#d33682'],
@@ -18,9 +31,9 @@ let s:nou.delimit.colors = [
 let s:nou.outline = {}
 " NOTE: whole 'hi' cmdline can be specified
 let s:nou.outline.colors = [
-  \ '#859900',
   \ '#268bd2',
   \ '#2aa198',
+  \ '#859900',
   \ '#c5a900',
   \ '#dd6616',
   \ '#dc322f',

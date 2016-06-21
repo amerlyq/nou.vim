@@ -15,22 +15,31 @@ fun! nou#syntax#_indent(i)
   return p
 endf
 
-fun! nou#syntax#_highlight(nm, c)
+fun! nou#syntax#_highlight(nm, c, ...)
   if a:c =~ '^#\x\+$'| let c = 'guifg='.a:c |else| let c = a:c |en
   " TODO: if =~ '\w\+' -> hi def link
   " CHECK: if used 'def link' -- can't change colors on fly w/o vim restart
   " BAD: don't work user override like with 'def link'
-  exe 'hi! '. a:nm .' '. c
+  exe 'hi! '. a:nm .' '. c .(a:0<1?'': ' '.a:1)
 endf
 
 fun! nou#syntax#outline(i)
   let nm = 'nouOutline'.a:i
-  " THINK: don't use 'keepend/excludenl' to allow wrapping multiline 'url'
+  " THINK: don't use 'keepend/excludenl/oneline' to allow wrap multiline 'url'
   exe 'syn region '.nm.' display oneline keepend'
-    \.' contains=Comment,nouArtifactUrl'
+    \.' contains=Comment,@nouArtifactQ,@nouDecisionQ'
     \.' start='.s:p(nou#syntax#_indent(a:i))
     \.' excludenl end='.s:p('$')
   call nou#syntax#_highlight(nm, g:nou.outline.colors[a:i])
+endf
+
+fun! nou#syntax#decision(i)
+  let nm = 'nouDecision'.a:i
+  let [s, c] = g:nou.decision.colors[a:i]
+  exe 'syn cluster nouDecisionQ add='.nm
+  exe 'syn match '.nm.' display excludenl '
+    \.s:p('\v^\s*\zs['.s.']{1,3}\ze(\s|$)')
+  call nou#syntax#_highlight(nm, c, 'gui=bold')
 endf
 
 fun! nou#syntax#delimit(i)
