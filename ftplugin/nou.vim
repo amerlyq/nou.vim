@@ -7,3 +7,9 @@ setl autoindent nocindent indentexpr=
 setl tabstop=2 shiftwidth=2 softtabstop=2
 " setl comments=s:#,e:#,b:#,b::,b:~,:\|,
 setl commentstring=#\ %s
+
+setl foldmethod=indent
+setl conceallevel=3
+
+" EXPL:(commented) irritating cursor lags when moving in line
+" setl concealcursor=nv

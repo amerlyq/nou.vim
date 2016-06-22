@@ -26,8 +26,10 @@ endf
 fun! nou#syntax#outline(i)
   let nm = 'nouOutline'.a:i
   " THINK: don't use 'keepend/excludenl/oneline' to allow wrap multiline 'url'
+  "   -- BUG: irritating EOF highlighting when typing opening accent
+  " ENH:USE: ALL ALLBUT,{gr} TOP TOP,{gr} CONTAINED CONTAINED,{gr}
   exe 'syn region '.nm.' display oneline keepend'
-    \.' contains=Comment,@nouArtifactQ,@nouDecisionQ'
+    \.' contains=Comment,@nouArtifactQ,@nouAccentQ,@nouDecisionQ'
     \.' start='.s:p(nou#syntax#_indent(a:i))
     \.' excludenl end='.s:p('$')
   call nou#syntax#_highlight(nm, g:nou.outline.colors[a:i])
@@ -36,10 +38,24 @@ endf
 fun! nou#syntax#decision(i)
   let nm = 'nouDecision'.a:i
   let [s, c] = g:nou.decision.colors[a:i]
-  exe 'syn cluster nouDecisionQ add='.nm
-  exe 'syn match '.nm.' display excludenl '
-    \.s:p('\v^\s*\zs['.s.']{1,3}\ze(\s|$)')
+  exe 'syn cluster nouDecisionQ add='.nm.'r'
+  exe 'syn region '.nm.'r display oneline keepend transparent'
+    \.' excludenl matchgroup='.nm
+    \.' start='.s:p('\v^\s*\zs\z(['.s.']{1,3})\s')
+    \.' end='.s:p('\s\z1$').' end='.s:p('$')
   call nou#syntax#_highlight(nm, c, 'gui=bold')
+endf
+
+fun! nou#syntax#accent(k)
+  let nm = 'nouAccent'.a:k
+  let [s, c] = g:nou.accent.colors[a:k]
+  exe 'syn cluster nouAccentQ add='.nm
+  exe 'syn region '.nm.' display oneline keepend concealends'
+    \.' excludenl matchgroup=nouConceal contains=@nouAccentQ'
+    \.' start='.s:p('\%(^\|\W\)\zs'.s.'\ze\S')
+    \.' end='.s:p('\S\zs'.s.'\ze\%(\W\|$\)')
+  if c !~# '='| let c = 'cterm='.c.' gui='.c |en
+  call nou#syntax#_highlight(nm, '', c)
 endf
 
 fun! nou#syntax#delimit(i)

@@ -7,12 +7,20 @@ endif
 
 syntax case match       " Individual ignorecase done by '\c' prefix (performance)
 syntax spell toplevel   " Check for spelling errors in all text.
+hi def link nouConceal Ignore
 
 " ENH:THINK if array of colors is empty -- don't generate this syntax part
+" BAD: transparent+matchgroup with same region/matchgroup name
+"   => BUG: higlighting end match don't work
+"   => ALT: don't use 'transparent' -- list groups separately
+"     => BUT: then can't inherit outline body color (uses match color instead)
 
 """ Outline (cyclic N-colors)
 " ALT:BAD? reuse spaces as colormap keys \z%(\s*)\S -> g:nou.color[\z1]
 " THINK: using other symbols beside spaces
+
+" THINK: use 'match' for indent and then 'nextgroup' for text/decision/etc
+"   => BAD: text/decision can't inherit color of outline, need separate define
 
 for i in range(len(g:nou.outline.colors))
   call nou#syntax#outline(i)
@@ -21,10 +29,11 @@ endfor
 """ Structure
 " headers/delimiters
 
-" THINK: use for zero-level only or for any level?
-
+" THINK: use for zero-level only or for any level? Make option?
+"   BUG: currently don't work for non-zero level
 " THINK: horizontal rulers
 " -- BETTER? constant color or change by indent
+
 for i in range(len(g:nou.delimit.colors))
   call nou#syntax#delimit(i)
 endfor
@@ -38,8 +47,12 @@ endfor
 
 """ Decision
 " %([?*><]|--)\s -- separated from words by space
-" NOTE: also works on 0-level
+" NOTE: also highlight on 0-level
+" NOTE: treat \s as part of start/end match -- nice for underlined blocks
+"   -- ALT: start.'rs=e-1' end.'re=s+1
 
+" ENH:TRY: multiline blocks can be achieved by removing 'keepend' in outlines
+"   -- THEN decision block will span until ending symbol found
 " THINK: colorize only marker, keep color from level
 " THINK: using decision markers in the middle of sentence?
 " -- MAYBE surround them like PL: (? good idea) or [< because of] or {> bad}
@@ -47,6 +60,7 @@ endfor
 " -- as them are mark-up for notes throughout all text files
 " -- can setup include/exclude ft
 
+" FIXME: must be placed before 'outline' defs (due to patt-match order)
 for i in range(len(g:nou.decision.colors))
   call nou#syntax#decision(i)
 endfor
@@ -56,11 +70,25 @@ endfor
 " ALSO: -strikethrough-  ~wavy~  >small<  <big>  __word__
 " BUT:NEED: distinguish accents from hashtags!
 " USE: conceal in syntax, but disable conceal in ftplugin (if horrible)
+" CHECK: using normal/bold/italic we can span multiline if remove 'keepend'
+" USE: bold underline undercurl reverse/inverse italic standout NONE
 
 " THINK: blue asteriks/nums for lists inside comments (part of notches?)
 " -- support extended comments in any text file
 " THINK: italic -- as part of 'hi' or as accent itself?
 " -- italic accent inside italic hi/accent -> must become non-italic
+" WARNING: if I will use combined accents ( _*some*_ ) -- defining order must
+"     be strict -- so must use list instead of map
+
+" BUG: when changing only attributes -- color is not inherited
+"   ALT: union of attribute + link to -- create individual groups for outline
+"     :hi nouItalic1 gui=italic | hi! link nouItalic1 nouOutline1
+"   DEV: toggle by option -- individual colors or general one
+
+for k in keys(g:nou.accent.colors)
+  call nou#syntax#accent(k)
+endfor
+
 
 """ Artifacts
 " comments, url, path -- objects

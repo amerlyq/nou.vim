@@ -21,6 +21,15 @@ let s:nou.decision.colors = [
   \ ['>', '#6c71c4'],
   \ ]
 
+let s:nou.accent = {}
+let s:nou.accent.colors = {
+  \ 'Bold': ['\*', 'bold'],
+  \ 'Italic': ["'", 'italic'],
+  \ 'Underlined': ['_', 'underline'],
+  \ 'Standout': ['|', 'ctermbg=8 guibg=#001520'],
+  \ }
+
+
 let s:nou.delimit = {}
 let s:nou.delimit.colors = [
   \ ['=', '#d33682'],
