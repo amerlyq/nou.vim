@@ -21,6 +21,8 @@ hi def link nouConceal Ignore
 
 " THINK: use 'match' for indent and then 'nextgroup' for text/decision/etc
 "   => BAD: text/decision can't inherit color of outline, need separate define
+" BUG:FIXME: generate syntax with correct indent only after modline was read
+"   -- # vim:ft=nou:sts=4:ts=4:sw=4:spell
 
 for i in range(len(g:nou.outline.colors))
   call nou#syntax#outline(i)
@@ -85,6 +87,7 @@ endfor
 "   ALT: union of attribute + link to -- create individual groups for outline
 "     :hi nouItalic1 gui=italic | hi! link nouItalic1 nouOutline1
 "   DEV: toggle by option -- individual colors or general one
+"     NOTE: general has merits of contrast and more performance than individual
 
 for k in keys(g:nou.accent.colors)
   call nou#syntax#accent(k)

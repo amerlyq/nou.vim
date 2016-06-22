@@ -39,7 +39,7 @@ IDEA:(graph navigation)
 DEV
   [_] Priority
     MAYBE override highlighting of whole line?
-      BUT how about mixed coloring of priority/outline/decision?
+      BUT how about mixed body coloring of priority/outline/decision?
       THINK don't mix them at all -- all are placed in different sections of notes
         # Each section -- indented block at 1st level
         ? THINK what if to allow nested blocks indented relative to current level?
@@ -49,7 +49,9 @@ DEV
       # USE:(formats)  *1 8* 4% %3 #2 ~2 !3
       Repeating marker -- several highest priorities (accentuation)
       # USE:(like) * ** ***  OR ! !! !!!
+      TRY: inherit decision color (simply by adding '\d=' in its pattern) or contain its own
   THINK extend Markdown by indented outline syntax and new marks instead of own?
+    - Markdown flavours aren't suited for my writings
   [_] TODO switchable colorschemes 'on the fly'
     : different info requires different indent nesting, but similar coloring!
   Amount of '[>:~]{n}' in line prefix -- changes 256 color to more dim/bright
