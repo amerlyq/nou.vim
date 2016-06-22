@@ -29,7 +29,7 @@ fun! nou#syntax#outline(i)
   "   -- BUG: irritating EOF highlighting when typing opening accent
   " ENH:USE: ALL ALLBUT,{gr} TOP TOP,{gr} CONTAINED CONTAINED,{gr}
   exe 'syn region '.nm.' display oneline keepend'
-    \.' contains=Comment,@nouArtifactQ,@nouAccentQ,@nouDecisionQ'
+    \.' contains=Comment,@nouArtifactQ,@nouAccentQ,@nouDecisionQ,@nouEmbedQ'
     \.' start='.s:p(nou#syntax#_indent(a:i))
     \.' excludenl end='.s:p('$')
   call nou#syntax#_highlight(nm, g:nou.outline.colors[a:i])
@@ -65,4 +65,31 @@ fun! nou#syntax#delimit(i)
     \.s:p('\v(^|\s)\zs['.s.']{5,}\ze(\s|$)')
   " ALT:(pseudo-random) color =~ charcode % 16
   call nou#syntax#_highlight(nm, c)
+endf
+
+fun! nou#syntax#embed_load(ft)
+  let nm = 'nouEmbedQ_' . a:ft
+  let main_syntax = get(b:, 'current_syntax', '')
+  " EXPL: remove all previously embedded syntax groups (sole method)
+  " syntax clear | let &syntax = main_syntax
+  if a:ft ==# ''| return |en
+  " EXPL: load even syntax files with single-time loading guards
+  if exists('b:current_syntax')| unlet b:current_syntax |en
+  " BUG: embedded syntax expects start-of-line '^' -- but there placed '\d:\d:'
+  try|exe 'syn include @'.nm.' syntax/'.a:ft.'.vim'      |catch/E403\|E484/|endtry
+  try|exe 'syn include @'.nm.' after/syntax/'.a:ft.'.vim'|catch/E403\|E484/|endtry
+  let b:current_syntax = main_syntax
+  if empty(b:current_syntax)| unlet b:current_syntax |en
+endf
+
+fun! nou#syntax#embedded(ft)
+  let nm = 'nouEmbed_'.a:ft
+  let [b, e] = g:nou.embed[a:ft]
+  exe 'syn cluster nouEmbedQ add='.nm
+  exe 'syn region '.nm.' display oneline keepend'
+    \.' excludenl matchgroup=Comment contains=@nouEmbedQ_' . a:ft
+    \.' start='.s:p('\%(^\|\s\)\zs'.b.'\s')
+    \.' end='.s:p('\s'.e.'\ze\%(\s\|$\)').' end='.s:p('$')
+  call nou#syntax#embed_load(a:ft)
+  " call nou#syntax#_highlight(nm, '#990000')
 endf

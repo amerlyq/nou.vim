@@ -51,6 +51,10 @@ let s:nou.outline.colors = [
   \ '#586e75',
   \ ]
 
+let s:nou.embed = {
+  \ 'sh': ['\$', '\$'],
+  \ }
+
 " THINK:TRY: using text bg colors
 " -- additional levels/markers equivalent as combo (fg + bg)
 " -- only as accents for existing levels (inside concealed block of `[{,etc)

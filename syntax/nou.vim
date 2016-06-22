@@ -50,6 +50,7 @@ endfor
 " NOTE: also highlight on 0-level
 " NOTE: treat \s as part of start/end match -- nice for underlined blocks
 "   -- ALT: start.'rs=e-1' end.'re=s+1
+" BUG: pressing <CR> in insert mode --> diff indent after diff symbols
 
 " ENH:TRY: multiline blocks can be achieved by removing 'keepend' in outlines
 "   -- THEN decision block will span until ending symbol found
@@ -111,6 +112,10 @@ syn match nouArtifactUrl display excludenl
 " CHECK:
 " -- syntax higlighting block between two marks start=/\%'m/ end=/\%'n/
 " -- rule to highlight till/from cursor position start=/\%#/
+
+for ft in keys(g:nou.embed)
+  call nou#syntax#embedded(ft)
+endfor
 
 " EXPL: must be last line -- set single-loading guard only if no exceptions
 let b:current_syntax = 'nou'
