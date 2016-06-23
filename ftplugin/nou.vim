@@ -13,3 +13,7 @@ setl conceallevel=3
 
 " EXPL:(commented) irritating cursor lags when moving in line
 " setl concealcursor=nv
+" EXPL:BUG: in insert with opened deoplete.vim menu -- wrong cursor position
+" -- same as w/o conceal -- if text concealed is on the left of cursor
+" setl concealcursor=i
+setl concealcursor=""

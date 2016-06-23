@@ -9,11 +9,42 @@ syntax case match       " Individual ignorecase done by '\c' prefix (performance
 syntax spell toplevel   " Check for spelling errors in all text.
 hi def link nouConceal Ignore
 
+" ATTENTION: _defining order_ problem
+
 " ENH:THINK if array of colors is empty -- don't generate this syntax part
 " BAD: transparent+matchgroup with same region/matchgroup name
 "   => BUG: higlighting end match don't work
 "   => ALT: don't use 'transparent' -- list groups separately
 "     => BUT: then can't inherit outline body color (uses match color instead)
+
+
+""" Accents
+" '"`{[(_: -- symmetrical pair.
+" ALSO: complex bounds like {: ... :} -- make diff bg/fg accents spectrum
+" ALSO: -strikethrough-  ~wavy~  >small<  <big>  __word__
+" BUT:NEED: distinguish accents from hashtags!
+" USE: conceal in syntax, but disable conceal in ftplugin (if horrible)
+" CHECK: using normal/bold/italic we can span multiline if remove 'keepend'
+" USE: bold underline undercurl reverse/inverse italic standout NONE
+" TRY:(option) unused color 15/#ffffff (instead of 8) -- as main for accents?
+
+" THINK: blue asteriks/nums for lists inside comments (part of notches?)
+" -- support extended comments in any text file
+" THINK: italic -- as part of 'hi' or as accent itself?
+" -- italic accent inside italic hi/accent -> must become non-italic
+" WARNING: if I will use combined accents ( _*some*_ ) -- defining order must
+"     be strict -- so must use list instead of map
+
+" BUG: when changing only attributes -- color is not inherited
+"   ALT: union of attribute + link to -- create individual groups for outline
+"     :hi nouItalic1 gui=italic | hi! link nouItalic1 nouOutline1
+"   DEV: toggle by option -- individual colors or general one
+"     NOTE: general has merits of contrast and more performance than individual
+
+for k in keys(g:nou.accent.colors)
+  call nou#syntax#accent(k)
+endfor
+
 
 """ Outline (cyclic N-colors)
 " ALT:BAD? reuse spaces as colormap keys \z%(\s*)\S -> g:nou.color[\z1]
@@ -28,8 +59,10 @@ for i in range(len(g:nou.outline.colors))
   call nou#syntax#outline(i)
 endfor
 
+
 """ Structure
 " headers/delimiters
+" WARNING: define after accents!
 
 " THINK: use for zero-level only or for any level? Make option?
 "   BUG: currently don't work for non-zero level
@@ -39,6 +72,26 @@ endfor
 for i in range(len(g:nou.delimit.colors))
   call nou#syntax#delimit(i)
 endfor
+
+
+" WARNING: define after accents!
+" THINK: concealends -> replace by some unusual unicode chars
+"   -- MAYBE: completely hidden? for nice joining multiline
+"   ``` some
+"   text ```
+"   BUT we lose nice block emphasis
+"   some ```
+"   nteee
+"   ```
+"   CHECK:(option?) compare two possible styles. Document both ways and their merits.
+" BUG: conflicting/tearing syntax on up/down motion for text after closing ```
+"   -- seems problem in transparent+containedin
+" BUG: w/o 'matchgroup': closing '```' is concealed transparent rules of accent
+"   -- Moreover -- we can't make something like oneline block (``` ... ```)
+syn region nouBlock display keepend excludenl transparent contained extend
+  \ matchgroup=nouConceal containedin=@nouOutlineQ
+  \ start='\v`{3}' end='\v`{3}'
+
 
 """ Blocks
 " plain text/notes/lists -- multiline
@@ -68,31 +121,6 @@ for i in range(len(g:nou.decision.colors))
   call nou#syntax#decision(i)
 endfor
 
-""" Accents
-" '"`{[(_: -- symmetrical pair
-" ALSO: -strikethrough-  ~wavy~  >small<  <big>  __word__
-" BUT:NEED: distinguish accents from hashtags!
-" USE: conceal in syntax, but disable conceal in ftplugin (if horrible)
-" CHECK: using normal/bold/italic we can span multiline if remove 'keepend'
-" USE: bold underline undercurl reverse/inverse italic standout NONE
-
-" THINK: blue asteriks/nums for lists inside comments (part of notches?)
-" -- support extended comments in any text file
-" THINK: italic -- as part of 'hi' or as accent itself?
-" -- italic accent inside italic hi/accent -> must become non-italic
-" WARNING: if I will use combined accents ( _*some*_ ) -- defining order must
-"     be strict -- so must use list instead of map
-
-" BUG: when changing only attributes -- color is not inherited
-"   ALT: union of attribute + link to -- create individual groups for outline
-"     :hi nouItalic1 gui=italic | hi! link nouItalic1 nouOutline1
-"   DEV: toggle by option -- individual colors or general one
-"     NOTE: general has merits of contrast and more performance than individual
-
-for k in keys(g:nou.accent.colors)
-  call nou#syntax#accent(k)
-endfor
-
 
 """ Artifacts
 " comments, url, path -- objects
@@ -105,7 +133,9 @@ syn region Comment display oneline keepend
   \ start='^#\s' start='\s\s\zs#\s' excludenl end='\s#\ze\s\s' end='$'
 
 " EXPL: https, ftp, news, file
-hi def link nouArtifactUrl Underlined
+" hi! nouArtifactUrl gui=underline
+" hi! link nouArtifactUrl Underlined
+hi! nouArtifactUrl cterm=underline ctermfg=81 gui=underline guifg=#6c71c4
 syn cluster nouArtifactQ add=nouArtifactUrl
 syn match nouArtifactUrl display excludenl
   \ '\v<%(\w{3,}://|www\.|%(mailto|javascript):)\S*'

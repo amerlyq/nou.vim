@@ -14,6 +14,7 @@ THINK
     Launch specific API by keymaps
     Populate changes from in-memory DOM into export of (.otl)
   Then I will be able create another front-end api like OpenGL, etc
+
 IDEA:(graph navigation)
   By default vim works in terminal with isotropic character metric
     All textobj form aligned tree with distinct leaves
@@ -36,6 +37,7 @@ IDEA:(graph navigation)
     Важно: скорость и качество (гладкость) рендеринга -- должно давать
     качественную эппловую картинку, а не коробить взгляд как вим своими
     шрифтами на винде.
+
 DEV
   [_] Priority
     MAYBE override highlighting of whole line?
@@ -78,6 +80,8 @@ DEV
   [_] Interlace/variate rows colors on the same level (like html/css tables)
     := Darker/Lighter then current header -- for long lists of multiline items
     := ALT: the same spectrum for all sub-topics in any level -- for decision-making
+  [_] URL jump_next/jump_hint/open/show_in_unite
+  [_] Headers: bold. How to make them more distinguishing?
 
 [o] Vimoutliner
   [_] TODO Remove insert mappings
@@ -87,6 +91,8 @@ DEV
     : https://github.com/vimwiki/vimwiki
     : http://tiddlywiki.com  -- one-page wiki
     Extract all scripts (~8) in github for converting
+  [_] THINK:TRY: embed 'nou' into Comment group of any other syntax files
+    ~ use `au!` on `:setf` to infect syntax
 
 ----- Multiline -----
   NEED special way to continue long entries on next line
@@ -99,10 +105,37 @@ DEV
       indent in one tab -- simplify 'g>'
 
 ======== Syntax ==========
-  decision
+-------------------
+# Separated comment (rest of line)
+Main body  # inline comment #  text
+
+*******************
+  Outline
+  L1
+    L2
+      L3  # comment
+        L4
+          L5
+            L6
+    L2  # interleaving nesting
+              L7  # color depends only on indent
+                L8
+                  L9
+                    L10  # cyclic colorizing (optional)
+==================
+  Accents
+  `normal`
+  'italic'
+  *bold*
+  _underline_
+  |standout|
+------------------
+  Decision
     ~ higlight in pre-defined color only marker (start/end match)
       .. and keep
-  key-value
+  Task/progress
+    THINK if only marker is highlighted and therefore truly visible --> MAYBE:USE: shortened form '_ x' instead of full '[_] [X]'?
+  Key-value
     < USE instead of mixed/unfolded tables
     */ treat keys similar to unordered markers
     ~/ embedded yaml

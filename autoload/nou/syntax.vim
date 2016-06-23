@@ -28,10 +28,11 @@ fun! nou#syntax#outline(i)
   " THINK: don't use 'keepend/excludenl/oneline' to allow wrap multiline 'url'
   "   -- BUG: irritating EOF highlighting when typing opening accent
   " ENH:USE: ALL ALLBUT,{gr} TOP TOP,{gr} CONTAINED CONTAINED,{gr}
-  exe 'syn region '.nm.' display oneline keepend'
+  exe 'syn cluster nouOutlineQ add='.nm
+  exe 'syn region '.nm.' display oneline keepend excludenl'
     \.' contains=Comment,@nouArtifactQ,@nouAccentQ,@nouDecisionQ,@nouEmbedQ'
     \.' start='.s:p(nou#syntax#_indent(a:i))
-    \.' excludenl end='.s:p('$')
+    \.' end='.s:p('$')
   call nou#syntax#_highlight(nm, g:nou.outline.colors[a:i])
 endf
 
@@ -41,7 +42,7 @@ fun! nou#syntax#decision(i)
   exe 'syn cluster nouDecisionQ add='.nm.'r'
   exe 'syn region '.nm.'r display oneline keepend transparent'
     \.' excludenl matchgroup='.nm
-    \.' start='.s:p('\v^\s*\zs\z(['.s.']{1,3})\s')
+    \.' start='.s:p('\v^\s*\zs\z('.s.')%(\d+)?\s')
     \.' end='.s:p('\s\z1$').' end='.s:p('$')
   call nou#syntax#_highlight(nm, c, 'gui=bold')
 endf
@@ -86,8 +87,8 @@ fun! nou#syntax#embedded(ft)
   let nm = 'nouEmbed_'.a:ft
   let [b, e] = g:nou.embed[a:ft]
   exe 'syn cluster nouEmbedQ add='.nm
-  exe 'syn region '.nm.' display oneline keepend'
-    \.' excludenl matchgroup=Comment contains=@nouEmbedQ_' . a:ft
+  exe 'syn region '.nm.' display oneline keepend excludenl'
+    \.' matchgroup=Comment contains=@nouEmbedQ_' . a:ft
     \.' start='.s:p('\%(^\|\s\)\zs'.b.'\s')
     \.' end='.s:p('\s'.e.'\ze\%(\s\|$\)').' end='.s:p('$')
   call nou#syntax#embed_load(a:ft)
