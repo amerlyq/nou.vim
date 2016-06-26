@@ -1,5 +1,5 @@
 if exists("b:did_ftplugin")| finish |else| let b:did_ftplugin = 1 |endif
-let b:undo_ftplugin = "setl ts< sw<"
+let b:undo_ftplugin = "setl ai< cin< inde< ts< sw< sts< cms< fdm< cole< cocu<"
 call nou#opts#init()
 
 " Line-format has no sense for widechar lines, being treated as one long word
@@ -38,7 +38,7 @@ if exists('s:nou_mappings')
   for [modes, lhs, rhs] in s:nou_mappings
     for m in split(modes, '\zs')
       if mapcheck(lhs, m) ==# '' && maparg(rhs, m) !=# '' && !hasmapto(rhs, m)
-        exe m.'map <silent>' lhs rhs
+        exe m.'map <buffer><silent><unique>' lhs rhs
       endif
     endfor
   endfor
