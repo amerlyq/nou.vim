@@ -61,8 +61,15 @@ for i in range(len(g:nou.outline.colors))
 endfor
 
 
-""" Structure
-" headers/delimiters
+""" Headers
+" WARNING: define after accents!
+
+for i in range(len(g:nou.header.colors))
+  call nou#syntax#header(i)
+endfor
+
+
+""" Delimiters
 " WARNING: define after accents!
 
 " THINK: use for zero-level only or for any level? Make option?

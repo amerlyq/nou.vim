@@ -32,6 +32,17 @@ let s:nou.accent.colors = {
   \ }
 
 
+let s:nou.header = {}
+let s:nou.header.symbol = '\%'
+let s:nou.header.ascending = 0
+let s:nou.header.colors = [
+  \ '#d33682',
+  \ '#dc322f',
+  \ '#dd6616',
+  \ '#c5a900',
+  \ '#859900',
+  \ ]
+
 let s:nou.delimit = {}
 let s:nou.delimit.colors = [
   \ ['=', '#d33682'],

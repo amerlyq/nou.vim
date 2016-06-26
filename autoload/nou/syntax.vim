@@ -59,6 +59,21 @@ fun! nou#syntax#accent(k)
   call nou#syntax#_highlight(nm, '', c)
 endf
 
+fun! nou#syntax#header(i)
+  let nm = 'nouHeader'.a:i
+  let c = g:nou.header.colors[a:i]
+  let s = repeat(g:nou.header.symbol,
+    \ g:nou.header.ascending ? a:i + 1 : len(g:nou.header.colors) - a:i)
+  exe 'syn cluster nouHeaderQ add='.nm.'r'
+  " NOTE: if used '\zs' in '^\s*\zs\z(' -- will be rematched to outline
+  exe 'syn region '.nm.' display oneline keepend excludenl'
+    \.' matchgroup=Comment'
+    \.' contains=Comment,@nouArtifactQ,@nouAccentQ'
+    \.' start='.s:p('\v^\s*\z('.s.')\s')
+    \.' end='.s:p('\s\z1$').' end='.s:p('$')
+  call nou#syntax#_highlight(nm, c, 'gui=bold,inverse')
+endf
+
 fun! nou#syntax#delimit(i)
   let nm = 'nouDelimit'.a:i
   let [s, c] = g:nou.delimit.colors[a:i]
