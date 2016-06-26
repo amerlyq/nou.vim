@@ -20,16 +20,18 @@ setl concealcursor=""
 
 
 """ Mappings
-nnoremap <silent> <Plug>(nou-bar)   :<C-u>call nou#bar('',v:count,1)<CR>
-nnoremap <silent> <Plug>(nou-bar_)  :<C-u>call nou#bar('_',v:count,1)<CR>
-nnoremap <silent> <Plug>(nou-barX)  :<C-u>call nou#bar('X',v:count,1)<CR>
-nnoremap <silent> <Plug>(nou-bar$)  :<C-u>call nou#bar('$',v:count,1)<CR>
+" Range-wise modifiers
+for s in ['', '_', '$', 'X', 'DX'] | for m in ['n', 'x']
+  exe m.'noremap <silent> <Plug>(nou-bar'.s.')'
+      \" :<C-u>call nou#bar('".s."',v:count,".(m==#'x').")<CR>"
+endfor | endfor
 
 let s:nou_mappings = [
-  \ ['nx', '<LocalLeader><Space>', '<Plug>(nou-bar_)'],
   \ ['nx', '<LocalLeader><BS>', '<Plug>(nou-bar)'],
-  \ ['nx', '<LocalLeader>x', '<Plug>(nou-barX)'],
+  \ ['nx', '<LocalLeader><Space>', '<Plug>(nou-bar_)'],
   \ ['nx', '<LocalLeader>$', '<Plug>(nou-bar$)'],
+  \ ['nx', '<LocalLeader>X', '<Plug>(nou-barX)'],
+  \ ['nx', '<LocalLeader>x', '<Plug>(nou-barDX)'],
   \]
 
 if exists('s:nou_mappings')
