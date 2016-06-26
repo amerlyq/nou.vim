@@ -63,10 +63,12 @@ let s:nou.embed = {
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 fun! nou#opts#init()
+  if exists('g:nou._loaded') && g:nou._loaded| return |en
   if exists('g:nou') && type(g:nou) == type({})
     call nou#opts#merge(s:nou, g:nou, 'force')
   endif
   let g:nou = s:nou
+  let g:nou._loaded = 1
 endf
 
 

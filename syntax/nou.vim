@@ -4,6 +4,7 @@ if version < 600
 elseif exists('b:current_syntax')
   finish  " EXPL: allows to redefine this syntax by user's 'syntax/ag.vim'
 endif
+call nou#opts#init()    " Init opts when only 'syntax on' called
 
 syntax case match       " Individual ignorecase done by '\c' prefix (performance)
 syntax spell toplevel   " Check for spelling errors in all text.
