@@ -64,6 +64,7 @@ DEV
   SEE ft=cucumber bundle/sideways.vim/examples/example.feature -- maybe as prototype?
   SEE embedded syntax regions highlighting
     : https://github.com/xolox/vim-notes
+    : https://github.com/Shougo/context_filetype.vim
   [_] Allow mixed block/flow syntax as in yaml -- for one-word branches in graphviz
   Use cycleable '*/[_]/\d./' list markers (cycle for all list -- not for item)
   [_] Highlight in different colors text in ` .. `, ' .. ', "..", $..# etc, use conceal
