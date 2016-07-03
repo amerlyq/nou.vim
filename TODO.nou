@@ -1,0 +1,145 @@
+> Outline
+
+SEE:(seize)
+  https://github.com/xolox/vim-notes/blob/master/autoload/xolox/notes.vim
+
+
+THINK
+  Write back-end core in python
+  Provide interface to manipulate of outline DOM objects by API
+    : THINK? base it on XHTML-dom manipulation classes?
+  Use vim only as front-end to that API
+    Parse .otl and keep in sync the in-memory DOM at python
+    Convert current export format (.otl) into cursor position in DOM
+    Launch specific API by keymaps
+    Populate changes from in-memory DOM into export of (.otl)
+  Then I will be able create another front-end api like OpenGL, etc
+
+IDEA:(graph navigation)
+  By default vim works in terminal with isotropic character metric
+    All textobj form aligned tree with distinct leaves
+  But what about browsers, based on vim experience?
+    It's clusters of text pieces with different font sizes
+    They form anisotropic graph, placed on isotropic screen
+    Maybe some kind of fast navigation in graph space is also possible?
+  Файлменеджер на графе
+    а что если слепить вместе vim, поиск по графам (через команды вима) и
+    файловый менеджер, который представляет файловые деревья в виде
+    графов?
+    Например группировка файлов по расширению, размерам, датам итп с
+    динамичным перестраиванием деревьев после ввода команд вима. Но вот
+    как отобразить атрибуды чтобы не перегружать систему?...
+  MindMap
+    Автоматический поиск по всему тексту и проброс ссылок на сходные слова
+    на других ветках и даже картах (выпадающий список найденного). Нужен
+    всвязи с трудностями поддержки вспоминания где на какой ветке были
+    разбросаны ранее похожие куски.
+    Важно: скорость и качество (гладкость) рендеринга -- должно давать
+    качественную эппловую картинку, а не коробить взгляд как вим своими
+    шрифтами на винде.
+
+DEV
+  [_] Priority
+    MAYBE override highlighting of whole line?
+      BUT how about mixed body coloring of priority/outline/decision?
+      THINK don't mix them at all -- all are placed in different sections of notes
+        # Each section -- indented block at 1st level
+        ? THINK what if to allow nested blocks indented relative to current level?
+          = Too complex. Moreover -- what if I need only one decision-like line inside outline?
+    THINK how to combine with decision-making markers to order statements
+      Maybe simply add number before/after decision markers?
+      # USE:(formats)  *1 8* 4% %3 #2 ~2 !3
+      Repeating marker -- several highest priorities (accentuation)
+      # USE:(like) * ** ***  OR ! !! !!!
+      TRY: inherit decision color (simply by adding '\d=' in its pattern) or contain its own
+  THINK extend Markdown by indented outline syntax and new marks instead of own?
+    - Markdown flavours aren't suited for my writings
+  [_] TODO switchable colorschemes 'on the fly'
+    : different info requires different indent nesting, but similar coloring!
+  Amount of '[>:~]{n}' in line prefix -- changes 256 color to more dim/bright
+    : In 8 color term all them will have one color
+    :* Allows to accentuate intent/attention -- like in lists/music.otl
+  After $ -- use complete bash syntax until end of line
+  SEE multi syntax regions for this -- or include all syntax into region
+  SEE ft=cucumber bundle/sideways.vim/examples/example.feature -- maybe as prototype?
+  SEE embedded syntax regions highlighting
+    : https://github.com/xolox/vim-notes
+    : https://github.com/Shougo/context_filetype.vim
+  [_] Allow mixed block/flow syntax as in yaml -- for one-word branches in graphviz
+  Use cycleable '*/[_]/\d./' list markers (cycle for all list -- not for item)
+  [_] Highlight in different colors text in ` .. `, ' .. ', "..", $..# etc, use conceal
+    Make $..# to have another color of left/right separator
+    :* quotes must be surrounded by \s or ^$ -- to not escape them inside blocks
+    := it will allow distinguish hotkeys, shell commands, code, etc
+    :SEE markdown syntax
+    Set default embedded ft (used in bare `...`) through modeline
+    := so I could simplify bash/haskell snippets in otl
+  [_] Use space instead tab -- generate regexes based on values in ts=2:sw=2:sts=2
+    ALT: query color from cached map with spaces as keys =~ '\s{i,i+2}'
+  [_] Block -- used even without indent (like ``\`) for long text massives
+    (option) Auto-extend block for decisions: until new leading character, lower indent or until closing-repeated decision-marker
+  [_] Tagbar -- always open, shows outer outline (useful for music.otl)
+  [_] Interlace/variate rows colors on the same level (like html/css tables)
+    := Darker/Lighter then current header -- for long lists of multiline items
+    := ALT: the same spectrum for all sub-topics in any level -- for decision-making
+  [_] URL jump_next/jump_hint/open/show_in_unite
+  [_] Headers: bold. How to make them more distinguishing?
+
+[o] Vimoutliner
+  [_] TODO Remove insert mappings
+  2015-06-01 [X] Change mapping to more easily pressed :> use everywhere ',.'
+  [_] Disable autoformating on pasting
+  [_] Test and compare with vimoutliner
+    : https://github.com/vimwiki/vimwiki
+    : http://tiddlywiki.com  -- one-page wiki
+    Extract all scripts (~8) in github for converting
+  [_] THINK:TRY: embed 'nou' into Comment group of any other syntax files
+    ~ use `au!` on `:setf` to infect syntax
+
+----- Multiline -----
+  NEED special way to continue long entries on next line
+    -/ C: trailing '\' on current line
+    -/ vimscript: leading '\' on next line
+    -/ yaml: indented block after special ending ': |'
+    ?/ custom:
+      another indent but same color -- distinguishes this entry
+      no prefixed symbols -- simplify 'y', 'gq', etc
+      indent in one tab -- simplify 'g>'
+
+======== Syntax ==========
+-------------------
+# Separated comment (rest of line)
+Main body  # inline comment #  text
+
+*******************
+  Outline
+  L1
+    L2
+      L3  # comment
+        L4
+          L5
+            L6
+    L2  # interleaving nesting
+              L7  # color depends only on indent
+                L8
+                  L9
+                    L10  # cyclic colorizing (optional)
+==================
+  Accents
+  `normal`
+  'italic'
+  *bold*
+  _underline_
+  |standout|
+------------------
+  Decision
+    ~ higlight in pre-defined color only marker (start/end match)
+      .. and keep
+  Task/progress
+    THINK if only marker is highlighted and therefore truly visible --> MAYBE:USE: shortened form '_ x' instead of full '[_] [X]'?
+  Key-value
+    < USE instead of mixed/unfolded tables
+    */ treat keys similar to unordered markers
+    ~/ embedded yaml
+    ?/ own syntax (key-value dif colors, highlight ops like 'A -> B', etc)
+    MAYBE:(like accent) highlight everywhere OR at beginning of line?
