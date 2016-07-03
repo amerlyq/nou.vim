@@ -1,0 +1,136 @@
+%%%%% *nou-markup* %%%%%
+vim:ft=nou
+
+%%% Text & Comments
+
+# Separated comment (rest of line)
+Inlined comments must have 2 spaces before/after '#'
+Main body  # inline comment #  text
+
+
+%%% Accents
+Wrap text in same symbols to apply effect.
+There must be no spaces between symbol and text
+# Color isn't inherited from outline.
+
+  ` | `normal text`
+  ' | 'italic text'
+  * | *bold text*
+  _ | _underline text_
+  | | |standout text|
+
+
+%%% Headers
+Can be left-prepended or surrounding
+
+%%%%% L0 %%%%%
+%%%%  L1  %%%%
+...
+%%%%% L0
+%%%% L1
+%%% L2
+%% L3
+% L4
+
+
+%%% Outline
+Need at least one outline.
+  L1
+    L2
+      L3  # comment
+        L4
+          L5
+            L6
+    L2  # interleaving nesting
+              L7  # color depends only on indent
+                L8
+                  L9
+                    L10  # cyclic colorizing (optional)
+
+
+%%% Blocks
+# You can use accents/comments inside blocks as always
+Useful to group parts of long sentence to standout on the same level.
+
+Suffixed
+  L1 short description ```
+    suffixed block version
+    if you don't wish to see markers at all ```
+  L1 next one
+
+Prefixed
+    L2 previous statement
+    ``` prefixed block version
+        if you want more aligning
+        and more standout block
+    ```
+    L2 next one
+
+Mixed
+      L3 (multiline) ``` text in block
+    inherits color of first marker
+  ignoring actual ``` indent
+      L3 next one
+
+
+%%% Separators
+# Need >= 5 symbols
+
+-------------------
+===================
+*******************
+
+
+%%% Decisions
+Works starting from any indent (even zero)
+
+* statement, neutral
++ proc, positive
+- con, negative
+= result, consequence
+: info
+~ ambiguity, dissatisfaction
+? doubt, think over
+! require, attention
+< reason
+> conclusion
+
+%% Surround
+Some decisions are more pretty when they surround text
+  ? text ?
+  ! text !
+  :: text ::
+  <= text <=
+
+%% Arrows
+Combined arrows
+  < a
+  <- a
+  => b
+  <~ a
+  <-= a
+  ~=> b
+
+%% Priority
+Each decision can have priority.
+# Either symbolic or numerical.
+
+!!4 -4  # highest
+!!! -3
+!!  -2
+!   -1
+!0   0
+!1   1
+!2   2
+...
+!99 99  # lowest
+
+
+%%% Embedded syntax
+
+% bash
+Allowed any indent before '$'
+
+  Inlined $ for a in *; do echo $a; done $ into text/outline
+  Separate line
+    $ cat ./file | sort -u | awk -r '{print$0}'

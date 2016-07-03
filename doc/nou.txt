@@ -1,0 +1,28 @@
+*nou.txt*   Plugin: notes with outline
+
+==============================================================================
+MARK-UP                                                                  *nou*
+
+    |nou-markup|              See available features in native format
+
+==============================================================================
+TASKS                                                               *nou-tasks*
+
+Recommended unobtrusive <LocalLeader> is ',.'
+
+    <LocalLeader><BS>       remove task marker
+    <LocalLeader><Space>    [_] task 'todo'
+    <LocalLeader>$          [$] task 'cancelled'
+    <LocalLeader>X          [X] task 'done'
+    <LocalLeader>x          2015-06-01 [X] task 'done' with 'date'
+
+==============================================================================
+FAQ                                                                   *nou-faq*
+
+Convert *.otl ('votl') into *.nou ('nou')
+
+    :e file.otl
+    :setf nou | retab | saveas %:t:r.nou | !rm #
+
+==============================================================================
+vim:tw=78:fo=tcq2:ft=help:norl:
