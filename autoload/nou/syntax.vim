@@ -30,7 +30,7 @@ fun! nou#syntax#outline(i)
   " ENH:USE: ALL ALLBUT,{gr} TOP TOP,{gr} CONTAINED CONTAINED,{gr}
   exe 'syn cluster nouOutlineQ add='.nm
   exe 'syn region '.nm.' display oneline keepend excludenl'
-    \.' contains=Comment,@nouArtifactQ,@nouAccentQ,@nouDecisionQ,@nouEmbedQ'
+    \.' contains=Comment,@nouArtifactQ,@nouAccentQ,@nouDecisionQ,@nouEmbedQ,@Spell'
     \.' start='.s:p(nou#syntax#_indent(a:i))
     \.' end='.s:p('$')
   call nou#syntax#_highlight(nm, g:nou.outline.colors[a:i])
