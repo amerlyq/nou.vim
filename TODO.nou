@@ -59,6 +59,9 @@ DEV
   Amount of '[>:~]{n}' in line prefix -- changes 256 color to more dim/bright
     : In 8 color term all them will have one color
     :* Allows to accentuate intent/attention -- like in lists/music.otl
+  Fix special cases treated as accents
+    `path/*.yml` for `cfg/*.ee`
+    BUG: **...** treated as block, even when each marker is in its own block
   After $ -- use complete bash syntax until end of line
   SEE multi syntax regions for this -- or include all syntax into region
   SEE ft=cucumber bundle/sideways.vim/examples/example.feature -- maybe as prototype?
