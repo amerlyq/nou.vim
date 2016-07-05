@@ -137,7 +137,8 @@ endfor
 " -- EXPL: @some #tag &link
 " -- multiple: #(tag1,tag2,tag3) OR:(can't 'ga') #tag1,#tag2 BAD #tag1#tag2
 
-syn region Comment display oneline keepend
+hi def link nouComment Comment
+syn region nouComment display oneline keepend
   \ start='^#\s' start='\s\s\zs#\s' excludenl end='\s#\ze\s\s' end='$'
 
 " EXPL: https, ftp, news, file
@@ -157,6 +158,9 @@ syn match nouArtifactUrl display excludenl
 for ft in keys(g:nou.embed)
   call nou#syntax#embedded(ft)
 endfor
+
+syn cluster nouTextQ add=@Spell,nouComment
+  \,@nouArtifactQ,@nouAccentQ,@nouEmbedQ
 
 " EXPL: must be last line -- set single-loading guard only if no exceptions
 let b:current_syntax = 'nou'

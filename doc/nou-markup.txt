@@ -48,31 +48,6 @@ Need at least one outline.
                     L10  # cyclic colorizing (optional)
 
 
-%%% Blocks
-# You can use accents/comments inside blocks as always
-Useful to group parts of long sentence to standout on the same level.
-
-Suffixed
-  L1 short description ```
-    suffixed block version
-    if you don't wish to see markers at all ```
-  L1 next one
-
-Prefixed
-    L2 previous statement
-    ``` prefixed block version
-        if you want more aligning
-        and more standout block
-    ```
-    L2 next one
-
-Mixed
-      L3 (multiline) ``` text in block
-    inherits color of first marker
-  ignoring actual ``` indent
-      L3 next one
-
-
 %%% Separators
 # Need >= 5 symbols
 
@@ -116,6 +91,12 @@ Works starting from any indent (even zero)
 < reason
 > conclusion
 
+Use _ to emphasize the whole line
+  !_ require, attention
+  =_ result, consequence
+  <_ reason
+  ?_ doubt, think over
+
 %% Surround
 Some decisions are more pretty when they surround text
   ? text ?
@@ -155,3 +136,28 @@ Allowed any indent before '$'
   Inlined $ for a in *; do echo $a; done $ into text/outline
   Separate line
     $ cat ./file | sort -u | awk -r '{print$0}'
+
+
+%%% Blocks
+# You can use accents/comments inside blocks as always
+Useful to group parts of long sentence to standout on the same level.
+
+Suffixed
+  L1 short description ```
+    suffixed block version
+    if you don't wish to see markers at all ```
+  L1 next one
+
+Prefixed
+    L2 previous statement
+    ``` prefixed block version
+        if you want more aligning
+        and more standout block
+    ```
+    L2 next one
+
+Mixed
+      L3 (multiline) ``` text in block
+    inherits color of first marker
+  ignoring actual ``` indent
+      L3 next one

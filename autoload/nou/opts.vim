@@ -9,6 +9,7 @@ let s:nou.loose = 0   " round inexact indent to prev lvl
 
 
 let s:nou.decision = {}
+let s:nou.decision.symbol = '_'
 let s:nou.decision.colors = [
   \ ['\*{1,3}', '#268bd2'],
   \ ['\+{1,3}', '#859900'],

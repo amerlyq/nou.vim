@@ -30,7 +30,7 @@ fun! nou#syntax#outline(i)
   " ENH:USE: ALL ALLBUT,{gr} TOP TOP,{gr} CONTAINED CONTAINED,{gr}
   exe 'syn cluster nouOutlineQ add='.nm
   exe 'syn region '.nm.' display oneline keepend excludenl'
-    \.' contains=Comment,@nouArtifactQ,@nouAccentQ,@nouDecisionQ,@nouEmbedQ,@Spell'
+    \.' contains=@nouTextQ,@nouDelimQ,@nouDecisionQ'
     \.' start='.s:p(nou#syntax#_indent(a:i))
     \.' end='.s:p('$')
   call nou#syntax#_highlight(nm, g:nou.outline.colors[a:i])
@@ -39,12 +39,18 @@ endf
 fun! nou#syntax#decision(i)
   let nm = 'nouDecision'.a:i
   let [s, c] = g:nou.decision.colors[a:i]
-  exe 'syn cluster nouDecisionQ add='.nm.'r'
-  exe 'syn region '.nm.'r display oneline keepend transparent'
+  exe 'syn cluster nouDecisionQ add='.nm.'m,'.nm.'u'
+  exe 'syn region '.nm.'m display oneline keepend transparent'
     \.' excludenl matchgroup='.nm
     \.' start='.s:p('\v^\s*\zs\z('.s.')%(\d+)?\s')
     \.' end='.s:p('\s\z1$').' end='.s:p('$')
+  exe 'syn region '.nm.'u display oneline keepend'
+    \.' excludenl matchgroup='.nm
+    \.' contains=@nouTextQ'
+    \.' start='.s:p('\v^\s*\zs\z('.s.')%(\d+)?'.g:nou.decision.symbol.'\s')
+    \.' end='.s:p('\s\z1$').' end='.s:p('$')
   call nou#syntax#_highlight(nm, c, 'gui=bold')
+  call nou#syntax#_highlight(nm.'u', c, 'gui=bold,italic')
 endf
 
 fun! nou#syntax#accent(k)
@@ -67,8 +73,7 @@ fun! nou#syntax#header(i)
   exe 'syn cluster nouHeaderQ add='.nm.'r'
   " NOTE: if used '\zs' in '^\s*\zs\z(' -- will be rematched to outline
   exe 'syn region '.nm.' display oneline keepend excludenl'
-    \.' matchgroup=Comment'
-    \.' contains=Comment,@nouArtifactQ,@nouAccentQ'
+    \.' matchgroup=nouComment contains=NONE'
     \.' start='.s:p('\v^\s*\z('.s.')\s')
     \.' end='.s:p('\s\z1$').' end='.s:p('$')
   call nou#syntax#_highlight(nm, c, 'gui=bold,inverse')
@@ -77,14 +82,15 @@ endf
 fun! nou#syntax#delimit(i)
   let nm = 'nouDelimit'.a:i
   let [s, c] = g:nou.delimit.colors[a:i]
-  exe 'syn match '.nm.' display excludenl '
+  exe 'syn cluster nouDelimQ add='.nm
+  exe 'syn match '.nm.' display excludenl contains=NONE '
     \.s:p('\v(^|\s)\zs['.s.']{5,}\ze(\s|$)')
   " ALT:(pseudo-random) color =~ charcode % 16
   call nou#syntax#_highlight(nm, c)
 endf
 
 fun! nou#syntax#embed_load(ft)
-  let nm = 'nouEmbedQ_' . a:ft
+  let nm = 'nouEmbedQ_'.a:ft
   let main_syntax = get(b:, 'current_syntax', '')
   " EXPL: remove all previously embedded syntax groups (sole method)
   " syntax clear | let &syntax = main_syntax
@@ -103,7 +109,7 @@ fun! nou#syntax#embedded(ft)
   let [b, e] = g:nou.embed[a:ft]
   exe 'syn cluster nouEmbedQ add='.nm
   exe 'syn region '.nm.' display oneline keepend excludenl'
-    \.' matchgroup=Comment contains=@nouEmbedQ_' . a:ft
+    \.' matchgroup=nouComment contains=@nouEmbedQ_'.a:ft
     \.' start='.s:p('\%(^\|\s\)\zs'.b.'\s')
     \.' end='.s:p('\s'.e.'\ze\%(\s\|$\)').' end='.s:p('$')
   call nou#syntax#embed_load(a:ft)
