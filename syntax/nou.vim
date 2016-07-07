@@ -151,6 +151,7 @@ syn cluster nouArtifactQ add=nouArtifactUrl
 syn match nouArtifactUrl display excludenl
   \ '\v<%(\w{3,}://|www\.|%(mailto|javascript):)\S*'
 
+call nou#syntax#path()
 
 " CHECK:
 " -- syntax higlighting block between two marks start=/\%'m/ end=/\%'n/

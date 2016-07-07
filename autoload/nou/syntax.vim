@@ -128,3 +128,42 @@ fun! nou#syntax#embedded(ft)
   call nou#syntax#embed_load(a:ft)
   " call nou#syntax#_highlight(nm, '#990000')
 endf
+
+fun! nou#syntax#path()
+  let nm = 'nouPath'
+  let ps = s:p('\\[[:blank:],]')
+  let pe = s:pe('', ',')
+
+  exe 'syn cluster nouArtifactQ add='.nm.','.nm.'C'
+  exe 'syn cluster '.nm.'Q contains='.nm.'D,'.nm.'N,'.nm.'S,'.nm.'T'
+
+  " Automatic detection
+  exe 'syn region '.nm.' display oneline keepend excludenl'
+    \.' contains=@'.nm.'Q'
+    \.' matchgroup='.nm.'D'
+    \.' start='.s:pb('%([~]|\.{1,2})?/\ze[^/]', ',')
+    \.' start='.s:pb('[[:alpha:]]:\\{1,2}\ze%([^\\]|$)', '[:punct:]')
+    \.' skip='.ps
+    \.' end='.pe
+
+  " Manual concealment
+  exe 'syn region '.nm.'C display oneline keepend excludenl concealends'
+    \.' contains=@'.nm.'Q'
+    \.' matchgroup=nouConceal'
+    \.' start='.s:pb('//\ze[^/]', ',')
+    \.' skip='.ps
+    \.' end='.pe
+
+  exe 'syn match '.nm.'D display excludenl contained '.s:p('[/\\]')
+  exe 'syn match '.nm.'N display excludenl contained '.s:pe('%(:\d+)+')
+  exe 'syn match '.nm.'S display excludenl contained '.ps
+  exe 'syn match '.nm.'T display excludenl contained '.s:p('[<>]|\$\k+')
+
+  let B = ' cterm=italic ctermbg=9 gui=italic guibg=#073642 '
+  exe 'hi '.nm.' '.B.'ctermfg=79  guifg=#5fd7af'
+  exe 'hi link '.nm.'C '.nm
+  exe 'hi '.nm.'D'.B.'ctermfg=34  guifg=#00af00'
+  exe 'hi link '.nm.'N Comment'
+  exe 'hi '.nm.'S'.B.'ctermfg=224 guifg=#dc322f'
+  exe 'hi '.nm.'T'.B.'ctermfg=81  guifg=#cb4b16'
+endf
