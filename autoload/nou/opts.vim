@@ -29,7 +29,7 @@ let s:nou.accent.colors = {
   \ 'Bold': ['\*', 'bold'],
   \ 'Italic': ["'", 'italic'],
   \ 'Underlined': ['_', 'underline'],
-  \ 'Standout': ['|', 'ctermbg=8 guibg=#001520'],
+  \ 'Standout': ['\|', 'ctermbg=8 guibg=#1c1c1c'],
   \ }
 
 
