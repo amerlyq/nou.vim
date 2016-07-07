@@ -87,6 +87,15 @@ DEV
     := ALT: the same spectrum for all sub-topics in any level -- for decision-making
   [_] URL jump_next/jump_hint/open/show_in_unite
   [_] Headers: bold. How to make them more distinguishing?
+  [_] BUG:(highlighting combining) can't override color in linked group
+    ```vim
+      hi! nouArtifactUrl gui=underline
+      hi! link nouArtifactUrl Underlined
+      exec 'hi SyntasticErrorSign guifg=red ctermfg=red' .
+        \' guibg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'gui') .
+        \' ctermbg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'cterm')
+    ```
+
 
 [o] Vimoutliner
   [_] TODO Remove insert mappings
@@ -113,11 +122,12 @@ DEV
   Decision
     ~ higlight in pre-defined color only marker (start/end match)
       .. and keep
+    ADD: embedded decisions (? ... ?) (?_ ... ?)
   Task/progress
     THINK if only marker is highlighted and therefore truly visible --> MAYBE:USE: shortened form '_ x' instead of full '[_] [X]'?
   Key-value
     < USE instead of mixed/unfolded tables
-    */ treat keys similar to unordered markers
-    ~/ embedded yaml
-    ?/ own syntax (key-value dif colors, highlight ops like 'A -> B', etc)
+    * treat keys similar to unordered markers
+    ~ embedded yaml
+    ? own syntax (key-value dif colors, highlight ops like 'A -> B', etc)
     MAYBE:(like accent) highlight everywhere OR at beginning of line?

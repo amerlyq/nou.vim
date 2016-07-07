@@ -11,6 +11,7 @@ syntax spell toplevel   " Check for spelling errors in all text.
 hi def link nouConceal Ignore
 
 " ATTENTION: _defining order_ problem
+" USE: guisp=color, guifg=fg, guibg=bg
 
 " ENH:THINK if array of colors is empty -- don't generate this syntax part
 " BAD: transparent+matchgroup with same region/matchgroup name
@@ -28,6 +29,7 @@ hi def link nouConceal Ignore
 " CHECK: using normal/bold/italic we can span multiline if remove 'keepend'
 " USE: bold underline undercurl reverse/inverse italic standout NONE
 " TRY:(option) unused color 15/#ffffff (instead of 8) -- as main for accents?
+" ADD: unconcealed accent/object <...> link to Special (? only borders or whole?). Or better conceal?
 
 " THINK: blue asteriks/nums for lists inside comments (part of notches?)
 " -- support extended comments in any text file
@@ -142,14 +144,22 @@ syn region nouComment display oneline keepend
   \ start='^#\s' start='\s\s\zs#\s' excludenl end='\s#\ze\s\s' end='$'
 
 " EXPL: https, ftp, news, file
-" hi! nouArtifactUrl gui=underline
-" hi! link nouArtifactUrl Underlined
+" THINK: diff color urls -- don't do 'contains=@nouArtifactG'
+" TRY: different color for heading and '[/?=]' in url
 hi! nouArtifactUrl cterm=underline ctermfg=81 gui=underline guifg=#6c71c4
 syn cluster nouArtifactQ add=nouArtifactUrl
 syn match nouArtifactUrl display excludenl
   \ '\v<%(\w{3,}://|www\.|%(mailto|javascript):)\S*'
 
-" THINK: diff color urls -- don't do 'contains=@nouArtifactG'
+call nou#syntax#path()
+
+hi! nouArtifactRegex cterm=italic ctermfg=224 gui=italic guifg=#ffd7d7
+syn cluster nouArtifactQ add=nouArtifactRegex
+syn region nouArtifactRegex display oneline keepend excludenl
+  \ contains=NONE skip='\\/'
+  \ matchgroup=Error
+  \ start='\v%(^|\s)\zs/\ze%([^/]|\\@1<=/)+/%(\s|$)'
+  \ end='\v/\ze%(\s|$)'
 
 " CHECK:
 " -- syntax higlighting block between two marks start=/\%'m/ end=/\%'n/

@@ -16,6 +16,6 @@ Notes and outline united
 
 ## Inspired from
 
-  * https://github.com/vimoutliner/vimoutliner
-  * https://github.com/xolox/vim-notes
-  * https://github.com/vimwiki/vimwiki
+  * [vimoutliner](https://github.com/vimoutliner/vimoutliner)
+  * [vim-notes](https://github.com/xolox/vim-notes)
+  * [vimwiki](https://github.com/vimwiki/vimwiki)

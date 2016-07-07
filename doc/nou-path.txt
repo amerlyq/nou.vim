@@ -1,0 +1,74 @@
+%%%%% *nou-path* %%%%%
+vim:ft=nou
+
+%% Not path
+
+  /         # single slash
+  /////     # slash delim
+  js://www  # link
+  cc:\\rnd  # random
+  /rg \/x/  # regex
+  /home///  # repeated slash
+  /\        # sfx \s
+  \ /       # prf \s
+  s :123    # num
+  s :12:33  # num:col
+  s x/y/z   # variants (inlined)
+
+*************************
+
+%% Root
+
+  /root
+  /ro\ t
+  /root/path
+  /home/user/
+  c:\\Program\ Files\\Prg
+  D:\some\path
+
+%% Marked '//'
+# Relative path direct parsing is inefficient
+# Works on any path (marker concealed)
+
+  //s/d/
+  //some/dir
+  //some/dir/
+  //some/file.ext
+  //some/file_name
+
+%% Prefixed
+
+  ~/
+  ~/dir
+  ~/in/home
+  ./file
+  ../relat/path
+
+%% Patterns
+
+  //<pkg>/*.mk
+  //$pkg/<src>
+  /ho<me>/$user
+  //some/dir$v/f
+
+%% Line numbers
+
+  //file:117
+  //path/lnum:32
+  /lnum/lcol:32:44
+  ~/d/n:13:5end    # inlined
+
+%% With spaces
+
+  /root/spa\ \ ce
+  ./relat/space\   # sfx \s
+  //\ some/space/    # prf \s
+  ./spa\ ce:89
+
+%% In lists
+
+  ~/, //r/p, ./h, /v/p
+  /r/p,./h/p,//v/p
+  ~/,/end/comma,
+  /root /home /var
+  ./relat/path /s/some

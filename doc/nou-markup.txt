@@ -138,6 +138,35 @@ Allowed any indent before '$'
     $ cat ./file | sort -u | awk -r '{print$0}'
 
 
+%%% Artifacts
+Standing out text objects
+
+%% Link
+  http://example.com   # Anything with "...://"
+  ftp://example.com
+  www.example.com
+
+%% Path
+Automatic
+  c:\\Program\ Files\\Prg
+  ~/Downloads
+  /tmp/fi\ le
+  ./file
+  ../relat/path
+  /lnum/lcol:32:44
+
+Manual by '//' prefix
+  //some/dir
+  //$pkg/<src>/*.<ext>
+  //path/lnum:32
+  ~/, //r/p, ./h, /v/p
+
+%% Regex
+  /regex/
+  / re\/[gex ]?/
+  /[[:alpha:]]:\\{1,2}\ze%([^\\]|$/
+
+
 %%% Blocks
 # You can use accents/comments inside blocks as always
 Useful to group parts of long sentence to standout on the same level.
