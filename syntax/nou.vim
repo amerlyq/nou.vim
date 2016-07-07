@@ -153,6 +153,14 @@ syn match nouArtifactUrl display excludenl
 
 call nou#syntax#path()
 
+hi! nouArtifactRegex cterm=italic ctermfg=224 gui=italic guifg=#ffd7d7
+syn cluster nouArtifactQ add=nouArtifactRegex
+syn region nouArtifactRegex display oneline keepend excludenl
+  \ contains=NONE skip='\\/'
+  \ matchgroup=Error
+  \ start='\v%(^|\s)\zs/\ze%([^/]|\\@1<=/)+/%(\s|$)'
+  \ end='\v/\ze%(\s|$)'
+
 " CHECK:
 " -- syntax higlighting block between two marks start=/\%'m/ end=/\%'n/
 " -- rule to highlight till/from cursor position start=/\%#/
