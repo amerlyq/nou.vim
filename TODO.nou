@@ -86,7 +86,6 @@ DEV
     := Darker/Lighter then current header -- for long lists of multiline items
     := ALT: the same spectrum for all sub-topics in any level -- for decision-making
   [_] URL jump_next/jump_hint/open/show_in_unite
-  [_] Headers: bold. How to make them more distinguishing?
   [_] BUG:(highlighting combining) can't override color in linked group
     ```vim
       hi! nouArtifactUrl gui=underline
@@ -119,6 +118,10 @@ DEV
       indent in one tab -- simplify 'g>'
 
 ======== Syntax ==========
+  Headers
+    [_] Headers: bold. How to make them more distinguishing?
+    [_] Allow combining headers on one line to form flat path
+      %% H2 %%% H3 %%%% H4 % H1 %%
   Decision
     ~ higlight in pre-defined color only marker (start/end match)
       .. and keep
