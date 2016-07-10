@@ -126,6 +126,14 @@ DEV
     ~ higlight in pre-defined color only marker (start/end match)
       .. and keep
     ADD: embedded decisions (? ... ?) (?_ ... ?)
+    TODO: option to apply inherited hi! (from ?_) to artifacts (path/url)
+      OR: Make additional syntax *?__* or *?/* to override all (contains=NONE)
+      ALSO: same additional syntax for outlines -- to override their color despite objects
+        ~ seems like second set of outline rules will be necessary
+        ? TRY: maybe conceal this prefix marker to keep outline clean ?
+      ? maybe conceal inheritance markers *_* *__* entirely, keeping only decision one ?
+        ~ seems not possible to conceal -- as markers are part of beg/end
+        ! BUT:TRY: group for beg/end can have own syntax contains=nouConcealMarkers
   Task/progress
     THINK if only marker is highlighted and therefore truly visible --> MAYBE:USE: shortened form '_ x' instead of full '[_] [X]'?
   Key-value
