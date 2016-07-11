@@ -134,6 +134,13 @@ DEV
       ? maybe conceal inheritance markers *_* *__* entirely, keeping only decision one ?
         ~ seems not possible to conceal -- as markers are part of beg/end
         ! BUT:TRY: group for beg/end can have own syntax contains=nouConcealMarkers
+      = Try extending opening marker by detecting *__* -- to unite decision/outline filling
+  Blocks
+    [_] Create block for simple text and commented text (in addition to ``)
+      ~ Placing marker at *^__* before text -- BUT then I can't use 'g<'
+      Like ``_ to insert text, ``# -- comment and ``$ -- bash
+      ALT: Using *__* or '```' in '# __' or '$ __' to forcibly extend any current syntax till multiline block
+        * Try using 'extend transparent skipwhite skipnl skipempty'
   Task/progress
     THINK if only marker is highlighted and therefore truly visible --> MAYBE:USE: shortened form '_ x' instead of full '[_] [X]'?
   Key-value
