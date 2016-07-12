@@ -137,6 +137,8 @@ DEV
       = Try extending opening marker by detecting *__* -- to unite decision/outline filling
     THINK: inherit highlight if line is framed in '?...?'
       BUT? then sytax region will become inefficient
+    ALSO: inherit hi! for shell: $_ -- when you want to emphasize plain commands
+      TRY: override only plain text. And use $__ to override all.
   Blocks
     [_] Create block for simple text and commented text (in addition to ``)
       ~ Placing marker at *^__* before text -- BUT then I can't use 'g<'
