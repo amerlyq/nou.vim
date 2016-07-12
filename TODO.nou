@@ -135,6 +135,8 @@ DEV
         ~ seems not possible to conceal -- as markers are part of beg/end
         ! BUT:TRY: group for beg/end can have own syntax contains=nouConcealMarkers
       = Try extending opening marker by detecting *__* -- to unite decision/outline filling
+    THINK: inherit highlight if line is framed in '?...?'
+      BUT? then sytax region will become inefficient
   Blocks
     [_] Create block for simple text and commented text (in addition to ``)
       ~ Placing marker at *^__* before text -- BUT then I can't use 'g<'
