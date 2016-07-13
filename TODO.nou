@@ -94,6 +94,9 @@ DEV
         \' guibg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'gui') .
         \' ctermbg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'cterm')
     ```
+    ALT: patch to vim allowing combining of hi!
+      https://groups.google.com/forum/#!topic/vim_dev/5YgghIZH_-w
+      ALSO:SEE: /usr/share/nvim/runtime/syntax/html.vim
 
 
 [o] Vimoutliner
@@ -139,12 +142,14 @@ DEV
       BUT? then sytax region will become inefficient
     ALSO: inherit hi! for shell: $_ -- when you want to emphasize plain commands
       TRY: override only plain text. And use $__ to override all.
+    TRY: instead of 2nd/3rd set of decisions make 'contained' syntax starting on *_* or *__*
   Blocks
     [_] Create block for simple text and commented text (in addition to ``)
       ~ Placing marker at *^__* before text -- BUT then I can't use 'g<'
       Like ``_ to insert text, ``# -- comment and ``$ -- bash
       ALT: Using *__* or '```' in '# __' or '$ __' to forcibly extend any current syntax till multiline block
         * Try using 'extend transparent skipwhite skipnl skipempty'
+      TODO: if there are /`{3}\w/ (like vim flavour) -- do contains=NONE (if no embedded syntax)
   Task/progress
     THINK if only marker is highlighted and therefore truly visible --> MAYBE:USE: shortened form '_ x' instead of full '[_] [X]'?
   Key-value
