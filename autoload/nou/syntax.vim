@@ -88,7 +88,7 @@ fun! nou#syntax#header(i)
   exe 'syn region '.nm.' display oneline keepend excludenl'
     \.' matchgroup=nouComment contains=NONE'
     \.' start='.s:p('^\s*\z('.s.')\s')
-    \.' end='.s:p('\s\z1$').' end='.s:p('$')
+    \.' end='.s:pe('\s\z1').' end='.s:p('$')
   call nou#syntax#_highlight(nm, c, 'gui=bold,inverse')
 endf
 

@@ -1,9 +1,10 @@
-%%%%% *nou-path* %%%%%
-vim:ft=nou
+%%%%% Paths %%%%%  # *nou-all-path*
+# vim:ft=nou
 
 %% Not path
 
   /         # single slash
+  //        # double slash
   /////     # slash delim
   js://www  # link
   cc:\\rnd  # random
@@ -14,6 +15,8 @@ vim:ft=nou
   s :123    # num
   s :12:33  # num:col
   s x/y/z   # variants (inlined)
+  x / y     # variants (2)
+  x / y /   # variants (3)
 
 *************************
 
@@ -24,6 +27,7 @@ vim:ft=nou
   /root/path
   /home/user/
   c:\\Program\ Files\\Prg
+  c:\\Program\ Files\\     # BUG: trailing space instead of delimiter
   D:\some\path
 
 %% Marked '//'

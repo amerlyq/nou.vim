@@ -59,6 +59,8 @@ DEV
   Amount of '[>:~]{n}' in line prefix -- changes 256 color to more dim/bright
     : In 8 color term all them will have one color
     :* Allows to accentuate intent/attention -- like in lists/music.otl
+  [_] BUG: manual paths -- 'gf' treats //some/file as starting from '/'
+    ? is there need to fix? FIND: possible cases where need different behaviour
   Fix special cases treated as accents
     `path/*.yml` for `cfg/*.ee`
     BUG: **...** treated as block, even when each marker is in its own block
@@ -125,6 +127,11 @@ DEV
     [_] Headers: bold. How to make them more distinguishing?
     [_] Allow combining headers on one line to form flat path
       %% H2 %%% H3 %%%% H4 % H1 %%
+    [_] TRY:USE: allow any text after closing tag of header
+      = So you can embed headers into text like paragraph 'literas'
+    [_] Conceal header markers if using 'two-side' definition
+      * Or some marker extension like %%%<
+      * Or when using/not spaces before text
   Decision
     ~ higlight in pre-defined color only marker (start/end match)
       .. and keep
@@ -152,6 +159,11 @@ DEV
       TODO: if there are /`{3}\w/ (like vim flavour) -- do contains=NONE (if no embedded syntax)
   Task/progress
     THINK if only marker is highlighted and therefore truly visible --> MAYBE:USE: shortened form '_ x' instead of full '[_] [X]'?
+    MAYBE: use shorter date spec?
+      160716:[X]
+      [X=160716]
+      [X]/160716
+    [_] Highlight date in other color (Comment)
   Key-value
     < USE instead of mixed/unfolded tables
     * treat keys similar to unordered markers
