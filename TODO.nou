@@ -70,6 +70,7 @@ DEV
   SEE embedded syntax regions highlighting
     : https://github.com/xolox/vim-notes
     : https://github.com/Shougo/context_filetype.vim
+  [_] THINK: my own simplified syntax for oneline 'sh' by '$' instead of default?
   [_] Allow mixed block/flow syntax as in yaml -- for one-word branches in graphviz
   Use cycleable '*/[_]/\d./' list markers (cycle for all list -- not for item)
   [_] Highlight in different colors text in ` .. `, ' .. ', "..", $..# etc, use conceal
@@ -99,6 +100,7 @@ DEV
     ALT: patch to vim allowing combining of hi!
       https://groups.google.com/forum/#!topic/vim_dev/5YgghIZH_-w
       ALSO:SEE: /usr/share/nvim/runtime/syntax/html.vim
+  [_] add link to ./doc dirs from my other repos -- as examples of extensive usage of *.nou
 
 
 [o] Vimoutliner
@@ -135,6 +137,7 @@ DEV
   Decision
     ~ higlight in pre-defined color only marker (start/end match)
       .. and keep
+    FIXME: don't like colors for '>' '<' ':' -- don't feels right
     ADD: embedded decisions (? ... ?) (?_ ... ?)
     TODO: option to apply inherited hi! (from ?_) to artifacts (path/url)
       OR: Make additional syntax *?__* or *?/* to override all (contains=NONE)
@@ -151,6 +154,9 @@ DEV
       TRY: override only plain text. And use $__ to override all.
     TRY: instead of 2nd/3rd set of decisions make 'contained' syntax starting on *_* or *__*
   Blocks
+    [_] FIXME inherit default color when ``` has zero-indent
+    [_] NOTE `{3} actually BAD -- I can't use it with 'ts=2' to align
+      * MAYBE:BETTER: single _`_ to align nicely |` text...|
     [_] Create block for simple text and commented text (in addition to ``)
       ~ Placing marker at *^__* before text -- BUT then I can't use 'g<'
       Like ``_ to insert text, ``# -- comment and ``$ -- bash

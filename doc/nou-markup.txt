@@ -80,16 +80,16 @@ XXXXXXXXXXXXXXXXXXXX
 %%% Decisions %%%  # *nou-decision*
 Works starting from any indent (even zero)
 
-* statement, neutral
-+ proc, positive
-- con, negative
-= result, consequence
-: info
-~ ambiguity, dissatisfaction
-? doubt, think over
-! require, attention
-< reason
-> conclusion
+* statement  | neutral
++ proc       | positive argument
+- con        | negative argument
+= result     | consequence
+: info       | topic clarification
+~ ambiguity  | dissatisfaction
+? doubt      | think over
+! requirement| constraint / attention
+< reason     | prerequisite
+> conclusion | decision
 
 Use _ to emphasize the whole line
   !_ require, attention
