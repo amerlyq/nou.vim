@@ -101,7 +101,11 @@ DEV
       https://groups.google.com/forum/#!topic/vim_dev/5YgghIZH_-w
       ALSO:SEE: /usr/share/nvim/runtime/syntax/html.vim
   [_] add link to ./doc dirs from my other repos -- as examples of extensive usage of *.nou
-
+  [_] THINK use `$var` as native syntax
+    MAYBE with meaningful scripts to substitute their values?
+    ? Provide somethins like `yaml` combo of * and & ?
+  [_] Add surround operators for accent -- like I have done for brackets
+    ~ Starting combo by <LocalLeader>
 
 [o] Vimoutliner
   [_] TODO Remove insert mappings
