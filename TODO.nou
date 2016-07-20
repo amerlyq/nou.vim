@@ -1,21 +1,217 @@
-> Outline
+%%%%% Notes + outline unified
 
-SEE:(seize)
-  https://github.com/xolox/vim-notes/blob/master/autoload/xolox/notes.vim
+TODO
+  [_] Test and compare with vimoutliner
+    https://github.com/xolox/vim-notes/blob/master/autoload/xolox/notes.vim
+    https://github.com/vimwiki/vimwiki
+    http://tiddlywiki.com  -- one-page wiki
+      : Extract all scripts (~8) in github for converting
+  [_] THINK extend Markdown by indented outline syntax and new marks instead of own?
+    > Markdown flavours aren't suited for my writings
+  [_] THINK:TRY: embed 'nou' into Comment group of any other syntax files
+    ~ use `au!` on `:setf` to infect syntax
+  [_] TODO switchable colorschemes 'on the fly'
+   different info requires different indent nesting, but similar coloring!
+  [_] THINK Tagbar -- always open, shows outer outline (useful for music.otl)
+  [_] add link to ./doc dirs from my other repos -- as examples of extensive usage of *.nou
 
 
-THINK
+%%%% Syntax %%%% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+%%% Outline
+  [_] Allow mixed block/flow syntax as in yaml -- for one-word branches in graphviz
+  [_] Use space instead tab -- generate regexes based on values in ts=2:sw=2:sts=2
+    ALT: query color from cached map with spaces as keys =~ '\s{i,i+2}'
+  [_] Interlace/variate rows colors on the same level (like html/css tables)
+    := Darker/Lighter then current header -- for long lists of multiline items
+    := ALT: the same spectrum for all sub-topics in any level -- for decision-making
+
+%%% Headers
+  [_] Headers: bold. How to make them more distinguishing?
+  [_] Allow combining headers on one line to form flat path
+    %% H2 %%% H3 %%%% H4 % H1 %%
+  [_] TRY:USE: allow any text after closing tag of header
+    = So you can embed headers into text like paragraph 'literas'
+  [_] Conceal header markers if using 'two-side' definition
+    * Or some marker extension like %%%<
+    * Or when using/not spaces before text
+  THINK: using *tweaked* headers instead of outline (like in LaTeX)
+    : seems like "flattened" outline w/o indent
+    * when there are many lines of info for each entry
+      # text paragraphs, decison block, etc
+    <- using /^%\d+/ -- %4 as 4th level outline
+    ? (option) combine outline indent with flat level
+      => %4 with 2nd indent => outline of 6th color
+
+%%% Decision
+  ~ higlight in pre-defined color only marker (start/end match)
+    .. and keep
+  [_] FIXME: don't like colors for '>' '<' ':' -- don't feels right
+  [_] NEED marker for 'suggestion' -- "possible" variant to choose between
+    = Each variant can be discussed by arguments in its own indent
+    ? TEMP: using '<-' ?
+  [_] NEED syntax for 'examples' or 'generalization'
+    = Likewise to specify examples of regex with clarification
+    = Or specifying regex as abstraction of actual matter
+    <- using  [-example-] -[general]-
+  ADD: embedded decisions (? ... ?) (?_ ... ?)
+  [_] Amount of '[>:~]{n}' in line prefix -- changes 256 color to more dim/bright
+    : In 8 color term all them will have one color
+    :* Allows to accentuate intent/attention -- like in lists/music.otl
+
+%%% Priority
+  MAYBE override highlighting of whole line?
+    BUT how about mixed body coloring of priority/outline/decision?
+    THINK don't mix them at all -- all are placed in different sections of notes
+      # Each section -- indented block at 1st level
+      ? THINK what if to allow nested blocks indented relative to current level?
+        = Too complex. Moreover -- what if I need only one decision-like line inside outline?
+  THINK how to combine with decision-making markers to order statements
+    Maybe simply add number before/after decision markers?
+    # USE:(formats)  *1 8* 4% %3 #2 ~2 !3
+    Repeating marker -- several highest priorities (accentuation)
+    # USE:(like) * ** ***  OR ! !! !!!
+    TRY: inherit decision color (simply by adding '\d=' in its pattern) or contain its own
+
+%%% Accents
+  [_] FIX special cases treated as accents
+    `path/*.yml` for `cfg/*.ee`
+    BUG: **...** treated as block, even when each marker is in its own block
+  [_] Highlight in different colors text in ` .. `, ' .. ', "..", $..# etc, use conceal
+    Make $..# to have another color of left/right separator
+    :* quotes must be surrounded by \s or ^$ -- to not escape them inside blocks
+    := it will allow distinguish hotkeys, shell commands, code, etc
+    :SEE markdown syntax
+  [_] Add surround operators for accent -- like I have done for brackets
+    ~ Starting combo by <LocalLeader>
+
+%%% Artifacts
+
+  [_] THINK use `$var` as native syntax
+    MAYBE with meaningful scripts to substitute their values?
+    ? Provide somethins like `yaml` combo of * and & ?
+
+%% Markers
+  [_] Use cycleable '*/[_]/\d./' list markers (cycle for all list -- not for item)
+  [_] Special MARKERS, @tags, #hashlinks to mark type of each statement
+    : 'option' , 'syntax_only' , 'adds_user_commands'
+
+%% Embed syntax
+SEE
+  multi syntax regions for this -- or include all syntax into region
+  ft=cucumber bundle/sideways.vim/examples/example.feature -- maybe as prototype?
+  embedded syntax regions highlighting
+    : https://github.com/xolox/vim-notes
+    : https://github.com/Shougo/context_filetype.vim
+
+  [_] After $ -- use complete bash syntax until end of line
+  [_] THINK: my own simplified syntax for oneline 'sh' by '$' instead of default?
+  [_] Set default embedded ft (used in bare `...`) through modeline
+    = so I could simplify bash/haskell snippets in otl
+
+%% Path / Url
+  [_] BUG: manual paths -- 'gf' treats //some/file as starting from '/'
+    ? is there need to fix? FIND: possible cases where need different behaviour
+
+%% Key-value
+  < USE instead of mixed/unfolded tables
+  * treat keys similar to unordered markers
+  ~ embedded yaml
+  ? own syntax (key-value dif colors, highlight ops like 'A -> B', etc)
+  MAYBE:(like accent) highlight everywhere OR at beginning of line?
+
+%% Arrows
+  Highlight _in-text_ constructions like *=>*
+
+
+%%%% Extensions %%%% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+%% Blocks
+  [_] FIXME inherit default color when ``` has zero-indent
+  [_] NOTE `{3} actually BAD -- I can't use it with 'ts=2' to align
+    * MAYBE:BETTER: single _`_ to align nicely |` text...|
+  [_] Create block for simple text and commented text (in addition to ``)
+    ~ Placing marker at *^__* before text -- BUT then I can't use 'g<'
+    Like ``_ to insert text, ``# -- comment and ``$ -- bash
+    ALT: Using *__* or '```' in '# __' or '$ __' to forcibly extend any current syntax till multiline block
+      * Try using 'extend transparent skipwhite skipnl skipempty'
+    TODO: if there are /`{3}\w/ (like vim flavour) -- do contains=NONE (if no embedded syntax)
+  [_] Block -- used even without indent (like ``\`) for long text massives
+    (option) Auto-extend block for decisions: until new leading character, lower indent or until closing-repeated decision-marker
+
+% multiline
+NEED special way to continue long entries on next line
+  -/ C: trailing '\' on current line
+  -/ vimscript: leading '\' on next line
+  -/ yaml: indented block after special ending ': |'
+  ?/ custom:
+    another indent but same color -- distinguishes this entry
+    no prefixed symbols -- simplify 'y', 'gq', etc
+    indent in one tab -- simplify 'g>'
+
+%% Inheritance
+  TODO: option to apply inherited hi! (from ?_) to artifacts (path/url)
+  THINK: inherit highlight if line is framed in '?...?'
+    BUT? then syntax region will become inefficient
+  OR: Make additional syntax *?__* or *?/* to override all (contains=NONE)
+    ALSO: same additional syntax for outlines -- to override their color despite objects
+      ~ seems like second set of outline rules will be necessary
+      ? TRY: maybe conceal this prefix marker to keep outline clean ?
+    ? maybe conceal inheritance markers *_* *__* entirely, keeping only decision one ?
+      ~ seems not possible to conceal -- as markers are part of beg/end
+      ! BUT:TRY: group for beg/end can have own syntax contains=nouConcealMarkers
+    = Try extending opening marker by detecting *__* -- to unite decision/outline filling
+    !!5 HACK: replace *_* and *__* by *.* and *..*
+      + more nice looking
+      + easier to type
+  ALSO: inherit hi! for shell: $_ -- when you want to emphasize plain commands
+    TRY: override only plain text. And use $__ to override all.
+  TRY: instead of 2nd/3rd set of decisions make 'contained' syntax starting on *_* or *__*
+
+%% Task/progress
+  THINK if only marker is highlighted and therefore truly visible --> MAYBE:USE: shortened form '_ x' instead of full '[_] [X]'?
+  MAYBE: use shorter date spec?
+    160716:[X]
+    [X=160716]
+    [X]/160716
+  [_] Highlight date in other color (Comment)
+
+
+%%%% API %%%% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  [_] url/path : jump_next/jump_hint/open/show_all_in_unite
+  [_] use '[[' and ']]' to jump between headers
+
+
+%%%% LIMITATIONS %%%% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [_] BUG:(highlighting combining) can't override color in linked group
+    ```vim
+      hi! nouArtifactUrl gui=underline
+      hi! link nouArtifactUrl Underlined
+      exec 'hi SyntasticErrorSign guifg=red ctermfg=red' .
+        \' guibg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'gui') .
+        \' ctermbg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'cterm')
+    ```
+    ALT: patch to vim allowing combining of hi!
+      https://groups.google.com/forum/#!topic/vim_dev/5YgghIZH_-w
+      ALSO:SEE: /usr/share/nvim/runtime/syntax/html.vim
+
+
+%%%% IDEAS %%%% ********************************************************
+
+%%% Python back-end
   Write back-end core in python
   Provide interface to manipulate of outline DOM objects by API
     : THINK? base it on XHTML-dom manipulation classes?
   Use vim only as front-end to that API
-    Parse .otl and keep in sync the in-memory DOM at python
-    Convert current export format (.otl) into cursor position in DOM
+    Parse //*.nou and keep in sync the in-memory DOM at python
+    Convert current export format (.nou) into cursor position in DOM
     Launch specific API by keymaps
-    Populate changes from in-memory DOM into export of (.otl)
-  Then I will be able create another front-end api like OpenGL, etc
+    Populate changes from in-memory DOM into export of (.nou)
+  > Then I will be able create another front-end api like OpenGL, etc
 
-IDEA:(graph navigation)
+%%% Graph navigation
+  TRY over 'ranger' and 'qutebrowser' -- because python
   By default vim works in terminal with isotropic character metric
     All textobj form aligned tree with distinct leaves
   But what about browsers, based on vim experience?
@@ -37,146 +233,3 @@ IDEA:(graph navigation)
     Важно: скорость и качество (гладкость) рендеринга -- должно давать
     качественную эппловую картинку, а не коробить взгляд как вим своими
     шрифтами на винде.
-
-DEV
-  [_] Priority
-    MAYBE override highlighting of whole line?
-      BUT how about mixed body coloring of priority/outline/decision?
-      THINK don't mix them at all -- all are placed in different sections of notes
-        # Each section -- indented block at 1st level
-        ? THINK what if to allow nested blocks indented relative to current level?
-          = Too complex. Moreover -- what if I need only one decision-like line inside outline?
-    THINK how to combine with decision-making markers to order statements
-      Maybe simply add number before/after decision markers?
-      # USE:(formats)  *1 8* 4% %3 #2 ~2 !3
-      Repeating marker -- several highest priorities (accentuation)
-      # USE:(like) * ** ***  OR ! !! !!!
-      TRY: inherit decision color (simply by adding '\d=' in its pattern) or contain its own
-  THINK extend Markdown by indented outline syntax and new marks instead of own?
-    - Markdown flavours aren't suited for my writings
-  [_] TODO switchable colorschemes 'on the fly'
-    : different info requires different indent nesting, but similar coloring!
-  Amount of '[>:~]{n}' in line prefix -- changes 256 color to more dim/bright
-    : In 8 color term all them will have one color
-    :* Allows to accentuate intent/attention -- like in lists/music.otl
-  [_] BUG: manual paths -- 'gf' treats //some/file as starting from '/'
-    ? is there need to fix? FIND: possible cases where need different behaviour
-  Fix special cases treated as accents
-    `path/*.yml` for `cfg/*.ee`
-    BUG: **...** treated as block, even when each marker is in its own block
-  After $ -- use complete bash syntax until end of line
-  SEE multi syntax regions for this -- or include all syntax into region
-  SEE ft=cucumber bundle/sideways.vim/examples/example.feature -- maybe as prototype?
-  SEE embedded syntax regions highlighting
-    : https://github.com/xolox/vim-notes
-    : https://github.com/Shougo/context_filetype.vim
-  [_] THINK: my own simplified syntax for oneline 'sh' by '$' instead of default?
-  [_] Allow mixed block/flow syntax as in yaml -- for one-word branches in graphviz
-  Use cycleable '*/[_]/\d./' list markers (cycle for all list -- not for item)
-  [_] Highlight in different colors text in ` .. `, ' .. ', "..", $..# etc, use conceal
-    Make $..# to have another color of left/right separator
-    :* quotes must be surrounded by \s or ^$ -- to not escape them inside blocks
-    := it will allow distinguish hotkeys, shell commands, code, etc
-    :SEE markdown syntax
-    Set default embedded ft (used in bare `...`) through modeline
-    := so I could simplify bash/haskell snippets in otl
-  [_] Use space instead tab -- generate regexes based on values in ts=2:sw=2:sts=2
-    ALT: query color from cached map with spaces as keys =~ '\s{i,i+2}'
-  [_] Block -- used even without indent (like ``\`) for long text massives
-    (option) Auto-extend block for decisions: until new leading character, lower indent or until closing-repeated decision-marker
-  [_] Tagbar -- always open, shows outer outline (useful for music.otl)
-  [_] Interlace/variate rows colors on the same level (like html/css tables)
-    := Darker/Lighter then current header -- for long lists of multiline items
-    := ALT: the same spectrum for all sub-topics in any level -- for decision-making
-  [_] URL jump_next/jump_hint/open/show_in_unite
-  [_] BUG:(highlighting combining) can't override color in linked group
-    ```vim
-      hi! nouArtifactUrl gui=underline
-      hi! link nouArtifactUrl Underlined
-      exec 'hi SyntasticErrorSign guifg=red ctermfg=red' .
-        \' guibg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'gui') .
-        \' ctermbg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'cterm')
-    ```
-    ALT: patch to vim allowing combining of hi!
-      https://groups.google.com/forum/#!topic/vim_dev/5YgghIZH_-w
-      ALSO:SEE: /usr/share/nvim/runtime/syntax/html.vim
-  [_] add link to ./doc dirs from my other repos -- as examples of extensive usage of *.nou
-  [_] THINK use `$var` as native syntax
-    MAYBE with meaningful scripts to substitute their values?
-    ? Provide somethins like `yaml` combo of * and & ?
-  [_] Add surround operators for accent -- like I have done for brackets
-    ~ Starting combo by <LocalLeader>
-
-[o] Vimoutliner
-  [_] TODO Remove insert mappings
-  2015-06-01 [X] Change mapping to more easily pressed :> use everywhere ',.'
-  [_] Disable autoformating on pasting
-  [_] Test and compare with vimoutliner
-    : https://github.com/vimwiki/vimwiki
-    : http://tiddlywiki.com  -- one-page wiki
-    Extract all scripts (~8) in github for converting
-  [_] THINK:TRY: embed 'nou' into Comment group of any other syntax files
-    ~ use `au!` on `:setf` to infect syntax
-
------ Multiline -----
-  NEED special way to continue long entries on next line
-    -/ C: trailing '\' on current line
-    -/ vimscript: leading '\' on next line
-    -/ yaml: indented block after special ending ': |'
-    ?/ custom:
-      another indent but same color -- distinguishes this entry
-      no prefixed symbols -- simplify 'y', 'gq', etc
-      indent in one tab -- simplify 'g>'
-
-======== Syntax ==========
-  Headers
-    [_] Headers: bold. How to make them more distinguishing?
-    [_] Allow combining headers on one line to form flat path
-      %% H2 %%% H3 %%%% H4 % H1 %%
-    [_] TRY:USE: allow any text after closing tag of header
-      = So you can embed headers into text like paragraph 'literas'
-    [_] Conceal header markers if using 'two-side' definition
-      * Or some marker extension like %%%<
-      * Or when using/not spaces before text
-  Decision
-    ~ higlight in pre-defined color only marker (start/end match)
-      .. and keep
-    FIXME: don't like colors for '>' '<' ':' -- don't feels right
-    ADD: embedded decisions (? ... ?) (?_ ... ?)
-    TODO: option to apply inherited hi! (from ?_) to artifacts (path/url)
-      OR: Make additional syntax *?__* or *?/* to override all (contains=NONE)
-      ALSO: same additional syntax for outlines -- to override their color despite objects
-        ~ seems like second set of outline rules will be necessary
-        ? TRY: maybe conceal this prefix marker to keep outline clean ?
-      ? maybe conceal inheritance markers *_* *__* entirely, keeping only decision one ?
-        ~ seems not possible to conceal -- as markers are part of beg/end
-        ! BUT:TRY: group for beg/end can have own syntax contains=nouConcealMarkers
-      = Try extending opening marker by detecting *__* -- to unite decision/outline filling
-    THINK: inherit highlight if line is framed in '?...?'
-      BUT? then sytax region will become inefficient
-    ALSO: inherit hi! for shell: $_ -- when you want to emphasize plain commands
-      TRY: override only plain text. And use $__ to override all.
-    TRY: instead of 2nd/3rd set of decisions make 'contained' syntax starting on *_* or *__*
-  Blocks
-    [_] FIXME inherit default color when ``` has zero-indent
-    [_] NOTE `{3} actually BAD -- I can't use it with 'ts=2' to align
-      * MAYBE:BETTER: single _`_ to align nicely |` text...|
-    [_] Create block for simple text and commented text (in addition to ``)
-      ~ Placing marker at *^__* before text -- BUT then I can't use 'g<'
-      Like ``_ to insert text, ``# -- comment and ``$ -- bash
-      ALT: Using *__* or '```' in '# __' or '$ __' to forcibly extend any current syntax till multiline block
-        * Try using 'extend transparent skipwhite skipnl skipempty'
-      TODO: if there are /`{3}\w/ (like vim flavour) -- do contains=NONE (if no embedded syntax)
-  Task/progress
-    THINK if only marker is highlighted and therefore truly visible --> MAYBE:USE: shortened form '_ x' instead of full '[_] [X]'?
-    MAYBE: use shorter date spec?
-      160716:[X]
-      [X=160716]
-      [X]/160716
-    [_] Highlight date in other color (Comment)
-  Key-value
-    < USE instead of mixed/unfolded tables
-    * treat keys similar to unordered markers
-    ~ embedded yaml
-    ? own syntax (key-value dif colors, highlight ops like 'A -> B', etc)
-    MAYBE:(like accent) highlight everywhere OR at beginning of line?
