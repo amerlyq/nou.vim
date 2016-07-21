@@ -169,6 +169,7 @@ NEED special way to continue long entries on next line
     !!5 HACK: replace *_* and *__* by *.* and *..*
       + more nice looking
       + easier to type
+  ALT: replace ' ' instead of appending:  '< reasons' -> '<.reasons' -> '<_reasons'
   ALSO: inherit hi! for shell: $_ -- when you want to emphasize plain commands
     TRY: override only plain text. And use $__ to override all.
   TRY: instead of 2nd/3rd set of decisions make 'contained' syntax starting on *_* or *__*
