@@ -1,20 +1,22 @@
 """ Syntax helpers
 " TODO:MOVE: all regexes in registry hive
 
-fun! s:p(_)
-  return '/\v'.escape(a:_,'/').'/'
+" ATTENTION: don't use '/', avoid its escaping inside [..] range
+fun! s:p(_, ...)
+  let q = get(a:,1,'/')
+  return q.'\v'.escape(a:_,q).q
 endf
 fun! s:ps(_)
-  return '[[:blank:]'.get(a:_,0,'').']'
+  return '['.a:_.'[:blank:]]'
 endf
 fun! s:pb(_, ...)
-  return s:p('%(^|'.s:ps(a:000).'@1<=)%('.a:_.')')
+  return s:p('%(^|'.s:ps(get(a:,1,'')).'@1<=)%('.a:_.')', get(a:,2,'/'))
 endf
 fun! s:pe(_, ...)
-  return s:p('%('.a:_.')%('.s:ps(a:000).'@1=|$)')
+  return s:p('%('.a:_.')%('.s:ps(get(a:,1,'')).'@1=|$)', get(a:,2,'/'))
 endf
 fun! s:pbe(_, ...)
-  return s:p('%(^|'.s:ps(a:000).'@1<=)%('.a:_.')%('.s:ps(a:000).'@1=|$)')
+  return s:p('%(^|'.s:ps(get(a:,1,'')).'@1<=)%('.a:_.')%('.s:ps(get(a:,1,'')).'@1=|$)', get(a:,2,'/'))
 endf
 
 fun! nou#syntax#_indent(i)
@@ -129,6 +131,35 @@ fun! nou#syntax#embedded(ft)
   " call nou#syntax#_highlight(nm, '#990000')
 endf
 
+fun! nou#syntax#regex()
+  let nm = 'nouRegex'
+  let s = '[[:blank:]/]'
+  let S = '[^[:blank:]/]'
+  " DEV: syntax hi! for class, number, range, special
+  " DEV: delimiter (reuse from path)
+  exe 'syn cluster nouArtifactQ add='.nm
+  exe 'syn cluster '.nm.'Q contains='.nm.'C,'.nm.'N,'.nm.'R,'.nm.'S'
+  " NOTE:(limitation) instead of first/last ' ' use '\s' or '\ '
+  exe 'syn region '.nm.' display oneline keepend excludenl'
+    \.' contains=@'.nm.'Q'
+    \.' matchgroup='.nm.'D'
+    \.' start='.s:pbe('/\ze%([^/]|\\@1<=/)+/', ',', '~')
+    \.' end='.s:pe('\S\zs/', ',', '~')
+    " \.' skip='.s:p('\\\s', '~')
+
+  exe 'syn match '.nm.'C display excludenl contained '.s:p('\\\a|:\a+:')
+  exe 'syn match '.nm.'N display excludenl contained '.s:p('\\?[+*{,}]')
+  exe 'syn match '.nm.'R display excludenl contained '.s:p('\\?[-[\]]')
+  exe 'syn match '.nm.'S display excludenl contained '.s:p('\\?[()%]|\\z\S')
+
+  exe 'hi '.nm.' cterm=italic ctermfg=224 gui=italic guifg=#ffd7d7'
+  exe 'hi link '.nm.'D  Error'
+  exe 'hi link '.nm.'N  Special'
+  exe 'hi link '.nm.'S  Constant'
+  exe 'hi '.nm.'C  ctermfg=40  guifg=#00d700'
+  exe 'hi '.nm.'R  ctermfg=69  guifg=#5f87ff'
+endf
+
 fun! nou#syntax#path()
   let nm = 'nouPath'
   let ps = s:p('\\[[:blank:],]')
@@ -141,7 +172,7 @@ fun! nou#syntax#path()
   exe 'syn region '.nm.' display oneline keepend excludenl'
     \.' contains=@'.nm.'Q'
     \.' matchgroup='.nm.'D'
-    \.' start='.s:pb('%([~]|\.{1,2})?/\ze[^/]', ',')
+    \.' start='.s:pb('%([~]|\.{1,2})/\ze%([^/]|$)|/\ze[^/[:blank:]]', ',')
     \.' start='.s:pb('[[:alpha:]]:\\{1,2}\ze%([^\\]|$)', '[:punct:]')
     \.' skip='.ps
     \.' end='.pe
@@ -150,7 +181,7 @@ fun! nou#syntax#path()
   exe 'syn region '.nm.'C display oneline keepend excludenl concealends'
     \.' contains=@'.nm.'Q'
     \.' matchgroup=nouConceal'
-    \.' start='.s:pb('//\ze[^/]', ',')
+    \.' start='.s:pb('//\ze/?[^[:blank:]/]', ',')
     \.' skip='.ps
     \.' end='.pe
 

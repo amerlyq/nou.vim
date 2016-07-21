@@ -165,8 +165,8 @@ Manual by '//' prefix
 
 %% Regex %%
   /regex/
-  / re\/[gex ]?/
-  /[[:alpha:]]:\\{1,2}\ze%([^\\]|$/
+  /\ re\/[gex ]?/
+  /[[:alpha:]]:\\{1,2}\ze%([^\\]*|$/
 
 
 %%% Blocks %%%  # *nou-blocks*

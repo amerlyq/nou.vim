@@ -35,6 +35,7 @@ TODO
   [_] Conceal header markers if using 'two-side' definition
     * Or some marker extension like %%%<
     * Or when using/not spaces before text
+  [_] (option) propagate hi! on %% sign (and make its fg=bg to hide)
   THINK: using *tweaked* headers instead of outline (like in LaTeX)
     : seems like "flattened" outline w/o indent
     * when there are many lines of info for each entry
@@ -84,6 +85,10 @@ TODO
     :SEE markdown syntax
   [_] Add surround operators for accent -- like I have done for brackets
     ~ Starting combo by <LocalLeader>
+
+% Unconcealed
+  [_] strings in double quotes '\v([''"])(.{-})\1'
+  [_] keys in <..>
 
 %%% Artifacts
 

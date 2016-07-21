@@ -152,14 +152,11 @@ syn match nouArtifactUrl display excludenl
   \ '\v<%(\w{3,}://|www\.|%(mailto|javascript):)\S*'
 
 call nou#syntax#path()
+call nou#syntax#regex()
 
-hi! nouArtifactRegex cterm=italic ctermfg=224 gui=italic guifg=#ffd7d7
-syn cluster nouArtifactQ add=nouArtifactRegex
-syn region nouArtifactRegex display oneline keepend excludenl
-  \ contains=NONE skip='\\/'
-  \ matchgroup=Error
-  \ start='\v%(^|\s)\zs/\ze%([^/]|\\@1<=/)+/%(\s|$)'
-  \ end='\v/\ze%(\s|$)'
+hi! nouTableDelim cterm=bold ctermfg=172 gui=bold guifg=#d78700
+syn cluster nouArtifactQ add=nouTableDelim
+syn match nouTableDelim display excludenl '|'
 
 " CHECK:
 " -- syntax higlighting block between two marks start=/\%'m/ end=/\%'n/

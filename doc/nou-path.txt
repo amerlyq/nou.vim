@@ -8,7 +8,6 @@
   /////     # slash delim
   js://www  # link
   cc:\\rnd  # random
-  /rg \/x/  # regex
   /home///  # repeated slash
   /\        # sfx \s
   \ /       # prf \s
@@ -17,6 +16,12 @@
   s x/y/z   # variants (inlined)
   x / y     # variants (2)
   x / y /   # variants (3)
+
+% Regex
+  /./
+  /r\ \/x/  # regex
+  /s \d\//  # escaping
+  /s \///   # not regex
 
 *************************
 
@@ -39,6 +44,7 @@
   //some/dir/
   //some/file.ext
   //some/file_name
+  ///root/
 
 %% Prefixed
 
