@@ -59,6 +59,10 @@ TODO
   [_] Amount of '[>:~]{n}' in line prefix -- changes 256 color to more dim/bright
     : In 8 color term all them will have one color
     :* Allows to accentuate intent/attention -- like in lists/music.otl
+  [_] BAD colors -- markers blend into outline color on same level
+    @ THINK: using for decision only plain text color despite indent
+      (option) to enable it -- if no better solution found
+    ? BUT how to distinguish/stand-out decision blocks on different outline levels ?
 
 %%% Priority
   MAYBE override highlighting of whole line?
