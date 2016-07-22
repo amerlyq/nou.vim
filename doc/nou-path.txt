@@ -82,3 +82,9 @@
   ~/,/end/comma,
   /root /home /var
   ./relat/path /s/some
+
+%% Brackets
+  (./dir  ./#)  (~/.)
+  [/r/dir ~/_]  [/r/d]
+  {//s/dir //dir} {//s}
+  <//file:117>
