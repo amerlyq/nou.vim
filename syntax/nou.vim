@@ -99,7 +99,7 @@ endfor
 " BUG: w/o 'matchgroup': closing '```' is concealed transparent rules of accent
 "   -- Moreover -- we can't make something like oneline block (``` ... ```)
 syn region nouBlock display keepend excludenl transparent contained extend
-  \ matchgroup=nouConceal containedin=@nouOutlineQ
+  \ matchgroup=Special containedin=@nouOutlineQ
   \ start='\v`{3}' end='\v`{3}'
 
 

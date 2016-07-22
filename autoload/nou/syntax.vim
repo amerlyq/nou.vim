@@ -64,7 +64,7 @@ fun! nou#syntax#decision(i)
     \.' start='.s:p('^\s*\zs\z('.s.')%(\d+)?'.g:nou.decision.symbol.'\s')
     \.' end='.s:p('\s\z1$').' end='.s:p('$')
   call nou#syntax#_highlight(nm, c, 'gui=bold')
-  call nou#syntax#_highlight(nm.'u', c, 'gui=bold,italic')
+  call nou#syntax#_highlight(nm.'u', c, 'gui=italic')
 endf
 
 fun! nou#syntax#accent(k)
@@ -74,8 +74,8 @@ fun! nou#syntax#accent(k)
   exe 'syn cluster nouAccentQ add='.nm
   exe 'syn region '.nm.' display oneline keepend concealends'
     \.' excludenl matchgroup=nouConceal contains=@nouAccentQ'
-    \.' start='.s:pb(s.'\ze'.S)
-    \.' end='.s:pe(S.'\zs'.s)
+    \.' start='.s:pb(s.'\ze'.S, '[:punct:]')
+    \.' end='.s:pe(S.'\zs'.s, '[:punct:]')
   if c !~# '='| let c = 'cterm='.c.' gui='.c |en
   call nou#syntax#_highlight(nm, '', c)
 endf
@@ -181,7 +181,7 @@ fun! nou#syntax#path()
   exe 'syn region '.nm.'C display oneline keepend excludenl concealends'
     \.' contains=@'.nm.'Q'
     \.' matchgroup=nouConceal'
-    \.' start='.s:pb('//\ze/?[^[:blank:]/]', ',')
+    \.' start='.s:pb('//\ze/?[^[:blank:]/]', '[:punct:]')
     \.' skip='.ps
     \.' end='.pe
 

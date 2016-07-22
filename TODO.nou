@@ -121,6 +121,12 @@ SEE
 %% Path / Url
   [_] BUG: manual paths -- 'gf' treats //some/file as starting from '/'
     ? is there need to fix? FIND: possible cases where need different behaviour
+  [_] BUG: captures trailing characters: (//dir) //dir.
+    > braces can be fixed by using 'syn region' for them (bounds becomes excluded)
+      < I need such objects anyway -- for 'variants' or 'clarifications'
+        to strip "|" from their 'contains='
+    > problem of trailing dot is fixable by using '//' closing path tag
+      ! BUT then 'gf' will be impossible on files, them being treated as dirs
 
 %% Key-value
   < USE instead of mixed/unfolded tables
