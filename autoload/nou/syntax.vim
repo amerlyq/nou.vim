@@ -123,10 +123,10 @@ fun! nou#syntax#embedded(ft)
   let nm = 'nouEmbed_'.a:ft
   let [b, e] = g:nou.embed[a:ft]
   exe 'syn cluster nouEmbedQ add='.nm
-  exe 'syn region '.nm.' display oneline keepend excludenl'
+  exe 'syn region '.nm.' display excludenl extend'
     \.' matchgroup=nouComment contains=@nouEmbedQ_'.a:ft
     \.' start='.s:p('%(^|\s)\zs'.b.'\s')
-    \.' end='.s:p('\s'.e.'\ze%(\s|$)').' end='.s:p('$')
+    \.' end='.s:p('\s'.e.'\ze%(\s|$)').' end='.s:p('\\@1<!$')
   call nou#syntax#embed_load(a:ft)
   " call nou#syntax#_highlight(nm, '#990000')
 endf
