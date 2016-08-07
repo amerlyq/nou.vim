@@ -113,7 +113,8 @@ SEE
     : https://github.com/xolox/vim-notes
     : https://github.com/Shougo/context_filetype.vim
 
-  [_] After $ -- use complete bash syntax until end of line
+  [_] After '$' -- use complete bash syntax until end of line
+    [_] BUG on 0-indent syntax wraps even without trailing '\'
   [_] THINK: my own simplified syntax for oneline 'sh' by '$' instead of default?
   [_] Set default embedded ft (used in bare `...`) through modeline
     = so I could simplify bash/haskell snippets in otl
