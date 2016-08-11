@@ -35,6 +35,16 @@ TODO
   [_] Conceal header markers if using 'two-side' definition
     * Or some marker extension like %%%<
     * Or when using/not spaces before text
+    ALT: invert order of %{N} -> level{N} to nornal one
+      + header indent will be more logical (more indent --> deeper)
+      + readable level -- by inverted bkgr text edge indent
+      + easy to add more nesting at detailed levels
+        = no need to predict main header level beforehand
+        = no need to move all headers for more deep nesting
+        !!! CHECK:THINK: for which usecase current inverted scheme is the most useful
+  [_] USE: double '%%' for one level
+    + more standout levels
+    + aligned to outlines (remember ugly wide-char text with even indent)
   [_] (option) propagate hi! on %% sign (and make its fg=bg to hide)
   THINK: using *tweaked* headers instead of outline (like in LaTeX)
     : seems like "flattened" outline w/o indent
@@ -128,6 +138,8 @@ SEE
         to strip "|" from their 'contains='
     > problem of trailing dot is fixable by using '//' closing path tag
       ! BUT then 'gf' will be impossible on files, them being treated as dirs
+  [_] TRY: add path/url obj to embedded syntax to highlight usage in shell
+  [_] TRY: make all cmds green (or use zsh-cmdline hi if possible)
 
 %% Key-value
   < USE instead of mixed/unfolded tables
@@ -154,6 +166,7 @@ SEE
     TODO: if there are /`{3}\w/ (like vim flavour) -- do contains=NONE (if no embedded syntax)
   [_] Block -- used even without indent (like ``\`) for long text massives
     (option) Auto-extend block for decisions: until new leading character, lower indent or until closing-repeated decision-marker
+  [_] TRY: use 'standout' background for block of monotonous text to distinguish
 
 % multiline
 NEED special way to continue long entries on next line
