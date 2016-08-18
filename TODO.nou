@@ -46,6 +46,7 @@ TODO
     + more standout levels
     + aligned to outlines (remember ugly wide-char text with even indent)
   [_] (option) propagate hi! on %% sign (and make its fg=bg to hide)
+    ALT:TRY: make %% fg equal to bg of header itself (%% bg remains empty)
   THINK: using *tweaked* headers instead of outline (like in LaTeX)
     : seems like "flattened" outline w/o indent
     * when there are many lines of info for each entry
