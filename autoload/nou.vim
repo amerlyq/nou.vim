@@ -14,7 +14,8 @@ fun! nou#bar(...) range
   for i in rgn
     let line = getline(i)
     let chgd = substitute(line,
-      \ '\v^(\s*)%(%(\d{4}-\d\d-\d\d )?\[[_$x]\]\s*)?(.*)$',
+      \ '\v^(\s*%([^[:alpha:][:blank:]]{-1}\s+)?)'
+      \.'%(%(\d{4}-\d\d-\d\d )?\[[_$x]\]\s*)?(.*)$',
       \ '\1'.pfx.'\2', '')
     if chgd !=# line| call setline(i, chgd) |en
   endfor
