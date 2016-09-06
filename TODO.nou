@@ -67,6 +67,10 @@ TODO
     = Or specifying regex as abstraction of actual matter
     <- using  [-example-] -[general]-
   ADD: embedded decisions (? ... ?) (?_ ... ?)
+    TRY: block ends on symmetrical '?)' or on first ')' if symmetrical not found
+      ? rather inefficient ?
+    ALSO: comment-like embedding (two spaces around): 'before  ? *decision* ?  after'
+    ALSO: embedded comments (#...#) -- to comment only last word instead of left part of whole line
   [_] Amount of '[>:~]{n}' in line prefix -- changes 256 color to more dim/bright
     : In 8 color term all them will have one color
     :* Allows to accentuate intent/attention -- like in lists/music.otl
@@ -206,6 +210,8 @@ NEED special way to continue long entries on next line
     [X=160716]
     [X]/160716
   [_] Highlight date in other color (Comment)
+  [_] BUG: task symbol "_" affects underlined text
+    * Use nesting marginal effects -- create for '[_]' its own syntax group
 
 
 %%%% API %%%% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

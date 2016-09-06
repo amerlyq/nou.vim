@@ -6,7 +6,7 @@ fun! nou#bar(...) range
 
   " BUG: in VSEL mode wrong cursor pos: '.' == '<
   let l:pos = exists('*getcurpos') ? getcurpos() : getpos('.')
-  echom string(l:pos)
+  " echom string(l:pos)
 
   let rgn = [line('.')]
   if get(a:,3)| let rgn = range(getpos("'<")[1], getpos("'>")[1]) |en
