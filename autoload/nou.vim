@@ -17,7 +17,7 @@ fun! nou#bar(...) range
     "   => extract first word from $line and directly compare in vimscript
     let chgd = substitute(line,
       \ '\v^(\s*%([^[:alpha:][:blank:][\]]{-1,3}\s+)?)'
-      \.'%(%(\d{4}-\d\d-\d\d )?\[[_$x]\]\s*)?(.*)$',
+      \.'%(%(\d{4}-\d\d-\d\d )?\[[_$X]\]\s*)?(.*)$',
       \ '\1'.pfx.'\2', '')
     if chgd !=# line| call setline(i, chgd) |en
   endfor

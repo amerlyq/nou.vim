@@ -144,6 +144,10 @@ hi def link nouComment Comment
 syn region nouComment display oneline keepend
   \ start='^#\s' start='\s\s\zs#\s' excludenl end='\s#\ze\s\s' end='$'
 
+hi! nouTask ctermfg=14 guifg=#586e75
+syn match nouTask display excludenl
+  \ '\v%(\d{4}-\d\d-\d\d )?\[[_$X]\]'
+
 " EXPL: https, ftp, news, file
 " THINK: diff color urls -- don't do 'contains=@nouArtifactG'
 " TRY: different color for heading and '[/?=]' in url
@@ -167,7 +171,7 @@ for ft in keys(g:nou.embed)
   call nou#syntax#embedded(ft)
 endfor
 
-syn cluster nouTextQ add=@Spell,nouComment
+syn cluster nouTextQ add=@Spell,nouComment,nouTask
   \,@nouArtifactQ,@nouAccentQ,@nouEmbedQ
 
 " EXPL: must be last line -- set single-loading guard only if no exceptions

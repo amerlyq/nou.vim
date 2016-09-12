@@ -62,6 +62,8 @@ TODO
   [_] NEED marker for 'suggestion' -- "possible" variant to choose between
     = Each variant can be discussed by arguments in its own indent
     ? TEMP: using '<-' ?
+  [_] TRY:THINK: asymmetrical region
+    * higlight ending '?' or '!' even if it wasn't prepended by space (most as I type)
   [_] NEED syntax for 'examples' or 'generalization'
     = Likewise to specify examples of regex with clarification
     = Or specifying regex as abstraction of actual matter
@@ -209,8 +211,12 @@ NEED special way to continue long entries on next line
     160716:[X]
     [X=160716]
     [X]/160716
-  [_] Highlight date in other color (Comment)
-  [_] BUG: task symbol "_" affects underlined text
+  [_] Highlight: 'X' green, '$' red, '_' blue, '[' ']' white, '<date>' -- italic dark-gray
+    ? THINK: how to define region ?
+  [_] THINK limit task markers only to beginning of line
+    !! Performance
+    ? hard to test ?
+  2016-09-12 [X] BUG: task symbol "_" affects underlined text
     * Use nesting marginal effects -- create for '[_]' its own syntax group
 
 
