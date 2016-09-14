@@ -56,7 +56,7 @@ fun! nou#syntax#decision(i)
   exe 'syn cluster nouDecisionQ add='.nm.'m,'.nm.'u'
   exe 'syn region '.nm.'m display oneline keepend transparent'
     \.' excludenl matchgroup='.nm
-    \.' start='.s:p('^\s*\zs\z('.s.')%(\d+)?\s')
+    \.' start='.s:p('^\s*\zs\z('.s.')%(\d+)?\s@1=')
     \.' end='.s:p('\s\z1$').' end='.s:p('$')
   exe 'syn region '.nm.'u display oneline keepend'
     \.' excludenl matchgroup='.nm

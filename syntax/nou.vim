@@ -161,6 +161,7 @@ syn match nouArtifactUrl display excludenl
 call nou#syntax#path()
 call nou#syntax#regex()
 
+" BUG: conflicts with accent |..|
 hi! nouTableDelim cterm=bold ctermfg=172 gui=bold guifg=#d78700
 syn cluster nouArtifactQ add=nouTableDelim
 syn match nouTableDelim display excludenl '|'
