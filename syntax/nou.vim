@@ -165,6 +165,12 @@ hi! nouTableDelim cterm=bold ctermfg=172 gui=bold guifg=#d78700
 syn cluster nouArtifactQ add=nouTableDelim
 syn match nouTableDelim display excludenl '|'
 
+" BAD: ignored after task marker [X] !~ \A+
+hi! nouArtifactKey cterm=bold ctermfg=15 gui=bold guifg=#aa4466
+syn cluster nouArtifactQ add=nouArtifactKey
+syn match nouArtifactKey display excludenl
+  \ '\v%(^|\s@1<=)\K+:%(\ze\s|$)'
+
 " CHECK:
 " -- syntax higlighting block between two marks start=/\%'m/ end=/\%'n/
 " -- rule to highlight till/from cursor position start=/\%#/
