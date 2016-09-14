@@ -2,10 +2,11 @@
 
 TODO
   [_] Test and compare with vimoutliner
-    https://github.com/xolox/vim-notes/blob/master/autoload/xolox/notes.vim
-    https://github.com/vimwiki/vimwiki
-    http://tiddlywiki.com  -- one-page wiki
-      : Extract all scripts (~8) in github for converting
+    [_] https://github.com/xolox/vim-notes/blob/master/autoload/xolox/notes.vim
+    [_] https://github.com/vimwiki/vimwiki
+    [_] http://tiddlywiki.com  -- one-page wiki
+      [_] Extract all scripts (~8) in github for converting
+    [_] https://github.com/jceb/vim-orgmode
   [_] THINK extend Markdown by indented outline syntax and new marks instead of own?
     > Markdown flavours aren't suited for my writings
   [_] THINK:TRY: embed 'nou' into Comment group of any other syntax files
@@ -25,6 +26,18 @@ TODO
   [_] Interlace/variate rows colors on the same level (like html/css tables)
     := Darker/Lighter then current header -- for long lists of multiline items
     := ALT: the same spectrum for all sub-topics in any level -- for decision-making
+  [_] THINK:TRY: contrast palette
+    [_] FIND:XXX: how to choose harmonic color palette
+      like music notes -- must be non-linear
+    [_] outline -- dif than 'solarized' but similar colors
+      [_] TRY: linear HSL/HCL palette
+        https://en.wikipedia.org/wiki/List_of_color_spaces_and_their_uses
+        TRY: limited to sub-range 'pastel..purple-dark'
+          http://hclwizard.org/why-hcl/
+          http://hslpicker.com/#c38d3c
+      = must be contrasted in gui but the same in term16
+      ? how about cterm256 -- search for other ?
+    [_] USE 'solarized' only for numbers and other objects of std syntax
 
 %%% Headers
   [_] Headers: bold. How to make them more distinguishing?
@@ -106,6 +119,9 @@ TODO
     :SEE markdown syntax
   [_] Add surround operators for accent -- like I have done for brackets
     ~ Starting combo by <LocalLeader>
+  [_] Make ".." transparent syntax group
+    -> allows to specify different allowed inner groups
+        EXG: disable hi! for '|' inside quoted text
 
 % Unconcealed
   [_] strings in double quotes '\v([''"])(.{-})\1'
@@ -155,8 +171,12 @@ SEE
   ? own syntax (key-value dif colors, highlight ops like 'A -> B', etc)
   MAYBE:(like accent) highlight everywhere OR at beginning of line?
 
-%% Arrows
-  Highlight _in-text_ constructions like *=>*
+%% Operators
+  [_] Arrows: hi! _in-text_ constructions like *=>*
+  [_] hi! ops rarely-used in plain text: '+', '&', etc
+    -- to use it more often myself for pseudo-syntax
+  [_] hi! any numbers: dec/hex/float/science -- dif color to outline
+  [_] hi! separate char-seq /<\W+>/ -- dif color to numbers
 
 
 %%%% Extensions %%%% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -174,6 +194,8 @@ SEE
   [_] Block -- used even without indent (like ``\`) for long text massives
     (option) Auto-extend block for decisions: until new leading character, lower indent or until closing-repeated decision-marker
   [_] TRY: use 'standout' background for block of monotonous text to distinguish
+  [_] BUG:FIXME: `syntax sync ...` not working for '```' regions
+    <= open this 'TODO.nou' and jump 'G' to the end of file
 
 % multiline
 NEED special way to continue long entries on next line

@@ -7,6 +7,8 @@ endif
 call nou#opts#init()    " Init opts when only 'syntax on' called
 
 syntax case match       " Individual ignorecase done by '\c' prefix (performance)
+syntax sync clear
+syntax sync minlines=5  " Correct hi! for embed regions opened at the middle
 syntax spell toplevel   " Check for spelling errors in all text.
 hi def link nouConceal Ignore
 
