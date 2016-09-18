@@ -167,7 +167,7 @@ syn cluster nouArtifactQ add=nouTableDelim
 syn match nouTableDelim display excludenl '|'
 
 " BAD: ignored after task marker [X] !~ \A+
-hi! nouArtifactKey cterm=bold ctermfg=15 gui=bold guifg=#aa4466
+hi! nouArtifactKey cterm=bold ctermfg=167 gui=bold guifg=#df5f5f
 syn cluster nouArtifactQ add=nouArtifactKey
 syn match nouArtifactKey display excludenl
   \ '\v%(^|\s@1<=)\K+:%(\ze\s|$)'
