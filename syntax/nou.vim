@@ -166,6 +166,10 @@ hi! nouTableDelim cterm=bold ctermfg=172 gui=bold guifg=#d78700
 syn cluster nouArtifactQ add=nouTableDelim
 syn match nouTableDelim display excludenl '|'
 
+hi! nouPunct ctermfg=1 guifg=#ff0000
+syn cluster nouArtifactQ add=nouPunct
+syn match nouPunct display excludenl '[<>]'
+
 " BAD: ignored after task marker [X] !~ \A+
 hi! nouArtifactKey cterm=bold ctermfg=167 gui=bold guifg=#df5f5f
 syn cluster nouArtifactQ add=nouArtifactKey
