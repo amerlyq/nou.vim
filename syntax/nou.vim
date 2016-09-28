@@ -22,6 +22,11 @@ hi def link nouConceal Ignore
 "     => BUT: then can't inherit outline body color (uses match color instead)
 
 
+""" NOTE: placed at top to be overrided by decisions
+" BUG: inlined decisions (? ... ) -- will be FIXED by def their syntax
+call nou#syntax#art_delim('[[:punct:]]+')
+
+
 """ Accents
 " '"`{[(_: -- symmetrical pair.
 " ALSO: complex bounds like {: ... :} -- make diff bg/fg accents spectrum
@@ -166,10 +171,10 @@ hi! nouTableDelim cterm=bold ctermfg=172 gui=bold guifg=#d78700
 syn cluster nouArtifactQ add=nouTableDelim
 syn match nouTableDelim display excludenl '|'
 
-" BUG: breaks '<' decision
-hi! nouPunct ctermfg=1 guifg=#ff0000
-syn cluster nouArtifactQ add=nouPunct
-syn match nouPunct display excludenl '[<>]'
+" " BUG: breaks '<' decision
+" hi! nouPunct ctermfg=1 guifg=#ff0000
+" syn cluster nouArtifactQ add=nouPunct
+" syn match nouPunct display excludenl '[<>]'
 
 " BAD: ignored after task marker [X] !~ \A+ or after any other 'decision'
 "  => E.G. even '\v^%(\s{4})@<=\k+' isn't working
