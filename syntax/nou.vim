@@ -166,15 +166,17 @@ hi! nouTableDelim cterm=bold ctermfg=172 gui=bold guifg=#d78700
 syn cluster nouArtifactQ add=nouTableDelim
 syn match nouTableDelim display excludenl '|'
 
+" BUG: breaks '<' decision
 hi! nouPunct ctermfg=1 guifg=#ff0000
 syn cluster nouArtifactQ add=nouPunct
 syn match nouPunct display excludenl '[<>]'
 
-" BAD: ignored after task marker [X] !~ \A+
+" BAD: ignored after task marker [X] !~ \A+ or after any other 'decision'
+"  => E.G. even '\v^%(\s{4})@<=\k+' isn't working
 hi! nouArtifactKey cterm=bold ctermfg=167 gui=bold guifg=#df5f5f
 syn cluster nouArtifactQ add=nouArtifactKey
 syn match nouArtifactKey display excludenl
-  \ '\v%(^|\s@1<=)\K+:%(\ze\s|$)'
+  \ '\v^%(\A{-}\s@1<=)?\zs\k+:%(\ze\s|$)'
 
 " CHECK:
 " -- syntax higlighting block between two marks start=/\%'m/ end=/\%'n/
