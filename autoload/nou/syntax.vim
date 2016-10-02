@@ -94,11 +94,11 @@ fun! nou#syntax#header(i)
   let c = g:nou.header.colors[a:i]
   let s = repeat(g:nou.header.symbol,
     \ g:nou.header.ascending ? a:i + 1 : len(g:nou.header.colors) - a:i)
-  exe 'syn cluster nouHeaderQ add='.nm.'r'
+  exe 'syn cluster nouHeaderQ add='.nm
   " NOTE: if used '\zs' in '^\s*\zs\z(' -- will be rematched to outline
-  exe 'syn region '.nm.' display oneline keepend excludenl'
-    \.' matchgroup=nouComment contains=NONE'
-    \.' start='.s:p('^\s*\z('.s.')\s')
+  exe 'syn region '.nm.' display oneline keepend excludenl concealends'
+    \.' matchgroup=nouConceal contains=NONE'
+    \.' start='.s:pb('\z('.s.')\s')
     \.' end='.s:pe('\s\z1').' end='.s:p('$')
   call nou#syntax#_highlight(nm, c, 'gui=bold,inverse')
 endf
