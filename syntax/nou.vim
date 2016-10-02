@@ -27,6 +27,12 @@ hi def link nouConceal Ignore
 call nou#syntax#art_delim('[[:punct:]]+')
 
 
+" ATT: define before accents, to suppress conflicts with |..|
+hi! nouTableDelim cterm=bold ctermfg=172 gui=bold guifg=#d78700
+syn cluster nouArtifactQ add=nouTableDelim
+syn match nouTableDelim display excludenl '|'
+
+
 """ Accents
 " '"`{[(_: -- symmetrical pair.
 " ALSO: complex bounds like {: ... :} -- make diff bg/fg accents spectrum
@@ -165,11 +171,6 @@ syn match nouArtifactUrl display excludenl
 
 call nou#syntax#path()
 call nou#syntax#regex()
-
-" BUG: conflicts with accent |..|
-hi! nouTableDelim cterm=bold ctermfg=172 gui=bold guifg=#d78700
-syn cluster nouArtifactQ add=nouTableDelim
-syn match nouTableDelim display excludenl '|'
 
 " " BUG: breaks '<' decision
 " hi! nouPunct ctermfg=1 guifg=#ff0000
