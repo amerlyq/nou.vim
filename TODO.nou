@@ -40,6 +40,11 @@ TODO
     [_] USE 'solarized' only for numbers and other objects of std syntax
 
 %%% Headers
+  [_] IDEA: beside headers (OR instead of them) use multicolor labels
+    * Like current headers with concealed markers
+    = Useful to label outlines/paragraphs
+      < as clean hierarchy not always possible
+    = Good in combining with *delimiters* like in this TODO.nou
   [_] Headers: bold. How to make them more distinguishing?
   [_] FIXME:DEV: don't treat headers as artifacts inside outline
     << E.G. #outline contains=..,@nouHeaderQ,..
