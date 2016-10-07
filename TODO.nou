@@ -239,6 +239,7 @@ NEED special way to continue long entries on next line
   TRY: instead of 2nd/3rd set of decisions make 'contained' syntax starting on *_* or *__*
 
 %% Task/progress
+  [_] BUG ru text /[а-я]{1,3}/ treated as /\W+/ => marker placed after it
   THINK if only marker is highlighted and therefore truly visible --> MAYBE:USE: shortened form '_ x' instead of full '[_] [X]'?
   MAYBE: use shorter date spec?
     160716:[X]
