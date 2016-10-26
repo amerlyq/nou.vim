@@ -167,7 +167,7 @@ syn match nouTask display excludenl
 hi! nouArtifactUrl cterm=underline ctermfg=81 gui=underline guifg=#6c71c4
 syn cluster nouArtifactQ add=nouArtifactUrl
 syn match nouArtifactUrl display excludenl
-  \ '\v<%(\w{3,}://|www\.|%(mailto|javascript):)\S*'
+  \ '\v<%(\w{3,}://|www\.|%(mailto|javascript):)\S{-}\ze%([[:blank:],)]|$)'
 
 call nou#syntax#path()
 call nou#syntax#regex()
