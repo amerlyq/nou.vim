@@ -133,6 +133,10 @@ TODO
   [_] Make ".." transparent syntax group
     -> allows to specify different allowed inner groups
         EXG: disable hi! for '|' inside quoted text
+  [_] Colorized accents:
+    red: r'..'
+    green: g*..*
+    emphasize: #'..' -- contrasted to current outline color
 
 % Unconcealed
   [_] strings in double quotes '\v([''"])(.{-})\1'
