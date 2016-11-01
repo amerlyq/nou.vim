@@ -164,10 +164,16 @@ syn match nouTask display excludenl
 " EXPL: https, ftp, news, file
 " THINK: diff color urls -- don't do 'contains=@nouArtifactG'
 " TRY: different color for heading and '[/?=]' in url
-hi! nouArtifactUrl cterm=underline ctermfg=81 gui=underline guifg=#6c71c4
+hi! nouArtifactUrl cterm=underline ctermfg=62 gui=underline guifg=#6c71c4
 syn cluster nouArtifactQ add=nouArtifactUrl
 syn match nouArtifactUrl display excludenl
   \ '\v<%(\w{3,}://|www\.|%(mailto|javascript):)\S{-}\ze%([[:blank:],)]|$)'
+
+" File-like urls override for direct download (.pdf, .md, .doc, ...)
+hi! nouArtifactUrlFile cterm=underline ctermfg=27 gui=underline guifg=#005fff
+syn cluster nouArtifactQ add=nouArtifactUrlFile
+syn match nouArtifactUrlFile display excludenl
+  \ '\v<%(\w{3,}://)\S{-}\.%(html?)@!\a{2,4}\ze%([[:blank:],)]|$)'
 
 call nou#syntax#path()
 call nou#syntax#regex()

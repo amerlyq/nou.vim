@@ -178,6 +178,10 @@ SEE
       ! BUT then 'gf' will be impossible on files, them being treated as dirs
   [_] TRY: add path/url obj to embedded syntax to highlight usage in shell
   [_] TRY: make all cmds green (or use zsh-cmdline hi if possible)
+  Categorized colors for 'urls' by provider
+    2016-11-01 [X] '.pdf|.md|.doc|...' (dark-blue)
+    [_] 'google|yandex|...' (light-blue)
+    [_] 'wiki|arch|stack(overflow|exchange)|quora|habrahabr...' (light-green)
 
 %% Key-value
   < USE instead of mixed/unfolded tables
