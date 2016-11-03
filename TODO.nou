@@ -318,3 +318,8 @@ NEED special way to continue long entries on next line
     Важно: скорость и качество (гладкость) рендеринга -- должно давать
     качественную эппловую картинку, а не коробить взгляд как вим своими
     шрифтами на винде.
+
+%%% Dynamic colorschemes
+  Switch between colorschemes with focus on different aspects
+    standart
+    all accented words, default white for any other text
