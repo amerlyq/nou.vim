@@ -137,6 +137,14 @@ TODO
     red: r'..'
     green: g*..*
     emphasize: #'..' -- contrasted to current outline color
+  [_] Invert standout accent
+    exchange bkgr/frgr colors %text% to always standout from text/outline
+  [_] Allow sfx after accent: like *mod*s
+    MAYBE use concealed additional delimiters *mod**s | *mod*\s | *mod*'s
+  [_] Local colorscheme
+    List words/regex and colors to highlight in current file/directory
+      = Like arch keywords in 'miur'
+    E.G. embedded: modeline/header/footer or separate file in dir
 
 % Unconcealed
   [_] strings in double quotes '\v([''"])(.{-})\1'
