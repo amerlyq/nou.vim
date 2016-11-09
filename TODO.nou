@@ -331,3 +331,23 @@ NEED special way to continue long entries on next line
   Switch between colorschemes with focus on different aspects
     standart
     all accented words, default white for any other text
+
+%%% Overcomplicated structures with some info dup
+  ? How to manage complexity
+  ? What representation is the best to reduce dup
+    => all new info must be inserted around similar old info
+  ? Way for easy refactoring
+    assemble-regroup similar data into strict 'graphems'
+      = data normalizing
+
+%%% Interactive data
+  Desc + diagrams
+    Embed links to files
+      - relative to current file :/ or .//
+      - relative to repo :=/ or ://
+    Different prefix and color
+      - distinguish from static path hi!
+      - bind keymap to this active area
+    ? Allow some bash commands to be executable ?
+      - another prf :$ ... $:
+      - auto-expand :/path to repo root
