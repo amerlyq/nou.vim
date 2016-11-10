@@ -43,9 +43,10 @@ fun! nou#syntax#outline(i)
   "   -- BUG: irritating EOF highlighting when typing opening accent
   " ENH:USE: ALL ALLBUT,{gr} TOP TOP,{gr} CONTAINED CONTAINED,{gr}
   exe 'syn cluster nouOutlineQ add='.nm
-  exe 'syn region '.nm.' display oneline keepend excludenl'
+  exe 'syn region '.nm.' display keepend excludenl'
     \.' contains=@nouTextQ,@nouDelimQ,@nouDecisionQ'
     \.' start='.s:p(nou#syntax#_indent(a:i))
+    \.' skip='.s:p('\\\s*$')
     \.' end='.s:p('$')
   call nou#syntax#_highlight(nm, g:nou.outline.colors[a:i])
 endf

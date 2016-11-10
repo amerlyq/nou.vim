@@ -7,6 +7,8 @@ TODO
     [_] http://tiddlywiki.com  -- one-page wiki
       [_] Extract all scripts (~8) in github for converting
     [_] https://github.com/jceb/vim-orgmode
+    [_] https://github.com/Rykka/riv.vim
+    [_] https://github.com/vim-voom/VOoM
   [_] THINK extend Markdown by indented outline syntax and new marks instead of own?
     > Markdown flavours aren't suited for my writings
   [_] THINK:TRY: embed 'nou' into Comment group of any other syntax files
