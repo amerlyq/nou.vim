@@ -173,7 +173,7 @@ syn match nouArtifactUrl display excludenl
 hi! nouArtifactUrlFile cterm=underline ctermfg=27 gui=underline guifg=#005fff
 syn cluster nouArtifactQ add=nouArtifactUrlFile
 syn match nouArtifactUrlFile display excludenl
-  \ '\v<%(\w{3,}://)\S{-}\.%(html?)@!\a{2,4}\ze%([[:blank:],)]|$)'
+  \ '\v<%(\w{3,}://)\S{-}\.%(x?html?|php)@!\a{2,4}\ze%([[:blank:],)]|$)'
 
 call nou#syntax#path()
 call nou#syntax#regex()
