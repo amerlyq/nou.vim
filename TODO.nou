@@ -18,6 +18,13 @@ TODO
   [_] THINK Tagbar -- always open, shows outer outline (useful for music.otl)
   [_] add link to ./doc dirs from my other repos -- as examples of extensive usage of *.nou
 
+  [_] BAD: long lines dont match syntax at all FIXME: always match at beginning
+    # set synmaxcol=8000   " clear syntax state over that width, =8000 pretty safe
+    ALT: replace 'region' match by 'regex' match
+  [_] FIX 'Task' regex in mappings to match by /\k/ -- which supports cyrillic
+    http://unix.stackexchange.com/questions/60481/match-word-containing-characters-beyond-a-za-z
+    http://stackoverflow.com/questions/19385458/vim-regex-matches-unicode-characters-are-as-non-word
+
 
 %%%% Syntax %%%% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
