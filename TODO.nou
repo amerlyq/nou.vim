@@ -185,6 +185,8 @@ SEE
     = so I could simplify bash/haskell snippets in otl
 
 %% Path / Url
+  [_] THINK: hi! separate extensions: .xml or *.nou
+    BUT: beware -- treats hidden files like .xinitrc as extensions
   [_] BUG: manual paths -- 'gf' treats //some/file as starting from '/'
     ? is there need to fix? FIND: possible cases where need different behaviour
   [_] BUG: captures trailing characters: (//dir) //dir.
