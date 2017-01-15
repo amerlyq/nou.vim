@@ -1,6 +1,7 @@
 %%%%% Notes + outline unified
 
 TODO
+  [_] script for pandoc to convert *.nou into *.md
   [_] Test and compare with vimoutliner
     [_] https://github.com/xolox/vim-notes/blob/master/autoload/xolox/notes.vim
     [_] https://github.com/vimwiki/vimwiki
@@ -49,6 +50,8 @@ TODO
     [_] USE 'solarized' only for numbers and other objects of std syntax
 
 %%% Headers
+  [_] BAD: always concealing -- can't relaibly detemine header nesting level
+    ? maybe *.md isn't that bad using '#' explicitly
   [_] IDEA: beside headers (OR instead of them) use multicolor labels
     * Like current headers with concealed markers
     = Useful to label outlines/paragraphs
@@ -302,6 +305,10 @@ NEED special way to continue long entries on next line
 
 
 %%%% IDEAS %%%% ********************************************************
+
+%%% Literal programming
+  Unite with ideas from 'latex' or 'haskell' for literal programming
+    = interleaving documentation and code
 
 %%% Python back-end
   Write back-end core in python
