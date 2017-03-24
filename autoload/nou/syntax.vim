@@ -82,6 +82,21 @@ fun! nou#syntax#accent(k)
   call nou#syntax#_highlight(nm, '', c)
 endf
 
+fun! nou#syntax#term(k)
+  let nm = 'nouTerm'.a:k
+  let [b, e, c] = g:nou.term.colors[a:k]
+  let S = '[^[:blank:]]'
+  exe 'syn cluster nouTermQ add='.nm
+  " TRY: always keep matchgroup syms the same color despite accents modifying colors inside them
+  exe 'syn region '.nm.' display oneline keepend '
+    \.' excludenl matchgroup='.nm.' contains=@nouAccentQ'
+    \.' start='.s:pb(b.'\ze'.S, '[:punct:]')
+    \.' end='.s:pe(S.'\zs'.e, '[:punct:]')
+  if c !~# '='| let c = 'cterm='.c.' gui='.c |en
+  let c = 'ctermfg=1 guifg=#ff0000 '.c
+  call nou#syntax#_highlight(nm, '', c)
+endf
+
 fun! nou#syntax#art_delim(r)
   let nm = 'nouArtifactDelim'
   exe 'syn cluster nouArtifactQ add='.nm

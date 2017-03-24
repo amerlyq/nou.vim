@@ -29,7 +29,13 @@ let s:nou.accent.colors = {
   \ 'Bold': ['\*', 'bold'],
   \ 'Italic': ["'", 'italic'],
   \ 'Underlined': ['_', 'underline'],
-  \ 'Standout': ['\|', 'ctermbg=16 guibg=#000000'],
+  \ }
+
+let s:nou.term = {}
+let s:nou.term.colors = {
+  \ 'Key': ['\<', '\>', 'ctermfg=1 guifg=#dc322f'],
+  \ 'Str': ['"', '"', 'ctermfg=81 guifg=#5fdfff'],
+  \ 'Standout': ['\|', '\|', 'ctermbg=16 guibg=#000000'],
   \ }
 
 

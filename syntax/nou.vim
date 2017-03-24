@@ -57,6 +57,9 @@ syn match nouTableDelim display excludenl '|'
 "   DEV: toggle by option -- individual colors or general one
 "     NOTE: general has merits of contrast and more performance than individual
 
+for k in keys(g:nou.term.colors)
+  call nou#syntax#term(k)
+endfor
 for k in keys(g:nou.accent.colors)
   call nou#syntax#accent(k)
 endfor
@@ -200,7 +203,7 @@ for ft in keys(g:nou.embed)
 endfor
 
 syn cluster nouTextQ add=@Spell,nouComment,nouTask
-  \,@nouArtifactQ,@nouAccentQ,@nouEmbedQ
+  \,@nouArtifactQ,@nouAccentQ,@nouTermQ,@nouEmbedQ
 
 " EXPL: must be last line -- set single-loading guard only if no exceptions
 let b:current_syntax = 'nou'
