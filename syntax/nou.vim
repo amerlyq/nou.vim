@@ -167,7 +167,8 @@ syn match nouTask display excludenl
 hi! nouArtifactUrl cterm=underline ctermfg=62 gui=underline guifg=#6c71c4
 syn cluster nouArtifactQ add=nouArtifactUrl
 syn match nouArtifactUrl display excludenl
-  \ '\v<%(\w{3,}://|www\.|%(mailto|javascript):)\S{-}\ze%([[:blank:],)]|$)'
+  \ '\v<%(\w{3,}://|www\.|%(mailto|javascript):)\S*'
+" OR:(exclude trailing): \S{-}\ze%([[:blank:],)]|$)
 
 " File-like urls override for direct download (.pdf, .md, .doc, ...)
 hi! nouArtifactUrlFile cterm=underline ctermfg=27 gui=underline guifg=#005fff
