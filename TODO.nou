@@ -211,6 +211,10 @@ SEE
   ~ embedded yaml
   ? own syntax (key-value dif colors, highlight ops like 'A -> B', etc)
   MAYBE:(like accent) highlight everywhere OR at beginning of line?
+  IDEA: different colors depending on position beg/mid (if \w+ exists before key)
+  DEV
+    key: value
+    key=value
 
 %% Operators
   [_] Arrows: hi! _in-text_ constructions like *=>*
