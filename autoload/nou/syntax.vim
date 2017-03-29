@@ -223,3 +223,12 @@ fun! nou#syntax#path()
   exe 'hi '.nm.'S'.B.'ctermfg=224 guifg=#dc322f'
   exe 'hi '.nm.'T'.B.'ctermfg=81  guifg=#cb4b16'
 endf
+
+fun! nou#syntax#artf_ext()
+  let nm = 'nouArtifactExt'
+  exe 'syn cluster nouArtifactQ add='.nm
+  exe 'syn match '.nm.' display excludenl'
+    \.' '.s:pbe('[*%]?[._]\S+')
+  let B = ' cterm=bold ctermbg=NONE gui=bold guibg=NONE '
+  exe join(['hi', nm, B, 'ctermfg=177 guifg=#df87ff'])
+endf

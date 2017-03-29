@@ -14,13 +14,11 @@ setl commentstring=#\ %s
 
 setl nowrap
 setl foldmethod=indent
-setl conceallevel=3
+setl conceallevel=2  " NEED=2: nouSpoiler uses 'cchar'
 
-" EXPL:(commented) irritating cursor lags when moving in line
-" setl concealcursor=nv
-" EXPL:BUG: in insert with opened deoplete.vim menu -- wrong cursor position
-" -- same as w/o conceal -- if text concealed is on the left of cursor
-" setl concealcursor=i
+" NOTE: don't use any of "nv" -- to show nouSpoiler on cursor
+"   * ALSO:BAD: irritating 'lag' on cursor move in line
+"   * BUG="i" in deoplete.vim -- wrong cursor/menu position
 setl concealcursor=""
 
 

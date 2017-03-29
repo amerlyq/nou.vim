@@ -180,6 +180,7 @@ syn cluster nouArtifactQ add=nouArtifactUrlFile
 syn match nouArtifactUrlFile display excludenl
   \ '\v<%(\w{3,}://)\S{-}\.%(x?html?|php)@!\a{2,4}\ze%([[:blank:],)]|$)'
 
+call nou#syntax#artf_ext()
 call nou#syntax#path()
 call nou#syntax#regex()
 
@@ -201,7 +202,7 @@ syn match nouArtifactKey display excludenl
 
 syn cluster nouSpoilerQ add=nouSpoiler
 syn region nouSpoiler display oneline keepend transparent extend conceal
-  \ matchgroup=Special cchar=…
+  \ matchgroup=nouConceal cchar=…
   \ start='{+' end='+}'
 
 for ft in keys(g:nou.embed)
