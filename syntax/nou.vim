@@ -33,6 +33,8 @@ hi! nouTableDelim cterm=bold ctermfg=172 gui=bold guifg=#d78700
 syn cluster nouArtifactQ add=nouTableDelim
 syn match nouTableDelim display excludenl '|'
 
+" ATT: placed before accents, to distinguish _underline_ from _extension
+call nou#syntax#artf_ext()
 
 """ Accents
 " '"`{[(_: -- symmetrical pair.
@@ -180,7 +182,6 @@ syn cluster nouArtifactQ add=nouArtifactUrlFile
 syn match nouArtifactUrlFile display excludenl
   \ '\v<%(\w{3,}://)\S{-}\.%(x?html?|php)@!\a{2,4}\ze%([[:blank:],)]|$)'
 
-call nou#syntax#artf_ext()
 call nou#syntax#path()
 call nou#syntax#regex()
 

@@ -227,7 +227,7 @@ endf
 fun! nou#syntax#artf_ext()
   let nm = 'nouArtifactExt'
   exe 'syn cluster nouArtifactQ add='.nm
-  exe 'syn match '.nm.' display excludenl'
+  exe 'syn match '.nm.' display excludenl contains=@nouSpoilerQ'
     \.' '.s:pbe('[*%]?[._]\S+')
   let B = ' cterm=bold ctermbg=NONE gui=bold guibg=NONE '
   exe join(['hi', nm, B, 'ctermfg=177 guifg=#df87ff'])
