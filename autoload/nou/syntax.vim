@@ -16,7 +16,7 @@ fun! s:pe(_, ...)
   return s:p('%('.a:_.')%('.s:ps(get(a:,1,'')).'@1=|$)', get(a:,2,'/'))
 endf
 fun! s:pbe(_, ...)
-  return s:p('%(^|'.s:ps(get(a:,1,'')).'@1<=)%('.a:_.')%('.s:ps(get(a:,1,'')).'@1=|$)', get(a:,2,'/'))
+  return s:p('%(^|'.s:ps(get(a:,1,'')).'@1<=)%('.a:_.')%('.s:ps(get(a:,2,get(a:,1,''))).'@1=|$)', get(a:,3,'/'))
 endf
 
 fun! nou#syntax#_indent(i)
@@ -89,8 +89,9 @@ fun! nou#syntax#term(k)
   exe 'syn cluster nouTermQ add='.nm
   " TRY: always keep matchgroup syms the same color despite accents modifying colors inside them
   exe 'syn region '.nm.' display oneline keepend '
-    \.' excludenl matchgroup='.nm.' contains=@nouAccentQ'
+    \.' excludenl matchgroup='.l:nm.' contains=@nouAccentQ'
     \.' start='.s:pb(b.'\ze'.S, '[:punct:]')
+    \.' skip='.s:p('\\\|')
     \.' end='.s:pe(S.'\zs'.e, '[:punct:]')
   if c !~# '='| let c = 'cterm='.c.' gui='.c |en
   let c = 'ctermfg=1 guifg=#ff0000 '.c
@@ -168,7 +169,7 @@ fun! nou#syntax#regex()
   exe 'syn region '.nm.' display oneline keepend excludenl'
     \.' contains=@'.nm.'Q'
     \.' matchgroup='.nm.'D'
-    \.' start='.s:pbe('/\ze%([^/]|\\@1<=/)+/', ',', '~')
+    \.' start='.s:pbe('/\ze%([^/]|\\@1<=/)+/', ',', ',', '~')
     \.' end='.s:pe('\S\zs/', ',', '~')
     " \.' skip='.s:p('\\\s', '~')
 
@@ -228,7 +229,7 @@ fun! nou#syntax#artf_ext()
   let nm = 'nouArtifactExt'
   exe 'syn cluster nouArtifactQ add='.nm
   exe 'syn match '.nm.' display excludenl contains=@nouSpoilerQ'
-    \.' '.s:pbe('[*%]?[._]\S+')
+    \.' '.s:pbe('[*%]?[._][[:alnum:]~#][[:alnum:]._~#]*', '([{,;|', '[:punct:]')
   let B = ' cterm=bold ctermbg=NONE gui=bold guibg=NONE '
   exe join(['hi', nm, B, 'ctermfg=177 guifg=#df87ff'])
 endf
