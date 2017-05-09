@@ -25,6 +25,8 @@ TODO
   [_] FIX 'Task' regex in mappings to match by /\k/ -- which supports cyrillic
     http://unix.stackexchange.com/questions/60481/match-word-containing-characters-beyond-a-za-z
     http://stackoverflow.com/questions/19385458/vim-regex-matches-unicode-characters-are-as-non-word
+  [_] IDEA:THINK: fast short notes-taking and storing in one of predetermined dirs
+    https://github.com/Alok/notational-fzf-vim
 
 
 %%%% Syntax %%%% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
