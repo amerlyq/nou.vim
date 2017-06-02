@@ -229,7 +229,17 @@ fun! nou#syntax#artf_ext()
   let nm = 'nouArtifactExt'
   exe 'syn cluster nouArtifactQ add='.nm
   exe 'syn match '.nm.' display excludenl contains=@nouSpoilerQ'
-    \.' '.s:pbe('[*%]?[._][[:alnum:]~#][[:alnum:]._~#]*', '([{,;|', '[:punct:]')
+    \.' '.s:pbe('[*%]?[._][[:alnum:]~#][[:alnum:]._~#]*', '(\[{,;|', '[:punct:]')
   let B = ' cterm=bold ctermbg=NONE gui=bold guibg=NONE '
   exe join(['hi', nm, B, 'ctermfg=177 guifg=#df87ff'])
+endf
+
+fun! nou#syntax#artf_hashtag()
+  let nm = 'nouArtifactHashTag'
+  exe 'syn cluster nouArtifactQ add='.nm
+  exe 'syn match '.nm.' display excludenl contains=@nouSpoilerQ'
+    \.' '.s:pbe('#+\w\S{-}', '(\[{,;|', '|;,}\])')
+  let B = ' cterm=bold ctermbg=NONE gui=bold guibg=NONE '
+  exe join(['hi', nm, B, 'ctermfg=142 guifg=#afaf00'])
+  " exe join(['hi', nm, B, 'ctermfg=62 guifg=#5f5fdf'])
 endf
