@@ -288,6 +288,7 @@ NEED special way to continue long entries on next line
     ? hard to test ?
   2016-09-12 [X] BUG: task symbol "_" affects underlined text
     * Use nesting marginal effects -- create for '[_]' its own syntax group
+  [_] TRY: different color for todo:(blueish) / done:(grayish) / cancel:(yellow-orange-brownish)
 
 
 %%%% API %%%% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
