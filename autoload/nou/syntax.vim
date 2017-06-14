@@ -243,3 +243,13 @@ fun! nou#syntax#artf_hashtag()
   exe join(['hi', nm, B, 'ctermfg=142 guifg=#afaf00'])
   " exe join(['hi', nm, B, 'ctermfg=62 guifg=#5f5fdf'])
 endf
+
+fun! nou#syntax#artf_contact()
+  let nm = 'nouArtifactContact'
+  exe 'syn cluster nouArtifactQ add='.nm
+  let lst = 'irc|skype|mail'
+  exe 'syn match '.nm.' display excludenl contains=@nouSpoilerQ'
+    \.' '.s:pbe('('.lst.'):#+\w\S{-}', '(\[{,;|', '|;,}\])')
+  let B = ' cterm=bold ctermbg=NONE gui=bold guibg=NONE '
+  exe join(['hi', nm, B, 'ctermfg=28 guifg=#005f5f'])
+endf
