@@ -231,6 +231,7 @@ SEE
   [_] Hex/octal numbers -- class-related coloring for ascii, non-printable, etc
     E.G. /0x\x+/ /\\x\x+/ /\\\d+/
     ALSO: comment-like hi! for suffix number specifier /\x+[hdbo]/
+  [_] multiline region of <```hex ... ```> for hexdumps (E.G. ./gdb/doc/frames.nou )
 
 %% Functions
   2017-06-22 [X] Anything in block /\k+\(/ .. /\)/
@@ -313,6 +314,9 @@ NEED special way to continue long entries on next line
 
   [_] url/path : jump_next/jump_hint/open/show_all_in_unite
   [_] use '[[' and ']]' to jump between headers
+  [_] DEV add to nou#bar() ability to prepend line by 'decision'
+    * '??' : 2<LocalLeader>?
+    * '!4' : 4<LocalLeader>!
 
 
 %%%% LIMITATIONS %%%% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
