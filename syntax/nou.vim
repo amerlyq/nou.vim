@@ -38,6 +38,7 @@ call nou#syntax#artf_ext()
 call nou#syntax#artf_hashtag()
 call nou#syntax#artf_contact()
 call nou#syntax#artf_function()
+runtime autoload/nou/number.vim
 
 """ Accents
 " '"`{[(_: -- symmetrical pair.

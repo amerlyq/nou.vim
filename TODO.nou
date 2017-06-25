@@ -225,6 +225,13 @@ SEE
   [_] hi! any numbers: dec/hex/float/science -- dif color to outline
   [_] hi! separate char-seq /<\W+>/ -- dif color to numbers
 
+%% Numbers
+  2017-06-22 [X] General standalone numbers -- normal light blue
+  [_] Numbers used as priority or order in lists -- bold darker blue
+  [_] Hex/octal numbers -- class-related coloring for ascii, non-printable, etc
+    E.G. /0x\x+/ /\\x\x+/ /\\\d+/
+    ALSO: comment-like hi! for suffix number specifier /\x+[hdbo]/
+
 %% Functions
   2017-06-22 [X] Anything in block /\k+\(/ .. /\)/
   [_] THINK: hi! structs before func in brown E.G: struct.func()
