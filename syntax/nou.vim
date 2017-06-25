@@ -37,6 +37,7 @@ syn match nouTableDelim display excludenl '|'
 call nou#syntax#artf_ext()
 call nou#syntax#artf_hashtag()
 call nou#syntax#artf_contact()
+call nou#syntax#artf_function()
 
 """ Accents
 " '"`{[(_: -- symmetrical pair.

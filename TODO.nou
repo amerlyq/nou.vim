@@ -225,6 +225,17 @@ SEE
   [_] hi! any numbers: dec/hex/float/science -- dif color to outline
   [_] hi! separate char-seq /<\W+>/ -- dif color to numbers
 
+%% Functions
+  2017-06-22 [X] Anything in block /\k+\(/ .. /\)/
+  [_] THINK: hi! structs before func in brown E.G: struct.func()
+  [_] THINK: include pointers, type conversion:  *(some *)func()
+    [_] BUT: distinguish from NOTE:(some text)
+    [_] ALT: type conversion colored in yellow
+  2017-06-25 [X] TRY: diff/grey color for function arguments
+    2017-06-25 [X] Allow nesting of function call syntax: f(a, g())
+    [_] FIXME: Allow nesting of brackets f((char*)a)
+  [_] TRY: apply rainbow brackets to nested functions
+
 
 %%%% Extensions %%%% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

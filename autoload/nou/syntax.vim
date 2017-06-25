@@ -237,7 +237,7 @@ endf
 fun! nou#syntax#artf_hashtag()
   let nm = 'nouArtifactHashTag'
   exe 'syn cluster nouArtifactQ add='.nm
-  exe 'syn match '.nm.' display excludenl contains=@nouSpoilerQ'
+  exe 'syn match '.nm.' display excludenl'
     \.' '.s:pbe('#+\w\S{-}', '(\[{,;|', '|;,}\])')
   let B = ' cterm=bold ctermbg=NONE gui=bold guibg=NONE '
   exe join(['hi', nm, B, 'ctermfg=142 guifg=#afaf00'])
@@ -248,8 +248,22 @@ fun! nou#syntax#artf_contact()
   let nm = 'nouArtifactContact'
   exe 'syn cluster nouArtifactQ add='.nm
   let lst = 'irc|skype|mail'
-  exe 'syn match '.nm.' display excludenl contains=@nouSpoilerQ'
+  exe 'syn match '.nm.' display excludenl'
     \.' '.s:pbe('('.lst.'):#+\w\S{-}', '(\[{,;|', '|;,}\])')
   let B = ' cterm=bold ctermbg=NONE gui=bold guibg=NONE '
   exe join(['hi', nm, B, 'ctermfg=28 guifg=#005f5f'])
+endf
+
+fun! nou#syntax#artf_function()
+  let nm = 'nouArtifactFunction'
+  exe 'syn cluster nouArtifactQ add='.nm
+  exe 'syn region '.nm.' display oneline excludenl extend'
+    \.' excludenl matchgroup='.nm.'H'
+    \.' contains='.nm
+    \.' start='.s:p('\w+\(')
+    \.' end='.s:p('\)')
+    " \.' skip='.s:p('\\\s', '~')
+  let B = ' cterm=underline ctermbg=NONE gui=underline,italic guibg=NONE '
+  exe join(['hi', nm.'H', B, 'ctermfg=33 guifg=#3087ff'])
+  exe join(['hi', nm, B, 'ctermfg=10 guifg=#688e95'])
 endf
