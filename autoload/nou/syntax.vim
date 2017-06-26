@@ -254,6 +254,7 @@ fun! nou#syntax#artf_contact()
   exe join(['hi', nm, B, 'ctermfg=28 guifg=#005f5f'])
 endf
 
+" FIXME: nested function inside @nouSpoilerQ
 fun! nou#syntax#artf_function()
   let nm = 'nouArtifactFunction'
   exe 'syn cluster nouArtifactQ add='.nm
@@ -262,6 +263,7 @@ fun! nou#syntax#artf_function()
     \.' contains='.nm
     \.' start='.s:p('\w+\(')
     \.' end='.s:p('\)')
+    \.' end='.s:p('\ze\{\+')
     " \.' skip='.s:p('\\\s', '~')
   let B = ' cterm=underline ctermbg=NONE gui=underline,italic guibg=NONE '
   exe join(['hi', nm.'H', B, 'ctermfg=33 guifg=#3087ff'])
