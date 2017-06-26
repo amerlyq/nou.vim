@@ -8,7 +8,8 @@
   /////     # slash delim
   js://www  # link
   cc:\\rnd  # random
-  /home///  # repeated slash
+  ///root/  # repeated prf
+  /home///  # repeated sfx
   /\        # sfx \s
   \ /       # prf \s
   s :123    # num
@@ -32,7 +33,7 @@
   /root/path
   /home/user/
   c:\\Program\ Files\\Prg
-  c:\\Program\ Files\\     # BUG: trailing space instead of delimiter
+  c:\\Program\ Files\\      # BUG: trailing space instead of delimiter
   D:\some\path
 
 %% Marked '//'
@@ -44,7 +45,6 @@
   //some/dir/
   //some/file.ext
   //some/file_name
-  ///root/
 
 %% Prefixed
 
@@ -66,13 +66,13 @@
   //file:117
   //path/lnum:32
   /lnum/lcol:32:44
-  ~/d/n:13:5end    # inlined
+  ~/d/n:13:5end     # inlined
 
 %% With spaces
 
   /root/spa\ \ ce
-  ./relat/space\   # sfx \s
-  //\ some/space/    # prf \s
+  ./relat/space\    # sfx \s
+  //\ some/space/     # prf \s
   ./spa\ ce:89
 
 %% In lists
@@ -87,4 +87,4 @@
   (./dir  ./#)  (~/.)
   [/r/dir ~/_]  [/r/d]
   {//s/dir //dir} {//s}
-  <//file:117>
+  <//file:117>      # BAD: ending conflicts with /home/<path>

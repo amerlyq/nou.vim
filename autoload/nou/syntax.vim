@@ -188,8 +188,8 @@ endf
 
 fun! nou#syntax#path()
   let nm = 'nouPath'
-  let ps = s:p('\\[[:blank:],]')
-  let pe = s:pe('', ',')
+  let ps = s:p('\\[[:blank:]]')
+  let pe = s:pe('', ',)}\]')
 
   exe 'syn cluster nouArtifactQ add='.nm.','.nm.'C'
   exe 'syn cluster '.nm.'Q contains='.nm.'D,'.nm.'N,'.nm.'S,'.nm.'T'
@@ -198,7 +198,7 @@ fun! nou#syntax#path()
   exe 'syn region '.nm.' display oneline keepend excludenl'
     \.' contains=@'.nm.'Q'
     \.' matchgroup='.nm.'D'
-    \.' start='.s:pb('%([~]|\.{1,2})/\ze%([^/]|$)|/\ze[^/[:blank:]]', ',')
+    \.' start='.s:pb('%([~]|\.{1,2})/\ze%([^/]|$)|/\ze[^/[:blank:]]', ',({\[')
     \.' start='.s:pb('[[:alpha:]]:\\{1,2}\ze%([^\\]|$)', '[:punct:]')
     \.' skip='.ps
     \.' end='.pe
@@ -207,7 +207,7 @@ fun! nou#syntax#path()
   exe 'syn region '.nm.'C display oneline keepend excludenl concealends'
     \.' contains=@'.nm.'Q'
     \.' matchgroup=nouConceal'
-    \.' start='.s:pb('//\ze/?[^[:blank:]/]', '[:punct:]')
+    \.' start='.s:pb('//\ze%([^[:blank:]/]|\\)', ',({\[')
     \.' skip='.ps
     \.' end='.pe
 
