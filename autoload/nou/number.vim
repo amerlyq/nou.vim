@@ -32,14 +32,16 @@ hi def link nouNumberXprf Comment
 syn cluster nouNumberQ add=nouNumberHex,nouNumberBin
   \,nouNumberOct,nouNumberDec,nouNumberXtr
 
-syn match nouNumberOct display excludenl  '\v<(0\o+o?|\o+o)>'
+" TODO: allow '-/+' before numbers BUT: skip spans like 0x..-0x..
 syn match nouNumberDec display excludenl  '\v<(0|[1-9]\d*)>'
+" syn match nouNumberFPU display excludenl   '\<\d\+\(\.\d*\)\=\(e[-+]\=\d*\)\=\>'
+syn match nouNumberOct display excludenl  '\v<(0\o+o?|\o+o)>'
 syn match nouNumberBin display excludenl  '\v<(0b[01]+|[01]+b)>'
 syn match nouNumberHex display excludenl  '\v<(0x\x{,7}|\d\x{,6}h)>'
-" FIXME: colorize bytes only in /0x\x{8,}h?/
+" ATT: any hex-only 8+ letter words are hex numbers
+"   http://www.nsftools.com/tips/HexWords.htm
 syn match nouNumberXtr display excludenl contains=@nouNumberXQ
-  \ '\v<(0x\x{8,}|\d\x{8,}h)>'
-" syn match nouNumberFPU display excludenl   '\<\d\+\(\.\d*\)\=\(e[-+]\=\d*\)\=\>'
+  \ '\v<%(0x)?\x{8,}h?>'
 
 hi! nouNumber ctermfg=39 guifg=#00afff
 hi def link nouNumberBin  nouNumber
