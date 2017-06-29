@@ -40,6 +40,9 @@ syn match nouNumberBin display excludenl  '\v<(0b[01]+|[01]+b)>'
 syn match nouNumberHex display excludenl  '\v<(0x\x{,7}|\d\x{,6}h)>'
 " ATT: any hex-only 8+ letter words are hex numbers
 "   http://www.nsftools.com/tips/HexWords.htm
+" BAD: conflicts
+"   long decimal numbers 1234567890
+"   compact dates e.g. 20170628
 syn match nouNumberXtr display excludenl contains=@nouNumberXQ
   \ '\v<%(0x)?\x{8,}h?>'
 

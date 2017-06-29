@@ -31,11 +31,13 @@ let s:nou.accent.colors = {
   \ 'Underlined': ['_', 'underline'],
   \ }
 
+" FIXME: 'Str' must not contains @accents for cases like "_some_symbol_"
 let s:nou.term = {}
 let s:nou.term.colors = {
   \ 'Key': ['\<', '\>', 'ctermfg=1 guifg=#dc322f'],
   \ 'Str': ['"', '"', 'ctermfg=81 guifg=#5fdfff'],
   \ 'Err': ['!', '!', 'ctermfg=196 guifg=#ff0000 gui=bold,italic'],
+  \ 'Que': ['\?', '\?', 'ctermfg=208 guifg=#ff8700 gui=bold,italic'],
   \ 'Wrn': ['\~', '\~', 'ctermfg=226 guifg=#ffff00 gui=bold,italic'],
   \ 'Standout': ['\|', '\|', 'ctermbg=16 guibg=#000000'],
   \ }
