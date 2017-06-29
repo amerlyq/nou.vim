@@ -232,6 +232,7 @@ SEE
     E.G. /0x\x+/ /\\x\x+/ /\\\d+/
     ALSO: comment-like hi! for suffix number specifier /\x+[hdbo]/
   [_] multiline region of <```hex ... ```> for hexdumps (E.G. ./gdb/doc/frames.nou )
+    => because not all \x{8,} are hex data => some are big dec nums, some are dates
 
 %% Functions
   2017-06-22 [X] Anything in block /\k+\(/ .. /\)/
@@ -390,8 +391,12 @@ NEED special way to continue long entries on next line
 %%% Interactive data
   Desc + diagrams
     Embed links to files
+      [_] NEED: override gf/gF in vim -- and fallback to general 'gf'
+      - path from pwd ./
       - relative to current file :/ or .//
       - relative to repo :=/ or ://
+      - search in $PATH or in user-list of paths %/
+        E.G. %/airy/Makefile -- :lcd to '%' where placed 'airy' first, then open file
     Different prefix and color
       - distinguish from static path hi!
       - bind keymap to this active area
