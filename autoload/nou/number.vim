@@ -4,8 +4,8 @@ fun! nou#number#init()
 endf
 
 
-"" Hex elements
-syn cluster nouNumberXQ add=nouNumberXmin,nouNumberXmax
+"" Hex data elements
+syn cluster nouNumberXdataQ add=nouNumberXmin,nouNumberXmax
   \,nouNumberXlow,nouNumberXpri,nouNumberXhgh
   \,nouNumberXodd,nouNumberXprf
 
@@ -30,7 +30,7 @@ hi def link nouNumberXprf Comment
 
 "" Systems
 syn cluster nouNumberQ add=nouNumberHex,nouNumberBin
-  \,nouNumberOct,nouNumberDec,nouNumberXtr
+  \,nouNumberOct,nouNumberDec,nouNumberXdata,nouNumberXaddr
 
 " TODO: allow '-/+' before numbers BUT: skip spans like 0x..-0x..
 syn match nouNumberDec display excludenl  '\v<(0|[1-9]\d*)>'
@@ -43,12 +43,27 @@ syn match nouNumberHex display excludenl  '\v<(0x\x{,7}|\d\x{,6}h)>'
 " BAD: conflicts
 "   long decimal numbers 1234567890
 "   compact dates e.g. 20170628
-syn match nouNumberXtr display excludenl contains=@nouNumberXQ
-  \ '\v<%(0x)?\x{8,}h?>'
+" BUG: /\v<\x+>/ wrongly detects hex word border
+syn match nouNumberXdata display excludenl contains=@nouNumberXdataQ
+  \ '\v%(^|\W)\zs%(0x)?\x{8,}h?:@!\ze%(\W|$)'
 
 hi! nouNumber ctermfg=39 guifg=#00afff
 hi def link nouNumberBin  nouNumber
 hi def link nouNumberHex  nouNumber
 hi def link nouNumberOct  nouNumber
 hi def link nouNumberDec  nouNumber
-hi def link nouNumberXtr  nouNumberXodd
+hi def link nouNumberXdata  nouNumberXodd
+
+
+"" Hex address category
+syn cluster nouNumberXaddrQ add=nouNumberXnil,nouNumberXsfx
+
+syn match nouNumberXnil display excludenl contained  '0'
+syn match nouNumberXsfx display excludenl contained  ':'
+
+hi! nouNumberXnil ctermfg=102 guifg=#878787
+hi! nouNumberXsfx ctermfg=208 guifg=#ff8700
+
+syn match nouNumberXaddr display excludenl contains=@nouNumberXaddrQ
+  \ '\v%(^|\W)\zs%(0x)?\x{8,}:\ze%(\s|$)'
+hi def link nouNumberXaddr  nouNumber

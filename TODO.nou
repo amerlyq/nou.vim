@@ -233,6 +233,8 @@ SEE
     ALSO: comment-like hi! for suffix number specifier /\x+[hdbo]/
   [_] multiline region of <```hex ... ```> for hexdumps (E.G. ./gdb/doc/frames.nou )
     => because not all \x{8,} are hex data => some are big dec nums, some are dates
+  [_] THINK: hex string highlight last /000$/ in address => for memory aligned on page size
+    NEED: distinguish hi! for hex-address /\x{8,}:/ and hex-data
 
 %% Functions
   2017-06-22 [X] Anything in block /\k+\(/ .. /\)/
