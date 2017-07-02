@@ -10,7 +10,6 @@ syn cluster nouNumberXdataQ add=nouNumberXmin,nouNumberXmax
   \,nouNumberXodd,nouNumberXprf
 
 syn match nouNumberXodd display excludenl contained  '\x'
-syn match nouNumberXprf display excludenl contained  '0x\|h'
 syn match nouNumberXhgh display excludenl contained  '\x\x'
 syn match nouNumberXlow display excludenl contained  '[0-1]\x'
 syn match nouNumberXpri display excludenl contained  '[2-7]\x'
@@ -25,7 +24,6 @@ hi! nouNumberXlow ctermfg=28  guifg=#008800
 hi! nouNumberXpri ctermfg=137 guifg=#aa8822
 hi! nouNumberXhgh ctermfg=69  guifg=#2288cf
 hi! nouNumberXodd ctermfg=196 guifg=#ff0000 gui=bold
-hi def link nouNumberXprf Comment
 
 
 "" Systems
@@ -56,13 +54,16 @@ hi def link nouNumberXdata  nouNumberXodd
 
 
 "" Hex address category
-syn cluster nouNumberXaddrQ add=nouNumberXnil,nouNumberXsfx
+syn cluster nouNumberXaddrQ add=nouNumberXprf,nouNumberXnil,nouNumberXsfx
 
 syn match nouNumberXnil display excludenl contained  '0'
 syn match nouNumberXsfx display excludenl contained  ':'
+"" ATT: must be after all pieces to override partial matches
+syn match nouNumberXprf display excludenl contained  '0x\|h'
 
 hi! nouNumberXnil ctermfg=102 guifg=#878787
 hi! nouNumberXsfx ctermfg=208 guifg=#ff8700
+hi def link nouNumberXprf Comment
 
 syn match nouNumberXaddr display excludenl contains=@nouNumberXaddrQ
   \ '\v%(^|\W)\zs%(0x)?\x{8,}:\ze%(\s|$)'
