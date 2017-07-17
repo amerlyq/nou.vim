@@ -78,6 +78,9 @@ fun! nou#syntax#accent(k)
     \.' start='.s:pb(s.'\ze'.S, '[:punct:]')
     \.' end='.s:pe(S.'\zs'.s, '[:punct:]')
   if c !~# '='| let c = 'cterm='.c.' gui='.c |en
+  " BAD: everywhere-notches can mix italic of Comment with its own color, but
+  "   accents -- can't MAYBE check hi! priority order -- must be different ?
+  " ! NOTE(args) => italic -- treated as function but with overridden color
   let c = 'ctermfg=254 guifg=#e4e4e4 '.c
   call nou#syntax#_highlight(nm, '', c)
 endf
