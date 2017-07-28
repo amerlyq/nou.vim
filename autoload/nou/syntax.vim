@@ -81,6 +81,7 @@ fun! nou#syntax#accent(k)
   " BAD: everywhere-notches can mix italic of Comment with its own color, but
   "   accents -- can't MAYBE check hi! priority order -- must be different ?
   " ! NOTE(args) => italic -- treated as function but with overridden color
+  " USE:TEMP: call matchadd('TAccent', '"[^"]\+"', -1) for all overlay accents to mix color and type
   let c = 'ctermfg=254 guifg=#e4e4e4 '.c
   call nou#syntax#_highlight(nm, '', c)
 endf
