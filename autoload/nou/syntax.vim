@@ -231,7 +231,7 @@ endf
 fun! nou#syntax#artf_ext()
   let nm = 'nouArtifactExt'
   exe 'syn cluster nouArtifactQ add='.nm
-  exe 'syn match '.nm.' display excludenl contains=@nouSpoilerQ'
+  exe 'syn match '.nm.' display excludenl'
     \.' '.s:pbe('[*%]?[._][[:alnum:]~#][[:alnum:]._~#]*', '(\[{,;|', '[:punct:]')
   let B = ' cterm=bold ctermbg=NONE gui=bold guibg=NONE '
   exe join(['hi', nm, B, 'ctermfg=177 guifg=#df87ff'])
@@ -266,7 +266,7 @@ fun! nou#syntax#artf_function()
     \.' contains='.nm
     \.' start='.s:p('\w+\(')
     \.' end='.s:p('\)')
-    \.' end='.s:p('\ze\{\+')
+    " \.' end='.s:p('\ze\{\+')
     " \.' skip='.s:p('\\\s', '~')
   let B = ' cterm=underline ctermbg=NONE gui=underline,italic guibg=NONE '
   exe join(['hi', nm.'H', B, 'ctermfg=33 guifg=#3087ff'])

@@ -12,6 +12,7 @@ syntax sync minlines=5  " Correct hi! for embed regions opened at the middle
 syntax spell toplevel   " Check for spelling errors in all text.
 " hi def link nouConceal NonText
 hi! nouConceal ctermfg=8 guifg=#001b26
+" hi! link Conceal nouConceal
 
 " ATTENTION: _defining order_ problem
 " USE: guisp=color, guifg=fg, guibg=bg
@@ -207,17 +208,21 @@ runtime autoload/nou/number.vim
 " -- syntax higlighting block between two marks start=/\%'m/ end=/\%'n/
 " -- rule to highlight till/from cursor position start=/\%#/
 
-syn cluster nouSpoilerQ add=nouSpoiler
-syn region nouSpoiler display oneline keepend transparent extend conceal
-  \ matchgroup=nouConceal cchar=…
-  \ start='{+' end='+}'
+" syn cluster nouSpoilerQ add=nouSpoiler
+" syn region nouSpoiler display oneline keepend transparent extend conceal
+"   \ matchgroup=nouConceal cchar=…
+"   \ start='{+' end='+}'
+" TRY:MOVE: spoiler as matchadd() overlay to not conflict with underlying groups
+"   BAD:(, {"conceal": "…"}): produces cchars per each hi group inside spoiler
+call matchadd('Conceal', '{+.*+}', -1, -1)
+" ALT:TRY:(exclusive for LocationSpoiler): /…\zs.*\ze\s|/
 
 for ft in keys(g:nou.embed)
   call nou#syntax#embedded(ft)
 endfor
 
 syn cluster nouTextQ add=@Spell,nouComment,nouTask
-  \,@nouArtifactQ,@nouAccentQ,@nouTermQ,@nouSpoilerQ,@nouEmbedQ
+  \,@nouArtifactQ,@nouAccentQ,@nouTermQ,@nouEmbedQ
 
 " EXPL: must be last line -- set single-loading guard only if no exceptions
 let b:current_syntax = 'nou'
