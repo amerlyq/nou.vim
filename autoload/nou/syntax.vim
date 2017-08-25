@@ -181,12 +181,13 @@ fun! nou#syntax#regex()
   exe 'syn match '.nm.'R display excludenl contained '.s:p('\\?[-[\]]')
   exe 'syn match '.nm.'S display excludenl contained '.s:p('\\?[()%]|\\z\S')
 
-  exe 'hi '.nm.' cterm=italic ctermfg=224 gui=italic guifg=#ffd7d7'
-  exe 'hi link '.nm.'D  Error'
-  exe 'hi link '.nm.'N  Special'
-  exe 'hi link '.nm.'S  Constant'
-  exe 'hi '.nm.'C  ctermfg=40  guifg=#00d700'
-  exe 'hi '.nm.'R  ctermfg=69  guifg=#5f87ff'
+  let bg = ' ctermfg=23 guibg=#002060 '
+  exe 'hi '.nm.'   ctermfg=224 guifg=#ffd7d7'.bg.'cterm=italic gui=italic'
+  exe 'hi '.nm.'D  ctermfg=1   guifg=#dc322f'.bg.'cterm=bold gui=bold'
+  exe 'hi '.nm.'N  ctermfg=9   guifg=#cb4b16'.bg
+  exe 'hi '.nm.'S  ctermfg=6   guifg=#2aa198'.bg
+  exe 'hi '.nm.'C  ctermfg=40  guifg=#00d700'.bg
+  exe 'hi '.nm.'R  ctermfg=69  guifg=#5f87ff'.bg
 endf
 
 fun! nou#syntax#path()
