@@ -27,6 +27,8 @@ TODO
     http://stackoverflow.com/questions/19385458/vim-regex-matches-unicode-characters-are-as-non-word
   [_] IDEA:THINK: fast short notes-taking and storing in one of predetermined dirs
     https://github.com/Alok/notational-fzf-vim
+  [_] CMP: with orgmode demo
+    + https://vincent.bernat.im/en/blog/2017-netops-org-mode
 
 
 %%%% Syntax %%%% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
