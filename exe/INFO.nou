@@ -1,0 +1,41 @@
+REF: https://github.com/jgm/pandoc/issues/2311#issuecomment-335039719
+REPL:(haskell->json):
+  $ pandoc -f native -t json
+  $ pandoc -f markdown -t json -i README.md | jq '' >! readme.json
+
+
+Grammar parsing
+  ++ parsimonious
+    https://github.com/erikrose/parsimonious
+    http://zderadicka.eu/writing-simple-parser-in-python/
+    |aur/python-parsimonious|
+  + lrparsing
+    http://lrparsing.sourceforge.net/doc/html/
+  waxeye
+    https://waxeye.org/
+    https://github.com/orlandohill/waxeye
+    ++ https://waxeye.org/manual.html
+  ply
+    http://www.dabeaz.com/ply/
+    https://github.com/dabeaz/ply
+    |extra/python-ply|
+    |community/python-rply|
+  plyplus
+    https://github.com/erezsh/plyplus
+  pyparsing
+    https://habrahabr.ru/post/239081/
+    http://nbviewer.jupyter.org/urls/gist.githubusercontent.com/tbicr/cd584138ce183839946f/raw/e0c335bd57103e200279302eff3c667d5dd470b1/Pyparsion.ipynb
+  OLD: pyPEG
+    https://fdik.org/pyPEG/
+  plex
+    http://www.cosc.canterbury.ac.nz/greg.ewing/python/Plex/1.1.1/doc/Tutorial.html
+  catalogue
+    https://wiki.python.org/moin/LanguageParsing
+    ++ https://tomassetti.me/parsing-in-python/
+  manual
+    http://effbot.org/zone/simple-top-down-parsing.htm
+
+How to create pragmatic, lightweight languages
+  https://leanpub.com/create_languages
+  https://tomassetti.me/category/language-engineering/parsing/
+  https://tomassetti.me/category/language-engineering/
