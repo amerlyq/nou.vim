@@ -1,0 +1,9 @@
+# START = ~".*"s
+START = (header / text)*
+header = (H1 / H3) NL
+H1 = "%%%%%" line
+H3 = "%%%" line
+NL = "\n"
+line = ~".*"
+text = ~".*"s
+# text = ~"[A-Z 0-9]*"i

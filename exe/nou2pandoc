@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
 
+from parsimonious.grammar import Grammar
+
+
 def main():
-    print(2)
+    with open('t.gram') as g:
+        grammar = Grammar('\n'.join(s for s in g.readlines() if not s.startswith('#')))
+        with open('t.nou') as f:
+            print(grammar.parse(f.read()))
 
 
 if '__main__' == __name__:
