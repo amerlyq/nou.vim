@@ -9,8 +9,23 @@ Grammar parsing
     https://github.com/erikrose/parsimonious
     http://zderadicka.eu/writing-simple-parser-in-python/
     |aur/python-parsimonious|
+    - no skipping of useless nodes (E.G. <NL>)
+    - no joining of nodes (E.G. word+ as single whole line)
+  + arppergio
+    http://www.igordejanovic.net/Arpeggio/
+      https://github.com/igordejanovic/Arpeggio
+      https://github.com/igordejanovic/Arpeggio/tree/master/examples
+    |aur/python-arpeggio|
+    + built-in graphviz diag for syntax
+    ~ automatic split on spaces
+    ~ no skipping of other useless nodes, beside spaces
+      BUT: can suppress them post-factum by "default actions"
   + lrparsing
     http://lrparsing.sourceforge.net/doc/html/
+  ? parsing
+    https://github.com/sprymix/parsing
+  ? parglare
+    https://github.com/igordejanovic/parglare
   waxeye
     https://waxeye.org/
     https://github.com/orlandohill/waxeye
@@ -39,3 +54,15 @@ How to create pragmatic, lightweight languages
   https://leanpub.com/create_languages
   https://tomassetti.me/category/language-engineering/parsing/
   https://tomassetti.me/category/language-engineering/
+
+HACK
+  TUT remove left-recursion
+    http://www.igordejanovic.net/Arpeggio/troubleshooting/
+      https://en.wikipedia.org/wiki/Left_recursion#Removing_left_recursion
+
+E.G. Grammars
+  REF https://github.com/PhilippeSigaud/Pegged/wiki/Extended-PEG-Syntax
+  TUT https://github.com/PhilippeSigaud/Pegged/wiki/Grammar-Examples
+    https://github.com/PhilippeSigaud/Pegged/blob/master/pegged/examples/json.d
+    https://github.com/PhilippeSigaud/Pegged/blob/master/pegged/examples/markdown.d
+    https://github.com/jgm/peg-markdown/blob/master/markdown_parser.leg

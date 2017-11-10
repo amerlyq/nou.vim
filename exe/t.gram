@@ -1,9 +1,18 @@
 # START = ~".*"s
-START = (header / text)*
-header = (H1 / H3) NL
-H1 = "%%%%%" line
-H3 = "%%%" line
-NL = "\n"
+nou = block*
+block = line NL
+# block = eline* (header / text)
+
+# header = Hpref SP? !NL line SP? NL
+# Hpref = "%%%%%%" / "%%%%%" / "%%%%" / "%%%" / "%%" / "%"
+
+# # H1 = "%%%%%" line
+# # H3 = "%%%" line
 line = ~".*"
-text = ~".*"s
+# text = ~".*"s
 # text = ~"[A-Z 0-9]*"i
+
+eline = SP NL
+space = SP+
+SP = ~"[[:blank:]]"
+NL = "\n"
