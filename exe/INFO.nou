@@ -5,6 +5,10 @@ REPL:(haskell->json):
 
 
 Grammar parsing
+  ++ TRY parglare
+    = Arpeggio/textX successor
+    https://github.com/igordejanovic/parglare
+    http://www.igordejanovic.net/parglare/pglr/
   ++ parsimonious
     https://github.com/erikrose/parsimonious
     http://zderadicka.eu/writing-simple-parser-in-python/
@@ -22,10 +26,11 @@ Grammar parsing
       BUT: can suppress them post-factum by "default actions"
   + lrparsing
     http://lrparsing.sourceforge.net/doc/html/
+    - too many ambiguities regex/keyword
+      << sep lexing and parsing stages
+    - bad error messages
   ? parsing
     https://github.com/sprymix/parsing
-  ? parglare
-    https://github.com/igordejanovic/parglare
   waxeye
     https://waxeye.org/
     https://github.com/orlandohill/waxeye
@@ -54,6 +59,21 @@ How to create pragmatic, lightweight languages
   https://leanpub.com/create_languages
   https://tomassetti.me/category/language-engineering/parsing/
   https://tomassetti.me/category/language-engineering/
+
+Iterative grammar design
+  + https://softwareengineering.stackexchange.com/questions/107266/how-should-i-specify-a-grammar-for-a-parser
+  https://tomassetti.me/parse-tree-abstract-syntax-tree/
+  https://stackoverflow.com/questions/9452584/building-a-parser-part-i
+  ++ http://jayconrod.com/posts/65/how-to-build-a-parser-by-hand
+    => sometimes you need hand-written parser
+  https://ivanyu.me/blog/2014/09/13/creating-a-simple-parser-with-antlr/
+  https://github.com/PhilippeSigaud/Pegged/wiki/PEG-Basics
+  http://leafo.net/guides/parsing-expression-grammars.html
+
+
+NOTE: PEG is not the best choice
+  http://www.igordejanovic.net/2017/08/09/parglare-python-parser.html
+  => parglare
 
 HACK
   TUT remove left-recursion

@@ -1,31 +1,74 @@
 #!/usr/bin/env python3
 
 import lrparsing
-from lrparsing import Keyword, List, Prio, Ref, THIS, Token, Tokens
+from lrparsing import *
+# from lrparsing import Keyword, List, Prio, Ref, THIS, Token, Tokens
 
 
 class T(lrparsing.TokenRegistry):
-    integer = Token(re="[0-9]+")
-    integer["key"] = "I'm a mapping!"
-    ident = Token(re="[A-Za-z_][A-Za-z_0-9]*")
+    NL = Token('\n')
+    BL = Token('^$')
+    word = Token(re=r'\S+')
+    line = Token(re=r'[^\n]+')
+    inline = Token(re=r'^[^\n]+')
+    m_header = Token(re=r'^[%]{1,5}\s')
+    # integer = Token(re="[0-9]+")
+    # integer["key"] = "I'm a mapping!"
+    # ident = Token(re="[A-Za-z_][A-Za-z_0-9]*")
 
 
 class ExprParser(lrparsing.Grammar):
-    expr = Ref("expr")
-    call = T.ident + '(' + List(expr, ',') + ')'
-    atom = T.ident | T.integer | Token('(') + expr + ')' | call
-    expr = Prio(
-        atom,
-        Tokens("+ - ~") >> THIS,
-        THIS << Tokens("* / // %") << THIS,
-        THIS << Tokens("+ -") << THIS,
-        THIS << (Tokens("== !=") | Keyword("is")) << THIS)
-    expr["a"] = "I am a mapping too!"
-    START = expr
-    COMMENTS = (
-        Token(re="#(?:[^\r\n]*(?:\r\n?|\n\r?))") |
-        Token(re="/[*](?:[^*]|[*][^/])*[*]/"))
+    header = T.m_header + T.inline
+    text = Prio(header, T.line + T.NL) * Many
+    # WHITESPACE = ' '
+    # line = T.word * Many
+    # para = (line + T.NL) * Many
+    # text = Prio(header, para) * Many
+    # section = header + T.NL + para
+    # text = (Token(re=r'(?!^%)') + para + T.NL) * Opt + section * Many
+    START = text
+    # call = T.ident + '(' + List(expr, ',') + ')'
+    # atom = T.ident | T.integer | Token('(') + expr + ')' | call
+    # expr = T.line + T.NL + T.line
+    # expr = H*Opt | T.line * Many
+    # expr = H + '\n' + Repeat(T.line)
+    # expr = List(T.line, '\n')
+    # expr = Prio(H1, H3)
+    # expr = Prio(
+    #     atom,
+    #     Tokens("+ - ~") >> THIS,
+    #     THIS << Tokens("* / // %") << THIS,
+    #     THIS << Tokens("+ -") << THIS,
+    #     THIS << (Tokens("== !=") | Keyword("is")) << THIS)
+    # expr["a"] = "I am a mapping too!"
+    # START = expr
+    # COMMENTS = (
+    #     Token(re="#(?:[^\r\n]*(?:\r\n?|\n\r?))") |
+    #     Token(re="/[*](?:[^*]|[*][^/])*[*]/"))
 
 
-parse_tree = ExprParser.parse("1 + /* a */ b + 3 * 4 is c(1, a)")
-print(ExprParser.repr_parse_tree(parse_tree))
+def debug():
+    print(ExprParser.repr_grammar())
+    print('---')
+    print(ExprParser.repr_productions())
+    print('---')
+
+
+def main():
+    ExprParser.compile_grammar()
+    # debug()
+    with open('t.nou') as f:
+        text = f.read()
+    text = '''\
+some
+%% title
+para next word
+more lines
+% t
+'''
+    parse_tree = ExprParser.parse(text)
+    print(ExprParser.repr_parse_tree(parse_tree))
+
+
+if '__main__' == __name__:
+    main()
