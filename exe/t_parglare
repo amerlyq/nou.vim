@@ -47,17 +47,30 @@ from parglare import Parser, Grammar
 
 # header = T.m_header + T.inline
 # text = Prio(header, T.line + T.NL) * Many
+
 grammar = '''\
-text: section*;
-section: atom vempty;
-atom: header | para;
-header: head_mark line;
-para: line+;
-vempty: NL+;
-head_mark: /^%{1,5}\s/;
-line: /.*$/;
+text: NL* section+[NL] NL* | NL+ | EMPTY;
+section: /[^\n]*/;
 NL: "\n";
 '''
+
+# grammar = '''\
+# text: NL* sec_1_NL NL* | EMPTY;
+# @collect_sep
+# sec_1_NL: sec_1_NL NL+ sec | sec;
+# sec: /[^\n]*/;
+# NL: "\n";
+# '''
+
+# grammar = '''\
+# section: header | para;
+# header: head_mark line;
+# para: line+[NL];
+# vempty: NL+;
+# head_mark: /^%{1,5}\s/;
+# line: /[^\n]+/;
+# '''
+
 # Text:       Section | Para;
 # Section:    /^%.*$/
 # Para:       /.*/
@@ -70,5 +83,7 @@ more lines
 % t
 '''
 
-parser = Parser(Grammar.from_string(grammar))
+g = Grammar.from_string(grammar)
+parser = Parser(g, ws='')
+# parser = Parser(g, debug=True)
 print(parser.parse(text))
