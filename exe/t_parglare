@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import re
 from parglare import Parser, Grammar
 
 # Model:        Header Object;
@@ -49,8 +50,27 @@ from parglare import Parser, Grammar
 # text = Prio(header, T.line + T.NL) * Many
 
 grammar = '''\
-text: NL* section+[NL] NL* | NL+ | EMPTY;
-section: /[^\n]*/;
+text: block*;
+// text: OEB section+[EB] OEB | EB | EMPTY;
+
+@collect
+blocks: blocks block | block;
+block: section | EB;
+
+// section: header | lines {9};
+section: line | EB {9};
+
+@collect_sep
+lines: lines NL line | line;
+// para: line+ NL line | line;
+
+header: head_mark inline;
+head_mark: /^%{1,5}\s/;
+inline: /[^\n]+$/;
+
+line: /^[^\n]+$/ {prefer};
+OEB: EB | EMPTY;
+EB: /[\n]+/;
 NL: "\n";
 '''
 
@@ -78,12 +98,14 @@ NL: "\n";
 text = '''\
 some
 %% title
+
 para next word
 more lines
-% t
-'''
 
-g = Grammar.from_string(grammar)
+
+% t'''
+
+g = Grammar.from_string(grammar, re_flags=re.MULTILINE)
 parser = Parser(g, ws='')
 # parser = Parser(g, debug=True)
 print(parser.parse(text))

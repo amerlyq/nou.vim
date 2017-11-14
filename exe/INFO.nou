@@ -9,6 +9,8 @@ Grammar parsing
     = Arpeggio/textX successor
     https://github.com/igordejanovic/parglare
     http://www.igordejanovic.net/parglare/pglr/
+    $ sudo pip install git+https://github.com/igordejanovic/parglare.git
+      https://stackoverflow.com/questions/20101834/pip-install-from-git-repo-branch
   ++ parsimonious
     https://github.com/erikrose/parsimonious
     http://zderadicka.eu/writing-simple-parser-in-python/
@@ -86,3 +88,5 @@ E.G. Grammars
     https://github.com/PhilippeSigaud/Pegged/blob/master/pegged/examples/json.d
     https://github.com/PhilippeSigaud/Pegged/blob/master/pegged/examples/markdown.d
     https://github.com/jgm/peg-markdown/blob/master/markdown_parser.leg
+  Python
+    https://docs.python.org/3/reference/grammar.html
