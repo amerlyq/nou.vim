@@ -9,7 +9,7 @@ Grammar parsing
     = Arpeggio/textX successor
     https://github.com/igordejanovic/parglare
     http://www.igordejanovic.net/parglare/pglr/
-    $ sudo pip install git+https://github.com/igordejanovic/parglare.git
+    $ sudo pip install -e git+https://github.com/igordejanovic/parglare.git
       https://stackoverflow.com/questions/20101834/pip-install-from-git-repo-branch
   ++ parsimonious
     https://github.com/erikrose/parsimonious
@@ -47,6 +47,7 @@ Grammar parsing
   pyparsing
     https://habrahabr.ru/post/239081/
     http://nbviewer.jupyter.org/urls/gist.githubusercontent.com/tbicr/cd584138ce183839946f/raw/e0c335bd57103e200279302eff3c667d5dd470b1/Pyparsion.ipynb
+    + http://pyparsing.wikispaces.com/Examples?responseToken=066dc64073aa668e7dfc5db51046b8b13
   OLD: pyPEG
     https://fdik.org/pyPEG/
   plex
@@ -81,6 +82,12 @@ HACK
   TUT remove left-recursion
     http://www.igordejanovic.net/Arpeggio/troubleshooting/
       https://en.wikipedia.org/wiki/Left_recursion#Removing_left_recursion
+  Convert grammar to LR(1)
+    http://www.cs.man.ac.uk/~pjj/complang/heuristics.html
+    http://www.cs.man.ac.uk/~pjj/cs2121/ho/node5.html#SECTION00053000000000000000
+    http://www.cs.man.ac.uk/~pjj/cs2121/ho/node7.html#SECTION00072000000000000000
+  DEBUG
+    http://www.cs.man.ac.uk/~pjj/complang/grammar.html
 
 E.G. Grammars
   REF https://github.com/PhilippeSigaud/Pegged/wiki/Extended-PEG-Syntax
@@ -88,5 +95,11 @@ E.G. Grammars
     https://github.com/PhilippeSigaud/Pegged/blob/master/pegged/examples/json.d
     https://github.com/PhilippeSigaud/Pegged/blob/master/pegged/examples/markdown.d
     https://github.com/jgm/peg-markdown/blob/master/markdown_parser.leg
+      https://www.reddit.com/r/programming/comments/2flasc/evaluating_the_common_markdown_spec/
+      http://roopc.net/posts/2014/eval-stmd/
+  VIZ. https://github.com/antlr/grammars-v4
+    https://github.com/antlr/grammars-v4/blob/master/dot/DOT.g4
+    https://github.com/antlr/grammars-v4/tree/master/inf
+    https://github.com/antlr/grammars-v4/tree/master/stacktrace
   Python
     https://docs.python.org/3/reference/grammar.html

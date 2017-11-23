@@ -1,101 +1,72 @@
 #!/usr/bin/env python3
 
+import sys
 import re
 from parglare import Parser, Grammar
 
-# Model:        Header Object;
-# Object:       '{' ID Property+ '}';
-# Property:     '-' ID '=' Values SemiColon?;
-# Property:     '-' ID '=' SemiColon;
-# Values:       Value  | Values SemiColon? Value;
-# Value:        STRING | INT | FLOAT | GUID | Object | ID;
+# text: OEB section+[EB] OEB | EB | EMPTY;
+# @collect
+# blocks: blocks block | block;
+# section: header | lines {9};
+# @collect_sep
+# lines: lines NL line | line;
+# OEB: EB | EMPTY;
+# // para: line+ NL line | line;
+# header: head_mark inline;
+# head_mark: /^%{1,5}\s/;
+# inline: /[^\n]+$/;
 
-# STRING: /("(\\"|[^"])*")|(\'(\\\'|[^\'])*\')/;
+# sec para (sec|blank|EOF)
+# blank para (sec|blank|EOF)
 
-# // INT and FLOAT are ambiguous. Prefer INT if both match are of same length.
-# INT: /[-+]?[0-9]+\b/ {prefer};
-# FLOAT: /[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\b/;
+# text: block*[NL];
+# block: para | EB;
+# para: line+[NL] {9};
+# EB: /\n{2,}/;
+# NLO: NL | EMPTY;
+grammar = r'''
+text: NL* block+ NL* | NL*;
+// block: inline;
 
-# GUID: /[a-f0-9]*-[a-f0-9]*-[a-f0-9]*-[a-f0-9]*-[a-f0-9]*/;
-# SemiColon: ';';
-# ID: /[a-zA-Z_][a-zA-Z_0-9]*/;
-# Header: /[^\n]*/;
+block: /[\s\S]+/;
+// blocks: blocks NL block | block;
+// block: lines {9};
+// lines: lines NL line | line;
 
-
-# grammar = r"""
-# E: E '+' E  {left, 1}
-#  | E '-' E  {left, 1}
-#  | E '*' E  {left, 2}
-#  | E '/' E  {left, 2}
-#  | E '^' E  {right, 3}
-#  | '(' E ')'
-#  | number;
-# number: /\d+(\.\d+)?/;
-# """
-# actions = {
-#     "E": [lambda _, nodes: nodes[0] + nodes[2],
-#           lambda _, nodes: nodes[0] - nodes[2],
-#           lambda _, nodes: nodes[0] * nodes[2],
-#           lambda _, nodes: nodes[0] / nodes[2],
-#           lambda _, nodes: nodes[0] ** nodes[2],
-#           lambda _, nodes: nodes[1],
-#           lambda _, nodes: nodes[0]],
-#     "number": lambda _, value: float(value),
-# }
-# g = Grammar.from_string(grammar)
-# parser = Parser(g, debug=True, actions=actions)
-# print("Result = ", parser.parse("34 + 4.6 / 2 * 4^2^2 + 78"))
-
-# header = T.m_header + T.inline
-# text = Prio(header, T.line + T.NL) * Many
-
-grammar = '''\
-text: block*;
-// text: OEB section+[EB] OEB | EB | EMPTY;
-
-@collect
-blocks: blocks block | block;
-block: section | EB;
-
-// section: header | lines {9};
-section: line | EB {9};
-
-@collect_sep
-lines: lines NL line | line;
-// para: line+ NL line | line;
-
-header: head_mark inline;
-head_mark: /^%{1,5}\s/;
-inline: /[^\n]+$/;
-
-line: /^[^\n]+$/ {prefer};
-OEB: EB | EMPTY;
-EB: /[\n]+/;
+inline: /.+/;
+line: /^[^\n]+$/;
+ANY: /[\s\S]/;
 NL: "\n";
 '''
 
-# grammar = '''\
-# text: NL* sec_1_NL NL* | EMPTY;
-# @collect_sep
-# sec_1_NL: sec_1_NL NL+ sec | sec;
-# sec: /[^\n]*/;
-# NL: "\n";
-# '''
+texts = [
+    '',
+    '\n',
+    '\n\n',
+    '\n\n\n',
 
-# grammar = '''\
-# section: header | para;
-# header: head_mark line;
-# para: line+[NL];
-# vempty: NL+;
-# head_mark: /^%{1,5}\s/;
-# line: /[^\n]+/;
-# '''
+    'myline',
+    'myline\n',
+    'myline\n\n',
+    'myline\n\n\n',
+    '\nmyline',
+    '\n\nmyline',
+    '\n\n\nmyline',
+    '\nmyline\n',
+    '\nmyline\n\n',
+    '\n\nmyline\n',
+    '\n\nmyline\n\n',
 
-# Text:       Section | Para;
-# Section:    /^%.*$/
-# Para:       /.*/
+    'myword1 myword2',
+    'myword1 myword2\n',
 
-text = '''\
+    'myline1\nmyline2',
+    'myline1\n\nmyline2',
+    'myline1\n\n\nmyline2',
+    'myline1\n\nmyline2\n',
+]
+
+texts.append('''\
 some
 %% title
 
@@ -103,9 +74,27 @@ para next word
 more lines
 
 
-% t'''
+% t''')
 
-g = Grammar.from_string(grammar, re_flags=re.MULTILINE)
-parser = Parser(g, ws='')
-# parser = Parser(g, debug=True)
-print(parser.parse(text))
+
+def main(argv):
+    g = Grammar.from_string(grammar, re_flags=re.MULTILINE)
+    # g = Grammar.from_string(grammar, re_flags=re.MULTILINE, parse_debug=True)
+    if '-d' in argv:
+        parser = Parser(g, ws=False, debug=True, debug_colors=True)
+    else:
+        parser = Parser(g, ws=False)
+        # parser = Parser(g, build_tree=True, ws='', debug_layout=True)
+    try:
+        for t in texts:
+            print(parser.parse(t), ' <- ', repr(t))
+            # print(repr(t), ' -> ', parser.parse(t).tree_str(), '\n')
+    except Exception:
+        print('ERR:', ' <- ', repr(t), '\n')
+        raise
+
+
+if '__main__' == __name__:
+    # main(sys.argv)
+    g = Grammar.from_string('S: T EOF; T: NL* L+[NL] NL* | NL*; L: /.+/; NL: "\n";', re_flags=re.MULTILINE)
+    print(Parser(g, ws=False).parse('\nL1\nL2\n\n'))
