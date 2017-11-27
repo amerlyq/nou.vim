@@ -82,21 +82,30 @@ HACK
   TUT remove left-recursion
     http://www.igordejanovic.net/Arpeggio/troubleshooting/
       https://en.wikipedia.org/wiki/Left_recursion#Removing_left_recursion
-  Convert grammar to LR(1)
+  Convert LR(k) grammar to LR(1)
+    https://stackoverflow.com/questions/20683692/lrk-to-lr1-grammar-conversion
     http://www.cs.man.ac.uk/~pjj/complang/heuristics.html
     http://www.cs.man.ac.uk/~pjj/cs2121/ho/node5.html#SECTION00053000000000000000
     http://www.cs.man.ac.uk/~pjj/cs2121/ho/node7.html#SECTION00072000000000000000
+  Shift-Reduce problems
+    http://dinosaur.compilertools.net/bison/bison_8.html#SEC70
   DEBUG
     http://www.cs.man.ac.uk/~pjj/complang/grammar.html
 
 E.G. Grammars
+  Paragraphs
+    https://stackoverflow.com/questions/20722864/how-to-solve-this-s-r-conflict
+    SEE!! http://www.cs.man.ac.uk/~pjj/complang/howto2.html
   REF https://github.com/PhilippeSigaud/Pegged/wiki/Extended-PEG-Syntax
+    http://www.cse.chalmers.se/edu/year/2011/course/TIN321/lectures/proglang-04.html
   TUT https://github.com/PhilippeSigaud/Pegged/wiki/Grammar-Examples
     https://github.com/PhilippeSigaud/Pegged/blob/master/pegged/examples/json.d
     https://github.com/PhilippeSigaud/Pegged/blob/master/pegged/examples/markdown.d
     https://github.com/jgm/peg-markdown/blob/master/markdown_parser.leg
       https://www.reddit.com/r/programming/comments/2flasc/evaluating_the_common_markdown_spec/
       http://roopc.net/posts/2014/eval-stmd/
+    https://github.com/jbranchaud/js-play/blob/master/Markdown/grammar.md
+    http://joshsharp.com.au/blog/rpython-rply-interpreter-1.html
   VIZ. https://github.com/antlr/grammars-v4
     https://github.com/antlr/grammars-v4/blob/master/dot/DOT.g4
     https://github.com/antlr/grammars-v4/tree/master/inf

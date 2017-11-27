@@ -24,20 +24,36 @@ from parglare import Parser, Grammar
 # para: line+[NL] {9};
 # EB: /\n{2,}/;
 # NLO: NL | EMPTY;
-grammar = r'''
-text: NL* block+ NL* | NL*;
-// block: inline;
 
-block: /[\s\S]+/;
+# https://stackoverflow.com/questions/20722864/how-to-solve-this-s-r-conflict
+grammar = r'''
+S: text EOF;
+text: NL* block+[BR] NL* | NL*;
+block: inline n_line*;
+// block: inline+;
+
+// block: /[\s\S]+/;
 // blocks: blocks NL block | block;
 // block: lines {9};
-// lines: lines NL line | line;
+// lines: lines NL inline | inline;
 
+n_line: NL inline;
 inline: /.+/;
-line: /^[^\n]+$/;
 ANY: /[\s\S]/;
+
+BR: /\n{2,}/;
+NLS: NL+;
 NL: "\n";
 '''
+
+# grammar = r'''
+# S: file EOF;
+# file: block+;
+# block: line_nonl line_nl* NL?;
+# line_nl: NL line_nonl;
+# line_nonl: /.+/;
+# NL: "\n";
+# '''
 
 texts = [
     '',
@@ -95,6 +111,6 @@ def main(argv):
 
 
 if '__main__' == __name__:
-    # main(sys.argv)
-    g = Grammar.from_string('S: T EOF; T: NL* L+[NL] NL* | NL*; L: /.+/; NL: "\n";', re_flags=re.MULTILINE)
-    print(Parser(g, ws=False).parse('\nL1\nL2\n\n'))
+    main(sys.argv)
+    # g = Grammar.from_string('S: T EOF; T: NL* L+[NL] NL* | NL*; L: /.+/; NL: "\n";', re_flags=re.MULTILINE)
+    # print(Parser(g, ws=False).parse('\nL1\nL2\n\n'))
