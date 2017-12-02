@@ -73,7 +73,8 @@ fun! nou#syntax#accent(k)
   let [s, c] = g:nou.accent.colors[a:k]
   let S = '[^[:blank:]'.s.']'
   exe 'syn cluster nouAccentQ add='.nm
-  exe 'syn region '.nm.' display oneline keepend concealends'
+  " concealends
+  exe 'syn region '.nm.' display oneline keepend'
     \.' excludenl matchgroup=nouConceal contains=@nouAccentQ'
     \.' start='.s:pb(s.'\ze'.S, '[:punct:]')
     \.' end='.s:pe(S.'\zs'.s, '[:punct:]')
