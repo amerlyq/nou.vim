@@ -46,6 +46,28 @@ NLS: NL+;
 NL: "\n";
 '''
 
+# text: NL* inline+[NL] NL* | NL*;
+# NOTE: parse everything
+grammar = r'''
+S: text EOF;
+text: NL* | NL* block;
+block: n_line+ | EMPTY;
+nl_block: NL+ NL;
+n_line: line NL+ | line;
+line: /.+/;
+NL: "\n";
+'''
+
+# TRY: parse empty lines in-between
+grammar = r'''
+S: text EOF;
+text: NL* | NL* block;
+block: n_line+ NL+ | EMPTY;
+n_line: line NL | line;
+line: /.+/;
+NL: "\n";
+'''
+
 # grammar = r'''
 # S: file EOF;
 # file: block+;
