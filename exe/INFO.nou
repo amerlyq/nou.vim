@@ -63,6 +63,9 @@ How to create pragmatic, lightweight languages
   https://tomassetti.me/category/language-engineering/parsing/
   https://tomassetti.me/category/language-engineering/
 
+Build your own Lisp with your own syntax in C
+  http://www.buildyourownlisp.com/contents
+
 Iterative grammar design
   + https://softwareengineering.stackexchange.com/questions/107266/how-should-i-specify-a-grammar-for-a-parser
   https://tomassetti.me/parse-tree-abstract-syntax-tree/

@@ -1,6 +1,20 @@
 %%%%% Notes + outline unified
 
 TODO
+  [_] NEED: special block for commands outputs (e.g. shell) directly below
+    * distinct from outline and comments around them
+    * hi! :: simplified / absent / highspeed
+    * can contain user comments inside
+    * different types -- grep/find/special
+    MAYBE: use xml-esque markers for possible blocks
+      e.g.
+        <grep> ... </grep>
+        [grep[ ... ]grep]
+      => maybe only Lisp syntax hi is able to execute code immediately on syntax parsing
+      => in vim you can pre-generate special hi! depending on pre-parsing of opened file content
+        BUT: newly added blocks won't be re-generated -- need hook on ":w" to accomplish syntax refresh
+      * must be nestable -- to add some comments hi! inside of hex hi! inside of logs dump hi!
+  [_] TODO: switch hi! places for todo [_] and decision "!!" markers
   [_] CHG: identical ``` + ``` -> symmetrical {{{ + }}} | <@ + @>
     => then syntax won't break when scrolling page from bottom up
   [_] script for pandoc to convert *.nou into *.md
@@ -227,6 +241,11 @@ SEE
     2016-11-01 [X] '.pdf|.md|.doc|...' (dark-blue)
     [_] 'google|yandex|...' (light-blue)
     [_] 'wiki|arch|stack(overflow|exchange)|quora|habrahabr...' (light-green)
+  [_] TODO: when path has grep format -- highlight differently
+    /path/to/file:17853:matching text in that line
+    MAYBE: using hi! blocks with {{{ ... }}} is more simple/portable/flexible solution
+    HACK: this case allows to mix grep results with paths in plain texts
+    BUT:BAD low performance of syntax hi!
 
 %% Key-value
   < USE instead of mixed/unfolded tables
