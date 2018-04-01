@@ -1,22 +1,7 @@
 %%%%% Notes + outline unified
 
 TODO
-  [_] NEED: special block for commands outputs (e.g. shell) directly below
-    * distinct from outline and comments around them
-    * hi! :: simplified / absent / highspeed
-    * can contain user comments inside
-    * different types -- grep/find/special
-    MAYBE: use xml-esque markers for possible blocks
-      e.g.
-        <grep> ... </grep>
-        [grep[ ... ]grep]
-      => maybe only Lisp syntax hi is able to execute code immediately on syntax parsing
-      => in vim you can pre-generate special hi! depending on pre-parsing of opened file content
-        BUT: newly added blocks won't be re-generated -- need hook on ":w" to accomplish syntax refresh
-      * must be nestable -- to add some comments hi! inside of hex hi! inside of logs dump hi!
   [_] TODO: switch hi! places for todo [_] and decision "!!" markers
-  [_] CHG: identical ``` + ``` -> symmetrical {{{ + }}} | <@ + @>
-    => then syntax won't break when scrolling page from bottom up
   [_] script for pandoc to convert *.nou into *.md
   [_] Test and compare with vimoutliner
     [_] https://github.com/xolox/vim-notes/blob/master/autoload/xolox/notes.vim
@@ -129,6 +114,10 @@ NEED: smart xref hints (cross-references)
       => %4 with 2nd indent => outline of 6th color
 
 %%% Decision
+  [_] NEED: everywhere-notch (evernotch.vim) for "investigation" process
+    * some links, comments, code excerpt, which I gather from www, when analyzing the problem
+    E.G. :STORY: :LIST: -DUMP- :FLOW: :BOOK: +JOURNAL+ :WORK:
+    ALSO:NEED: workaround beside :FIXED: -- ?WKRND?
   ~ higlight in pre-defined color only marker (start/end match)
     .. and keep
   [_] FIXME: don't like colors for '>' '<' ':' -- don't feels right
@@ -167,8 +156,14 @@ NEED: smart xref hints (cross-references)
     Repeating marker -- several highest priorities (accentuation)
     # USE:(like) * ** ***  OR ! !! !!!
     TRY: inherit decision color (simply by adding '\d=' in its pattern) or contain its own
+  [_] USE: #tag beside priority !2 to mark and filter "todo" lines based on topic
+    ~ !1 #tag #tag [_]
+    ~ !2#tag#tag [_]
+    ~ !3 [_] #tag #tag
+    ~ !4 [_]#tag#tag
 
 %%% Accents
+  [_] CHG: white with black bounds '-n' to monolitic gray-blue (average color between  # comment #  and "string")
   [_] FIX special cases treated as accents
     `path/*.yml` for `cfg/*.ee`
     BUG: **...** treated as block, even when each marker is in its own block
@@ -223,6 +218,28 @@ SEE
   [_] THINK: my own simplified syntax for oneline 'sh' by '$' instead of default?
   [_] Set default embedded ft (used in bare `...`) through modeline
     = so I could simplify bash/haskell snippets in otl
+  [_] TODO: execute command and insert output directly below (like Mathematica)
+    E.G. :r!lspci -vt
+  [_] <,.y> -- yank inside current bash-line textobj /$\s/,/\s*\s\s#\s/ E.G. $ amixer scontrols  #
+  [_] CHG: identical ``` + ``` -> symmetrical {{{ + }}} | <@ + @>
+    => then syntax won't break when scrolling page from bottom up
+  [_] NEED: special block for commands outputs (e.g. shell) directly below
+    * distinct from outline and comments around them
+    * hi! :: simplified / absent / highspeed
+    * can contain user comments inside
+    * different types -- grep/find/special
+    ~? special marker for "output" data from commands
+    *? gray color in-between of plain text and comments
+    *? applying syntax highlight (as hex/number/etc) must be still possible
+    MAYBE: use xml-esque markers for possible blocks
+      e.g.
+        <grep> ... </grep>
+        [grep[ ... ]grep]
+      => maybe only Lisp syntax hi is able to execute code immediately on syntax parsing
+      => in vim you can pre-generate special hi! depending on pre-parsing of opened file content
+        BUT: newly added blocks won't be re-generated -- need hook on ":w" to accomplish syntax refresh
+      * must be nestable -- to add some comments hi! inside of hex hi! inside of logs dump hi!
+
 
 %% Path / Url
   [_] THINK: hi! separate extensions: .xml or *.nou
@@ -257,6 +274,7 @@ SEE
   DEV
     key: value
     key=value
+  E.G.(hi!): id=val -- "id" is bold dark blue, "=" nobold dark blue, "val" is common solarized text
 
 %% Operators
   [_] Arrows: hi! _in-text_ constructions like *=>*
