@@ -94,6 +94,10 @@ HACK
     http://dinosaur.compilertools.net/bison/bison_8.html#SEC70
   DEBUG
     http://www.cs.man.ac.uk/~pjj/complang/grammar.html
+  Compiler Design
+    = see slides how to simplify grammar rules
+    REF:TUT https://www.isi.edu/~pedro/Teaching/CSCI565-Spring17/
+
 
 E.G. Grammars
   Paragraphs
