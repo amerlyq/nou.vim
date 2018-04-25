@@ -12,3 +12,6 @@ travis:
 
 clean:
 	rm -rf $${TMPDIR:-/tmp}/vader.vim
+
+tags:
+	$${EDITOR:-vim} -u NONE -c 'helptags doc | qa!'
