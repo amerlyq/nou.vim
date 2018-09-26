@@ -5,6 +5,7 @@ REPL:(haskell->json):
 
 
 Grammar parsing
+  CMP:VIZ. https://wiki.python.org/moin/LanguageParsing
   ++ TRY parglare
     = Arpeggio/textX successor
     https://github.com/igordejanovic/parglare
