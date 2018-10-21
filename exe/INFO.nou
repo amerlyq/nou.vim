@@ -12,6 +12,9 @@ Grammar parsing
     http://www.igordejanovic.net/parglare/pglr/
     $ sudo pip install -e git+https://github.com/igordejanovic/parglare.git
       https://stackoverflow.com/questions/20101834/pip-install-from-git-repo-branch
+  + textX
+    https://github.com/igordejanovic/textX
+    = MAYBE: able for parsing my line-separated .nou ?
   ++ parsimonious
     https://github.com/erikrose/parsimonious
     http://zderadicka.eu/writing-simple-parser-in-python/
