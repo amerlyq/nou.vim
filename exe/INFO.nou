@@ -94,6 +94,10 @@ HACK
     http://www.cs.man.ac.uk/~pjj/complang/heuristics.html
     http://www.cs.man.ac.uk/~pjj/cs2121/ho/node5.html#SECTION00053000000000000000
     http://www.cs.man.ac.uk/~pjj/cs2121/ho/node7.html#SECTION00072000000000000000
+    ++ https://www.geeksforgeeks.org/simplifying-context-free-grammars/
+    https://www.cs.sfu.ca/~anoop/courses/CMPT-755-Fall-2006/papers/lrk_xform.pdf.gz
+    +++ [_] TRY http://www.cs.man.ac.uk/~pjj/complang/g2lr.html
+      http://www.cs.man.ac.uk/~pjj/complang/g2ll.html
   Shift-Reduce problems
     http://dinosaur.compilertools.net/bison/bison_8.html#SEC70
   DEBUG
@@ -123,3 +127,14 @@ E.G. Grammars
     https://github.com/antlr/grammars-v4/tree/master/stacktrace
   Python
     https://docs.python.org/3/reference/grammar.html
+
+
+Indent based grammars
+  HACK:(BNF): force lexer to generate INDENT and DEDENT lexems to be used in grammar
+    https://stackoverflow.com/questions/52037501/bnf-example-for-language-grammar-where-indenting-level-defines-a-block
+    https://www.reddit.com/r/ProgrammingLanguages/comments/7gvdje/any_advice_on_how_to_implement_the_pythonindent/
+    https://mail.python.org/pipermail/tutor/2009-January/066238.html
+  E.G.
+    http://www.cs.utsa.edu/~wagner/CS3723/grammar/c.bnf.html
+    http://www.cs.utsa.edu/~wagner/CS3723/grammar/examples2.html
+    https://github.com/sirthias/parboiled/wiki/Indentation-Based-Grammars
