@@ -81,6 +81,21 @@ Iterative grammar design
   http://leafo.net/guides/parsing-expression-grammars.html
 
 
+ALSO
+  ++ lemon (as in SQLite)
+    http://www.hwaci.com/sw/lemon/
+      http://www.hwaci.com/sw/lemon/lemon.html
+    e.g.
+      http://souptonuts.sourceforge.net/readme_lemon_tutorial.html
+      https://github.com/sergev/lemon-parser-generator/tree/master/examples
+      https://ps-group.github.io/compilers/lemon_doc
+  ragel
+    http://www.colm.net/open-source/ragel/
+    https://wincent.com/blog/ragel-wins-fatality
+    E.G. https://github.com/yjchen/vcard_ragel/blob/master/lib/vcard_tokenizer.rl
+    BAD: totally mixed "lexer-parser-actions" w/o clean interfaces in-between
+
+
 NOTE: PEG is not the best choice
   http://www.igordejanovic.net/2017/08/09/parglare-python-parser.html
   => parglare
