@@ -115,6 +115,9 @@ HACK
       http://www.cs.man.ac.uk/~pjj/complang/g2ll.html
   Shift-Reduce problems
     http://dinosaur.compilertools.net/bison/bison_8.html#SEC70
+    Generic solving dangling if-else in LR/LL parsers
+      +++ TUT https://www.parsifalsoft.com/ifelse.html
+      https://stackoverflow.com/questions/32855201/grammar-ll1-dangling-else-and-common-left-prefix
   DEBUG
     http://www.cs.man.ac.uk/~pjj/complang/grammar.html
   Compiler Design
@@ -153,3 +156,5 @@ Indent based grammars
     http://www.cs.utsa.edu/~wagner/CS3723/grammar/c.bnf.html
     http://www.cs.utsa.edu/~wagner/CS3723/grammar/examples2.html
     https://github.com/sirthias/parboiled/wiki/Indentation-Based-Grammars
+  VIZ
+    https://github.com/toml-lang/toml/blob/master/toml.abnf
