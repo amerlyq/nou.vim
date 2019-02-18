@@ -37,6 +37,7 @@ syn match nouTableDelim display excludenl '|'
 " ATT: placed before accents, to distinguish _underline_ from _extension
 call nou#syntax#artf_ext()
 call nou#syntax#artf_hashtag()
+call nou#syntax#artf_addressing()
 call nou#syntax#artf_contact()
 call nou#syntax#artf_function()
 

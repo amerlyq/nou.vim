@@ -249,6 +249,15 @@ fun! nou#syntax#artf_hashtag()
   " exe join(['hi', nm, B, 'ctermfg=62 guifg=#5f5fdf'])
 endf
 
+fun! nou#syntax#artf_addressing()
+  let nm = 'nouArtifactAddressing'
+  exe 'syn cluster nouArtifactQ add='.nm
+  exe 'syn match '.nm.' display excludenl'
+    \.' '.s:pbe('\@\a\S{-}', '(\[{,;|', '|;,}\])')
+  let B = ' cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE '
+  exe join(['hi', nm, B, 'ctermfg=80 guifg=#5fdfdf'])
+endf
+
 fun! nou#syntax#artf_contact()
   let nm = 'nouArtifactContact'
   exe 'syn cluster nouArtifactQ add='.nm
