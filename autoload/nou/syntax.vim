@@ -194,6 +194,8 @@ endf
 fun! nou#syntax#path()
   let nm = 'nouPath'
   let ps = s:p('\\[[:blank:]]')
+  " FIXME: only split after ", " and ignore embedded comma
+  " FIXME: allow construction /some/path/{a,b,c} as nested path artifact
   let pe = s:pe('', ',)}\]')
 
   exe 'syn cluster nouArtifactQ add='.nm.','.nm.'C'
@@ -203,7 +205,7 @@ fun! nou#syntax#path()
   exe 'syn region '.nm.' display oneline keepend excludenl'
     \.' contains=@'.nm.'Q'
     \.' matchgroup='.nm.'D'
-    \.' start='.s:pb('%([~]|\.{1,2})/\ze%([^/]|$)|/\ze[^/[:blank:]]', ',({\[')
+    \.' start='.s:pb('%([~@:]|\.{1,2})/\ze%([^/]|$)|/\ze[^/[:blank:]]', ',({\[')
     \.' start='.s:pb('[[:alpha:]]:\\{1,2}\ze%([^\\]|$)', '[:punct:]')
     \.' skip='.ps
     \.' end='.pe

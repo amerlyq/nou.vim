@@ -1,6 +1,10 @@
 %%%%% Notes + outline unified
 
 TODO
+  [_] MAYBE: use unicode symbols for checkbox BUT: "wide" are nice but cropped
+    VIZ: ☐❏ | 🗹 ☑✓✔✅🗸 | ⮽☒✗✘𐄂❌🗴🗶🗵 🗷
+    BAD: one-symbol checkbox is looking too crumpled
+    SVC: http://www.amp-what.com/unicode/search/box
   [_] TODO: switch hi! places for todo [_] and decision "!!" markers
   [_] script for pandoc to convert *.nou into *.md
   [_] Test and compare with vimoutliner

@@ -40,6 +40,7 @@ let s:nou.term.colors = {
   \ 'Que': ['\?', '\?', 'ctermfg=208 guifg=#ff8700 gui=bold,italic'],
   \ 'Wrn': ['\~', '\~', 'ctermfg=226 guifg=#ffff00 gui=bold,italic'],
   \ 'Add': ['\+', '\+', 'ctermfg=46 guifg=#00ff00 gui=bold,italic'],
+  \ 'Not': ['\-', '\-', 'ctermfg=44 guifg=#00dfdf gui=bold,italic,undercurl'],
   \ 'Standout': ['\|', '\|', 'ctermbg=16 guibg=#000000'],
   \ }
 
