@@ -168,6 +168,16 @@ hi def link nouComment Comment
 syn region nouComment display oneline keepend
   \ start='^#\s' start='\s\s\zs#\s' excludenl end='\s#\ze\s\s' end='$'
 
+" MAYBE: make "nouDate/nouTime" into overlay notches to be highlighted everywhere
+hi! nouDate ctermfg=178 guifg=#dfaf00
+syn match nouDate display excludenl
+  \ '\v<20\d\d-%(0\d|1[012])-%([012]\d|3[01])>'
+
+" hi! nouTime ctermfg=210 guifg=#ff8787
+hi! nouTime ctermfg=248 guifg=#a8a8a8
+syn match nouTime display excludenl
+  \ '\v<%(\d|[01]\d|2[0-4]):[0-5]\d%(:[0-5]\d)?>'
+
 hi! nouTask ctermfg=14 guifg=#586e75
 syn match nouTask display excludenl
   \ '\v%(\d{4}-\d\d-\d\d )?\[[_$X]\]'
@@ -222,7 +232,7 @@ for ft in keys(g:nou.embed)
   call nou#syntax#embedded(ft)
 endfor
 
-syn cluster nouTextQ add=@Spell,nouComment,nouTask
+syn cluster nouTextQ add=@Spell,nouComment,nouDate,nouTime,nouTask
   \,@nouArtifactQ,@nouAccentQ,@nouTermQ,@nouEmbedQ
 
 " EXPL: must be last line -- set single-loading guard only if no exceptions

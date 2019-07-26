@@ -194,9 +194,10 @@ endf
 fun! nou#syntax#path()
   let nm = 'nouPath'
   let ps = s:p('\\[[:blank:]]')
-  " FIXME: only split after ", " and ignore embedded comma
-  " FIXME: allow construction /some/path/{a,b,c} as nested path artifact
-  let pe = s:pe('', ',)}\]')
+  " FIXME: only allow comma inside {...}
+  "   IDEA: allow construction /some/path/{a,b,c} as nested path artifact
+  "   ALT: use ", " as path-ending marker instead of "," or ignoring at all
+  let pe = s:pe('', ')\]')
 
   exe 'syn cluster nouArtifactQ add='.nm.','.nm.'C'
   exe 'syn cluster '.nm.'Q contains='.nm.'D,'.nm.'N,'.nm.'S,'.nm.'T'
@@ -221,7 +222,7 @@ fun! nou#syntax#path()
   exe 'syn match '.nm.'D display excludenl contained '.s:p('[/\\]')
   exe 'syn match '.nm.'N display excludenl contained '.s:pe('%(:\d+)+')
   exe 'syn match '.nm.'S display excludenl contained '.ps
-  exe 'syn match '.nm.'T display excludenl contained '.s:p('[<>]|\$\k+')
+  exe 'syn match '.nm.'T display excludenl contained '.s:p('[<>]|\$\k+|[{,}]')
 
   let B = ' cterm=italic ctermbg=9 gui=italic guibg=#073642 '
   exe 'hi '.nm.' '.B.'ctermfg=79  guifg=#5fd7af'
