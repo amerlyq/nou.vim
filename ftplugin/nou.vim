@@ -38,8 +38,8 @@ iabbrev <expr> dts strftime('%Y-%m-%d')
 let s:nou_mappings = [
   \ ['nx', '<LocalLeader><BS>', '<Plug>(nou-bar)'],
   \ ['nx', '<LocalLeader><Space>', '<Plug>(nou-bar_)'],
-  \ ['nx', '<LocalLeader>d', '<Plug>(nou-barD_)'],
-  \ ['nx', '<LocalLeader>D', '<Plug>(nou-barD)'],
+  \ ['nx', '<LocalLeader>d', '<Plug>(nou-barD)'],
+  \ ['nx', '<LocalLeader>D', '<Plug>(nou-barD_)'],
   \ ['nx', '<LocalLeader>$', '<Plug>(nou-bar$)'],
   \ ['nx', '<LocalLeader>X', '<Plug>(nou-barX)'],
   \ ['nx', '<LocalLeader>x', '<Plug>(nou-barDX)'],

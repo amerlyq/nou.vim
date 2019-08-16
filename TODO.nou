@@ -1,6 +1,9 @@
 %%%%% Notes + outline unified
 
 TODO
+  [_] highlight today in bright yellowish white :: ctermfg=230 guifg=#ffffdf
+  [_] highlight all FUTURE dates differently :: ctermfg=105 guifg=#8787ff
+  [_] overload <gf/gF/gC-f> to jump to @/demo/ open @/airy/Makefile or repo-related :/README.md
   [_] Date format for full timepoints and intervals
     REF: https://en.wikipedia.org/wiki/ISO_8601
     REF: new extended drafts for times and intervals
