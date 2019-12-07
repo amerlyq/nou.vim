@@ -35,7 +35,11 @@ xnoremap <Plug>(nou-date) "=strftime('%Y-%m-%d')<CR>P
 inoremap <Plug>(nou-date) <C-R>=strftime('%Y-%m-%d')<CR>
 iabbrev <expr> dts strftime('%Y-%m-%d')
 
+nnoremap <silent> <Plug>(nou-path-open) :call nou#path_open(expand('<cWORD>'))<CR>
+xnoremap <silent> <Plug>(nou-path-open) :<C-u>call nou#path_open(nou#vsel())<CR>
+
 let s:nou_mappings = [
+  \ ['nx', 'gf', '<Plug>(nou-path-open)'],
   \ ['nx', '<LocalLeader><BS>', '<Plug>(nou-bar)'],
   \ ['nx', '<LocalLeader><Space>', '<Plug>(nou-bar_)'],
   \ ['nx', '<LocalLeader>d', '<Plug>(nou-barD)'],
