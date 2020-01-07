@@ -46,7 +46,7 @@ fun! nou#syntax#outline(i)
   exe 'syn region '.nm.' display keepend excludenl'
     \.' contains=@nouTextQ,@nouDelimQ,@nouDecisionQ'
     \.' start='.s:p(nou#syntax#_indent(a:i))
-    \.' skip='.s:p('\\\s*$')
+    \.' skip='.s:p('%('. g:nou.outline.wrapby .')$')
     \.' end='.s:p('$')
   call nou#syntax#_highlight(nm, g:nou.outline.colors[a:i])
 endf

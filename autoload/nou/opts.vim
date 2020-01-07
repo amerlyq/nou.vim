@@ -17,7 +17,7 @@ let s:nou.decision.colors = [
   \ ['\={1,3}', '#6c71c4'],
   \ ['\:{1,3}', '#6c71c4'],
   \ ['\~{1,3}', '#d33682'],
-  \ ['\?{1,3}:?', '#dd6616'],
+  \ ['\?{1,3}!{,2}:?', '#dd6616'],
   \ ['\!{1,3}', '#dc322f'],
   \ ['\<{1,3}[-~=]*', '#c5a900'],
   \ ['[-~=]*\>{1,3}', '#d33682'],
@@ -36,10 +36,12 @@ let s:nou.term = {}
 let s:nou.term.colors = {
   \ 'Key': ['\<', '\>', 'ctermfg=1 guifg=#dc322f'],
   \ 'Str': ['"', '"', 'ctermfg=81 guifg=#5fdfff'],
+  \ 'Dot': ['\.', '\.', 'ctermfg=81 guifg=#5fdfff gui=bold'],
   \ 'Err': ['!', '!', 'ctermfg=196 guifg=#ff0000 gui=bold,italic'],
   \ 'Que': ['\?', '\?', 'ctermfg=208 guifg=#ff8700 gui=bold,italic'],
   \ 'Wrn': ['\~', '\~', 'ctermfg=226 guifg=#ffff00 gui=bold,italic'],
   \ 'Add': ['\+', '\+', 'ctermfg=46 guifg=#00ff00 gui=bold,italic'],
+  \ 'Emf': ['\=', '\=', 'ctermfg=99 guifg=#875fff gui=bold,italic'],
   \ 'Not': ['\-', '\-', 'ctermfg=44 guifg=#00dfdf gui=bold,italic,undercurl'],
   \ 'Standout': ['\|', '\|', 'ctermbg=16 guibg=#000000'],
   \ }
@@ -71,6 +73,8 @@ let s:nou.delimit.colors = [
   \ ]
 
 let s:nou.outline = {}
+" ATT: don't add trailing spaces -- they irritate when typing by blinking next line color
+let s:nou.outline.wrapby = '[\\,-]'
 " NOTE: whole 'hi' cmdline can be specified
 let s:nou.outline.colors = [
   \ '#268bd2',
