@@ -220,6 +220,15 @@ fun! nou#syntax#path()
     \.' skip='.ps
     \.' end='.pe
 
+  " DEV:IDEA: interpreted trailing operators/special-terms/topics in path
+  "   /path:XX:YY   - STD lineno
+  "   /path:/search - (.vim|ctag)-style search for text
+  "   /path:?search - prevent conflict with '/' regex
+  "   /path::term:  - (.rst|.org)-style
+  "   /path:*term*  - my bold object terms
+  "   /path:%sect   - beginning of named section
+  "   /path:^text   - beginning of any outline line
+  "   /path:=term   - ??? SEE: operators from ctags(1) db format and vim help
   exe 'syn match '.nm.'D display excludenl contained '.s:p('[/\\]')
   exe 'syn match '.nm.'N display excludenl contained '.s:pe('%(:\d+)+')
   exe 'syn match '.nm.'S display excludenl contained '.ps
