@@ -214,3 +214,11 @@ Mixed
     inherits color of first marker
   ignoring actual ``` indent
       L3 next one
+
+Line continuations
+  line \
+    continue
+  !. line,
+    continue
+  -. line --
+    continue

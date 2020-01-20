@@ -59,6 +59,7 @@ fun! nou#syntax#decision(i)
     \.' excludenl matchgroup='.nm
     \.' start='.s:p('^\s*\zs\z('.s.')%(\d+)?\s@1=')
     \.' end='.s:p('\s\z1$').' end='.s:p('$')
+  " FIXME: continue alternated highlight over g:nou.outline.wrapby
   exe 'syn region '.nm.'u display oneline keepend'
     \.' excludenl matchgroup='.nm
     \.' contains=@nouTextQ'
