@@ -178,9 +178,32 @@ hi! nouTime ctermfg=248 guifg=#a8a8a8
 syn match nouTime display excludenl
   \ '\v<%(\d|[01]\d|2[0-4]):[0-5]\d%(:[0-5]\d)?>'
 
+
+" DISABLED: too bright checkbox is distracting
+" hi! nouTaskTodo ctermfg=15 guifg=#beeeee
+hi! nouTaskTodo ctermfg=14 guifg=#586e75
+syn cluster nouTaskQ add=nouTaskTodo
+syn match nouTaskTodo display excludenl '\V[_]'
+
+hi! nouTaskDone ctermfg=14 guifg=#586e75
+syn cluster nouTaskQ add=nouTaskDone
+syn match nouTaskDone display excludenl '\V[X]'
+
+hi! nouTaskCancel ctermfg=160 guifg=#df0000
+syn cluster nouTaskQ add=nouTaskCancel
+syn match nouTaskCancel display excludenl '\V[$]'
+
+" HACK: different yellowish/rainbow color for incomplete tasks /[01-99%]/
+for i in keys(g:nou.task.colors)
+  exe 'hi! nouTaskProgress'.i .' '. g:nou.task.colors[i]
+  exe 'syn cluster nouTaskQ add=nouTaskProgress'.i
+  exe 'syn match nouTaskProgress'.i.' display excludenl "\V['.i.'\d%]"'
+endfor
+
 hi! nouTask ctermfg=14 guifg=#586e75
-syn match nouTask display excludenl
-  \ '\v%(\d{4}-\d\d-\d\d )?\[[_$X]\]'
+syn match nouTask display excludenl contains=@nouTaskQ
+  \ '\v%(\d{4}-\d\d-\d\d )?\[%([_$X]|\d\d\%)\]'
+
 
 " EXPL: https, ftp, news, file
 " THINK: diff color urls -- don't do 'contains=@nouArtifactG'
@@ -233,7 +256,7 @@ for ft in keys(g:nou.embed)
 endfor
 
 syn cluster nouTextQ add=@Spell,nouComment,nouDate,nouTime,nouTask
-  \,@nouArtifactQ,@nouAccentQ,@nouTermQ,@nouEmbedQ
+  \,@nouTaskQ,@nouArtifactQ,@nouAccentQ,@nouTermQ,@nouEmbedQ
 
 " EXPL: must be last line -- set single-loading guard only if no exceptions
 let b:current_syntax = 'nou'

@@ -13,7 +13,10 @@ endf
 
 fun! nou#bar(...) range
   if a:0<1 || type(a:1) != type('')| throw "wrong a:1" |en
-  let pfx = substitute(a:1, '[_$X]', '[&] ', '')
+  " USAGE: <5,.x> → 50% | <45,.x> → 45% | <105,.x> 05%
+  let pg = a:2 < 10 ? a:2*10 : a:2 >= 100 ? a:2 % 100 : a:2
+  let mrk = '['. (a:2 ? printf('%02d', pg).'%' : '&') .'] '
+  let pfx = substitute(a:1, '[_$X]', mrk, '')
   let pfx = substitute(pfx, 'D', strftime("%Y-%m-%d").' ', '')
 
   " BUG: in VSEL mode wrong cursor pos: '.' == '<
@@ -29,7 +32,7 @@ fun! nou#bar(...) range
     "   => extract first word from $line and directly compare in vimscript
     let chgd = substitute(line,
       \ '\v^(\s*%([^[:alpha:][:blank:][\]]{-1,3}\s+)?)'
-      \.'%(%(\d{4}-\d\d-\d\d )?\[[_$X]\]\s*)?(.*)$',
+      \.'%(%(\d{4}-\d\d-\d\d )?\[%([_$X]|\d\d\%)\]\s*)?(.*)$',
       \ '\1'.pfx.'\2', '')
     if chgd !=# line| call setline(i, chgd) |en
   endfor

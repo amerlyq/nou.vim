@@ -24,7 +24,7 @@ setl concealcursor=""
 
 """ Mappings
 " Range-wise modifiers
-for s in ['', 'D', '_', 'D_', '$', 'X', 'DX'] | for m in ['n', 'x']
+for s in ['', 'D', '_', 'D_', 'D$', 'X', 'DX'] | for m in ['n', 'x']
   exe m.'noremap <silent> <Plug>(nou-bar'.s.')'
       \" :<C-u>call nou#bar('".s."',v:count,".(m==#'x').")<CR>"
 endfor | endfor
@@ -44,9 +44,9 @@ let s:nou_mappings = [
   \ ['nx', '<LocalLeader><Space>', '<Plug>(nou-bar_)'],
   \ ['nx', '<LocalLeader>d', '<Plug>(nou-barD)'],
   \ ['nx', '<LocalLeader>D', '<Plug>(nou-barD_)'],
-  \ ['nx', '<LocalLeader>$', '<Plug>(nou-bar$)'],
-  \ ['nx', '<LocalLeader>X', '<Plug>(nou-barX)'],
+  \ ['nx', '<LocalLeader>$', '<Plug>(nou-barD$)'],
   \ ['nx', '<LocalLeader>x', '<Plug>(nou-barDX)'],
+  \ ['nx', '<LocalLeader>X', '<Plug>(nou-barX)'],
   \ ['nx', '<LocalLeader>i', '<Plug>(nou-date)'],
   \]
 

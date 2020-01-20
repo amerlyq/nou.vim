@@ -23,6 +23,22 @@ let s:nou.decision.colors = [
   \ ['[-~=]*\>{1,3}', '#d33682'],
   \ ]
 
+
+let s:nou.task = {}
+let s:nou.task.colors = {
+  \ '0': 'ctermfg=167 guifg=#df5f5f',
+  \ '1': 'ctermfg=173 guifg=#df875f',
+  \ '2': 'ctermfg=185 guifg=#dfdf5f',
+  \ '3': 'ctermfg=191 guifg=#dfff5f',
+  \ '4': 'ctermfg=193 guifg=#dfffaf',
+  \ '5': 'ctermfg=40  guifg=#00df00',
+  \ '6': 'ctermfg=34  guifg=#00af00',
+  \ '7': 'ctermfg=24  guifg=#007f87',
+  \ '8': 'ctermfg=27  guifg=#005fff',
+  \ '9': 'ctermfg=57  guifg=#7f00ff',
+  \ }
+
+
 let s:nou.accent = {}
 let s:nou.accent.colors = {
   \ 'Normal': ['`', 'NONE'],
