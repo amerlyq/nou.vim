@@ -49,6 +49,8 @@ TODO
   [_] DEV:IDEA: formalize structured syntax inline artifacts (similar to my hand-written pictogram for physics)
     ** intent :: math-like grammar for plain language logics
       e.g. I already use "--", "::" and "=>" anyway -- can formalize and extend it already by "<<", etc.
+    ** logics
+      e.g. picotui BET(than urwid)
     ** ⦗flavor⦘ :: dispensable emotional coloring to enrich dry decision terms without overencumbering their underlying logic
       e.g. doubts, anxiety, beautifications, etc.
         something akin to what I use (?...?) for :::  user need this (?wrong suggestion?)

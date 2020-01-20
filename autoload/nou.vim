@@ -57,8 +57,8 @@ fun! nou#path_open(path)
     let p = g[0] . p
   elseif pfx ==# '…'
     let p = strpart(p, 1)
-    " TODO: search in all 'path' like usual 'gf' do
-    exe 'edit' fnameescape(p)
+    " NOTE: search in all 'path' like usual 'gf' do
+    exe 'find' fnameescape(p)
     return
   else
     norm! gf

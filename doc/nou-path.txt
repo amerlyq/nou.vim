@@ -51,8 +51,13 @@
   ~/
   ~/dir
   ~/in/home
-  ./file
-  ../relat/path
+  ./file            # path relative to cwd ($PWD)
+  ../relat/path     # same as above == ./../relat/path
+
+  @/airy/README.md  # repo (view) inside myrepos :: ~/aura OR /annex
+  :/doc/nou.txt     # subpath (feature) inside current repo
+  %/../Makefile     # filepath relatively to current file (./nou-path.txt)
+  …/errno.h         # search in all ':h path' (.,/usr/include) like usual 'gf' do
 
 %% Patterns
 
