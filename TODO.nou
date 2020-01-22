@@ -1,6 +1,7 @@
 %%%%% Notes + outline unified
 
 TODO
+  [_] THINK:CHG: search …/errno.h inside current or any parents directory instead of 'path' variable
   [_] MAYBE:CHG: "2020-01-14 [10%] ..." => "2020-01-14 10% ..." OR "2020-01-14 %10 ..."
   [_] CHECK: .rst files "rstEmphasis" somehow keeps the same color between asterisks :: *aaa*
   [_] TRY: prepend some symbol to decision/enumeration syntax to distinguish them in parser

@@ -207,7 +207,7 @@ fun! nou#syntax#path()
   exe 'syn region '.nm.' display oneline keepend excludenl'
     \.' contains=@'.nm.'Q'
     \.' matchgroup='.nm.'D'
-    \.' start='.s:pb('%([~@:%.]|\.\.|…)/\ze%([^/]|$)|/\ze[^/[:blank:]]', ',({\[')
+    \.' start='.s:pb('%([~@:%.&]|\.\.|…)/\ze%([^/]|$)|/\ze[^/[:blank:]]', ',({\[')
     \.' start='.s:pb('[[:alpha:]]:\\{1,2}\ze%([^\\]|$)', '[:punct:]')
     \.' skip='.ps
     \.' end='.pe

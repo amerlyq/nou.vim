@@ -53,6 +53,18 @@ fun! nou#path_open(path)
   elseif pfx ==# '~' | let p = $HOME . p
   elseif pfx ==# '@' | let p = $HOME .'/aura'. p  " BAD: I have nested repo
   elseif pfx ==# '%' | let p = expand('%:h') . p  " CHECK: different $PWD
+  elseif pfx ==# '&'
+    "" FIXME:DEV: search ignored dir '/&/' up-pwd to open referenced untracked file
+    "" IDEA:(aura): track filelist and restore on demand the content of /&/ on other devices beside home PC
+    "  DEV:(commit hook): dump list of untracked files under ./&/ into '&.nou' as "&/path/to/file" lines
+    " let d = expand('%:h')
+    " while d !=# '/'
+    "   if exists(d .'/&/') | let p = d .'/&/'. p | en
+    " endwhile
+    " if !exists(d .'/&/')
+    "   echom 'Not found: '. d .'/&/'. p
+    "   return
+    " en
   elseif pfx ==# ':'
     " ALT: see "\cd" cmd impl
     let d = fnameescape(expand('%:h'))
