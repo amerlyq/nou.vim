@@ -1,6 +1,12 @@
 %%%%% Notes + outline unified
 
 TODO
+  [_] MAYBE: apply decisions markers on rest-of-any-line instead of prefix-before-task-only
+  [_] TODO: higlight vars :: $PWD and ${PWD} and %{PWD}
+  [_] BET:CHG: path prefixes
+    | :/ -> ./ | then vim auto-completion will work by itself, if current file is opened from its own dir
+    | ./ -> %/ | so % becomes the same as $PWD
+    | @/ -> git| search for any git/hg/VCS repo matching @/nm/ from root of /x/* onwards
   [_] THINK:CHG: search …/errno.h inside current or any parents directory instead of 'path' variable
   [_] MAYBE:CHG: "2020-01-14 [10%] ..." => "2020-01-14 10% ..." OR "2020-01-14 %10 ..."
   [_] CHECK: .rst files "rstEmphasis" somehow keeps the same color between asterisks :: *aaa*
