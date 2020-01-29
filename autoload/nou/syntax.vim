@@ -288,7 +288,7 @@ fun! nou#syntax#artf_function()
   exe 'syn region '.nm.' display oneline excludenl extend'
     \.' excludenl matchgroup='.nm.'H'
     \.' contains='.nm
-    \.' start='.s:p('\w+\(')
+    \.' start='.s:p('\k+\(')
     \.' end='.s:p('\)')
     " \.' end='.s:p('\ze\{\+')
     " \.' skip='.s:p('\\\s', '~')

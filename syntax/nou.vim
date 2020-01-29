@@ -235,6 +235,13 @@ syn cluster nouArtifactQ add=nouArtifactKey
 syn match nouArtifactKey display excludenl
   \ '\v^%(\A{-}\s@1<=)?\zs\k+:%(\ze\s|$)'
 
+" BAD: ignored after task marker [X] !~ \A+ or after any other 'decision'
+"  => E.G. even '\v^%(\s{4})@<=\k+' isn't working
+hi! nouArtifactVar cterm=bold ctermfg=9 gui=bold guifg=#df5f00
+syn cluster nouArtifactQ add=nouArtifactVar
+syn match nouArtifactVar display excludenl
+  \ '\v%([$]\w+|[$]\{\w+\})>'
+
 "" ATT: must be after ArtifactKey for correct 'nouNumberXaddr' hi!
 runtime autoload/nou/number.vim
 
