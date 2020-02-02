@@ -49,6 +49,7 @@ fun! nou#path_open(path)
   let pfx = strpart(p, 0, idx)
   let p = strpart(p, idx)
 
+  " FIXME: ./path/ must count from current file, not cwd
   if pfx ==# '' || pfx ==# '.' || pfx ==# '..' | let p = pfx . p
   elseif pfx ==# '~' | let p = $HOME . p
   elseif pfx ==# '@' | let p = $HOME .'/aura'. p  " BAD: I have nested repo
