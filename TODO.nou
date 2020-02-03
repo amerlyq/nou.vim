@@ -1,6 +1,19 @@
 %%%%% Notes + outline unified
 
 TODO
+  [_] DEV: define accents solely through matchadd() to keep foreground untouched, and only change style
+    Can it be done: syntax region background color, with "transparent" foreground? : vim ⌇<1[nu
+      https://www.reddit.com/r/vim/comments/2iz7ho/can_it_be_done_syntax_region_background_color/
+    colorscheme - How to force overwriting ALL syntax highlighting in Vim? - Vi and Vim Stack Exchange ⌇j3[nu
+      https://vi.stackexchange.com/questions/21840/how-to-force-overwriting-all-syntax-highlighting-in-vim/21904#21904
+    vimscript - Is it possible to reverse an existing highlighting group? - Vi and Vim Stack Exchange ⌇v3[nu
+      https://vi.stackexchange.com/questions/21546/is-it-possible-to-reverse-an-existing-highlighting-group
+    Txtfmt (The Vim Highlighter) - "Rich text" highlighting in Vim! (colors, underline, bold, italic, etc...) : vim online ⌇24[nu
+      https://www.vim.org/scripts/script.php?script_id=2208
+  [_] Different syntax highlighting within regions of a file | Vim Tips Wiki | Fandom ⌇PW)nu
+    https://vim.fandom.com/wiki/Different_syntax_highlighting_within_regions_of_a_file
+    vim-scripts/Mixed-sourceassembly-syntax-objdump: Syntax for Mixed C source and assembly dump. ⌇-W)nu
+      https://github.com/vim-scripts/Mixed-sourceassembly-syntax-objdump
   [_] MAYBE: apply decisions markers on rest-of-any-line instead of prefix-before-task-only
   [_] TODO: higlight vars :: $PWD and ${PWD} and %{PWD}
   [_] BET:CHG: path prefixes
@@ -63,7 +76,7 @@ TODO
       e.g. doubts, anxiety, beautifications, etc.
         something akin to what I use (?...?) for :::  user need this (?wrong suggestion?)
       == intended to express somewhat subtle atmosphere of emoji without intrusive standalone emoji
-    ** brightness :: default term accents are too bright => keep brightness for "~~...~~" but reduce gamma for "~...~" accents
+    ** 2020-02-03 [60%] brightness :: default term accents are too bright => keep brightness for "~~...~~" but reduce gamma for "~...~" accents
       ~project~
       ~~project~~
   [_] generate all syntax demo file based on all available options in :/autoload/nou/opts.vim
