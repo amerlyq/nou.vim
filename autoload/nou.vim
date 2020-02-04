@@ -16,7 +16,9 @@ fun! nou#bar(...) range
   " USAGE: <5,.x> → 50% | <45,.x> → 45% | <105,.x> 05%
   let pg = a:2 < 10 ? a:2*10 : a:2 >= 100 ? a:2 % 100 : a:2
   let mrk = '['. (a:2 ? printf('%02d', pg).'%' : '&') .'] '
-  let pfx = substitute(a:1, '[_$X]', mrk, '')
+  let pfx = a:1
+  let pfx = substitute(pfx, '[0-9]', '', 'g')  " Strip progress lvl
+  let pfx = substitute(pfx, '[_$X]', mrk, '')
   let pfx = substitute(pfx, 'D', strftime("%Y-%m-%d").' ', '')
 
   " BUG: in VSEL mode wrong cursor pos: '.' == '<

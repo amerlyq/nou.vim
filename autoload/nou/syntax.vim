@@ -93,6 +93,7 @@ fun! nou#syntax#term(k)
   let [b, e, c] = g:nou.term.colors[a:k]
   exe 'syn cluster nouTermQ add='.nm
   " TRY: always keep matchgroup syms the same color despite accents modifying colors inside them
+  " BAD: but must support '("aaa")' and '"aaa",' BUT: prevent hi~ in "|--> f(p->buf)"
   exe 'syn region '.nm.' display oneline keepend '
     \.' excludenl matchgroup='.l:nm.' contains=@nouAccentQ'
     \.' start='.s:pb(b.'\ze[^[:blank:]'.b.']', '[:punct:]')

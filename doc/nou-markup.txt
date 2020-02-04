@@ -83,7 +83,7 @@ Works starting from any indent (even zero)
 * statement  | neutral
 + proc       | positive argument
 - con        | negative argument
-= result     | consequence
+= result     | consequence or P.S. (i.a. "==" == P.P.S. …)
 : info       | topic clarification
 ~ ambiguity  | dissatisfaction
 ? doubt      | think over

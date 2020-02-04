@@ -1,3 +1,4 @@
+" BUG: loaded 3 times -- verify by wild echo
 if exists("b:did_ftplugin")| finish |else| let b:did_ftplugin = 1 |endif
 let b:undo_ftplugin = "setl ai< cin< inde< ts< sw< sts< com< cms< fdm< cole< cocu< wrap<"
 call nou#opts#init()
@@ -49,6 +50,13 @@ let s:nou_mappings = [
   \ ['nx', '<LocalLeader>X', '<Plug>(nou-barX)'],
   \ ['nx', '<LocalLeader>i', '<Plug>(nou-date)'],
   \]
+
+for i in range(1,9)
+  exe 'nnoremap <silent> <Plug>(nou-barX'.i.')'
+    \.' :<C-u>call nou#bar("X'.i.'",'.i.',0)<CR>'
+  let s:nou_mappings += [['n', '<LocalLeader>'.i, '<Plug>(nou-barX'.i.')']]
+endfor
+
 
 if exists('s:nou_mappings')
   for [modes, lhs, rhs] in s:nou_mappings
