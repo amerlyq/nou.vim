@@ -1,6 +1,14 @@
 %%%%% Notes + outline unified
 
 TODO
+  [_] ENH: declare codeblocks and quotes like in reST / Yaml
+    + any part of extracted and deindented outline must be valid outline
+    + easy filtering of blocks w/o searching for closing tag on lines below
+    + completely different color for whole block to standout from usual outline colors
+      ALT: use different hue of same color of outline to distinguish quotes on different nesting
+        BUT: not so useful for code -- it better be left of same color on all levels
+    ~ maybe reuse same prefixes as reST:  "::" and ".. code-block:: bash"
+  [_] CHECK: does reST uses complete URN/URI scheme for cross-references or completely custom syntax ?
   [_] DEV: define accents solely through matchadd() to keep foreground untouched, and only change style
     Can it be done: syntax region background color, with "transparent" foreground? : vim ⌇<1[nu
       https://www.reddit.com/r/vim/comments/2iz7ho/can_it_be_done_syntax_region_background_color/
