@@ -8,6 +8,8 @@ TODO
       ALT: use different hue of same color of outline to distinguish quotes on different nesting
         BUT: not so useful for code -- it better be left of same color on all levels
     ~ maybe reuse same prefixes as reST:  "::" and ".. code-block:: bash"
+    IDEA: allow nested outline :: nou inside nou (but with reset indent)
+      => then I can place highlighted gdb/assembler blocks inside narrative of coredump investigation
   [_] CHECK: does reST uses complete URN/URI scheme for cross-references or completely custom syntax ?
   [_] DEV: define accents solely through matchadd() to keep foreground untouched, and only change style
     Can it be done: syntax region background color, with "transparent" foreground? : vim ⌇<1[nu
