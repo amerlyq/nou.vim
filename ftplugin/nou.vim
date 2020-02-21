@@ -24,11 +24,6 @@ setl concealcursor=""
 
 
 """ Mappings
-" Range-wise modifiers
-for s in ['', 'D', '_', 'D_', 'D$', 'X', 'DX'] | for m in ['n', 'x']
-  exe m.'noremap <silent> <Plug>(nou-bar'.s.')'
-      \" :<C-u>call nou#bar('".s."',v:count,".(m==#'x').")<CR>"
-endfor | endfor
 
 " nnoremap <silent> <Plug>(nou-date) :<C-u>put=strftime('%Y-%m-%d')<CR>
 nnoremap <Plug>(nou-date) "=strftime('%Y-%m-%d')<CR>P
@@ -41,21 +36,30 @@ xnoremap <silent> <Plug>(nou-path-open) :<C-u>call nou#path_open(nou#vsel())<CR>
 
 let s:nou_mappings = [
   \ ['nx', 'gf', '<Plug>(nou-path-open)'],
-  \ ['nx', '<LocalLeader><BS>', '<Plug>(nou-bar)'],
-  \ ['nx', '<LocalLeader><Space>', '<Plug>(nou-bar_)'],
-  \ ['nx', '<LocalLeader>d', '<Plug>(nou-barD)'],
-  \ ['nx', '<LocalLeader>D', '<Plug>(nou-barD_)'],
-  \ ['nx', '<LocalLeader>$', '<Plug>(nou-barD$)'],
-  \ ['nx', '<LocalLeader>x', '<Plug>(nou-barDX)'],
-  \ ['nx', '<LocalLeader>X', '<Plug>(nou-barX)'],
   \ ['nx', '<LocalLeader>i', '<Plug>(nou-date)'],
   \]
 
+
+" Range-wise modifiers
 for i in range(1,9)
   exe 'nnoremap <silent> <Plug>(nou-barX'.i.')'
     \.' :<C-u>call nou#bar("X'.i.'",'.i.',0)<CR>'
   let s:nou_mappings += [['n', '<LocalLeader>'.i, '<Plug>(nou-barX'.i.')']]
 endfor
+for s in ['', 'D', '_', 'D_', 'D$', '$', 'X', 'DX'] | for m in ['n', 'x']
+  exe m.'noremap <silent> <Plug>(nou-bar'.s.')'
+      \" :<C-u>call nou#bar('".s."',v:count,".(m==#'x').")<CR>"
+endfor | endfor
+let s:nou_mappings += [
+  \ ['nx', '<LocalLeader><BS>', '<Plug>(nou-bar)'],
+  \ ['nx', '<LocalLeader><Space>', '<Plug>(nou-bar_)'],
+  \ ['nx', '<LocalLeader>d', '<Plug>(nou-barD)'],
+  \ ['nx', '<LocalLeader>D', '<Plug>(nou-barD_)'],
+  \ ['nx', '<LocalLeader>$', '<Plug>(nou-barD$)'],
+  \ ['nx', '<LocalLeader>#', '<Plug>(nou-bar$)'],
+  \ ['nx', '<LocalLeader>x', '<Plug>(nou-barDX)'],
+  \ ['nx', '<LocalLeader>X', '<Plug>(nou-barX)'],
+  \]
 
 
 if exists('s:nou_mappings')
