@@ -154,10 +154,17 @@ endf
 fun! nou#syntax#embedded(ft)
   let nm = 'nouEmbed_'.a:ft
   let [b, e] = g:nou.embed[a:ft]
+  let brgx = '\v%(^|\s)\zs'.b.'\s'
+
+  " PERF: enable only if syntax is present in file
+  " FAIL: must reload file when new syntax is added for the first time
+  " MAYBE: check pattern for any inserted/pasted text ?
+  if !search(brgx,'nw') | return | en
+
   exe 'syn cluster nouEmbedQ add='.nm
   exe 'syn region '.nm.' display excludenl extend'
     \.' matchgroup=nouComment contains=@nouEmbedQ_'.a:ft
-    \.' start='.s:p('%(^|\s)\zs'.b.'\s')
+    \.' start='.s:p(brgx)
     \.' end='.s:p('\s'.e.'\ze%(\s|$)').' end='.s:p('\\@1<!$')
   call nou#syntax#embed_load(a:ft)
   " call nou#syntax#_highlight(nm, '#990000')
