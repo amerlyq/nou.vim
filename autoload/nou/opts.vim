@@ -6,6 +6,7 @@ let s:nou.cyclic = 1  " cyclic colors (OR: def color when indent >Nc)
 let s:nou.widesp = 0  " indent by also \u3000 (OR: only spaces/tabs)
 " TRY:ALT: join loose text with upper item on same level
 let s:nou.loose = 0   " round inexact indent to prev lvl
+let s:nou.loci = getcwd()    " RENAME: g:nou.anchor $LOCI
 
 
 let s:nou.decision = {}

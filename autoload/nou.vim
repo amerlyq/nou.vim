@@ -48,6 +48,7 @@ fun! nou#path_open(path)
 
   let idx = stridx(p, '/')
   if idx < 0| let idx = 0 |en
+  if idx == 0 && strpart(p,1,1) == '/'| let idx = 1 |en
   let pfx = strpart(p, 0, idx)
   let p = strpart(p, idx)
 
@@ -56,6 +57,9 @@ fun! nou#path_open(path)
   elseif pfx ==# '~' | let p = $HOME . p
   elseif pfx ==# '@' | let p = $HOME .'/aura'. p  " BAD: I have nested repo
   elseif pfx ==# '%' | let p = expand('%:h') . p  " CHECK: different $PWD
+  elseif pfx ==# '/'
+    " TODO: search ctx inside same file
+    let p = get(b:,'nou',g:nou).loci . p
   elseif pfx ==# '&'
     "" FIXME:DEV: search ignored dir '/&/' up-pwd to open referenced untracked file
     "" IDEA:(aura): track filelist and restore on demand the content of /&/ on other devices beside home PC

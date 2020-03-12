@@ -40,6 +40,13 @@
 # Relative path direct parsing is inefficient
 # Works on any path (marker concealed)
 
+  ALT: // ⁖/ $/ $$/ #/ ##/
+
+# Context-dependent location (e.g. function calltree for linux kernel)
+#   * with location specified inside same file somewhere above it
+#     = search from curpos() to top for assignment ⋮//=/path/to/dir⋮
+#   * or using user-specified variable :let b:nou.loci="/path/to/dir" DFL=getcwd(initial)
+
   //s/d/
   //some/dir
   //some/dir/
