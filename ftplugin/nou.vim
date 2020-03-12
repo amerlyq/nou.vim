@@ -34,8 +34,12 @@ iabbrev <expr> dts strftime('%Y-%m-%d')
 nnoremap <silent> <Plug>(nou-path-open) :call nou#path_open(expand('<cWORD>'))<CR>
 xnoremap <silent> <Plug>(nou-path-open) :<C-u>call nou#path_open(nou#vsel())<CR>
 
+nnoremap <silent> <Plug>(nou-task-next) /\V[_]<CR>n
+xnoremap <silent> <Plug>(nou-task-next) <Esc>/\V\%V[_]<CR>n
+
 let s:nou_mappings = [
   \ ['nx', 'gf', '<Plug>(nou-path-open)'],
+  \ ['nx', '<LocalLeader>n', '<Plug>(nou-task-next)'],
   \ ['nx', '<LocalLeader>i', '<Plug>(nou-date)'],
   \]
 
