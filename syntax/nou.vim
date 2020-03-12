@@ -168,43 +168,6 @@ hi def link nouComment Comment
 syn region nouComment display oneline keepend
   \ start='^#\s' start='\s\s\zs#\s' excludenl end='\s#\ze\s\s' end='$'
 
-" MAYBE: make "nouDate/nouTime" into overlay notches to be highlighted everywhere
-hi! nouDate ctermfg=178 guifg=#dfaf00
-syn match nouDate display excludenl
-  \ '\v<20\d\d-%(0\d|1[012])-%([012]\d|3[01])>'
-
-" hi! nouTime ctermfg=210 guifg=#ff8787
-hi! nouTime ctermfg=248 guifg=#a8a8a8
-syn match nouTime display excludenl
-  \ '\v<%(\d|[01]\d|2[0-4]):[0-5]\d%(:[0-5]\d)?>'
-
-
-" DISABLED: too bright checkbox is distracting
-" hi! nouTaskTodo ctermfg=15 guifg=#beeeee
-hi! nouTaskTodo ctermfg=14 guifg=#586e75
-syn cluster nouTaskQ add=nouTaskTodo
-syn match nouTaskTodo display excludenl '\V[_]'
-
-hi! nouTaskDone ctermfg=14 guifg=#586e75
-syn cluster nouTaskQ add=nouTaskDone
-syn match nouTaskDone display excludenl '\V[X]'
-
-hi! nouTaskCancel ctermfg=160 guifg=#df0000
-syn cluster nouTaskQ add=nouTaskCancel
-syn match nouTaskCancel display excludenl '\V[$]'
-
-" HACK: different yellowish/rainbow color for incomplete tasks /[01-99%]/
-for i in keys(g:nou.task.colors)
-  exe 'hi! nouTaskProgress'.i .' '. g:nou.task.colors[i]
-  exe 'syn cluster nouTaskQ add=nouTaskProgress'.i
-  exe 'syn match nouTaskProgress'.i.' display excludenl "\V['.i.'\d%]"'
-endfor
-
-hi! nouTask ctermfg=14 guifg=#586e75
-syn match nouTask display excludenl contains=@nouTaskQ
-  \ '\v%(\d{4}-\d\d-\d\d )?\[%([_$X]|\d\d\%)\]'
-
-
 " EXPL: https, ftp, news, file
 " THINK: diff color urls -- don't do 'contains=@nouArtifactG'
 " TRY: different color for heading and '[/?=]' in url
@@ -242,8 +205,48 @@ syn cluster nouArtifactQ add=nouArtifactVar
 syn match nouArtifactVar display excludenl
   \ '\v%([$]\w+|[$]\{\w+\})>'
 
-"" ATT: must be after ArtifactKey for correct 'nouNumberXaddr' hi!
+"" ATT: must be after nouArtifactKey for correct 'nouNumberXaddr' hi!
 runtime autoload/nou/number.vim
+
+
+" MAYBE: make "nouDate/nouTime" into overlay notches to be highlighted everywhere
+hi! nouDate ctermfg=178 guifg=#dfaf00
+syn match nouDate display excludenl
+  \ '\v<20\d\d-%(0\d|1[012])-%([012]\d|3[01])>'
+
+" hi! nouTime ctermfg=210 guifg=#ff8787
+hi! nouTime ctermfg=248 guifg=#a8a8a8
+syn match nouTime display excludenl
+  \ '\v<%(\d|[01]\d|2[0-4]):[0-5]\d%(:[0-5]\d)?>'
+
+
+"" ATT: must be after nouNumber to override date
+" DISABLED: too bright checkbox is distracting
+" hi! nouTaskTodo ctermfg=15 guifg=#beeeee
+hi! nouTaskTodo ctermfg=14 guifg=#586e75
+syn cluster nouTaskQ add=nouTaskTodo
+syn match nouTaskTodo display excludenl '\V[_]'
+
+hi! nouTaskDone ctermfg=14 guifg=#586e75
+syn cluster nouTaskQ add=nouTaskDone
+syn match nouTaskDone display excludenl '\V[X]'
+
+hi! nouTaskCancel ctermfg=160 guifg=#df0000
+syn cluster nouTaskQ add=nouTaskCancel
+syn match nouTaskCancel display excludenl '\V[$]'
+
+" HACK: different yellowish/rainbow color for incomplete tasks /[01-99%]/
+for i in keys(g:nou.task.colors)
+  exe 'hi! nouTaskProgress'.i .' '. g:nou.task.colors[i]
+  exe 'syn cluster nouTaskQ add=nouTaskProgress'.i
+  exe 'syn match nouTaskProgress'.i.' display excludenl "\V['.i.'\d%]"'
+endfor
+
+hi! nouTask ctermfg=14 guifg=#586e75
+syn match nouTask display excludenl contains=@nouTaskQ
+  \ '\v%(\d{4}-\d\d-\d\d )?\[%([_$X]|\d\d\%)\]'
+
+
 
 " CHECK:
 " -- syntax higlighting block between two marks start=/\%'m/ end=/\%'n/

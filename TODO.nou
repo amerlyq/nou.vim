@@ -1,6 +1,9 @@
 %%%%% Notes + outline unified
 
 TODO
+  2020-03-12 [X] BUG: wrong highlight if file don't have /$\s/ -- lazy embedded syntax
+    * different color for date of completed task
+    * not highlighted prefixed keyval lines e.g. SPDX in .nou
   [_] ENH: declare codeblocks and quotes like in reST / Yaml
     + any part of extracted and deindented outline must be valid outline
     + easy filtering of blocks w/o searching for closing tag on lines below

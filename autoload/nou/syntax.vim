@@ -159,6 +159,7 @@ fun! nou#syntax#embedded(ft)
   " PERF: enable only if syntax is present in file
   " FAIL: must reload file when new syntax is added for the first time
   " MAYBE: check pattern for any inserted/pasted text ?
+  " BUG: nouNumber starts overriding nouTask
   if !search(brgx,'nw') | return | en
 
   exe 'syn cluster nouEmbedQ add='.nm
