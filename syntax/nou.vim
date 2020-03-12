@@ -40,6 +40,7 @@ call nou#syntax#artf_hashtag()
 call nou#syntax#artf_addressing()
 call nou#syntax#artf_contact()
 call nou#syntax#artf_function()
+call nou#syntax#artf_keyval()
 
 """ Accents
 " '"`{[(_: -- symmetrical pair.
@@ -203,7 +204,7 @@ syn match nouArtifactKey display excludenl
 hi! nouArtifactVar cterm=bold ctermfg=9 gui=bold guifg=#df5f00
 syn cluster nouArtifactQ add=nouArtifactVar
 syn match nouArtifactVar display excludenl
-  \ '\v%([$]\w+|[$]\{\w+\})>'
+  \ '\v%([$]\w+>|[$]\{\w+\}|[$]\(\w+\))'
 
 "" ATT: must be after nouArtifactKey for correct 'nouNumberXaddr' hi!
 runtime autoload/nou/number.vim

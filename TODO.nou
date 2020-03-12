@@ -68,6 +68,7 @@ TODO
       *= result     | consequence
       *::: summary  | grand final
       OR:MAYBE: use :iabbrev to auto-insert bullet/ligature
+        ALSO:NEED: new set of digraphs defined directly in *nou.vim*
       • < reason     | prerequisite
       • : info       | topic clarification
       • > conclusion | decision
@@ -411,8 +412,8 @@ SEE
   MAYBE:(like accent) highlight everywhere OR at beginning of line?
   IDEA: different colors depending on position beg/mid (if \w+ exists before key)
   DEV
-    key: value
-    key=value
+    [_] key: value
+    2020-03-02 [X] key=value
   E.G.(hi!): id=val -- "id" is bold dark blue, "=" nobold dark blue, "val" is common solarized text
 
 %% Operators
