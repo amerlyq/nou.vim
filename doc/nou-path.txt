@@ -35,17 +35,19 @@
   c:\\Program\ Files\\Prg
   c:\\Program\ Files\\      # BUG: trailing space instead of delimiter
   D:\some\path
+  x:\
+  z:\\
 
-%% Marked '//'
-# Relative path direct parsing is inefficient
-# Works on any path (marker concealed)
+%% Context-dependent location
 
-  ALT: // ⁖/ $/ $$/ #/ ##/
+  ALT:(marker): // ⁖/ $/ $$/ #/ ##/ ⋮/
 
-# Context-dependent location (e.g. function calltree for linux kernel)
-#   * with location specified inside same file somewhere above it
-#     = search from curpos() to top for assignment ⋮//=/path/to/dir⋮
-#   * or using user-specified variable :let b:nou.loci="/path/to/dir" DFL=getcwd(initial)
+e.g.USAGE: function calltree for linux kernel
+
+  • DFL=getcwd(initial) -- simply launch vim from inside correct directory
+  • dynamic getcwd() of current buffer -- NEED: reset :let g:nou.loci=''
+  • from user-specified variable :let b:nou.loci="/path/to/dir"
+  • DEV: context-dir ⋮//=/path/to/dir⋮ specified inside same file (search above path)
 
   //s/d/
   //some/dir
@@ -58,15 +60,15 @@
   ~/
   ~/dir
   ~/in/home
-  ./file            # path relative to cwd ($PWD)
-  ../relat/path     # same as above == ./../relat/path
+  ./file                # path relative to cwd ($PWD)
+  ../relat/path         # same as above == ./../relat/path
 
-  @/airy/README.md  # repo (view) inside myrepos :: ~/aura OR /annex
-  :/doc/nou.txt     # subpath (feature) inside current repo
-  %/../Makefile     # filepath relatively to current file (./nou-path.txt)
-  …/errno.h         # search in all ':h path' (.,/usr/include) like usual 'gf' do
-  &/ranger/doc/     # open reference file inside ./&/ directory in cwd or parents hierarchy
-                    #   = add "&/" to pj .gitignore and keep all temporary third-party materials there
+  @/airy/README.md      # repo (view) inside myrepos :: ~/aura OR /annex
+  :/doc/nou.txt         # subpath (feature) inside current repo
+  %/../Makefile         # filepath relatively to current file (./nou-path.txt)
+  …/errno.h             # search in all ':h path' (.,/usr/include) like usual 'gf' do
+  &/ranger/doc/         # open reference file inside ./&/ directory in cwd or parents hierarchy
+                        #   = add "&/" to pj .gitignore and keep all temporary third-party materials there
 
 %% Patterns
 
@@ -74,31 +76,63 @@
   //$pkg/<src>
   /ho<me>/$user
   //some/dir$v/f
+  $pkg/<src>
+  ${pkg}/<src>
+  $(pkg)/<src>
+ ⋮$(shell $(pkg))/<src>
 
 %% Line numbers
 
   //file:117
   //path/lnum:32
   /lnum/lcol:32:44
-  ~/d/n:13:5end     # inlined
+  ~/d/n:13:5end         # inlined
 
-%% With spaces
+%% Trailing operators %% / special-terms / topics
+
+DEV: interpret tail by <gf> to jump directly inside file
+
+  /path:11:22           # STD lineno  = s:pe('%(:\d+)*⋮?')
+  /path:/search         # (.vim|ctag)-style search for text
+  /path:/sea/rch        # XXX: is such highlight good ?
+  /path:/sea\/rch       # escaped regex NICE: can be directly copied to vim/sed
+  /path:?search         # prevent conflict with '/' regex
+  /path::term:          # (.rst|.org)-style
+  /path:*term*          # my bold object terms
+  /path:%sect           # beginning of named section
+  /path:^text           # beginning of any outline line
+  /path:=term           # ??? SEE: operators from ctags(1) db format and vim help
+
+%% Escaped with spaces
 
   /root/spa\ \ ce
-  ./relat/space\    # sfx \s
-  //\ some/space/     # prf \s
+  ./relat/space\        # sfx \s
+  //\ some/space/       # prf \s
   ./spa\ ce:89
+
+%% Region with spaces %%  (digraph :3)
+
+ ⋮/root/spa ce          # path till end of line
+ ⋮/root/spa ce⋮         # contained path
+ ⋮aaa⋮                  # path without slash
+ ⋮relative/path⋮        # PERF: direct parsing of such relpaths is very inefficient
+ ⋮aaa:/with space⋮      # tail search term with spaces
+ ⋮aaa⋮ bbb ⋮ccc⋮        # several paths separated by spaces
+  (⋮aaa⋮,⋮ccc⋮)         # group of comma-separated paths
+  embe⋮sp ce⋮dded       # embedded into the middle of the word
+  /root/spa ce⋮         # FAIL:PERF: seek by only trailing marker
 
 %% In lists
 
-  ~/, //r/p, ./h, /v/p
-  /r/p,./h/p,//v/p
-  ~/,/end/comma,
-  /root /home /var
+  ~/, //r/p, ./h, /v/p  # use ", " as path separator
+  /r/p,./h/p,//v/p      # treat "," as part of path
+  ~/,/end/comma,        # ignore trailing "," (belongs to sentence)
+  /root /home /var      # allow space-separated paths
   ./relat/path /s/some
 
 %% Brackets
   (./dir  ./#)  (~/.)
   [/r/dir ~/_]  [/r/d]
   {//s/dir //dir} {//s}
-  <//file:117>      # BAD: ending conflicts with /home/<path>
+  <//file:117>          # BAD: ending conflicts with /home/<path>
+  "/some"

@@ -1,7 +1,5 @@
 """ Numbers
 syn cluster nouArtifactQ add=@nouNumberQ
-fun! nou#number#init()
-endf
 
 
 "" Hex data elements

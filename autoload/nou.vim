@@ -58,8 +58,11 @@ fun! nou#path_open(path)
   elseif pfx ==# '@' | let p = $HOME .'/aura'. p  " BAD: I have nested repo
   elseif pfx ==# '%' | let p = expand('%:h') . p  " CHECK: different $PWD
   elseif pfx ==# '/'
-    " TODO: search ctx inside same file
-    let p = get(b:,'nou',g:nou).loci . p
+    " TODO: search ctx ⋮//=/path/to/dir⋮ inside same file above current line
+    let d = get(b:,'nou',g:nou).loci
+    " BAD: unpredictably changes in each buffer due to locally saved view settings
+    if d ==# ''| let d = getcwd() |en
+    let p = d . p
   elseif pfx ==# '&'
     "" FIXME:DEV: search ignored dir '/&/' up-pwd to open referenced untracked file
     "" IDEA:(aura): track filelist and restore on demand the content of /&/ on other devices beside home PC

@@ -184,9 +184,6 @@ syn cluster nouArtifactQ add=nouArtifactUrlFile
 syn match nouArtifactUrlFile display excludenl
   \ '\v<%(\w{3,}://)\S{-}\.%(x?html?|php)@!\a{2,4}\ze%([[:blank:],)]|$)'
 
-call nou#syntax#path()
-call nou#syntax#regex()
-
 " " BUG: breaks '<' decision
 " hi! nouPunct ctermfg=1 guifg=#ff0000
 " syn cluster nouArtifactQ add=nouPunct
@@ -207,7 +204,11 @@ syn match nouArtifactVar display excludenl
   \ '\v%([$]\w+>|[$]\{\w+\}|[$]\(\w+\))'
 
 "" ATT: must be after nouArtifactKey for correct 'nouNumberXaddr' hi!
-runtime autoload/nou/number.vim
+"" BAD:(syntax/nou/*): will load all files inside by vim itself
+runtime autoload/nou/syntax/number.vim
+runtime autoload/nou/syntax/path.vim
+call nou#syntax#regex()  " ATT: must be after nouPath to override rgx=/.../
+runtime autoload/nou/syntax/group.vim
 
 
 " MAYBE: make "nouDate/nouTime" into overlay notches to be highlighted everywhere
