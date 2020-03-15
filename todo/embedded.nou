@@ -1,0 +1,45 @@
+
+  [_] Different syntax highlighting within regions of a file | Vim Tips Wiki | Fandom ⌇PW)nu
+    https://vim.fandom.com/wiki/Different_syntax_highlighting_within_regions_of_a_file
+    vim-scripts/Mixed-sourceassembly-syntax-objdump: Syntax for Mixed C source and assembly dump. ⌇-W)nu
+      https://github.com/vim-scripts/Mixed-sourceassembly-syntax-objdump
+
+  2020-03-12 [X] BUG: wrong highlight if file don't have /$\s/ -- lazy embedded syntax
+    * different color for date of completed task
+    * not highlighted prefixed keyval lines e.g. SPDX in .nou
+
+
+%% Embed syntax
+SEE
+  multi syntax regions for this -- or include all syntax into region
+  ft=cucumber bundle/sideways.vim/examples/example.feature -- maybe as prototype?
+  embedded syntax regions highlighting
+    : https://github.com/xolox/vim-notes
+    : https://github.com/Shougo/context_filetype.vim
+
+  [_] After '$' -- use complete bash syntax until end of line
+    [_] BUG on 0-indent syntax wraps even without trailing '\'
+  [_] THINK: my own simplified syntax for oneline 'sh' by '$' instead of default?
+  [_] Set default embedded ft (used in bare `...`) through modeline
+    = so I could simplify bash/haskell snippets in otl
+  [_] TODO: execute command and insert output directly below (like Mathematica)
+    E.G. :r!lspci -vt
+  [_] <,.y> -- yank inside current bash-line textobj /$\s/,/\s*\s\s#\s/ E.G. $ amixer scontrols  #
+  [_] CHG: identical ``` + ``` -> symmetrical {{{ + }}} | <@ + @>
+    => then syntax won't break when scrolling page from bottom up
+  [_] NEED: special block for commands outputs (e.g. shell) directly below
+    * distinct from outline and comments around them
+    * hi! :: simplified / absent / highspeed
+    * can contain user comments inside
+    * different types -- grep/find/special
+    ~? special marker for "output" data from commands
+    *? gray color in-between of plain text and comments
+    *? applying syntax highlight (as hex/number/etc) must be still possible
+    MAYBE: use xml-esque markers for possible blocks
+      e.g.
+        <grep> ... </grep>
+        [grep[ ... ]grep]
+      => maybe only Lisp syntax hi is able to execute code immediately on syntax parsing
+      => in vim you can pre-generate special hi! depending on pre-parsing of opened file content
+        BUT: newly added blocks won't be re-generated -- need hook on ":w" to accomplish syntax refresh
+      * must be nestable -- to add some comments hi! inside of hex hi! inside of logs dump hi!

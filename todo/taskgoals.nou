@@ -1,0 +1,48 @@
+
+  [_] MAYBE:CHG: "2020-01-14 [10%] ..." => "2020-01-14 10% ..." OR "2020-01-14 %10 ..."
+    <= because I work with goals [_] => [X] and not actual tasks
+  [_] MAYBE: use unicode symbols for checkbox BUT: "wide" are nice but cropped
+    VIZ: ☐❏ | 🗹 ☑✓✔✅🗸 | ⮽☒✗✘𐄂❌🗴🗶🗵 🗷
+    BAD: one-symbol checkbox is looking too crumpled
+    SVC: http://www.amp-what.com/unicode/search/box
+  [_] FIX 'Task' regex in mappings to match by /\k/ -- which supports cyrillic
+    http://unix.stackexchange.com/questions/60481/match-word-containing-characters-beyond-a-za-z
+    http://stackoverflow.com/questions/19385458/vim-regex-matches-unicode-characters-are-as-non-word
+    [_] ALT:BET?TODO: switch hi! places for todo [_] and decision "!!" markers
+
+
+%% Task/progress
+  [_] BUG ru text /[а-я]{1,3}/ treated as /\W+/ => marker placed after it
+  THINK if only marker is highlighted and therefore truly visible --> MAYBE:USE: shortened form '_ x' instead of full '[_] [X]'?
+  MAYBE: use shorter date spec?
+    160716:[X]
+    [X=160716]
+    [X]/160716
+  [_] Highlight: 'X' green, '$' red, '_' blue, '[' ']' white, '<date>' -- italic dark-gray
+    ? THINK: how to define region ?
+  [_] THINK limit task markers only to beginning of line
+    !! Performance
+    ? hard to test ?
+  2016-09-12 [X] BUG: task symbol "_" affects underlined text
+    * Use nesting marginal effects -- create for '[_]' its own syntax group
+  [_] TRY: different color for todo:(blueish) / done:(grayish) / cancel:(yellow-orange-brownish)
+
+
+%%% Priority
+  MAYBE override highlighting of whole line?
+    BUT how about mixed body coloring of priority/outline/decision?
+    THINK don't mix them at all -- all are placed in different sections of notes
+      # Each section -- indented block at 1st level
+      ? THINK what if to allow nested blocks indented relative to current level?
+        = Too complex. Moreover -- what if I need only one decision-like line inside outline?
+  THINK how to combine with decision-making markers to order statements
+    Maybe simply add number before/after decision markers?
+    # USE:(formats)  *1 8* 4% %3 #2 ~2 !3
+    Repeating marker -- several highest priorities (accentuation)
+    # USE:(like) * ** ***  OR ! !! !!!
+    TRY: inherit decision color (simply by adding '\d=' in its pattern) or contain its own
+  [_] USE: #tag beside priority !2 to mark and filter "todo" lines based on topic
+    ~ !1 #tag #tag [_]
+    ~ !2#tag#tag [_]
+    ~ !3 [_] #tag #tag
+    ~ !4 [_]#tag#tag

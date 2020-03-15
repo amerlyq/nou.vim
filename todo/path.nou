@@ -1,0 +1,55 @@
+
+  [_] url/path : jump_next/jump_hint/open/show_all_in_unite
+
+%% Path / Url
+
+  [_] THINK: hi! separate extensions: .xml or *.nou
+    BUT: beware -- treats hidden files like .xinitrc as extensions
+  [_] BUG: manual paths -- 'gf' treats //some/file as starting from '/'
+    ? is there need to fix? FIND: possible cases where need different behaviour
+  [_] BUG: captures trailing characters: (//dir) //dir.
+    > braces can be fixed by using 'syn region' for them (bounds becomes excluded)
+      < I need such objects anyway -- for 'variants' or 'clarifications'
+        to strip "|" from their 'contains='
+    > problem of trailing dot is fixable by using '//' closing path tag
+      ! BUT then 'gf' will be impossible on files, them being treated as dirs
+  [_] TRY: add path/url obj to embedded syntax to highlight usage in shell
+  [_] TRY: make all cmds green (or use zsh-cmdline hi if possible)
+  Categorized colors for 'urls' by provider
+    2016-11-01 [X] '.pdf|.md|.doc|...' (dark-blue)
+    [_] 'google|yandex|...' (light-blue)
+    [_] 'wiki|arch|stack(overflow|exchange)|quora|habrahabr...' (light-green)
+  [_] TODO: when path has grep format -- highlight differently
+    /path/to/file:17853:matching text in that line
+    MAYBE: using hi! blocks with {{{ ... }}} is more simple/portable/flexible solution
+    HACK: this case allows to mix grep results with paths in plain texts
+    BUT:BAD low performance of syntax hi!
+
+  2020-03-15 [X] IDEA: /path/with\ space -- make optional trailing utf8 character (e.g.⋮) to drop escaping
+    i.e. highlight whole continuous "/path/with space⋮"
+    BUT: must never use this char in common texts
+  [_] overload <gf/gF/gC-f> to jump to @/demo/ open @/airy/Makefile or repo-related :/README.md
+  [_] BET:CHG: path prefixes
+    | :/ -> ./ | then vim auto-completion will work by itself, if current file is opened from its own dir
+    | ./ -> %/ | so % becomes the same as $PWD
+    | @/ -> git| search for any git/hg/VCS repo matching @/nm/ from root of /x/* onwards
+  [_] THINK:CHG: search …/errno.h inside current or any parents directory instead of 'path' variable
+  [_] use ⋮[#*]/doc/path⋮ to refer to files of specific <type>="doc" inside any of <feature>
+    NOTE: open taglist if more then one file found
+
+
+%%% Interactive data
+  Desc + diagrams
+    Embed links to files
+      [_] NEED: override gf/gF in vim -- and fallback to general 'gf'
+      - path from pwd ./
+      - relative to current file :/ or .//
+      - relative to repo :=/ or ://
+      - search in $PATH or in user-list of paths %/
+        E.G. %/airy/Makefile -- :lcd to '%' where placed 'airy' first, then open file
+    Different prefix and color
+      - distinguish from static path hi!
+      - bind keymap to this active area
+    ? Allow some bash commands to be executable ?
+      - another prf :$ ... $:
+      - auto-expand :/path to repo root

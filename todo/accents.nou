@@ -1,0 +1,31 @@
+%%% Accents
+  [_] CHG: white with black bounds '-n' to monolitic gray-blue (average color between  # comment #  and "string")
+  [_] FIX special cases treated as accents
+    `path/*.yml` for `cfg/*.ee`
+    BUG: **...** treated as block, even when each marker is in its own block
+  [_] Highlight in different colors text in ` .. `, ' .. ', "..", $..# etc, use conceal
+    Make $..# to have another color of left/right separator
+    :* quotes must be surrounded by \s or ^$ -- to not escape them inside blocks
+    := it will allow distinguish hotkeys, shell commands, code, etc
+    :SEE markdown syntax
+  [_] Add surround operators for accent -- like I have done for brackets
+    ~ Starting combo by <LocalLeader>
+  [_] Make ".." transparent syntax group
+    -> allows to specify different allowed inner groups
+        EXG: disable hi! for '|' inside quoted text
+  [_] Colorized accents:
+    red: r'..'
+    green: g*..*
+    emphasize: #'..' -- contrasted to current outline color
+  [_] Invert standout accent
+    exchange bkgr/frgr colors %text% to always standout from text/outline
+  [_] Allow sfx after accent: like *mod*s
+    MAYBE use concealed additional delimiters *mod**s | *mod*\s | *mod*'s
+  [_] Local colorscheme
+    List words/regex and colors to highlight in current file/directory
+      = Like arch keywords in 'miur'
+    E.G. embedded: modeline/header/footer or separate file in dir
+
+% Unconcealed
+  [_] strings in double quotes '\v([''"])(.{-})\1'
+  [_] keys in <..>

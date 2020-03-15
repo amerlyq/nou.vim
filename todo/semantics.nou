@@ -1,0 +1,27 @@
+
+  [_] highlight unicode graphics e.g. "→" by distinct color to standout inside plain text
+
+  [_] THINK: неприятный цвет стрелочки предотвращает меня от её использования
+    <= использую часто
+    => использую редко
+    -> вообще никогда  # похоже роль играет ещё и "выразительность" стрелочки -- длинная более "приятна" и "понятна" мысленно
+    --> почти никогда
+
+  [_] DEV:IDEA: formalize structured syntax inline artifacts (similar to my hand-written pictogram for physics)
+    ** intent :: math-like grammar for plain language logics
+      e.g. I already use "--", "::" and "=>" anyway -- can formalize and extend it already by "<<", etc.
+    ** logics
+      e.g. picotui BET(than urwid)
+    ** ⦗flavor⦘ :: dispensable emotional coloring to enrich dry decision terms without overencumbering their underlying logic
+      e.g. doubts, anxiety, beautifications, etc.
+        something akin to what I use (?...?) for :::  user need this (?wrong suggestion?)
+      == intended to express somewhat subtle atmosphere of emoji without intrusive standalone emoji
+    ** 2020-02-03 [60%] brightness :: default term accents are too bright => keep brightness for "~~...~~" but reduce gamma for "~...~" accents
+      ~project~
+      ~~project~~
+
+
+%%% Dynamic colorschemes
+  Switch between colorschemes with focus on different aspects
+    * standart
+    * all accented words, default white for any other text

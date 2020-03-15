@@ -1,0 +1,18 @@
+
+  [_] THINK:TRY: embed 'nou' into Comment group of any other syntax files
+    ~ use `au!` on `:setf` to infect syntax
+  [_] TODO switchable colorschemes 'on the fly'
+    different info requires different indent nesting, but similar coloring!
+
+  [_] DEV:TRY: port parts of syntax to .rst
+    NOTE: it seems like my "outline blocks" are no more than special syntax blocks for .rst
+      * I always indent them. Always.
+      * I have different syntaxes for outlines
+        - decision making
+        - GTD tasks nesting and priority
+        - weblinks history depth
+        - software tools compact overview
+        - ...
+
+  2020-03-15 [$] THINK extend Markdown by indented outline syntax and new marks instead of own?
+    > Markdown flavours aren't suited for my writings

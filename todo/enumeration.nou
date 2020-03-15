@@ -1,0 +1,39 @@
+
+  [_] TRY: prepend some symbol to decision/enumeration syntax to distinguish them in parser
+    decision: /[`·⋮]/ -- maybe mark them 'black' like I did with quotes to visually hide
+      `+ proc       | positive argument
+      `- con        | negative argument
+      `~ ambiguity  | dissatisfaction
+      `? doubt      | think over
+      `! requirement| constraint / attention
+      OR:
+      ·+ proc       | positive argument
+      ·- con        | negative argument
+      ·~ ambiguity  | dissatisfaction
+      ·? doubt      | think over
+      ·! requirement| constraint / attention
+      OR:
+      ⋮+ proc       | positive argument
+      ⋮- con        | negative argument
+      ⋮~ ambiguity  | dissatisfaction
+      ⋮? doubt      | think over
+      ⋮! requirement| constraint / attention
+    enumeration: /[*∙∘•]/
+      * < reason     | prerequisite
+      * : info       | topic clarification
+      * > conclusion | decision
+      * = result     | consequence
+      * ::: summary  | grand final
+      OR:
+      *< reason     | prerequisite
+      *: info       | topic clarification
+      *> conclusion | decision
+      *= result     | consequence
+      *::: summary  | grand final
+      OR:MAYBE: use :iabbrev to auto-insert bullet/ligature
+        ALSO:NEED: new set of digraphs defined directly in *nou.vim*
+      • < reason     | prerequisite
+      • : info       | topic clarification
+      • > conclusion | decision
+      • = result     | consequence
+      • ::: summary  | grand final

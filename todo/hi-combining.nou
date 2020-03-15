@@ -1,0 +1,46 @@
+
+  [_] CHECK: .rst files "rstEmphasis" somehow keeps the same color between asterisks :: *aaa*
+
+  [_] DEV: define accents solely through matchadd() to keep foreground untouched, and only change style
+    Can it be done: syntax region background color, with "transparent" foreground? : vim ⌇<1[nu
+      https://www.reddit.com/r/vim/comments/2iz7ho/can_it_be_done_syntax_region_background_color/
+    colorscheme - How to force overwriting ALL syntax highlighting in Vim? - Vi and Vim Stack Exchange ⌇j3[nu
+      https://vi.stackexchange.com/questions/21840/how-to-force-overwriting-all-syntax-highlighting-in-vim/21904#21904
+    vimscript - Is it possible to reverse an existing highlighting group? - Vi and Vim Stack Exchange ⌇v3[nu
+      https://vi.stackexchange.com/questions/21546/is-it-possible-to-reverse-an-existing-highlighting-group
+    Txtfmt (The Vim Highlighter) - "Rich text" highlighting in Vim! (colors, underline, bold, italic, etc...) : vim online ⌇24[nu
+      https://www.vim.org/scripts/script.php?script_id=2208
+
+%%%% LIMITATIONS %%%% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  [_] BUG:(highlighting combining) can't override color in linked group
+    ```vim
+      hi! nouArtifactUrl gui=underline
+      hi! link nouArtifactUrl Underlined
+      exec 'hi SyntasticErrorSign guifg=red ctermfg=red' .
+        \' guibg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'gui') .
+        \' ctermbg=' . synIDattr(synIDtrans(hlID('SignColumn')), 'bg', 'cterm')
+    ```
+    ALT: patch to vim allowing combining of hi!
+      https://groups.google.com/forum/#!topic/vim_dev/5YgghIZH_-w
+      ALSO:SEE: /usr/share/nvim/runtime/syntax/html.vim
+
+
+%% Inheritance (new feature)
+  TODO: option to apply inherited hi! (from ?_) to artifacts (path/url)
+  THINK: inherit highlight if line is framed in '?...?'
+    BUT? then syntax region will become inefficient
+  OR: Make additional syntax *?__* or *?/* to override all (contains=NONE)
+    ALSO: same additional syntax for outlines -- to override their color despite objects
+      ~ seems like second set of outline rules will be necessary
+      ? TRY: maybe conceal this prefix marker to keep outline clean ?
+    ? maybe conceal inheritance markers *_* *__* entirely, keeping only decision one ?
+      ~ seems not possible to conceal -- as markers are part of beg/end
+      ! BUT:TRY: group for beg/end can have own syntax contains=nouConcealMarkers
+    = Try extending opening marker by detecting *__* -- to unite decision/outline filling
+    !!5 HACK: replace *_* and *__* by *.* and *..*
+      + more nice looking
+      + easier to type
+  ALT: replace ' ' instead of appending:  '< reasons' -> '<.reasons' -> '<_reasons'
+  ALSO: inherit hi! for shell: $_ -- when you want to emphasize plain commands
+    TRY: override only plain text. And use $__ to override all.
+  TRY: instead of 2nd/3rd set of decisions make 'contained' syntax starting on *_* or *__*

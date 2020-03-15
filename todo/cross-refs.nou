@@ -1,0 +1,18 @@
+  [_] CHECK: does reST uses complete URN/URI scheme for cross-references or completely custom syntax ?
+  2020-03-15 [X] USE: xtref -- timestamp-based braille codes
+
+NEED: smart xref hints (cross-references)
+  WHY: many duplicate ideas through many files, despite slightly changed
+    * insert new thoughts near previous related ones
+    * find previous places with related thoughts
+  BAD: you may loose passion and forget what exactly you wanted to write
+    * to place new ideas in correct position between old ones -- you must read old ones
+    ! reading breaks immersion in fleeting thoughts and impressions
+    BUT: still very useful for refactoring notes
+  IDEA: place cursor on any sentence / select words and press "Find" keybinding
+    * NEED: smth aka google search inside current .git or user list of dirs with notes
+    * show in top/right corner "Preview" window with excerpts and highlighted words
+    * show quickfix/jump window at bottom/right to open excerpts in buffer and edit
+  ALT: reduce cross-map only to tags, placed around header only #miur #miur#graph #overlay#node
+    MAYBE:ALG: use some kind of "ctags"
+    BAD: hard to write exhaustive metainfo, encumbers view too much

@@ -1,0 +1,14 @@
+
+  [_] IDEA:THINK: fast short notes-taking and storing in one of predetermined dirs
+    https://github.com/Alok/notational-fzf-vim
+  [_] CMP: with orgmode demo
+    + https://vincent.bernat.im/en/blog/2017-netops-org-mode
+
+  [_] Test and compare with vimoutliner
+    [_] https://github.com/xolox/vim-notes/blob/master/autoload/xolox/notes.vim
+    [_] https://github.com/vimwiki/vimwiki
+    [_] http://tiddlywiki.com  -- one-page wiki
+      [_] Extract all scripts (~8) in github for converting
+    [_] https://github.com/jceb/vim-orgmode
+    [_] https://github.com/Rykka/riv.vim
+    [_] https://github.com/vim-voom/VOoM

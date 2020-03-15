@@ -1,0 +1,25 @@
+
+  [_] THINK Tagbar -- always open, shows outer outline (useful for music.otl)
+  [_] BAD: long lines dont match syntax at all FIXME: always match at beginning
+    # set synmaxcol=8000   " clear syntax state over that width, =8000 pretty safe
+    ALT: replace 'region' match by 'regex' match
+
+%%% Outline
+  [_] Allow mixed block/flow syntax as in yaml -- for one-word branches in graphviz
+  [_] Use space instead tab -- generate regexes based on values in ts=2:sw=2:sts=2
+    ALT: query color from cached map with spaces as keys =~ '\s{i,i+2}'
+  [_] Interlace/variate rows colors on the same level (like html/css tables)
+    := Darker/Lighter then current header -- for long lists of multiline items
+    := ALT: the same spectrum for all sub-topics in any level -- for decision-making
+  [_] THINK:TRY: contrast palette
+    [_] FIND:XXX: how to choose harmonic color palette
+      like music notes -- must be non-linear
+    [_] outline -- dif than 'solarized' but similar colors
+      [_] TRY: linear HSL/HCL palette
+        https://en.wikipedia.org/wiki/List_of_color_spaces_and_their_uses
+        TRY: limited to sub-range 'pastel..purple-dark'
+          http://hclwizard.org/why-hcl/
+          http://hslpicker.com/#c38d3c
+      = must be contrasted in gui but the same in term16
+      ? how about cterm256 -- search for other ?
+    [_] USE 'solarized' only for numbers and other objects of std syntax

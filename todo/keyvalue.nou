@@ -1,0 +1,12 @@
+
+%% Key-value
+  < USE instead of mixed/unfolded tables
+  * treat keys similar to unordered markers
+  ~ embedded yaml
+  ? own syntax (key-value dif colors, highlight ops like 'A -> B', etc)
+  MAYBE:(like accent) highlight everywhere OR at beginning of line?
+  IDEA: different colors depending on position beg/mid (if \w+ exists before key)
+  DEV
+    [_] key: value
+    2020-03-02 [X] key=value
+  E.G.(hi!): id=val -- "id" is bold dark blue, "=" nobold dark blue, "val" is common solarized text

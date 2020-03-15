@@ -1,0 +1,53 @@
+%%%% IDEAS %%%% ********************************************************
+
+  [_] script for pandoc to convert *.nou into *.md
+    @/aeternum/grammars/nou/t_parglare
+
+  [_] generate all syntax demo file based on all available options in :/autoload/nou/opts.vim
+
+%%% Literal programming
+  Unite with ideas from 'latex' or 'haskell' for literal programming
+    = interleaving documentation and code
+
+%%% Python back-end
+  Write back-end core in python
+  Provide interface to manipulate of outline DOM objects by API
+    : THINK? base it on XHTML-dom manipulation classes?
+  Use vim only as front-end to that API
+    Parse //*.nou and keep in sync the in-memory DOM at python
+    Convert current export format (.nou) into cursor position in DOM
+    Launch specific API by keymaps
+    Populate changes from in-memory DOM into export of (.nou)
+  > Then I will be able create another front-end api like OpenGL, etc
+
+%%% Graph navigation
+  TRY over 'ranger' and 'qutebrowser' -- because python
+  By default vim works in terminal with isotropic character metric
+    All textobj form aligned tree with distinct leaves
+  But what about browsers, based on vim experience?
+    It's clusters of text pieces with different font sizes
+    They form anisotropic graph, placed on isotropic screen
+    Maybe some kind of fast navigation in graph space is also possible?
+  Файлменеджер на графе
+    а что если слепить вместе vim, поиск по графам (через команды вима) и
+    файловый менеджер, который представляет файловые деревья в виде
+    графов?
+    Например группировка файлов по расширению, размерам, датам итп с
+    динамичным перестраиванием деревьев после ввода команд вима. Но вот
+    как отобразить атрибуды чтобы не перегружать систему?...
+  MindMap
+    Автоматический поиск по всему тексту и проброс ссылок на сходные слова
+    на других ветках и даже картах (выпадающий список найденного). Нужен
+    всвязи с трудностями поддержки вспоминания где на какой ветке были
+    разбросаны ранее похожие куски.
+    Важно: скорость и качество (гладкость) рендеринга -- должно давать
+    качественную эппловую картинку, а не коробить взгляд как вим своими
+    шрифтами на винде.
+
+%%% Overcomplicated structures with some info dup (InfoArch)
+  ? How to manage complexity
+  ? What representation is the best to reduce dup
+    => all new info must be inserted around similar old info
+  ? Way for easy refactoring
+    assemble-regroup similar data into strict 'graphems'
+      = data normalizing

@@ -1,0 +1,35 @@
+
+  [_] highlight today in bright yellowish white :: ctermfg=230 guifg=#ffffdf
+  [_] highlight all FUTURE dates differently :: ctermfg=105 guifg=#8787ff
+
+  [_] Date format for full timepoints and intervals
+    REF: https://en.wikipedia.org/wiki/ISO_8601
+    REF: new extended drafts for times and intervals
+      ISO/DIS 8601-1:2016 and ISO/DIS 8601-2:2016
+      https://github.com/plk/biblatex/issues/656
+      https://www.iso.org/iso-8601-date-and-time-format.html
+    TRY: my timepoints
+      20190729_190330
+      20190729_190330Fri
+      20190729T190330
+      20190729T190330+0000Fri
+      2019-07-29_19:03:30
+      2019-07-29_19:03:30_Fri
+      2019-07-29T19:03:30
+      2019-07-29T19:03:30+00:00
+    weeks
+      2019-W31-1
+    combinate date-time with timezones
+      "2007-04-05T14:30Z"
+      "2007-04-05T12:30-02:00"
+    durations
+      "P3Y6M4DT12H30M5S" represents a duration of "three years, six months, four days, twelve hours, thirty minutes, and five seconds".
+      "P1M" is a one-month duration and "PT1M" is a one-minute duration
+      "P0003-06-04T12:30:05" -- BUT: individual date and time values cannot exceed their moduli
+    intervals
+      Start and end, such as "2007-03-01T13:00:00Z/2008-05-11T15:30:00Z"
+      Start and duration, such as "2007-03-01T13:00:00Z/P1Y2M10DT2H30M"
+      Duration and end, such as "P1Y2M10DT2H30M/2008-05-11T15:30:00Z"
+    repeating
+      "R5/2008-03-01T13:00:00Z/P1Y2M10DT2H30M" -- starting at / with each duration
+    [_] CMP: with emacs orgmode

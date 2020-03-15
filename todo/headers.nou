@@ -1,0 +1,44 @@
+
+  [_] use '[[' and ']]' to jump between headers
+
+%%% Headers
+  [_] BAD: always concealing -- can't relaibly detemine header nesting level
+    ? maybe *.md isn't that bad using '#' explicitly
+  [_] IDEA: beside headers (OR instead of them) use multicolor labels
+    * Like current headers with concealed markers
+    = Useful to label outlines/paragraphs
+      < as clean hierarchy not always possible
+    = Good in combining with *delimiters* like in this TODO.nou
+  [_] Headers: bold. How to make them more distinguishing?
+  [_] FIXME:DEV: don't treat headers as artifacts inside outline
+    << E.G. #outline contains=..,@nouHeaderQ,..
+    ~ create it's own mechanics for indented not-outline objects
+      BUT if for key-value object I need outline anyway
+    = BETTER: outline artifacts which work only at the beginning of outline
+  [_] Allow numbered syntax and single end-marker: `%4 ... %`
+  [_] Allow combining headers on one line to form flat path
+    '%%' H2 '%%%' H3 '%%%%' H4 '%' H1 '%%'
+  [_] TRY:USE: allow any text after closing tag of header
+    = So you can embed headers into text like paragraph 'literas'
+  [_] Conceal header markers on-demand if using 'two-side' definition
+    * Or some marker extension like %%%<
+    * Or when using/not spaces before text
+    ALT: invert order of %{N} -> level{N} to nornal one
+      + header indent will be more logical (more indent --> deeper)
+      + readable level -- by inverted bkgr text edge indent
+      + easy to add more nesting at detailed levels
+        = no need to predict main header level beforehand
+        = no need to move all headers for more deep nesting
+        !!! CHECK:THINK: for which usecase current inverted scheme is the most useful
+  [_] USE: double '%%' for one level
+    + more standout levels
+    + aligned to outlines (remember ugly wide-char text with even indent)
+  [_] (option) propagate hi! on '%%' sign (and make its fg=bg to hide)
+    ALT:TRY: make '%%' fg equal to bg of header itself (%% bg remains empty)
+  THINK: using *tweaked* headers instead of outline (like in LaTeX)
+    : seems like "flattened" outline w/o indent
+    * when there are many lines of info for each entry
+      # text paragraphs, decison block, etc
+    <- using /^%\d+/ -- %4 as 4th level outline
+    ? (option) combine outline indent with flat level
+      => %4 with 2nd indent => outline of 6th color

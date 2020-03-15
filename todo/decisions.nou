@@ -1,0 +1,36 @@
+
+  [_] MAYBE: apply decisions markers on rest-of-any-line instead of prefix-before-task-only
+  [_] DEV add to nou#bar() ability to prepend line by 'decision'
+    * '??' : 2<LocalLeader>?
+    * '!4' : 4<LocalLeader>!
+
+
+%%% Decision
+  [_] NEED: everywhere-notch (evernotch.vim) for "investigation" process
+    * some links, comments, code excerpt, which I gather from www, when analyzing the problem
+    E.G. :STORY: :LIST: -DUMP- :FLOW: :BOOK: +JOURNAL+ :WORK:
+    ALSO:NEED: workaround beside :FIXED: -- ?WKRND?
+  ~ higlight in pre-defined color only marker (start/end match)
+    .. and keep
+  [_] FIXME: don't like colors for '>' '<' ':' -- don't feels right
+  [_] NEED marker for 'suggestion' -- "possible" variant to choose between
+    = Each variant can be discussed by arguments in its own indent
+    ? TEMP: using '<-' ?
+  [_] TRY:THINK: asymmetrical region
+    * higlight ending '?' or '!' even if it wasn't prepended by space (most as I type)
+  [_] NEED syntax for 'examples' or 'generalization'
+    = Likewise to specify examples of regex with clarification
+    = Or specifying regex as abstraction of actual matter
+    <- using  [-example-] -[general]-
+  ADD: embedded decisions (? ... ?) (?_ ... ?)
+    TRY: block ends on symmetrical '?)' or on first ')' if symmetrical not found
+      ? rather inefficient ?
+    ALSO: comment-like embedding (two spaces around): 'before  ? *decision* ?  after'
+    ALSO: embedded comments (#...#) -- to comment only last word instead of left part of whole line
+  [_] Amount of '[>:~]{n}' in line prefix -- changes 256 color to more dim/bright
+    : In 8 color term all them will have one color
+    :* Allows to accentuate intent/attention -- like in lists/music.otl
+  [_] BAD colors -- markers blend into outline color on same level
+    @ THINK: using for decision only plain text color despite indent
+      (option) to enable it -- if no better solution found
+    ? BUT how to distinguish/stand-out decision blocks on different outline levels ?

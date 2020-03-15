@@ -1,0 +1,41 @@
+%%% Artifacts
+
+%% Vars
+  [_] TODO: higlight vars :: $PWD and ${PWD} and %{PWD}
+  [_] THINK use `$var` as native syntax
+    MAYBE with meaningful scripts to substitute their values?
+    ? Provide somethins like `yaml` combo of * and & ?
+
+%% Markers
+  [_] Use cycleable '*/[_]/\d./' list markers (cycle for all list -- not for item)
+  [_] Special MARKERS, @tags, #hashlinks to mark type of each statement
+    : 'option' , 'syntax_only' , 'adds_user_commands'
+
+%% Operators
+  [_] Arrows: hi! _in-text_ constructions like *=>*
+  [_] hi! ops rarely-used in plain text: '+', '&', etc
+    -- to use it more often myself for pseudo-syntax
+  [_] hi! any numbers: dec/hex/float/science -- dif color to outline
+  [_] hi! separate char-seq /<\W+>/ -- dif color to numbers
+
+%% Numbers
+  2017-06-22 [X] General standalone numbers -- normal light blue
+  [_] Numbers used as priority or order in lists -- bold darker blue
+  [_] Hex/octal numbers -- class-related coloring for ascii, non-printable, etc
+    E.G. /0x\x+/ /\\x\x+/ /\\\d+/
+    ALSO: comment-like hi! for suffix number specifier /\x+[hdbo]/
+  [_] multiline region of <```hex ... ```> for hexdumps (E.G. ./gdb/doc/frames.nou )
+    => because not all \x{8,} are hex data => some are big dec nums, some are dates
+  [_] THINK: hex string highlight last /000$/ in address => for memory aligned on page size
+    NEED: distinguish hi! for hex-address /\x{8,}:/ and hex-data
+
+%% Functions
+  2017-06-22 [X] Anything in block /\k+\(/ .. /\)/
+  [_] THINK: hi! structs before func in brown E.G: struct.func()
+  [_] THINK: include pointers, type conversion:  *(some *)func()
+    [_] BUT: distinguish from NOTE:(some text)
+    [_] ALT: type conversion colored in yellow
+  2017-06-25 [X] TRY: diff/grey color for function arguments
+    2017-06-25 [X] Allow nesting of function call syntax: f(a, g())
+    [_] FIXME: Allow nesting of brackets f((char*)a)
+  [_] TRY: apply rainbow brackets to nested functions
