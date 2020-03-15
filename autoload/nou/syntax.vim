@@ -254,16 +254,3 @@ fun! nou#syntax#artf_function()
   exe join(['hi', nm.'H', B, 'ctermfg=33 guifg=#3087ff'])
   exe join(['hi', nm, B, 'ctermfg=10 guifg=#688e95'])
 endf
-
-fun! nou#syntax#artf_keyval()
-  let nm = 'nouArtifactKeyval'
-  exe 'syn cluster nouArtifactQ add='.nm
-  exe 'syn region '.nm.' display oneline excludenl extend'
-    \.' excludenl matchgroup='.nm.'H'
-    \.' contains='.nm
-    \.' start='.s:pb('\k+[=]', '[:punct:]')
-    \.' end='.s:pe('', '[:punct:]')
-  let B = ' cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE '
-  exe join(['hi', nm.'H', B, 'ctermfg=33 guifg=#2060e0'])
-  exe join(['hi', nm, B, 'ctermfg=10 guifg=#688e95'])
-endf

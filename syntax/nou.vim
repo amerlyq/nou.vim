@@ -40,7 +40,6 @@ call nou#syntax#artf_hashtag()
 call nou#syntax#artf_addressing()
 call nou#syntax#artf_contact()
 call nou#syntax#artf_function()
-call nou#syntax#artf_keyval()
 
 """ Accents
 " '"`{[(_: -- symmetrical pair.
@@ -208,6 +207,7 @@ syn match nouArtifactVar display excludenl
 runtime autoload/nou/syntax/number.vim
 runtime autoload/nou/syntax/path.vim
 call nou#syntax#regex()  " ATT: must be after nouPath to override rgx=/.../
+runtime autoload/nou/syntax/keyval.vim
 runtime autoload/nou/syntax/group.vim
 
 

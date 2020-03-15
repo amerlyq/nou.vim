@@ -1,0 +1,64 @@
+%%%%% Key-value %%%%%  # *nou-keyval*
+# vim:ft=nou
+
+%% Simple values
+
+  key=value
+  ke_y=val-ue
+  ke-y=val.ue
+  _key=val?ue
+  key:=val*ue
+
+%% Nested values
+
+  key=key:value
+  key=key=value
+
+%% List values
+
+  key=val,ue
+  key=(val ue)
+  key={val,ue}
+  k1=<v1|v2|v3>
+
+%% Enumerations
+
+  k1=v1,k2=v2,k3=v3
+  k1=v1/k2=v2/k3=v3
+  k1=v1 / k2=v2 / k3=v3
+  k1=v1, k2=v2, k3=v3
+  (k1=v1 k2=v2 k3=v3)
+  {k1=v1, k2=v2, k3=v3}
+  <k1=v1|k2=v2|k3=v3>
+  <k1=v1 | k2=v2 | k3=v3>
+  |k1=v1|k2=v2|k3=v3|
+  |k1=v1 | k2=v2 | k3=v3|
+
+%% Non-path
+
+  key=' /path/to'       # leader
+  key=" /path/to"       # leader
+  key='a/path/to'       # alternative
+  key="b/path/to"       # alternative
+  key='a /path/to'      # list
+  key="b /path/to"      # list
+
+%% Quoted paths
+
+  key=/path/to          # raw (unquoted)
+  key='/path/to'        # single-quoted
+  key="/path/to"        # double-quoted
+  key=(/path/to)        # parenteses-quoted
+  key=[/path/to]        # brackets-qouted
+  key={/path/to}        # braces-qouted
+
+%% Var-prefix paths
+
+  key='$(var)/path/to'  # sq-var prefixed
+  key="$(var)/path/to"  # dq-var prefixed
+
+%% Region paths
+
+  key=⋮relpath⋮         # raw region path
+  key='⋮relpath⋮'       # sq-region path
+  key="⋮relpath⋮"       # dq-region path

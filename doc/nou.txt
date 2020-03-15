@@ -5,6 +5,7 @@ MARK-UP                                                                  *nou*
 
     |nou-markup|              See available features in native format
     |nou-path|                See avalable automatic and manual path objects
+    |nou-keyval|              See possible variants for key-value objects
 
 ==============================================================================
 TASKS                                                               *nou-tasks*
