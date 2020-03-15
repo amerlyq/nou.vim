@@ -34,6 +34,11 @@
   |k1=v1|k2=v2|k3=v3|
   |k1=v1 | k2=v2 | k3=v3|
 
+%% Artifacts
+
+  key="$var"
+  key=" $var "
+
 %% Non-path
 
   key=' /path/to'       # leader
@@ -49,8 +54,9 @@
   key='/path/to'        # single-quoted
   key="/path/to"        # double-quoted
   key=(/path/to)        # parenteses-quoted
-  key=[/path/to]        # brackets-qouted
-  key={/path/to}        # braces-qouted
+  key=[/path/to]        # brackets-quoted
+  key={/path/to}        # braces-quoted
+  key=</path/to>        # triangle-quoted
 
 %% Var-prefix paths
 
