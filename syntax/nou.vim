@@ -108,33 +108,6 @@ for i in range(len(g:nou.delimit.colors))
 endfor
 
 
-" WARNING: define after accents!
-" THINK: concealends -> replace by some unusual unicode chars
-"   -- MAYBE: completely hidden? for nice joining multiline
-"   ``` some
-"   text ```
-"   BUT we lose nice block emphasis
-"   some ```
-"   nteee
-"   ```
-"   CHECK:(option?) compare two possible styles. Document both ways and their merits.
-" BUG: conflicting/tearing syntax on up/down motion for text after closing ```
-"   -- seems problem in transparent+containedin
-" BUG: w/o 'matchgroup': closing '```' is concealed transparent rules of accent
-"   -- Moreover -- we can't make something like oneline block (``` ... ```)
-" BAD:(fold) don't work with 'fdm=indent'
-syn region nouBlock display keepend excludenl transparent contained extend fold
-  \ matchgroup=Special containedin=@nouOutlineQ
-  \ start='\v`{3}' end='\v`{3}'
-
-
-""" Blocks
-" plain text/notes/lists -- multiline
-
-" THINK: colorized list
-" -- make diff colors for items (prepended by '*', etc) on same outline level
-" ?? nested lists -- indistinguishable bounds between lists
-
 """ Decision
 " %([?*><]|--)\s -- separated from words by space
 " NOTE: also highlight on 0-level
@@ -269,6 +242,9 @@ endfor
 
 syn cluster nouTextQ add=@Spell,nouComment,nouDate,nouTime,nouTask
   \,@nouTaskQ,@nouArtifactQ,@nouAccentQ,@nouTermQ,@nouEmbedQ
+
+" WARNING: define after accents!
+runtime autoload/nou/syntax/block.vim
 
 " EXPL: must be last line -- set single-loading guard only if no exceptions
 let b:current_syntax = 'nou'

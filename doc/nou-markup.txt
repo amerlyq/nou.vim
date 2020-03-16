@@ -191,30 +191,6 @@ Manual by '//' prefix
   /[[:alpha:]]:\\{1,2}\ze%([^\\]*|$/
 
 
-%%% Blocks %%%  # *nou-blocks*
-# You can use accents/comments inside blocks as always
-Useful to group parts of long sentence to standout on the same level.
-
-Suffixed
-  L1 short description ```
-    suffixed block version
-    if you don't wish to see markers at all ```
-  L1 next one
-
-Prefixed
-    L2 previous statement
-    ``` prefixed block version
-        if you want more aligning
-        and more standout block
-    ```
-    L2 next one
-
-Mixed
-      L3 (multiline) ``` text in block
-    inherits color of first marker
-  ignoring actual ``` indent
-      L3 next one
-
 Line continuations
   line \
     continue

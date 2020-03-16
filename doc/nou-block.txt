@@ -1,0 +1,86 @@
+%%%%% Block region %%%%%  # *nou-block*
+# vim:ft=nou
+
+%% Keep indent %% (stop on deindent)
+
+% Outline
+  topic ::
+      item
+        item
+      item
+    next
+
+  BUG: "next" changes color when moving cursor up-down "topic"
+
+% Anonymous % (empty lines are ignored)
+  ::
+      item
+        item
+
+      item
+    next
+
+% Top-level
+
+THINK: allow empty lines directly after "::" or RQ immediate line
+::
+    item
+      item
+    item
+  next
+
+%% Everything nested %% (stop on level less equal prefix)
+
+% Outline % WARN: ignores empty line at the end before paragraph
+  topic ||
+      item
+        item
+      item
+    next
+
+end
+
+% Anonymous % WARN: continues until non-indented marker
+  ||
+      item
+        item
+        item
+    next
+  end
+
+% Top-level % WARN:RQ: use non-indented line to end this block
+
+BAD: continues
+||
+    item
+      item
+    item
+  next
+
+last
+  end
+
+
+%% BAD: Wrapped text %% (stop after next marker)
+# You can use accents/comments inside blocks as always
+Useful to group parts of long sentence to standout on the same level.
+
+Suffixed
+  L1 short description ```
+    suffixed block version
+    if you don't wish to see markers at all ```
+  L1 next one
+
+Prefixed
+    L2 previous statement
+    ``` prefixed block version
+        if you want more aligning
+        and more standout block
+    ```
+    L2 next one
+
+Mixed
+      L3 (multiline) ``` text in block
+    inherits color of first marker
+  ignoring actual ``` indent
+      L3 next one
