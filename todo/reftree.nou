@@ -1,0 +1,25 @@
+
+  [_] IDEA: make special embedded syntax
+    OR:BET? independent filetype for reftree / calltree / dataflow
+      => so I could embed it into my outline
+
+  [_] NICE:IDEA: use file extension as filetype for embedded syntax
+    //package/pkg-generic.mk:648::
+      ifneq ($$($(2)_SITE_METHOD),override)
+
+  [_] IDEA: use numbered lines to compress spans in same file
+    BAD: sourcelines are not aligned due to different linenumber width and different original indent
+    BAD: nesting calls is ugly (indented number) or simply wrong (more indented sourceline)
+    BAD: nested syntax will break due to leading characters
+    DECI: original indent is significant and useful .vs. strip it completely and use only my own nesting indent
+    DEV: need special jumping method to search file above it
+    MAYBE:DEV: special filetype to be used as embedded syntax -- then we can align linenumbers and codelines separately
+      ++ also we could embed original language syntax directly into my snippets
+        BAD: multiline statements not supported
+        BAD: often original highlight is much worser then my own outline
+    ::nou
+      //arch/x86/entry/entry_64.S
+      137:  ENTRY(entry_SYSCALL_64)
+        204:  call  *sys_call_table(, %rax, 8)
+      //arch/x86/entry/syscall_64.c
+      20:  asmlinkage const sys_call_ptr_t sys_call_table[__NR_syscall_max+1] = {

@@ -1,10 +1,5 @@
 
   2019-12-30 [X] FIXME: if line ends in any "[,-\\]" -- wrap formatting (only "\" for now)
-  [_] IDEA: make special embedded syntax OR:BET? independent filetype for calltree / dataflow
-    => so I could embed it into my outline
-    NICE:IDEA: use file extension as filetype for embedded syntax
-      //package/pkg-generic.mk:648::
-        ifneq ($$($(2)_SITE_METHOD),override)
 
   [_] ENH: declare codeblocks and quotes like in reST / Yaml
     + any part of extracted and deindented outline must be valid outline
@@ -12,6 +7,7 @@
     + completely different color for whole block to standout from usual outline colors
       ALT: use different hue of same color of outline to distinguish quotes on different nesting
         BUT: not so useful for code -- it better be left of same color on all levels
+        MAYBE:ALT: provide special block type to keep outline hue (like trailing "\\")
     ~ maybe reuse same prefixes as reST:  "::" and ".. code-block:: bash"
     IDEA: allow nested outline :: nou inside nou (but with reset indent)
       => then I can place highlighted gdb/assembler blocks inside narrative of coredump investigation

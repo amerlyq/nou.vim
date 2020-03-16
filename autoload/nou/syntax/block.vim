@@ -24,34 +24,60 @@
 "   https://vi.stackexchange.com/questions/15391/backreference-for-syntax-region
 " EXPL: end at any non-empty line that does not start with the saved indent group
 
-hi nouBlockXmarker cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=33 guifg=#2060e0
+hi nouBlockXmarker cterm=bold   gui=bold   ctermfg=33 guifg=#2060e0
+hi nouBlockXformat cterm=italic gui=italic ctermfg=10 guifg=#586e75
+hi nouBlockPlainText ctermbg=NONE guibg=NONE ctermfg=NONE guifg=NONE
 
-hi nouBlock ctermbg=NONE guibg=NONE ctermfg=NONE guifg=NONE
+hi def link nouBlockAligned nouBlockPlainText
+hi def link nouBlockIndented nouBlockPlainText
+hi def link nouBlockContained nouBlockPlainText
+
+
+syn match nouBlockXmarker display excludenl contained
+  \ nextgroup=nouBlockXformat '[[:punct:]]\+'
+syn match nouBlockXformat display excludenl contained
+  \ nextgroup=nouBlockPlainText  '[[:alnum:]]\+'
+
+
+" [_] CHECK: by using "excludenl" we don't need complex end=... expr with newline
+"   i.e. check hi won't flicker and next headline after block won't lose hi
+
 
 " THINK: contained containedin=@nouOutlineQ
-" syn region nouBlock keepend excludenl fold
-"   \ matchgroup=nouBlockXmarker
-"   \ start='\v::\s*\n^\z(\s+)'
-"   \ end='\v^%(\z1|$)@!'
-
 " NOTE: use indent of first body line (after marker)
-" keepend excludenl fold
-syn region nouBlockExtrusion containedin=@nouOutlineQ extend
+syn region nouBlockAligned keepend excludenl fold extend
+  \ containedin=@nouOutlineQ
   \ matchgroup=nouBlockXmarker
-  \ start='::\s*\n^\z(\s\+\)'
-  \ end='\v^%(\z1|$)@!'
+  \ start='##\ze\s*\n\z(\s\+\)'
+  \ end='\v\ze\n%(\s*$|\z1)@!'
 
-" syn region nouBlock
-"       \ start="\(>\||\) *\n^\z( \+\)"
-"       \ end="^\(\z1\|$\)\@!"
-"       \ contains=NONE
-"
 
 " NOTE: use indent of same line as marker (continuation)
-syn region nouBlockContinuation containedin=@nouOutlineQ extend
+syn region nouBlockIndented keepend excludenl fold extend
+  \ containedin=@nouOutlineQ
   \ matchgroup=nouBlockXmarker
-  \ start='^\z(\s*\).*\zs||\s*$'
-  \ end='\v^%(\z1\s|$)@!'
+  \ start='^\z(\s*\).*\zs||\ze\s*$'
+  \ end='\v\ze\n%(\s*$|\z1\s)@!'
+
+
+" TODO: for default "::" use lang from b:nou.blocksyntax = '..' OR reading from above in this file
+" NOTE: use first matching indent between marker line and first body line (floating)
+syn region nouBlockContained keepend excludenl fold extend
+  \ containedin=@nouOutlineQ
+  \ matchgroup=nouBlockXmarker
+  \ start='^\z(\s*\).*\zs::\ze\s*\n\z(\s*\)'
+  \ end='\v\ze\n%(\s*$|\z1\s|\z2)@!'
+
+
+" TODO: lazy loading for any grepped filetypes (no need to pre-determine them in opts.vim)
+" TRY: combine with nouBlockContained and use conditional nextgroup= to match filetype name
+" ALT: use different highlight for filetype \ contains=nouBlockXmarker
+"   BAD: nextgroup matches multiple times
+syn region nouBlockSyntax_nou keepend excludenl fold extend
+  \ contains=@nouTextQ containedin=@nouOutlineQ
+  \ matchgroup=nouBlockXmarker
+  \ start='^\z(\s*\).*\zs::\w\+\ze\s*\n\z(\s*\)'
+  \ end='\v\ze\n%(\s*$|\z1\s|\z2)@!'
 
 
 " THINK: concealends -> replace by some unusual unicode chars
@@ -69,7 +95,7 @@ syn region nouBlockContinuation containedin=@nouOutlineQ extend
 "   -- Moreover -- we can't make something like oneline block (``` ... ```)
 " BAD:(fold) don't work with 'fdm=indent'
 " BUG:(display): when scroling from bottom -- last found closing ``` is treated as beginning
-syn region nouBlockMarkdown display keepend excludenl transparent contained extend fold
+syn region nouBlockMarkdown keepend excludenl transparent fold extend
   \ matchgroup=Special containedin=@nouOutlineQ
   \ start='\v`{3}' end='\v`{3}'
 
