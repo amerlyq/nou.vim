@@ -39,6 +39,9 @@ call nou#syntax#artf_ext()
 call nou#syntax#artf_hashtag()
 call nou#syntax#artf_addressing()
 call nou#syntax#artf_contact()
+
+" BUG: w/o embedded syntax highlight -- "IDEA:(aa):" isn't highlighted as function
+"   => stick to single method despite presence of '$ ...' pattern in file
 call nou#syntax#artf_function()
 
 """ Accents

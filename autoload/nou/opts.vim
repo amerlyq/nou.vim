@@ -116,6 +116,7 @@ let s:nou.outline.colors = [
 let s:nou.embed = {
   \ 'sh': ['\$#?', '[$#]'],
   \ 'zsh': ['zsh:\$#?', '[$#]'],
+  \ 'gdb': ['\(gdb\)', '[|#]'],
   \ }
 
 " THINK:TRY: using text bg colors
