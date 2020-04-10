@@ -188,9 +188,10 @@ runtime autoload/nou/syntax/group.vim
 
 
 " MAYBE: make "nouDate/nouTime" into overlay notches to be highlighted everywhere
+" ALT: explicit sfx /%(-%(Mon|Tue|Wed|Thu|Fri|Sat|Sun|Mo|Tu|We|Th|Fr|Sa|Su))?/
 hi! nouDate ctermfg=178 guifg=#dfaf00
 syn match nouDate display excludenl
-  \ '\v<20\d\d-%(0\d|1[012])-%([012]\d|3[01])>'
+  \ '\v<20\d\d-%(0\d|1[012])-%([012]\d|3[01])%(-\u\l\l?)?>'
 
 " hi! nouTime ctermfg=210 guifg=#ff8787
 hi! nouTime ctermfg=248 guifg=#a8a8a8
