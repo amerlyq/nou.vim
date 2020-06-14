@@ -12,6 +12,19 @@
 
 
 %% Task/progress
+  [_] ALT:USE: super-task to update number and track progress after each subtask
+    NOW
+      * copying the same task with different [30%].. [50%].. [80%] is wrong -- no way to "continue"
+      * tracking progress in #tag to continue [_] #30% is wrong too -- incomplete task is non-contiguous gibberish [80%] #30% ...
+      * each "task" has only two genuine states: [_] and [X] with their respective two timestamps / xtrefs
+    IDEA= project-progress .vs. task-completion
+      * you track subtasks in .cal view -- only binary states for each one
+      * you track project progress in .proj view -- update "finish" progress after each subtask is done or new subtask created
+      [_] NEED: bind subtasks xtrefs to main task
+      [_] NEED: sum estimated times per each task to evaluate precise progress value
+    [_] MAYBE: make colors for 80-95% more bright to stimulate completion
+      => the must "shout" !finish me now, there is almost nothing left!
+      NOW:BAD: dark colors are easily overlooked when searching incomplete tasks to be done
   [_] BUG ru text /[а-я]{1,3}/ treated as /\W+/ => marker placed after it
   THINK if only marker is highlighted and therefore truly visible --> MAYBE:USE: shortened form '_ x' instead of full '[_] [X]'?
   MAYBE: use shorter date spec?
