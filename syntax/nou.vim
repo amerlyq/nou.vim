@@ -226,6 +226,27 @@ syn match nouTask display excludenl contains=@nouTaskQ
   \ '\v%(\d{4}-\d\d-\d\d )?\[%([_$X]|\d\d\%)\]'
 
 
+"{{{ NOTE: progress highlight e.g. "[1/8]"
+" TRY:DEV: convert ratio to percent and highlight the same as above 5..95%
+"   FAIL:NEED conditional hi! (?Idris dependent types?)
+" MAYBE:BET: add "progress" cluster globally insted of limiting into nouTaskQ
+syn cluster nouTaskQ add=nouProgressRatio
+exe 'hi! nouProgressRatio '. g:nou.task.colors[8]
+syn match nouProgressRatio display excludenl contains=@nouProgressRatioQ '\V[\d\+/\d\+]'
+
+hi! nouProgressRatioF ctermfg=14 guifg=#586e75
+syn cluster nouProgressRatioQ add=nouProgressRatioF
+syn match nouProgressRatioF display excludenl contained '\v\D(\d+)\D\1\D'
+
+exe 'hi! nouProgressRatio0 '. g:nou.task.colors[7]
+syn cluster nouProgressRatioQ add=nouProgressRatio0
+syn match nouProgressRatio0 display excludenl contained '\D0\+\D\d\+\D'
+
+exe 'hi! nouProgressRatio1 '. g:nou.task.colors[1]
+syn cluster nouProgressRatioQ add=nouProgressRatio1
+syn match nouProgressRatio1 display excludenl contained '\D1\+\D\d\+\D'
+"}}}
+
 
 " CHECK:
 " -- syntax higlighting block between two marks start=/\%'m/ end=/\%'n/
