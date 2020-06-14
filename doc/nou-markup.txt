@@ -161,6 +161,11 @@ Allowed any indent before '$'
   Separate line
     $ cat ./file | sort -u | awk -r '{print$0}'
 
+%% plain
+
+  (vim) :let a=5
+  (gdb) disassemble
+
 
 %%% Artifacts %%%  # *nou-artifacts*
 Standing out text objects

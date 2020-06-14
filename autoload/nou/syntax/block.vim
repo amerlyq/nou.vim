@@ -80,6 +80,24 @@ syn region nouBlockSyntax_nou keepend excludenl fold extend
   \ end='\v\ze\n%(\s*$|\z1\s|\z2)@!'
 
 
+" HACK: embedded plain syntax e.g. (vim) or (gdb)
+" CHECK: use ((vim)) as marker anywhere in line, not only in beginning
+" MAYBE:USE: different standout colors for different langs groups (e.g. GREN for gdb)
+hi nouLineSyntax_nou ctermbg=18 guibg=#061d2a cterm=italic gui=italic
+hi nouLineXmarker ctermbg=18 guibg=#061d2a
+  \ cterm=bold,reverse gui=bold,reverse  ctermfg=33 guifg=#2060e0
+
+" BAD: "((vim))" in the middle of line is too different from "(vim)" in the beginning
+"   MAYBE: conceal brackets or make fg=bg to hide symbol itself
+"   BET? use square brackets ⦅⦃⦗｢⟦⟨⟪⟮⟬⌈⌊⦇⦉❨❪❴❬❮❰❲⦑⧼  vim ⦆⦄⦘｣⟧⟩⟫⟯⟭⌉⌋⦈⦊❩❫❵❭❯❱❳⦒⧽
+syn region nouLineSyntax_nou keepend excludenl extend
+  \ containedin=@nouOutlineQ
+  \ matchgroup=nouLineXmarker
+  \ start='^\s*\zs(\w\+)'
+  \ start='((\w\+))'
+  \ end='$'
+
+
 " THINK: concealends -> replace by some unusual unicode chars
 "   -- MAYBE: completely hidden? for nice joining multiline
 "   ``` some
