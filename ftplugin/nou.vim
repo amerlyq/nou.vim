@@ -52,7 +52,7 @@ for i in range(1,9)
     \.' :<C-u>call nou#bar("X'.i.'",'.i.',0)<CR>'
   let s:nou_mappings += [['n', '<LocalLeader>'.i, '<Plug>(nou-barX'.i.')']]
 endfor
-for s in ['', 'D', '_', 'D_', 'D$', '$', 'X', 'DX'] | for m in ['n', 'x']
+for s in ['', 'D', '_', 'D_', 'D$', '$', 'X', 'DX', 'T'] | for m in ['n', 'x']
   exe m.'noremap <silent> <Plug>(nou-bar'.s.')'
       \" :<C-u>call nou#bar('".s."',v:count,".(m==#'x').")<CR>"
 endfor | endfor
@@ -65,6 +65,7 @@ let s:nou_mappings += [
   \ ['nx', '<LocalLeader>#', '<Plug>(nou-bar$)'],
   \ ['nx', '<LocalLeader>x', '<Plug>(nou-barDX)'],
   \ ['nx', '<LocalLeader>X', '<Plug>(nou-barX)'],
+  \ ['nx', '<LocalLeader>t', '<Plug>(nou-barT)'],
   \]
 
 

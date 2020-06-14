@@ -19,7 +19,9 @@ fun! nou#bar(...) range
   let pfx = a:1
   let pfx = substitute(pfx, '[0-9]', '', 'g')  " Strip progress lvl
   let pfx = substitute(pfx, '[_$X]', mrk, '')
-  let pfx = substitute(pfx, 'D', strftime("%Y-%m-%d").' ', '')
+  let pfx = substitute(pfx, 'D', strftime('%Y-%m-%d '), '')
+  let now = strftime('%H:') . float2nr(round(strftime('%M') / 5) * 5)
+  let pfx = substitute(pfx, 'T', now.' ', '')
 
   " BUG: in VSEL mode wrong cursor pos: '.' == '<
   let l:pos = exists('*getcurpos') ? getcurpos() : getpos('.')
