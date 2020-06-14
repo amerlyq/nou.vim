@@ -45,8 +45,9 @@ fun! nou#bar(...) range
 endf
 
 
-fun! nou#path_open(path)
+fun! nou#path_open(path, ...)
   let p = a:path
+  let bang = get(a:, 1, 0)  "ALT:USE: <count> i.e. <1 g f> == force open non-existent file
 
   let idx = stridx(p, '/')
   if idx < 0| let idx = 0 |en
@@ -91,5 +92,11 @@ fun! nou#path_open(path)
     norm! gf
     return
   en
-  exe 'edit' fnameescape(p)
+  if !bang && !filereadable(p)
+    echohl ErrorMsg
+    echom "No such file:" p
+    echohl None
+  else
+    exe 'edit' fnameescape(p)
+  endif
 endf
