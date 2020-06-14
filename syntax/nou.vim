@@ -204,6 +204,23 @@ syn match nouTime display excludenl
   \ '\v<%(\d|[01]\d|2[0-4]):[0-5]\d%(:[0-5]\d)?>'
 
 
+"" NOTE: task duration estimates and time spans
+"" FIXME: must be placed before #artf_ext() to treat ".5h" as timespan instead of extension
+""   FAIL: must be after number.vim to prevent overriding wild numbers
+" [_] MOVE = :/autoload/nou/syntax
+" MAYBE: use different color when "time" is related to "task estimate"
+"   * [_] 1h ...
+"   * 13:30 1h ...
+"   * [_] 13:30 1h ...
+" THINK: use dif. colors for each [wdhms] letter inside this hi! group
+" ADD? longer abbrev 1day4hr2min3sec
+" ADD? volume-speed 1h/task OR task/1h
+hi! nouTimeSpan cterm=bold,undercurl gui=bold,undercurl ctermfg=135 guifg=#4f7fef
+syn cluster nouArtifactQ add=nouTimeSpan
+syn match nouTimeSpan display excludenl
+  \ '\v<%([0-9.]+[wdhms]){1,5}>'
+
+
 "" ATT: must be after nouNumber to override date
 " DISABLED: too bright checkbox is distracting
 " hi! nouTaskTodo ctermfg=15 guifg=#beeeee
