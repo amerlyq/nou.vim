@@ -40,6 +40,11 @@ call nou#syntax#artf_hashtag()
 call nou#syntax#artf_addressing()
 call nou#syntax#artf_contact()
 
+"" e.g. tag-token like <^JIRA-12345>
+syn cluster nouArtifactQ add=nouArtifactUrlAlias
+hi nouArtifactUrlAlias cterm=bold,underline ctermbg=NONE gui=bold,underline guibg=NONE ctermfg=62 guifg=#6c71c4
+syn match nouArtifactUrlAlias display excludenl /\v%(^|[(\[{,;|[:blank:]]@1<=)%(\^\S{-1,})%([|;,}\])[:blank:]]@1=|$)/
+
 " BUG: w/o embedded syntax highlight -- "IDEA:(aa):" isn't highlighted as function
 "   => stick to single method despite presence of '$ ...' pattern in file
 call nou#syntax#artf_function()
