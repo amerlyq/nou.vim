@@ -214,7 +214,7 @@ fun! nou#syntax#artf_hashtag()
   let nm = 'nouArtifactHashTag'
   exe 'syn cluster nouArtifactQ add='.nm
   exe 'syn match '.nm.' display excludenl'
-    \.' '.s:pbe('#+\w\S{-}', '(\[{,;|', '|;,}\])')
+    \.' '.s:pbe('#+\k\S{-}', '(\[{,;|', '|;,}\])')
   let B = ' cterm=bold ctermbg=NONE gui=bold guibg=NONE '
   exe join(['hi', nm, B, 'ctermfg=142 guifg=#afaf00'])
   " exe join(['hi', nm, B, 'ctermfg=62 guifg=#5f5fdf'])
