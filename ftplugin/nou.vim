@@ -23,6 +23,13 @@ setl conceallevel=2  " NEED=2: nouSpoiler uses 'cchar'
 setl concealcursor=""
 
 
+" digraph ,. 8230  " … =DFL somewhere in vim path
+" digraph *1 9734  " ☆ =DFL generic feature
+" digraph *2 9733  " ★ =DFL favorite feature
+digraph @@ 9764    " ☤  dev repo (aura/**)
+digraph @# 9798    " ♆  program/package configuration (airy/*)
+
+
 """ Mappings
 
 " nnoremap <silent> <Plug>(nou-date) :<C-u>put=strftime('%Y-%m-%d')<CR>

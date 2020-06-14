@@ -58,14 +58,25 @@ fun! nou#path_open(path, ...)
   " FIXME: ./path/ must count from current file, not cwd
   if pfx ==# '' || pfx ==# '.' || pfx ==# '..' | let p = pfx . p
   elseif pfx ==# '~' | let p = $HOME . p
-  elseif pfx ==# '@' | let p = $HOME .'/aura'. p  " BAD: I have nested repo
   elseif pfx ==# '%' | let p = expand('%:h') . p  " CHECK: different $PWD
+  elseif pfx ==# '@' | let p = $HOME .'/aura'. p  " BAD: I have nested repo
+  elseif pfx ==# '♆' | let p = $HOME .'/aura/airy'. p . '/setup'
+  elseif pfx ==# '☆' | let p = '/x'. p
+  elseif pfx ==# '★' | let p = '/x/_fav'. p
   elseif pfx ==# '/'
     " TODO: search ctx ⋮//=/path/to/dir⋮ inside same file above current line
     let d = get(b:,'nou',g:nou).loci
     " BAD: unpredictably changes in each buffer due to locally saved view settings
     if d ==# ''| let d = getcwd() |en
     let p = d . p
+  elseif pfx ==# '☤'
+    " DEV:NEED: better introspection, similar to '&'
+    let cmdline = "find -H '".$HOME."/aura' -path '*".p."/.git' -execdir pwd \\;"
+    let res = systemlist(cmdline)
+    let repo = (len(res) > 0) ? res[0] : ($HOME .'/aura'. p)
+    " BET? open dir in netrw instead of single file ? BUT: dir is accessible by <,r> anyways
+    " ALT: repeat search for list of globs ['README*', 'Makefile'] in repo dir and open first found file
+    let p = repo .'/Makefile'
   elseif pfx ==# '&'
     "" FIXME:DEV: search ignored dir '/&/' up-pwd to open referenced untracked file
     "" IDEA:(aura): track filelist and restore on demand the content of /&/ on other devices beside home PC
