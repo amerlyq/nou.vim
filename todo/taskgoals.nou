@@ -59,3 +59,8 @@
     ~ !2#tag#tag [_]
     ~ !3 [_] #tag #tag
     ~ !4 [_]#tag#tag
+  [_] IDEA: use unicode symbol for more distinct feel and easier parsing
+    U+2460  ① ② ③ ④ ⑤ ⑥ ⑦ ⑧ ⑨ ⑩ ⑪ ⑫ ⑬ ⑭ ⑮ ⑯
+    U+2770              ❶ ❷ ❸ ❹ ❺ ❻ ❼ ❽ ❾ ❿
+    U+2780  ➀ ➁ ➂ ➃ ➄ ➅ ➆ ➇ ➈ ➉ ➊ ➋ ➌ ➍ ➎ ➏
+    U+2790  ➐ ➑ ➒ ➓
