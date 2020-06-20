@@ -52,6 +52,10 @@ syn region nouBlockAligned keepend excludenl fold extend
   \ end='\v\ze\n%(\s*$|\z1)@!'
 
 
+" THINK:CHG:ENH:ADD: allow text on the same line as starting marker
+"   || Text block,  ## Text block,  >> Text block,
+"      continues       continues       continues
+"   MAYBE:ALSO: in this case use color of first line instead of plain white
 " NOTE: use indent of same line as marker (continuation)
 syn region nouBlockIndented keepend excludenl fold extend
   \ containedin=@nouOutlineQ

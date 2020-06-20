@@ -73,6 +73,7 @@ e.g.USAGE: function calltree for linux kernel
   ♆/dunst               # *airy* feature (=@/airy/dunst)
   ☆/dunst               # generic feature (=/x/*)
   ★/dunst               # favorite feature (=/x/_(now|fav)/*)
+  # FIXME:BET: use '@' for dev-repos and directly use /x/* for *aura*
   ☤/dunst               # dev repo/project anywhere (=@/**/.git)
 
 %% Patterns

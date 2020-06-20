@@ -39,6 +39,7 @@ nnoremap <Plug>(nou-datew) "=strftime('%Y-%m-%d-%a')<CR>P
 inoremap <Plug>(nou-date) <C-R>=strftime('%Y-%m-%d')<CR>
 iabbrev <expr> !dts! strftime('%Y-%m-%d')
 
+" [_] FAIL: path with spaces is cropped e.g. "@/so\ me/" OR "⋮@/so me/⋮"
 nnoremap <silent> <Plug>(nou-path-open) :call nou#path_open(expand('<cWORD>'))<CR>
 xnoremap <silent> <Plug>(nou-path-open) :<C-u>call nou#path_open(nou#vsel())<CR>
 
@@ -59,7 +60,7 @@ for i in range(1,9)
     \.' :<C-u>call nou#bar("X'.i.'",'.i.',0)<CR>'
   let s:nou_mappings += [['n', '<LocalLeader>'.i, '<Plug>(nou-barX'.i.')']]
 endfor
-for s in ['', 'D', '_', 'D_', 'D$', '$', 'X', 'DX', 'T'] | for m in ['n', 'x']
+for s in ['', 'D', '_', 'D_', 'D$', '$', 'X', 'DX', 'T', 'B'] | for m in ['n', 'x']
   exe m.'noremap <silent> <Plug>(nou-bar'.s.')'
       \" :<C-u>call nou#bar('".s."',v:count,".(m==#'x').")<CR>"
 endfor | endfor
@@ -73,6 +74,7 @@ let s:nou_mappings += [
   \ ['nx', '<LocalLeader>x', '<Plug>(nou-barDX)'],
   \ ['nx', '<LocalLeader>X', '<Plug>(nou-barX)'],
   \ ['nx', '<LocalLeader>t', '<Plug>(nou-barT)'],
+  \ ['nx', '<LocalLeader>b', '<Plug>(nou-barB)'],
   \]
 
 

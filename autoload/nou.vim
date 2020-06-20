@@ -20,8 +20,16 @@ fun! nou#bar(...) range
   let pfx = substitute(pfx, '[0-9]', '', 'g')  " Strip progress lvl
   let pfx = substitute(pfx, '[_$X]', mrk, '')
   let pfx = substitute(pfx, 'D', strftime('%Y-%m-%d '), '')
-  let now = strftime('%H:') . float2nr(round(strftime('%M') / 5) * 5)
-  let pfx = substitute(pfx, 'T', now.' ', '')
+  if pfx =~# 'T'
+    " HACK: round to nearest 5min interval
+    " [_] FIXME: 11:58 -> BAD:11:60 -> NEED:12:00
+    let now = strftime('%H:') . float2nr(round(str2float(strftime('%M')) / 5) * 5)
+    let pfx = substitute(pfx, 'T', now.' ', '')
+  endif
+  if pfx =~# 'B'
+    let xts = substitute(printf('%08x', strftime('%s')), '..', '\=nr2char("0x28".submatch(0))', 'g')
+    let pfx = substitute(pfx, 'B', '['.xts.'] ', '')
+  endif
 
   " BUG: in VSEL mode wrong cursor pos: '.' == '<
   let l:pos = exists('*getcurpos') ? getcurpos() : getpos('.')
@@ -34,9 +42,10 @@ fun! nou#bar(...) range
     let line = getline(i)
     " FIXME: impossible decions ~ '=[', '<[', '-]'
     "   => extract first word from $line and directly compare in vimscript
+    " [_] FIXME: task marker is always inserted after russian 1..3c word
     let chgd = substitute(line,
       \ '\v^(\s*%([^[:alpha:][:blank:][\]]{-1,3}\s+)?)'
-      \.'%(%(\d{4}-\d\d-\d\d )?\[%([_$X]|\d\d\%)\]\s*)?(.*)$',
+      \.'%(%(\d{4}-\d\d-\d\d )?\[%([_$X]|\d\d\%|[\u2800-\u28FF]{4})\]\s*)?(.*)$',
       \ '\1'.pfx.'\2', '')
     if chgd !=# line| call setline(i, chgd) |en
   endfor
@@ -71,6 +80,9 @@ fun! nou#path_open(path, ...)
     let p = d . p
   elseif pfx ==# '☤'
     " DEV:NEED: better introspection, similar to '&'
+    " [_] FIXME:BET: allow subpath under repo "@/nou.vim/Makefile" instead of prefix grouping ⌇⡞⣥⣕⡋
+    " WARN: prefixes not allowed (i.a. @/miur/kirie) <= indistinguishable from repo subpath
+    " ALT:MAYBE: extend ":" syntax ":/file/here" .vs. ":somerepo/file/there"
     let cmdline = "find -H '".$HOME."/aura' -path '*".p."/.git' -execdir pwd \\;"
     let res = systemlist(cmdline)
     let repo = (len(res) > 0) ? res[0] : ($HOME .'/aura'. p)
@@ -94,6 +106,7 @@ fun! nou#path_open(path, ...)
     let d = fnameescape(expand('%:h'))
     let g = systemlist('git -C '.d.' rev-parse --show-toplevel')
     let p = g[0] . p
+  " ALT:IDEA: use "…/t_parglare" or "?/t_parglare" to search file system-wide through "locate(1)"
   elseif pfx ==# '…'
     let p = strpart(p, 1)
     " NOTE: search in all 'path' like usual 'gf' do

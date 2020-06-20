@@ -9,10 +9,14 @@ let s:nou.loose = 0   " round inexact indent to prev lvl
 let s:nou.loci = getcwd()    " RENAME: g:nou.anchor $LOCI
 
 
+" BAD: no term colors, only gui
+" ALSO: nice violet color #df56f6
+" FIXME: hi! from any side of "[_]" to facilitate aligned tasks column in .cal
 let s:nou.decision = {}
 let s:nou.decision.symbol = '[.]'
 let s:nou.decision.colors = [
   \ ['[*•]{1,3}', '#268bd2'],
+  \ ['\@{1,3}', '#df5616'],
   \ ['\+{1,3}', '#859900'],
   \ ['\-{1,3}', '#2aa198'],
   \ ['\={1,3}', '#6c71c4'],
@@ -113,6 +117,7 @@ let s:nou.outline.colors = [
   \ '#586e75',
   \ ]
 
+" [_] BUG: "(gdb)" native embed syntax is overriden by my generic block syntax
 let s:nou.embed = {
   \ 'sh': ['\$#?', '[$#]'],
   \ 'zsh': ['zsh:\$#?', '[$#]'],
