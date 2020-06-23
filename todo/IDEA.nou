@@ -5,6 +5,13 @@
 
   [_] generate all syntax demo file based on all available options in :/autoload/nou/opts.vim
 
+  [_] TODO: use single separate repo "web-statics" for all my projects ⌇⡞⣬⢩⢫
+    => refer to pictures by their direct blob hash (to be detached from branch/updates)
+      = BUT: hard to update picture -- must update hashes in all refering repos...
+      ALT: refer by name in branch, but use separate orphaned branches
+      BET: use single master and subdirs -- you can pick abspath or hash by yourself
+
+
 %%% Literal programming
   Unite with ideas from 'latex' or 'haskell' for literal programming
     = interleaving documentation and code
