@@ -46,11 +46,16 @@ xnoremap <silent> <Plug>(nou-path-open) :<C-u>call nou#path_open(nou#vsel())<CR>
 nnoremap <silent> <Plug>(nou-task-next) /\V[_]<CR>n
 xnoremap <silent> <Plug>(nou-task-next) <Esc>/\V\%V[_]<CR>n
 
+" FIXME: use vim function to insert 0-line
+nnoremap <Plug>(nou-spdx-header) 1G"=nou#spdx_header()<CR>P
+
+
 let s:nou_mappings = [
   \ ['nx', 'gf', '<Plug>(nou-path-open)'],
   \ ['nx', '<LocalLeader>n', '<Plug>(nou-task-next)'],
   \ ['nx', '<LocalLeader>i', '<Plug>(nou-date)'],
   \ ['n', '<LocalLeader>I', '<Plug>(nou-datew)'],
+  \ ['n',  '<LocalLeader>L', '<Plug>(nou-spdx-header)'],
   \]
 
 

@@ -127,3 +127,23 @@ fun! nou#path_open(path, ...)
     exe 'edit' fnameescape(p)
   endif
 endf
+
+
+fun! nou#spdx_header()
+  let year = strftime('%Y')
+  let name = join(systemlist('git config --get user.name'))
+  let email = join(systemlist('git config --get user.email'))
+  if email =~# '@gmail' && email !~# '+'
+    let sfx = 'nou'
+    let email = substitute(email, '@', ('+'.sfx.'@'), '')
+  fi
+  let tail = ' and contributors.'
+  let copyright = year .' '. name .' <'. email .'>'. tail
+  let license = 'CC-BY-SA-4.0'
+  " TODO: generate optional xtref on first line
+  " ARCH: file ::= shebang | vimopts | xtref | spdx | #% | body
+  let header = 'SPDX-FileCopyrightText: '. copyright
+    \."\n\n" . 'SPDX-License-Identifier: '. license
+    \."\n-----\n"
+  return header
+endf
