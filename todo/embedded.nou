@@ -8,6 +8,9 @@
     * different color for date of completed task
     * not highlighted prefixed keyval lines e.g. SPDX in .nou
 
+  BUG: not higlighted if "USE:" but highlighted with "USE"
+    :: USE: less privilaged user ::dockerfile
+
 
 %% Embed syntax
 SEE

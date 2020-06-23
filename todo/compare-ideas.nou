@@ -1,12 +1,6 @@
 
   [_] IDEA:THINK: fast short notes-taking and storing in one of predetermined dirs
     https://github.com/Alok/notational-fzf-vim
-  [_] CMP: with orgmode demo
-    + https://vincent.bernat.im/en/blog/2017-netops-org-mode
-
-  SEE: org-mode extensions
-    bastibe/org-journal: A simple org-mode based journaling mode ⌇⡞⣬⢧⣱
-      https://github.com/bastibe/org-journal
 
   [_] Test and compare with vimoutliner
     [_] https://github.com/xolox/vim-notes/blob/master/autoload/xolox/notes.vim
@@ -22,3 +16,15 @@ ALSO: full-fledged apps
   laurent22/joplin: Joplin - an open source note taking and to-do application with synchronization capabilities for Windows, macOS, Linux, Android and iOS. Forum: https://discourse.joplinapp.org/ ⌇⡞⣬⢨⢦
     https://joplinapp.org/
     https://github.com/laurent22/joplin
+
+
+org-mode
+  NICE:DEMO: How I Organize my Work with Org Mode in Spacemacs - YouTube ⌇⡞⡿⡫⣹
+    https://www.youtube.com/watch?v=7ybg3vjLQJM
+  [_] CMP: with orgmode demo
+    + https://vincent.bernat.im/en/blog/2017-netops-org-mode
+  [_] SEE: 2018-11-14: Building a Second Brain in Org Mode - Tasshin Michael Fogleman - YouTube ※⡞⡿⡬⡠
+
+SEE: org-mode extensions
+  bastibe/org-journal: A simple org-mode based journaling mode ⌇⡞⣬⢧⣱
+    https://github.com/bastibe/org-journal
