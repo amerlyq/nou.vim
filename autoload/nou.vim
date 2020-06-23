@@ -11,6 +11,9 @@ fun! nou#vsel()
 endf
 
 
+" TODO: extract "tasks" into separate "everywhere" module to allow literate programming
+"   e.g. like it's already done with xtref and notches functionality
+"   BAD:THINK: must work with comments -- transparently add/skip them on ops
 fun! nou#bar(...) range
   if a:0<1 || type(a:1) != type('')| throw "wrong a:1" |en
   " USAGE: <5,.x> → 50% | <45,.x> → 45% | <105,.x> 05%
@@ -45,7 +48,7 @@ fun! nou#bar(...) range
     " [_] FIXME: task marker is always inserted after russian 1..3c word
     let chgd = substitute(line,
       \ '\v^(\s*%([^[:alpha:][:blank:][\]]{-1,3}\s+)?)'
-      \.'%(%(\d{4}-\d\d-\d\d )?\[%([_$X]|\d\d\%|[\u2800-\u28FF]{4})\]\s*)?(.*)$',
+      \.'%(%(\d{4}-\d\d-\d\d )?\[%([_$X]|[\u2800-\u28FF]{4}|\d\d\%)\]\s*)?(.*)$',
       \ '\1'.pfx.'\2', '')
     if chgd !=# line| call setline(i, chgd) |en
   endfor

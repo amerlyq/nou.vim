@@ -195,6 +195,8 @@ runtime autoload/nou/syntax/group.vim
 " MAYBE: make "nouDate/nouTime" into overlay notches to be highlighted everywhere
 " TODO: hi! weekdays/weekends dayname differently, and for week-sfx use darker color
 " ALT: explicit sfx /%(-%(Mon|Tue|Wed|Thu|Fri|Sat|Sun|Mo|Tu|We|Th|Fr|Sa|Su))?/
+" TODO: dim hi for weekday sfx
+" TODO: different color for Sat and Sun -- whole date (red) or only suffix
 hi! nouDate ctermfg=178 guifg=#dfaf00
 syn match nouDate display excludenl
   \ '\v<20\d\d-%(0\d|1[012])-%([012]\d|3[01])%(-\u\l\l?)?%(-W%([0-4]\d|5[0-3]))?>'
@@ -232,11 +234,13 @@ syn match nouTaskTodo display excludenl '\V[_]'
 hi! nouTaskDone ctermfg=14 guifg=#586e75
 syn cluster nouTaskQ add=nouTaskDone
 syn match nouTaskDone display excludenl '\V[X]'
+syn match nouTaskDone display excludenl '\v\[[\u2800-\u28FF]{4}\]'
 
-" hi! nouTaskXts cterm=bold gui=bold ctermfg=14 guifg=#586e75
-hi! nouTaskXts ctermfg=14 guifg=#586e75
-syn cluster nouTaskQ add=nouTaskXts
-syn match nouTaskXts display excludenl '\v\[[\u2800-\u28FF]{4}\]'
+""" ALT: separate xts group
+" " hi! nouTaskXts cterm=bold gui=bold ctermfg=14 guifg=#586e75
+" hi! nouTaskXts ctermfg=14 guifg=#586e75
+" syn cluster nouTaskQ add=nouTaskXts
+" syn match nouTaskXts display excludenl '\v\[[\u2800-\u28FF]{4}\]'
 
 hi! nouTaskCancel ctermfg=160 guifg=#df0000
 syn cluster nouTaskQ add=nouTaskCancel
@@ -251,7 +255,7 @@ endfor
 
 hi! nouTask ctermfg=14 guifg=#586e75
 syn match nouTask display excludenl contains=@nouTaskQ
-  \ '\v%(\d{4}-\d\d-\d\d )?\[%([_$X]|\d\d\%)\]'
+  \ '\v%(\d{4}-\d\d-\d\d )?\[%([_$X]|[\u2800-\u28FF]{4}|\d\d\%)\]'
 
 
 "{{{ NOTE: progress highlight e.g. "[1/8]"
