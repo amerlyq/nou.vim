@@ -37,3 +37,29 @@ NEED special way to continue long entries on next line
     another indent but same color -- distinguishes this entry
     no prefixed symbols -- simplify 'y', 'gq', etc
     indent in one tab -- simplify 'g>'
+
+
+% Citing
+
+  [_] IDEA: use RFC822-like format of nested citing
+    NOTE: I anyway use only arrows "=>" and "<=" to derive meaning, instead of plain ">/>>" or "</<<"
+    [_] DEV: diff colors for nested markers
+      - rainbow like in mutt -- each vertical column has the same color -- so in ">>" 1st and 2nd ">" have different colors
+      - BET: solid colors for series of symbol -- i.e. ">" and ">>" have different color, but in ">>" both have the same
+    [_] MAYBE: use very dark bkgr for ">" markers itself to stand-out vertical *outline* of markers
+    [_] DEV: highlight whole block of white text with darker background
+    ::
+      >> some cited text
+      >> from my own message
+      > critique from somebody
+      << my answers and thoughts to it
+
+  [_] ENH:IDEA: use "<" and "<<" to _annotate/comment_ different levels of citings
+    ::
+      >> some cited text
+      >> from my own message
+      << my thoughts on this topic
+      > critique from somebody
+      << my thoughts on critique
+      < my possible answers
+      ::: conclusion
