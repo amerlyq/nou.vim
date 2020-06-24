@@ -17,16 +17,23 @@ endf
 fun! nou#bar(...) range
   if a:0<1 || type(a:1) != type('')| throw "wrong a:1" |en
   " USAGE: <5,.x> → 50% | <45,.x> → 45% | <105,.x> 05%
-  let pg = a:2 < 10 ? a:2*10 : a:2 >= 100 ? a:2 % 100 : a:2
-  let mrk = '['. (a:2 ? printf('%02d', pg).'%' : '&') .'] '
   let pfx = a:1
   let pfx = substitute(pfx, '[0-9]', '', 'g')  " Strip progress lvl
-  let pfx = substitute(pfx, '[_$X]', mrk, '')
   let pfx = substitute(pfx, 'D', strftime('%Y-%m-%d '), '')
+  if pfx =~# '[_$X]'
+    let pg = a:2 < 10 ? a:2*10 : a:2 >= 100 ? a:2 % 100 : a:2
+    let mrk = '['. (a:2 ? printf('%02d', pg).'%' : '&') .'] '
+    let pfx = substitute(pfx, '[_$X]', mrk, '')
+  endif
   if pfx =~# 'T'
     " HACK: round to nearest 5min interval
     " [_] FIXME: 11:58 -> BAD:11:60 -> NEED:12:00
-    let now = strftime('%H:') . float2nr(round(str2float(strftime('%M')) / 5) * 5)
+    let min5 = float2nr(round(str2float(strftime('%M')) / 5) * 5)
+    let now = (a:2 == 0) ? strftime('%H:') . min5
+          \: a:2 < 24 ? printf('%02d:00', a:2)
+          \: a:2 >= 100 ? printf('%02d:%02d', a:2 / 100, a:2 % 100)
+          \: a:2 == 24 ? '00:00'
+          \: strftime('%H') . printf(':%02d', a:2)
     let pfx = substitute(pfx, 'T', now.' ', '')
   endif
   if pfx =~# 'B'
