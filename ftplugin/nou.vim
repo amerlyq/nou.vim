@@ -28,6 +28,8 @@ setl concealcursor=""
 " digraph *2 9733  " ★ =DFL favorite feature
 digraph @@ 9764    " ☤  dev repo (aura/**)
 digraph @# 9798    " ♆  program/package configuration (airy/*)
+digraph (( 10629   " ⦅ = nouLineSyntax
+digraph )) 10630   " ⦆ = nouLineSyntax
 
 
 """ Mappings

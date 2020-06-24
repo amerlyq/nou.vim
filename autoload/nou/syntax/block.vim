@@ -94,11 +94,13 @@ hi nouLineXmarker ctermbg=18 guibg=#061d2a
 " BAD: "((vim))" in the middle of line is too different from "(vim)" in the beginning
 "   MAYBE: conceal brackets or make fg=bg to hide symbol itself
 "   BET? use square brackets ⦅⦃⦗｢⟦⟨⟪⟮⟬⌈⌊⦇⦉❨❪❴❬❮❰❲⦑⧼  vim ⦆⦄⦘｣⟧⟩⟫⟯⟭⌉⌋⦈⦊❩❫❵❭❯❱❳⦒⧽
+"     e.g.  ⦃vim⦄ ⦅vim⦆ ⦇vim⦈ ⦉vim⦊ ⧼vim⧽
+"   [⡞⣳⢪⣑] TEMP:USE: unicode braces everywhere and ascii ones only at linebeg
 syn region nouLineSyntax_nou keepend excludenl extend
   \ containedin=@nouOutlineQ
   \ matchgroup=nouLineXmarker
   \ start='^\s*\zs(\w\+)'
-  \ start='((\w\+))'
+  \ start='⦅\l\+⦆'
   \ end='$'
 
 

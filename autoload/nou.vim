@@ -29,7 +29,7 @@ fun! nou#bar(...) range
     " HACK: round to nearest 5min interval
     " [_] FIXME: 11:58 -> BAD:11:60 -> NEED:12:00
     let min5 = float2nr(round(str2float(strftime('%M')) / 5) * 5)
-    let now = (a:2 == 0) ? strftime('%H:') . min5
+    let now = (a:2 == 0) ? strftime('%H') . printf(':%02d', min5)
           \: a:2 < 24 ? printf('%02d:00', a:2)
           \: a:2 >= 100 ? printf('%02d:%02d', a:2 / 100, a:2 % 100)
           \: a:2 == 24 ? '00:00'
