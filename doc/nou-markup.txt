@@ -148,8 +148,13 @@ Each decision can have priority.
   2020-01-17 [65%] progress   |
   2020-01-17 [75%] progress   |
   2020-01-17 [85%] progress   |
-  2020-01-17 [90%] progress   |   9 <LL> x
+  2020-01-17 [90%] progress   |     <LL> 9
   2020-01-17 [X] done         |     <LL> x
+  [⡞⣶⡓⡙] done (braille ts)    |     <LL> b
+  [0/12] progress ratio       |
+  [1/12] progress ratio       |
+  [8/12] progress ratio       |
+  [12/12] progress ratio      |
 
 
 %%% Embedded syntax %%%  # *nou-embedded*

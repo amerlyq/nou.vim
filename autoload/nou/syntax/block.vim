@@ -64,6 +64,7 @@ syn region nouBlockIndented keepend excludenl fold extend
   \ end='\v\ze\n%(\s*$|\z1\s)@!'
 
 
+" [_] BUG: trailing ":" conflicts with block marker "NICE: ::"
 " TODO: for default "::" use lang from b:nou.blocksyntax = '..' OR reading from above in this file
 " NOTE: use first matching indent between marker line and first body line (floating)
 syn region nouBlockContained keepend excludenl fold extend

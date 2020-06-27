@@ -25,6 +25,10 @@ fun! nou#bar(...) range
     let mrk = '['. (a:2 ? printf('%02d', pg).'%' : '&') .'] '
     let pfx = substitute(pfx, '[_$X]', mrk, '')
   endif
+  " [_] TODO: remove prefix "planned time XX:YY" when entering actual time
+  "   ALT: always expect ::= <closingdate>? [taskstatus]? <plannedtime>? taskdescription
+  "     => so <,.t> will replace plannedtime anywhere despite presence of date/task
+  "     NICE: can write "<date> <time> task"
   if pfx =~# 'T'
     " HACK: round to nearest 5min interval
     " [_] FIXME: 11:58 -> BAD:11:60 -> NEED:12:00
@@ -40,6 +44,12 @@ fun! nou#bar(...) range
     let xts = substitute(printf('%08x', strftime('%s')), '..', '\=nr2char("0x28".submatch(0))', 'g')
     let pfx = substitute(pfx, 'B', '['.xts.'] ', '')
   endif
+  "" [_] TODO: <4,..> = ratio progres [0/12] => [4/12]
+  "" TODO: <13,./> = ratio progres [4/12] => [4/13]
+  " BUT:BET: <,./13> .vs. <,.4/>
+  " if pfx =~# 'R'
+  "
+  " endif
 
   " BUG: in VSEL mode wrong cursor pos: '.' == '<
   let l:pos = exists('*getcurpos') ? getcurpos() : getpos('.')
