@@ -2,6 +2,9 @@
   [_] CHECK: .rst files "rstEmphasis" somehow keeps the same color between asterisks :: *aaa*
 
   [_] DEV: define accents solely through matchadd() to keep foreground untouched, and only change style
+    ::vim
+      hi! TestBold gui=bold
+      call matchadd('TestBold', '\v\s\zs\%\w+\%\ze\s', -1)
     Can it be done: syntax region background color, with "transparent" foreground? : vim ⌇<1[nu
       https://www.reddit.com/r/vim/comments/2iz7ho/can_it_be_done_syntax_region_background_color/
     colorscheme - How to force overwriting ALL syntax highlighting in Vim? - Vi and Vim Stack Exchange ⌇j3[nu
