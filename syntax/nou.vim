@@ -163,11 +163,13 @@ endfor
 " -- EXPL: @some #tag &link
 " -- multiple: #(tag1,tag2,tag3) OR:(can't 'ga') #tag1,#tag2 BAD #tag1#tag2
 
+syn cluster nouGenericQ add=nouComment
 hi def link nouComment Comment
 syn region nouComment display oneline keepend
   \ start='^#\s' start='\s\s\zs#\s' excludenl end='\s#\ze\s\s' end='$'
 
 " NOTE: developer's documentation comments
+syn cluster nouGenericQ add=nouCommentDevDoc
 hi nouCommentDevDoc cterm=NONE gui=NONE ctermbg=8 guibg=#002430 ctermfg=242 guifg=#707070
 syn region nouCommentDevDoc display oneline keepend
   \ start='^#%' start='\s\zs#%' excludenl end='$'
@@ -220,10 +222,12 @@ runtime autoload/nou/syntax/group.vim
 " ALT: explicit sfx /%(-%(Mon|Tue|Wed|Thu|Fri|Sat|Sun|Mo|Tu|We|Th|Fr|Sa|Su))?/
 " TODO: dim hi for weekday sfx
 " TODO: different color for Sat and Sun -- whole date (red) or only suffix
+syn cluster nouGenericQ add=nouDate
 hi! nouDate ctermfg=178 guifg=#dfaf00
 syn match nouDate display excludenl
   \ '\v<20\d\d-%(0\d|1[012])-%([012]\d|3[01])%(-\u\l\l?)?%(-W%([0-4]\d|5[0-3]))?>'
 
+syn cluster nouGenericQ add=nouTime
 " hi! nouTime ctermfg=210 guifg=#ff8787
 hi! nouTime ctermfg=248 guifg=#a8a8a8
 syn match nouTime display excludenl
@@ -276,6 +280,7 @@ for i in keys(g:nou.task.colors)
   exe 'syn match nouTaskProgress'.i.' display excludenl "\V['.i.'\d%]"'
 endfor
 
+syn cluster nouGenericQ add=nouTask
 hi! nouTask ctermfg=14 guifg=#586e75
 syn match nouTask display excludenl contains=@nouTaskQ
   \ '\v%(\d{4}-\d\d-\d\d )?\[%([_$X]|[\u2800-\u28FF]{4}|\d\d\%)\]'
@@ -320,9 +325,8 @@ for ft in keys(g:nou.embed)
   call nou#syntax#embedded(ft)
 endfor
 
-syn cluster nouTextQ add=@Spell,nouComment,nouCommentDevDoc
-  \,nouDate,nouTime,nouTask
-  \,@nouTaskQ,@nouArtifactQ,@nouAccentQ,@nouTermQ,@nouEmbedQ
+syn cluster nouTextQ add=@Spell,@nouGenericQ,@nouTaskQ
+  \,@nouArtifactQ,@nouAccentQ,@nouTermQ,@nouEmbedQ
 
 " WARNING: define after accents!
 runtime autoload/nou/syntax/block.vim

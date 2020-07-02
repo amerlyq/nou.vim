@@ -1,0 +1,50 @@
+%%% Embedded syntax %%%  # *nou-embedded*
+# vim:ft=nou
+
+% bash
+Allowed any indent before '$'
+
+  Inlined $ for a in *; do echo $a; done $ into text/outline
+  Separate line
+    $ cat ./file | sort -u | awk -r '{print$0}'
+
+%% plain
+
+  (vim) :let a=5
+  (gdb) disassemble
+
+
+%% raw
+
+% USAGE
+
+  digraph ::
+    <C-k> B B
+    <C-k> | |
+
+% Line-based
+
+  Unformatted snippet ¦ till rest of line
+  With end-guard ¦ closed block ¦
+  Inlined ¦ snippet into ¦ general text
+  Tight¦ coupling ¦with text
+
+
+% Text Blocks
+
+  Quoted textblock
+  ¦ some raw textblock
+  ¦     continuation
+  ¦The end.
+
+  Formatted comments
+  ¦ some raw textblock
+  ¦¦ my thoughts on #this
+  ¦ with unclear statement
+  ¦¦ variant .of. interpretation
+
+  Targeted comments
+  ¦ some raw textblock
+  ¦ ¦ my thoughts on this
+  ¦ with unclear statement
+  ¦      ¦ variant of interpretation

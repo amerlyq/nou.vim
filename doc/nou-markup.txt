@@ -163,21 +163,6 @@ Each decision can have priority.
   [12/12] progress ratio      |
 
 
-%%% Embedded syntax %%%  # *nou-embedded*
-
-% bash
-Allowed any indent before '$'
-
-  Inlined $ for a in *; do echo $a; done $ into text/outline
-  Separate line
-    $ cat ./file | sort -u | awk -r '{print$0}'
-
-%% plain
-
-  (vim) :let a=5
-  (gdb) disassemble
-
-
 %%% Artifacts %%%  # *nou-artifacts*
 Standing out text objects
 

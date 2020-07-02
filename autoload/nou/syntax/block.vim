@@ -101,8 +101,21 @@ syn region nouLineSyntax_nou keepend excludenl extend
   \ containedin=@nouOutlineQ
   \ matchgroup=nouLineXmarker
   \ start='^\s*\zs(\w\+)'
-  \ start='⦅\l\+⦆'
+  \ start='⦅\a\w*⦆'
   \ end='$'
+
+
+" NOTE: "quoted" lines with stripped formatting
+" ALT: nouLineXmarker => nouBlockXmarker
+" CHECK:ADD: "display oneline" like in nouComment
+hi def link nouLineRaw nouBlockPlainText
+syn region nouLineRaw keepend excludenl extend
+  \ containedin=@nouOutlineQ
+  \ matchgroup=nouLineXmarker
+  \ start='¦'
+  \ end='¦'
+  \ end='$'
+
 
 
 " THINK: concealends -> replace by some unusual unicode chars
