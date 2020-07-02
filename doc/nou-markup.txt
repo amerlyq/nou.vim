@@ -16,11 +16,14 @@ Wrap text in same symbols to apply effect.
 There must be no spaces between symbol and text
 # Color isn't inherited from outline.
 
-  `` | `normal text`
-  '' | 'italic text'
-  ** | *bold text*
-  __ | _underline text_
-  || | |standout text|
+  ` ` | `normal text`
+  ' ' | 'italic text'
+  * * | *bold text*
+  _ _ | _underline text_
+  | | | |standout text|
+
+  > < | >focused text<
+  · · | ·operator expr·
 
 
 %%% Headers %%%  # *nou-headers*

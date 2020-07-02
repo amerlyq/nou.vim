@@ -53,11 +53,12 @@ let s:nou.accent.colors = {
   \ }
 
 " FIXME: 'Str' must not contains @accents for cases like "_some_symbol_"
-" [_] THINK:(Foc): darkorange 166=#df5f00 -- if "reverse" is too eye-bleeding
+" ALT:(Foc): eye-bleeding 'ctermfg=88 guifg=#875f00 gui=bold,underline,reverse'
 let s:nou.term = {}
 let s:nou.term.colors = {
   \ 'Key': ['\<', '\>', 'ctermfg=1 guifg=#dc322f'],
-  \ 'Foc': ['\>', '\<', 'ctermfg=88 guifg=#875f00 gui=bold,underline,reverse'],
+  \ 'Foc': ['\>', '\<', 'ctermfg=166 guifg=#df5f00 gui=bold,underline'],
+  \ 'Ops': ['·', '·', 'ctermfg=161 guifg=#df005f gui=bold'],
   \ 'Str': ['"', '"', 'ctermfg=81 guifg=#5fdfff'],
   \ 'Dot': ['\.', '\.', 'ctermfg=74 guifg=#1fafdf gui=bold'],
   \ 'Err': ['!', '!', 'ctermfg=124 guifg=#b40000 gui=bold,italic'],
