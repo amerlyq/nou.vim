@@ -55,6 +55,14 @@ syn match nouArtifactIndex display excludenl
   \ '\%([#]\d\+\>\|(\d\+)\)'
 
 
+syn cluster nouArtifactQ add=@nouArtifactEmojiQ
+" SEE: https://emojipedia.org/red-heart/
+" VIZ: green=💚 yellow=💛 orange=🧡 brown=🤎 purple=💜 blue=💙 white=🤍♡ black=🖤♥ spark=💖 broken=💔 two=💕 glow=💗 jap=心
+syn cluster nouArtifactEmojiQ add=nouArtifactEmojiRed
+hi nouArtifactEmojiRed cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=196 guifg=#ff0000
+syn match nouArtifactEmojiRed display excludenl '[♡♥🤍🖤💛💜]'
+
+
 " BUG: w/o embedded syntax highlight -- "IDEA:(aa):" isn't highlighted as function
 "   => stick to single method despite presence of '$ ...' pattern in file
 call nou#syntax#artf_function()
