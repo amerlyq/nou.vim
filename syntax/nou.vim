@@ -159,6 +159,11 @@ hi def link nouComment Comment
 syn region nouComment display oneline keepend
   \ start='^#\s' start='\s\s\zs#\s' excludenl end='\s#\ze\s\s' end='$'
 
+" NOTE: developer's documentation comments
+hi nouCommentDevDoc cterm=NONE gui=NONE ctermbg=8 guibg=#002430 ctermfg=242 guifg=#707070
+syn region nouCommentDevDoc display oneline keepend
+  \ start='^#%' start='\s\zs#%' excludenl end='$'
+
 " EXPL: https, ftp, news, file
 " THINK: diff color urls -- don't do 'contains=@nouArtifactG'
 " TRY: different color for heading and '[/?=]' in url
@@ -307,7 +312,8 @@ for ft in keys(g:nou.embed)
   call nou#syntax#embedded(ft)
 endfor
 
-syn cluster nouTextQ add=@Spell,nouComment,nouDate,nouTime,nouTask
+syn cluster nouTextQ add=@Spell,nouComment,nouCommentDevDoc
+  \,nouDate,nouTime,nouTask
   \,@nouTaskQ,@nouArtifactQ,@nouAccentQ,@nouTermQ,@nouEmbedQ
 
 " WARNING: define after accents!

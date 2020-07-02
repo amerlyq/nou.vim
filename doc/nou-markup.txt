@@ -7,6 +7,9 @@
 Inlined comments must have 2 spaces before/after '#'
 Main body  # inline comment #  text
 
+#% Developer's documentation comment (for e.g. self-parsing scripts)
+some option description #% with developer's annotation
+
 
 %%% Accents %%%  # *nou-accents*
 Wrap text in same symbols to apply effect.
