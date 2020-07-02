@@ -200,6 +200,12 @@ Manual by '//' prefix
   /\ re\/[gex ]?/
   /[[:alpha:]]:\\{1,2}\ze%([^\\]*|$/
 
+%% Index
+  #1
+  aaa #2 bbb (3) ccc
+  ddd#4 eee (5)fff BUT hhh(6)
+  #7tag #8
+
 
 Line continuations
   line \

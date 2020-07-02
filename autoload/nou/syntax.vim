@@ -213,6 +213,8 @@ endf
 fun! nou#syntax#artf_hashtag()
   let nm = 'nouArtifactHashTag'
   exe 'syn cluster nouArtifactQ add='.nm
+  " [_] IDEA:TRY: raibow hi! (yellow-orange-red-purple) for chained #hash1#hash2#hash3
+  " ALSO:MAYBE:CHG: allow only single '#' before tags
   exe 'syn match '.nm.' display excludenl'
     \.' '.s:pbe('#+\k\S{-}', '(\[{,;|', '|;,}\])')
   let B = ' cterm=bold ctermbg=NONE gui=bold guibg=NONE '

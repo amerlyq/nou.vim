@@ -45,6 +45,16 @@ syn cluster nouArtifactQ add=nouArtifactUrlAlias
 hi nouArtifactUrlAlias cterm=bold,underline ctermbg=NONE gui=bold,underline guibg=NONE ctermfg=62 guifg=#6c71c4
 syn match nouArtifactUrlAlias display excludenl /\v%(^|[(\[{,;|[:blank:]]@1<=)%(\^\S{-1,})%([|;,}\])[:blank:]]@1=|$)/
 
+" ATT: define after artf_hashtag() to override #1 hashtag
+" ALT: subgroups :: *Index{Hash,Dot,No,Braces,...}
+" TRY: diff color :: nextgroup=nouPathBody
+" BET? isolate by space :: \%(^\|[[:punct:][:blank:]]\@1<=\)...
+syn cluster nouArtifactQ add=nouArtifactIndex
+hi nouArtifactIndex cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=172 guifg=#df8700
+syn match nouArtifactIndex display excludenl
+  \ '\%([#]\d\+\>\|(\d\+)\)'
+
+
 " BUG: w/o embedded syntax highlight -- "IDEA:(aa):" isn't highlighted as function
 "   => stick to single method despite presence of '$ ...' pattern in file
 call nou#syntax#artf_function()
