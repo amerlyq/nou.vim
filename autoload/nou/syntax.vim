@@ -76,7 +76,7 @@ fun! nou#syntax#accent(k)
   exe 'syn cluster nouAccentQ add='.nm
   " concealends
   exe 'syn region '.nm.' display oneline keepend'
-    \.' excludenl matchgroup=nouConceal contains=@nouAccentQ'
+    \.' excludenl matchgroup=nouConceal contains=@Spell,@nouAccentQ'
     \.' start='.s:pb(s.'\ze'.S, '[:punct:]')
     \.' end='.s:pe(S.'\zs'.s, '[:punct:]')
   if c !~# '='| let c = 'cterm='.c.' gui='.c |en
@@ -95,7 +95,7 @@ fun! nou#syntax#term(k)
   " TRY: always keep matchgroup syms the same color despite accents modifying colors inside them
   " BAD: but must support '("aaa")' and '"aaa",' BUT: prevent hi~ in "|--> f(p->buf)"
   exe 'syn region '.nm.' display oneline keepend '
-    \.' excludenl matchgroup='.l:nm.' contains=@nouAccentQ'
+    \.' excludenl matchgroup='.l:nm.' contains=@Spell,@nouAccentQ'
     \.' start='.s:pb(b.'\ze[^[:blank:]'.b.']', '[:punct:]')
     \.' skip='.s:p('\\\|')
     \.' end='.s:pe('[^[:blank:]'.e.']\zs'.e, '[:punct:]')
