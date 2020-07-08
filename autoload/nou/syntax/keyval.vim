@@ -19,12 +19,19 @@ syn cluster nouKeyvalValueQ add=nouPathHead,nouPathRegion,nouArtifactVar,@nouGro
 "   CRIT! free quoted text will always be highlighted as path
 "     BET: use specialized syntaxes for key="/word" and key='$(var)/word'
 
+" TRY: rainbow hi! for train of assignments e.g. r0=r6[0]=m_val
+"   NICE: use different colors for each "key="-like member
+"   TEMP: only highlight "=" like "key="
+hi def link nouKeyvalXtrain nouKeyvalXkey
+syn match nouKeyvalXtrain display excludenl contained '='
+
+
 hi nouKeyvalXkey cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=33 guifg=#2060e0
 hi nouKeyval     cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=10 guifg=#688e95
 
 syn region nouKeyval display oneline keepend excludenl
   \ matchgroup=nouKeyvalXkey
-  \ contains=@nouKeyvalValueQ
+  \ contains=@nouKeyvalValueQ,nouKeyvalXtrain
   \ start='\%(^\|[[:punct:][:blank:]]\@1<=\)\k\+[=]'
   \ end='\ze,\s'
   \ end='\ze,$'

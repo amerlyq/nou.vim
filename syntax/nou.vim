@@ -49,6 +49,7 @@ syn match nouArtifactUrlAlias display excludenl /\v%(^|[(\[{,;|[:blank:]]@1<=)%(
 " ALT: subgroups :: *Index{Hash,Dot,No,Braces,...}
 " TRY: diff color :: nextgroup=nouPathBody
 " BET? isolate by space :: \%(^\|[[:punct:][:blank:]]\@1<=\)...
+" ALT: *Numero  '№'  BAD: incomplete font support -- and blades with next number
 syn cluster nouArtifactQ add=nouArtifactIndex
 hi nouArtifactIndex cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=172 guifg=#df8700
 syn match nouArtifactIndex display excludenl
