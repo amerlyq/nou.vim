@@ -97,10 +97,16 @@ hi nouLineXmarker ctermbg=18 guibg=#061d2a
 "   BET? use square brackets ⦅⦃⦗｢⟦⟨⟪⟮⟬⌈⌊⦇⦉❨❪❴❬❮❰❲⦑⧼  vim ⦆⦄⦘｣⟧⟩⟫⟯⟭⌉⌋⦈⦊❩❫❵❭❯❱❳⦒⧽
 "     e.g.  ⦃vim⦄ ⦅vim⦆ ⦇vim⦈ ⦉vim⦊ ⧼vim⧽
 "   [⡞⣳⢪⣑] TEMP:USE: unicode braces everywhere and ascii ones only at linebeg
+"
+" DISABLED: start='^\s*\zs(\w\+)'
+"   BUG: "(gdb)" overrides "s:nou.embed"
+"   TEMP disallow plain block syntax
+"   BET: define dedicated "nouLineSyntax_gdb" syntax in nou#embed#gdb()
+"     <= triggered under condition
+"
 syn region nouLineSyntax_nou keepend excludenl extend
   \ containedin=@nouOutlineQ
   \ matchgroup=nouLineXmarker
-  \ start='^\s*\zs(\w\+)'
   \ start='⦅\a\w*⦆'
   \ end='$'
 

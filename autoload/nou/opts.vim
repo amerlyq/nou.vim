@@ -121,6 +121,7 @@ let s:nou.outline.colors = [
   \ ]
 
 " [_] BUG: "(gdb)" native embed syntax is overriden by my generic block syntax
+"   TEMP: disallow plain block syntax
 let s:nou.embed = {
   \ 'sh': ['\$#?', '[$#]'],
   \ 'zsh': ['zsh:\$#?', '[$#]'],
