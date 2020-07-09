@@ -30,6 +30,8 @@ digraph @@ 9764    " ☤  dev repo (aura/**)
 digraph @# 9798    " ♆  program/package configuration (airy/*)
 digraph (( 10629   " ⦅ = nouLineSyntax
 digraph )) 10630   " ⦆ = nouLineSyntax
+digraph ** 8226    " •
+digraph *  8226    " •
 
 
 """ Mappings
@@ -37,7 +39,7 @@ digraph )) 10630   " ⦆ = nouLineSyntax
 " nnoremap <silent> <Plug>(nou-date) :<C-u>put=strftime('%Y-%m-%d')<CR>
 nnoremap <Plug>(nou-date) "=strftime('%Y-%m-%d')<CR>P
 xnoremap <Plug>(nou-date) "=strftime('%Y-%m-%d')<CR>P
-nnoremap <Plug>(nou-datew) "=strftime('%Y-%m-%d-%a')<CR>P
+nnoremap <Plug>(nou-datew) "=strftime('%Y-%m-%d-%a-W%V')<CR>P
 inoremap <Plug>(nou-date) <C-R>=strftime('%Y-%m-%d')<CR>
 iabbrev <expr> !dts! strftime('%Y-%m-%d')
 

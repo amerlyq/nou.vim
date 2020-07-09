@@ -226,7 +226,9 @@ runtime autoload/nou/syntax/group.vim
 syn cluster nouGenericQ add=nouDate
 hi! nouDate ctermfg=178 guifg=#dfaf00
 syn match nouDate display excludenl
-  \ '\v<20\d\d-%(0\d|1[012])-%([012]\d|3[01])%(-\u\l\l?)?%(-W%([0-4]\d|5[0-3]))?>'
+  \ '\v<20\d\d-%(0\d|1[012])%(-%([012]\d|3[01])%(-\u\l\l?)?)?%(-W%([0-4]\d|5[0-3]))?>'
+syn match nouDate display excludenl '\v<20\d\d-W%([0-4]\d|5[0-3])>'
+syn match nouDate display excludenl '\v<CW%([0-4]\d|5[0-3])>'
 
 syn cluster nouGenericQ add=nouTime
 " hi! nouTime ctermfg=210 guifg=#ff8787
