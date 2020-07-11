@@ -28,8 +28,9 @@ fun! nou#bar(...) range
   " DEV: <,.T> to replace-anywhere OR prepend <plannedtime> w/o touching taskmarker itself
   " DEV: <,.D> to prepend both <date-cal> <time> OR isotime-ubspace; RENAME:OLD: <,.D> → <,._>
   if pfx =~# 'T'
-    " HACK: round to nearest 5min interval
-    let min5 = float2nr(round(str2float(strftime('%M')) / 5) * 5)
+    " HACK: asymmetric rounding to nearest 5min interval :: 02+ -> 05, 07+ -> 10
+    let ivl5 = str2float(strftime('%M')) / 5
+    let min5 = float2nr(round(ivl5 + 0.1) * 5)
     let hour = float2nr(str2float(strftime('%H')))
     let now = (a:2 == 0) ? printf('%02d:%02d', hour + min5/60, min5 % 60)
           \: a:2 < 24 ? printf('%02d:00', a:2)

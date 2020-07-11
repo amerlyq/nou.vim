@@ -73,6 +73,8 @@ for s in ['', 'D', '_', 'D_', 'D$', '$', 'X', 'DX', 'T', 'B', 'DB'] | for m in [
   exe m.'noremap <silent> <Plug>(nou-bar'.s.')'
       \" :<C-u>call nou#bar('".s."',v:count,".(m==#'x').")<CR>"
 endfor | endfor
+
+" [_] BET:TRY: <LocalLeader> = <Space>  OR:BET? [Xtref] = <Space>
 let s:nou_mappings += [
   \ ['nx', '<LocalLeader><BS>', '<Plug>(nou-bar)'],
   \ ['nx', '<LocalLeader><Space>', '<Plug>(nou-bar_)'],
