@@ -45,6 +45,14 @@ syn cluster nouArtifactQ add=nouArtifactUrlAlias
 hi nouArtifactUrlAlias cterm=bold,underline ctermbg=NONE gui=bold,underline guibg=NONE ctermfg=62 guifg=#6c71c4
 syn match nouArtifactUrlAlias display excludenl /\v%(^|[(\[{,;|[:blank:]]@1<=)%(\^\S{-1,})%([|;,}\])[:blank:]]@1=|$)/
 
+
+"" e.g. executables <!r.vim> -- instead of "r.vim(1)" which isn't standard prg in /bin
+syn cluster nouArtifactQ add=nouArtifactExec
+" hi nouArtifactExec cterm=bold,italic,underline gui=bold,italic,underline ctermbg=9   guibg=#073642 ctermfg=79  guifg=#5fd7af
+hi nouArtifactExec cterm=bold,italic,underline gui=bold,italic,underline ctermbg=NONE guibg=NONE ctermfg=79  guifg=#5fd7af
+syn match nouArtifactExec display excludenl /\v%(^|[(\[{,;|[:blank:]]@1<=)%(\!\S{-1,})%([|;,}\])[:blank:]]@1=|$)/
+
+
 " ATT: define after artf_hashtag() to override #1 hashtag
 " ALT: subgroups :: *Index{Hash,Dot,No,Braces,...}
 " TRY: diff color :: nextgroup=nouPathBody
