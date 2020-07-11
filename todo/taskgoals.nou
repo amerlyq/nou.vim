@@ -12,6 +12,12 @@
 
 
 %% Task/progress
+
+  [_] CMP: "[task]-decision" .vs. "decision-[task]" .vs. "[decision]"
+    [_] FIND! statistics how I used both of them in my notes
+      /[[:punct:]] [/ .vs. /] [[:punct:]]/
+      /[^[:alpha:][:blank:][\]]{-1,3}/
+    [_] ALSO: prio .vs. decison relative positions
   [_] ALT:USE: super-task to update number and track progress after each subtask
     NOW
       * copying the same task with different [30%].. [50%].. [80%] is wrong -- no way to "continue"

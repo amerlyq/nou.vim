@@ -25,10 +25,8 @@ fun! nou#bar(...) range
     let mrk = '['. (a:2 ? printf('%02d', pg).'%' : '&') .'] '
     let pfx = substitute(pfx, '[_$X]', mrk, '')
   endif
-  " [_] TODO: remove prefix "planned time XX:YY" when entering actual time
-  "   ALT: always expect ::= <closingdate>? [taskstatus]? <plannedtime>? taskdescription
-  "     => so <,.t> will replace plannedtime anywhere despite presence of date/task
-  "     NICE: can write "<date> <time> task"
+  " DEV: <,.T> to replace-anywhere OR prepend <plannedtime> w/o touching taskmarker itself
+  " DEV: <,.D> to prepend both <date-cal> <time> OR isotime-ubspace; RENAME:OLD: <,.D> → <,._>
   if pfx =~# 'T'
     " HACK: round to nearest 5min interval
     let min5 = float2nr(round(str2float(strftime('%M')) / 5) * 5)
@@ -65,7 +63,10 @@ fun! nou#bar(...) range
     " [_] FIXME: task marker is always inserted after russian 1..3c word
     let chgd = substitute(line,
       \ '\v^(\s*%([^[:alpha:][:blank:][\]]{-1,3}\s+)?)'
-      \.'%(%(\d{4}-\d\d-\d\d )?\[%([_$X]|[\u2800-\u28FF]{4}|\d\d\%)\]\s*)?(.*)$',
+      \.'%(<\d{4}-%(0\d|1[012])-%([012]\d|3[01])>\s*)?'
+      \.'%(\[%([_$X]|[\u2800-\u28FF]{4}|\d\d\%)\]\s*)?'
+      \.'%(<%(\d|[01]\d|2[0-4]):[0-5]\d%(:[0-5]\d)?>\s*)?'
+      \.'(.*)$',
       \ '\1'.pfx.'\2', '')
     if chgd !=# line| call setline(i, chgd) |en
   endfor

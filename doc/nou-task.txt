@@ -1,0 +1,45 @@
+%%%%% Task-goals %%%%%  # *nou-task* *nou-goal*
+# vim:ft=nou
+
+%% Tasks
+
+  [_] todo                    |     <LL><Space>
+  [X] done                    |     <LL> X
+  [$] cancel                  | ---
+  [99%] progress              |  99 <LL> X
+  2020-01-17 date             |     <LL> d
+  2020-01-17 [_] created      |     <LL> D
+  2020-01-17 [$] cancel       |     <LL> $
+  1994-02-01 [05%] progress   | 105 <LL> x
+  2020-01-17 [12%] progress   |  12 <LL> x
+  2020-01-17 [20%] progress   |   2 <LL> x
+  2020-01-17 [33%] progress   |
+  2020-01-17 [45%] progress   |
+  2020-01-17 [50%] progress   |
+  2020-01-17 [65%] progress   |
+  2020-01-17 [75%] progress   |
+  2020-01-17 [85%] progress   |
+  2020-01-17 [90%] progress   |     <LL> 9
+  2020-01-17 [X] done         |     <LL> x
+  [⡞⣶⡓⡙] done (braille ts)    |     <LL> b
+  [0/12] progress ratio       |
+  [1/12] progress ratio       |
+  [8/12] progress ratio       |
+  [12/12] progress ratio      |
+
+
+SYNTAX
+  taskline ::= decision? taskleader? taskdescription... xtrefanchor?
+  taskleader ::= closingdate? taskmarker? plannedtime? estimatedduration? tag*
+  taskmarker ::= "[" taskstatus "]"
+  taskstatus ::= "_" | "X" | braille
+  xtrefanchor ::= "⌇" creationdate
+  creationdate ::= dateiso | braille
+  closingdate ::= dateday
+  braille ::= /[⠀-⣿]{4}/
+  tag ::= "#" word
+
+
+ex:
+  2020-07-11 03:00 journal  | <LL t><LL i>
+  [⡟⠉⠁⠸] subtask
