@@ -48,7 +48,8 @@ syn match nouArtifactUrlAlias display excludenl /\v%(^|[(\[{,;|[:blank:]]@1<=)%(
 
 "" e.g. executables <!r.vim> -- instead of "r.vim(1)" which isn't standard prg in /bin
 syn cluster nouArtifactQ add=nouArtifactExec
-" hi nouArtifactExec cterm=bold,italic,underline gui=bold,italic,underline ctermbg=9   guibg=#073642 ctermfg=79  guifg=#5fd7af
+" LIKE(./path): hi nouArtifactExec cterm=bold,italic,underline gui=bold,italic,underline ctermbg=9   guibg=#073642 ctermfg=79  guifg=#5fd7af
+" LIKE(func()): hi nouArtifactExec cterm=bold,italic,underline gui=bold,italic,underline ctermbg=NONE guibg=NONE ctermfg=33 guifg=#3087ff
 hi nouArtifactExec cterm=bold,italic,underline gui=bold,italic,underline ctermbg=NONE guibg=NONE ctermfg=79  guifg=#5fd7af
 syn match nouArtifactExec display excludenl /\v%(^|[(\[{,;|[:blank:]]@1<=)%(\!\S{-1,})%([|;,}\])[:blank:]]@1=|$)/
 

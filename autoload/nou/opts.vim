@@ -52,6 +52,7 @@ let s:nou.accent.colors = {
   \ 'Underlined': ['_', 'underline'],
   \ }
 
+" TRY: use matchgroup= with half-dim color than body
 " FIXME: 'Str' must not contains @accents for cases like "_some_symbol_"
 " ALT:(Foc): eye-bleeding 'ctermfg=88 guifg=#875f00 gui=bold,underline,reverse'
 let s:nou.term = {}
@@ -67,6 +68,7 @@ let s:nou.term.colors = {
   \ 'Add': ['\+', '\+', 'ctermfg=34 guifg=#00b400 gui=bold,italic'],
   \ 'Emf': ['\=', '\=', 'ctermfg=62 guifg=#5f5fdf gui=bold,italic'],
   \ 'Not': ['\-', '\-', 'ctermfg=38 guifg=#00afdf gui=bold,italic,undercurl'],
+  \ 'BldH': ['\*\*', '\*\*', 'ctermfg=254 guifg=#e4e4e4 gui=bold cterm=bold'],
   \ 'KeyH': ['\<\<', '\>\>', 'ctermfg=1 guifg=#dc322f gui=bold'],
   \ 'DotH': ['\.\.', '\.\.', 'ctermfg=81 guifg=#5fdfff gui=bold'],
   \ 'ErrH': ['!!', '!!', 'ctermfg=196 guifg=#ff0000 gui=bold,italic'],

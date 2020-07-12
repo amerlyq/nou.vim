@@ -76,7 +76,8 @@ fun! nou#syntax#accent(k)
   exe 'syn cluster nouAccentQ add='.nm
   " concealends
   exe 'syn region '.nm.' display oneline keepend'
-    \.' excludenl matchgroup=nouConceal contains=@Spell,@nouAccentQ'
+    \.' excludenl matchgroup='.nm.'H'
+    \.' contains=@Spell,@nouAccentQ'
     \.' start='.s:pb(s.'\ze'.S, '[:punct:]')
     \.' end='.s:pe(S.'\zs'.s, '[:punct:]')
   if c !~# '='| let c = 'cterm='.c.' gui='.c |en
@@ -84,8 +85,9 @@ fun! nou#syntax#accent(k)
   "   accents -- can't MAYBE check hi! priority order -- must be different ?
   " ! NOTE(args) => italic -- treated as function but with overridden color
   " USE:TEMP: call matchadd('TAccent', '"[^"]\+"', -1) for all overlay accents to mix color and type
-  let c = 'ctermfg=254 guifg=#e4e4e4 '.c
+  let c = 'ctermfg=250 guifg=#bcbcbc '.c
   call nou#syntax#_highlight(nm, '', c)
+  call nou#syntax#_highlight(nm.'H', '', 'ctermfg=240 guifg=#586e75')
 endf
 
 fun! nou#syntax#term(k)
