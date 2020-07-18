@@ -1,0 +1,19 @@
+TODO: several equidistant color HSL palettes -- from different "circles" of brightness
+  - outline
+  - accents
+  - notches
+  - ...
+
+
+  [_] THINK:TRY: contrast palette
+    [_] FIND:XXX: how to choose harmonic color palette
+      like music notes -- must be non-linear
+    [_] outline -- dif than 'solarized' but similar colors
+      [_] TRY: linear HSL/HCL palette
+        https://en.wikipedia.org/wiki/List_of_color_spaces_and_their_uses
+        TRY: limited to sub-range 'pastel..purple-dark'
+          http://hclwizard.org/why-hcl/
+          http://hslpicker.com/#c38d3c
+      = must be contrasted in gui but the same in term16
+      ? how about cterm256 -- search for other ?
+    [_] USE 'solarized' only for numbers and other objects of std syntax
