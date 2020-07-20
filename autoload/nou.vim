@@ -27,6 +27,8 @@ fun! nou#bar(...) range
   endif
   " DEV: <,.T> to replace-anywhere OR prepend <plannedtime> w/o touching taskmarker itself
   " DEV: <,.D> to prepend both <date-cal> <time> OR isotime-ubspace; RENAME:OLD: <,.D> → <,._>
+  " DEV? <,._> to prepend <taskmarker> but keep <plannedtime> untouched
+  " DEV: <,.t> on visual selection -- shift each item time by (v:count1 > 10 : v:count1 ? 15min * v:count1)
   if pfx =~# 'T'
     " HACK: asymmetric rounding to nearest 5min interval :: 02+ -> 05, 07+ -> 10
     let ivl5 = str2float(strftime('%M')) / 5

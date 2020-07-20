@@ -46,14 +46,6 @@ hi nouArtifactUrlAlias cterm=bold,underline ctermbg=NONE gui=bold,underline guib
 syn match nouArtifactUrlAlias display excludenl /\v%(^|[(\[{,;|[:blank:]]@1<=)%(\^\S{-1,})%([|;,}\])[:blank:]]@1=|$)/
 
 
-"" e.g. executables <!r.vim> -- instead of "r.vim(1)" which isn't standard prg in /bin
-syn cluster nouArtifactQ add=nouArtifactExec
-" LIKE(./path): hi nouArtifactExec cterm=bold,italic,underline gui=bold,italic,underline ctermbg=9   guibg=#073642 ctermfg=79  guifg=#5fd7af
-" LIKE(func()): hi nouArtifactExec cterm=bold,italic,underline gui=bold,italic,underline ctermbg=NONE guibg=NONE ctermfg=33 guifg=#3087ff
-hi nouArtifactExec cterm=bold,italic,underline gui=bold,italic,underline ctermbg=NONE guibg=NONE ctermfg=79  guifg=#5fd7af
-syn match nouArtifactExec display excludenl /\v%(^|[(\[{,;|[:blank:]]@1<=)%(\!\S{-1,})%([|;,}\])[:blank:]]@1=|$)/
-
-
 " ATT: define after artf_hashtag() to override #1 hashtag
 " ALT: subgroups :: *Index{Hash,Dot,No,Braces,...}
 " TRY: diff color :: nextgroup=nouPathBody
@@ -71,6 +63,10 @@ syn cluster nouArtifactQ add=@nouArtifactEmojiQ
 syn cluster nouArtifactEmojiQ add=nouArtifactEmojiRed
 hi nouArtifactEmojiRed cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=196 guifg=#ff0000
 syn match nouArtifactEmojiRed display excludenl '[♡♥🤍🖤💛💜]'
+
+
+" ATT: must be before "nou#syntax#term(k)" to be overridden by "!term!"
+runtime autoload/nou/syntax/version.vim
 
 
 " BUG: w/o embedded syntax highlight -- "IDEA:(aa):" isn't highlighted as function

@@ -4,8 +4,9 @@
 %% Simple values
 
   key=value
-  ke_y=val-ue
-  ke-y=val.ue
+  ke_y=val_ue
+  ke-y=val-ue
+  ke.y=val.ue
   _key=val?ue
   key:=val*ue
 
