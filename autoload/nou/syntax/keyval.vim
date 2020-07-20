@@ -51,22 +51,22 @@ syn region nouKeyvalQuoted display oneline keepend excludenl
 "   BAD:PERF: each quotes require different end=/.../
 " ALT:BAD:(spaces not supported): :syn cluster nouKeyvalValueQ add=@nouGroupQ
 
-syn region nouKeyvalGroup1 display oneline keepend excludenl contained
+syn region nouKeyvalGroup1 display oneline keepend excludenl
   \ matchgroup=nouKeyvalXkey contains=@nouKeyvalValueQ
   \ start='\%(^\|[[:punct:][:blank:]]\@1<=\)\k\+[=]('
   \ skip='\\)' end=')'
 
-syn region nouKeyvalGroup2 display oneline keepend excludenl contained
+syn region nouKeyvalGroup2 display oneline keepend excludenl
   \ matchgroup=nouKeyvalXkey contains=@nouKeyvalValueQ
   \ start='\%(^\|[[:punct:][:blank:]]\@1<=\)\k\+[=]\['
   \ skip='\\\]' end='\]'
 
-syn region nouKeyvalGroup3 display oneline keepend excludenl contained
+syn region nouKeyvalGroup3 display oneline keepend excludenl
   \ matchgroup=nouKeyvalXkey contains=@nouKeyvalValueQ
   \ start='\%(^\|[[:punct:][:blank:]]\@1<=\)\k\+[=]{'
   \ skip='\\}' end='}'
 
-syn region nouKeyvalGroup4 display oneline keepend excludenl contained
+syn region nouKeyvalGroup4 display oneline keepend excludenl
   \ matchgroup=nouKeyvalXkey contains=@nouKeyvalValueQ
   \ start='\%(^\|[[:punct:][:blank:]]\@1<=\)\k\+[=]<'
   \ skip='\\>' end='>'
