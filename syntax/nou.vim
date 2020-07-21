@@ -36,14 +36,7 @@ syn match nouTableDelim display excludenl '|'
 
 " ATT: placed before accents, to distinguish _underline_ from _extension
 call nou#syntax#artf_ext()
-
-" THINK: hashtags -- directly attached to words
-" -- EXPL: @some #tag &link
-" -- multiple: #(tag1,tag2,tag3) OR:(can't 'ga') #tag1,#tag2 BAD #tag1#tag2
-" TODO: dif. hi. color for "#" prefix
-" TODO: hi. "tag-parameters" OR "parametric tags" e.g. #pc:vps
-call nou#syntax#artf_hashtag()
-
+runtime autoload/nou/syntax/tag.vim
 call nou#syntax#artf_addressing()
 call nou#syntax#artf_contact()
 

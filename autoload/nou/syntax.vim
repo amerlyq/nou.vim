@@ -6,6 +6,7 @@ fun! s:p(_, ...)
   let q = get(a:,1,'/')
   return q.'\v'.escape(a:_,q).q
 endf
+" FMT= [(\[{,;|[:blank:]]
 fun! s:ps(_)
   return '['.a:_.'[:blank:]]'
 endf
@@ -15,6 +16,7 @@ endf
 fun! s:pe(_, ...)
   return s:p('%('.a:_.')%('.s:ps(get(a:,1,'')).'@1=|$)', get(a:,2,'/'))
 endf
+" FMT= '\v%(^|[(\[{,;|[:blank:]]@1<=)%('. a:_ .')%([|;,}\])[:blank:]]@1=|$)/
 fun! s:pbe(_, ...)
   return s:p('%(^|'.s:ps(get(a:,1,'')).'@1<=)%('.a:_.')%('.s:ps(get(a:,2,get(a:,1,''))).'@1=|$)', get(a:,3,'/'))
 endf
@@ -210,18 +212,6 @@ fun! nou#syntax#artf_ext()
     \.' '.s:pbe('[*%]?[._][[:alnum:]~#][[:alnum:]._~#]*', '(\[{,;|', '[:punct:]')
   let B = ' cterm=bold ctermbg=NONE gui=bold guibg=NONE '
   exe join(['hi', nm, B, 'ctermfg=177 guifg=#df87ff'])
-endf
-
-fun! nou#syntax#artf_hashtag()
-  let nm = 'nouArtifactHashTag'
-  exe 'syn cluster nouArtifactQ add='.nm
-  " [_] IDEA:TRY: raibow hi! (yellow-orange-red-purple) for chained #hash1#hash2#hash3
-  " ALSO:MAYBE:CHG: allow only single '#' before tags
-  exe 'syn match '.nm.' display excludenl'
-    \.' '.s:pbe('#+\k\S{-}', '(\[{,;|', '|;,}\])')
-  let B = ' cterm=bold ctermbg=NONE gui=bold guibg=NONE '
-  exe join(['hi', nm, B, 'ctermfg=142 guifg=#afaf00'])
-  " exe join(['hi', nm, B, 'ctermfg=62 guifg=#5f5fdf'])
 endf
 
 fun! nou#syntax#artf_addressing()
