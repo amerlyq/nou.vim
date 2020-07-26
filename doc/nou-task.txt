@@ -28,10 +28,71 @@
   [12/12] progress ratio      |
 
 
-SYNTAX
-  taskline ::= decision? taskleader? taskdescription... xtrefanchor?
-  taskleader ::= closingdate? taskmarker? plannedtime? estimatedduration? tag*
+% FMT:ex:
+
+  wild-statement
+  !3 [_] arbitrary
+  [_] #tag annotated
+  [_] <me> associated
+
+  [_] 30m estimated
+  [_] (30m) estimated  # BET?DECI:(uniformity): estimation is always in parentheses
+  [X] 30m completed
+  [X] 2h(30m) overdue  # OR?  2h//30m
+
+  [_] 10:00 planned (today)
+  [!] 12:00 scheduled (today)
+  [?] 13:00 optional (desired but not mandatory)
+  [$] 13:00 canceled (or skipped but remembered)
+  [_] 14:00 1h allocated
+
+  # THINK:MAYBE: split taskstatus and taskprogress ?
+  #   BUT: "relative" .vs. "absolute" percent value -- based on history of previous efforts
+  #   BUT: "fixed" .vs. "growing" scope of 100% -- BAD: next "absolute" value may become even less
+  # [X] (30m) {20%} absolute percent progress in dynamic scope
+  # [X] (30m) {=20%} absolute percent progress in fixed scope
+  # [X] (30m) {+20%} relative percent progress in dynamic scope
+  # [X] 30m {1/20} absolute discrete progress in fixed scope
+  # [X] 30m {+4/12} relative discrete progress in fixed scope
+  # [X] 30m {+4} relative discrete progress in dynamic scope
+  # [X] (30m) #5 absolute discrete progress in dynamic scope
+  # [X] (30m) (5) absolute discrete progress in dynamic scope
+  # [X] (30m) {5} absolute discrete progress in dynamic scope
+
+SEE: prio-mgmt ※⡟⠛⠎⠰
+  ! [_] foremost         │  [_] ! foremost         │  [!] foremost
+  !3 [_] prioritized     │  [_] !3 prioritized     │  [3] prioritized   # DECI
+  ++ [_] favourable      │  [_] ++ favourable      │  [++] favourable
+  ? [_] questionable     │  [_] ? questionable     │  [?] questionable
+  ~~~ [_] very dubious   │  [_] ~~~ very dubious   │  [~~~] very dubious
+
+  2021-03-20 [_] planned (future)
+  2020-09-20 [!] scheduled (future)
+  2020-07-25 [X] completed (past)
+  2020-04-02 [⡟⠜⠴⡳] pastdue (expire)
+
+  03:00 dailylog
+  2020-07-11 03:00 changelog ※⡟⠉⠁⠸ | <LL t><LL i>
+  15:30 20m(30m) #tag1#tag2 journalled ⌇⡟⠉⠁⠸
+  !2 2020-08-27 [_] 15:00 30m <W> #tag1#tag2 featured ⌇⡟⠉⠁⠸
+  2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> #tag1#tag2 ultimate ⌇⡟⠉⠁⠸
+    [⡟⠜⠨⣉] time-tracked subtask
+    [X] completed subtask (exact time was forgotten)
+    [+] unrelated completed subtask -- finished in the same timeslot
+    [+] 30m unrelated activity in same timeframe
+    [~] partially achieved OR achieved in some another nonpresumable way
+
+
+
+% SYNTAX %  # *nou-task-syntax*
+
+  taskline ::= indent* commentstring? taskleader? decision? taskdescription... xtrefanchor?
+  taskleader ::= closingdate? taskmarker? plannedtime? duration? tag*
   taskmarker ::= "[" taskstatus "]"
+  duration ::= elapsed? "(" estimated ")" | estimated
+    elapsed ::= timespan
+    estimated ::= "℮"? timespan
+    timespan ::= weeks "w" days "d" hours "h" minutes "m" seconds "s"
   taskstatus ::= "_" | "X" | braille
   xtrefanchor ::= "⌇" creationdate
   creationdate ::= dateiso | braille
@@ -40,6 +101,76 @@ SYNTAX
   tag ::= "#" word
 
 
-ex:
-  2020-07-11 03:00 journal  | <LL t><LL i>
-  [⡟⠉⠁⠸] subtask
+%%% LIOR
+  Apply operator to named textobj in taskline
+    <count> <LL><Operator><Textobj>
+  Operators
+    <i> insert  USAGE: date/time/status
+    <d> delete  [_] TRY: :omap to apply action in operator-pending textobj
+    <c> change (replace)
+    <v> visual select
+    </> search next (jump)
+    <?> search prev (jump)
+    # MAYBE: <h> highlight
+  Textobj
+    <m> mood coloring / emotional decision marker / <c> connotation
+    <!> priority / <u> urgency / <i> importance
+    <d> date
+    <s> status OR <l> lacuna OR <g> goal
+    <t> time
+    <E> elapsed / logged / spent / period
+    <e> OR <u> estimated duration
+    <>> OR <<> association (toggle ?)
+    <#> tag BUT:ALSO: need operator <append> e.g. <LL a #>
+    <%> group OR progress
+    <@> addressing
+    <$> variable
+    <b> body (only description until xtref)
+    <B> whole body (everything after estimated)
+    <x> xtrefanchor
+  Shortcuts
+    # DECI <count> <LL> <Space> new task with ?progress?
+    # DECI <LL> <count> new task with ?time?
+    <Space> OR <l> create/set task status=new
+    <Del> delete everything beside body
+    <Backspace> delete task status marker
+    # MAYBE: <h> delete task status marker -- symmetrical to <l> create
+    # TBD: <j> journal down (time-tracking) -- actualize current task open-ended task OR insert planned time (now+estimate)
+    # TBD: <k> journal up (time-tracking) -- append current task to prev time (OR: create prev time by (now-estimate)) and insert new current time
+    <*> search/highlight any #tag @name ※xtref from taskline
+  Direct insert
+    <count><m> estimated=10m  <2m>=20m   <25m>=25m    <145m>=1h45m
+    <count><h> estimated=1h   <2h>=(2h)  <23h>=2h30m  <315h>=3h15m
+    <count><M> elapsed=30m    <3M>=30m(20m)
+    <count><H> elapsed=1h
+    2020-07-26 [_] planneddate <count><LL d>
+    2020-07-26 [X] closingdate <count><LL D>
+    [⡟⠜⢠⢱] time-tracked        <x>
+    [X] done                   <X>
+  Association
+    <>> OR <LL a m> associate with me *<me>*
+    <<> OR <LL a w> associate with work *<W>*
+    <LL a c> associate *<common>*
+  Category flags
+    %U urgent (and important)
+    %I important (but not urgent)
+    %D (OR %O) delegate to others (urgent but not important)
+    %N nice to have / new cool ideas
+    %E expired
+  Subtasks
+    <+> create/convert unrelated (completed) to subtask "[+]"
+    <W> append below new subtask "[_] WAIT …" in insert mode
+
+
+WFs
+  AchieveGoal
+    notate                       | <o … Esc>
+    [_] create                   | <LL l>
+    [_] (1h) estimate            | <LL e>
+    [_] 12:30 (1h) plantime      | <count> <LL T>  # now OR =hours
+    2020-07-26 [_] (1h) plandate | <count> <LL d>  # now OR +DD OR =DD00 OR =MMDD OR =YYMMDD
+    (1h) journal                 | <LL t>
+    fixtime                      | <LL T>
+    elapsed                      | <LL T>
+  Annotate
+    enrich   | <LL @>
