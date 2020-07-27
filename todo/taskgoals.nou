@@ -1,4 +1,5 @@
 
+TODO
   [_] MAYBE:CHG: "2020-01-14 [10%] ..." => "2020-01-14 10% ..." OR "2020-01-14 %10 ..."
     <= because I work with goals [_] => [X] and not actual tasks
   [_] MAYBE: use unicode symbols for checkbox BUT: "wide" are nice but cropped
@@ -9,6 +10,27 @@
     http://unix.stackexchange.com/questions/60481/match-word-containing-characters-beyond-a-za-z
     http://stackoverflow.com/questions/19385458/vim-regex-matches-unicode-characters-are-as-non-word
     [_] ALT:BET?TODO: switch hi! places for todo [_] and decision "!!" markers
+
+
+OVERHAUL taskgoal syntax ⌇⡟⠝⡰⣚
+  ORG
+    [_] TODO: close/merge related entries in ☤/nou.vim/todo/
+  FMT
+    [X] E.G. #nou MAYBE: split taskstatus and taskprogress
+    [_] FIXME: task marker is always inserted after russian 1..3c word
+    [_] FIXME:(regex): impossible decions ~ '=[', '<[', '-]'
+      => [_] extract first word from $line and directly compare in vimscript
+  [_] separate manipulation of time and task elements
+    [~] 40m DEV #nou <,.t> => split task and time keybinds
+    [~] 30m DEV #nou <,.[cC]> => insert-replace prefix task
+  [_] unify: everywhere literate programming
+    [X] 30m DEV #nou <,.> => <Space> shorter local-leader (#body strain on the hands)
+    [_] DEV confusing #nou <,.> and #xtref <\x> for tasks
+  keybinds
+    [_] DEV: <,.T> to replace-anywhere OR prepend <plannedtime> w/o touching taskmarker itself
+    [_] DEV: <,.D> to prepend both <date-cal> <time> OR isotime-ubspace; RENAME:OLD: <,.D> → <,._>
+    [_] DEV? <,._> to prepend <taskmarker> but keep <plannedtime> untouched
+    [_] DEV: <,.t> on visual selection -- shift each item time by (v:count1 > 10 : v:count1 ? 15min * v:count1)
 
 
 %% Task/progress

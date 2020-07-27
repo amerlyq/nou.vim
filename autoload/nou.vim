@@ -11,9 +11,6 @@ fun! nou#vsel()
 endf
 
 
-" TODO: extract "tasks" into separate "everywhere" module to allow literate programming
-"   e.g. like it's already done with xtref and notches functionality
-"   BAD:THINK: must work with comments -- transparently add/skip them on ops
 fun! nou#bar(...) range
   if a:0<1 || type(a:1) != type('')| throw "wrong a:1" |en
   " USAGE: <5,.x> → 50% | <45,.x> → 45% | <105,.x> 05%
@@ -25,10 +22,6 @@ fun! nou#bar(...) range
     let mrk = '['. (a:2 ? printf('%02d', pg).'%' : '&') .'] '
     let pfx = substitute(pfx, '[_$X]', mrk, '')
   endif
-  " DEV: <,.T> to replace-anywhere OR prepend <plannedtime> w/o touching taskmarker itself
-  " DEV: <,.D> to prepend both <date-cal> <time> OR isotime-ubspace; RENAME:OLD: <,.D> → <,._>
-  " DEV? <,._> to prepend <taskmarker> but keep <plannedtime> untouched
-  " DEV: <,.t> on visual selection -- shift each item time by (v:count1 > 10 : v:count1 ? 15min * v:count1)
   if pfx =~# 'T'
     " HACK: asymmetric rounding to nearest 5min interval :: 02+ -> 05, 07+ -> 10
     let ivl5 = str2float(strftime('%M')) / 5
@@ -45,12 +38,6 @@ fun! nou#bar(...) range
     let xts = substitute(printf('%08x', strftime('%s')), '..', '\=nr2char("0x28".submatch(0))', 'g')
     let pfx = substitute(pfx, 'B', '['.xts.'] ', '')
   endif
-  "" [_] TODO: <4,..> = ratio progres [0/12] => [4/12]
-  "" TODO: <13,./> = ratio progres [4/12] => [4/13]
-  " BUT:BET: <,./13> .vs. <,.4/>
-  " if pfx =~# 'R'
-  "
-  " endif
 
   " BUG: in VSEL mode wrong cursor pos: '.' == '<
   let l:pos = exists('*getcurpos') ? getcurpos() : getpos('.')
@@ -61,9 +48,6 @@ fun! nou#bar(...) range
 
   for i in rgn
     let line = getline(i)
-    " FIXME: impossible decions ~ '=[', '<[', '-]'
-    "   => extract first word from $line and directly compare in vimscript
-    " [_] FIXME: task marker is always inserted after russian 1..3c word
     let chgd = substitute(line,
       \ '\v^(\s*%([^[:alpha:][:blank:][\]]{-1,3}\s+)?)'
       \.'%(<\d{4}-%(0\d|1[012])-%([012]\d|3[01])>\s*)?'

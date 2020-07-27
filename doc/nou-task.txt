@@ -31,9 +31,12 @@
 % FMT:ex:
 
   wild-statement
-  !3 [_] arbitrary
-  [_] #tag annotated
-  [_] <me> associated
+  [_] arbitrary
+  [_] <me> associated  # OR: context
+  [_] ^JIRA-12345 aliased
+  [_] @user addressed
+  [_] #tag tagged
+  [_] ^BUG-123 @me #tag1#tag2 annotated
 
   [_] 30m estimated
   [_] (30m) estimated  # BET?DECI:(uniformity): estimation is always in parentheses
@@ -41,6 +44,7 @@
   [X] 2h(30m) overdue  # OR?  2h//30m
 
   [_] 10:00 planned (today)
+  [@] 11:00 mandatory (not scheduled but strictly today)
   [!] 12:00 scheduled (today)
   [?] 13:00 optional (desired but not mandatory)
   [$] 13:00 canceled (or skipped but remembered)
@@ -60,11 +64,11 @@
   # [X] (30m) {5} absolute discrete progress in dynamic scope
 
 SEE: prio-mgmt ※⡟⠛⠎⠰
-  ! [_] foremost         │  [_] ! foremost         │  [!] foremost
-  !3 [_] prioritized     │  [_] !3 prioritized     │  [3] prioritized   # DECI
-  ++ [_] favourable      │  [_] ++ favourable      │  [++] favourable
-  ? [_] questionable     │  [_] ? questionable     │  [?] questionable
-  ~~~ [_] very dubious   │  [_] ~~~ very dubious   │  [~~~] very dubious
+  ! [_] foremost         │  [_] ! foremost         │  [!] foremost         │  [!0] foremost
+  !3 [_] prioritized     │  [_] !3 prioritized     │  [3] prioritized      │  [!3] prioritized   # DECI
+  ++ [_] favourable      │  [_] ++ favourable      │  [++] favourable      │  [+2] favourable
+  ? [_] questionable     │  [_] ? questionable     │  [?] questionable     │  [?0] questionable
+  ~~~ [_] very dubious   │  [_] ~~~ very dubious   │  [~~~] very dubious   │  [~3] very dubious
 
   2021-03-20 [_] planned (future)
   2020-09-20 [!] scheduled (future)
@@ -75,25 +79,41 @@ SEE: prio-mgmt ※⡟⠛⠎⠰
   2020-07-11 03:00 changelog ※⡟⠉⠁⠸ | <LL t><LL i>
   15:30 20m(30m) #tag1#tag2 journalled ⌇⡟⠉⠁⠸
   !2 2020-08-27 [_] 15:00 30m <W> #tag1#tag2 featured ⌇⡟⠉⠁⠸
-  2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> #tag1#tag2 ultimate ⌇⡟⠉⠁⠸
+  2020-08-27 [!2] 15:00 30m <W> #tag1#tag2 featured ⌇⡟⠉⠁⠸
+  2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> +++ #tag1#tag2 enriched ⌇⡟⠉⠁⠸
     [⡟⠜⠨⣉] time-tracked subtask
     [X] completed subtask (exact time was forgotten)
     [+] unrelated completed subtask -- finished in the same timeslot
     [+] 30m unrelated activity in same timeframe
     [~] partially achieved OR achieved in some another nonpresumable way
+  2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> +++ ^JIRA-12345 @user #tag1#tag2 ultimate ⌇⡟⠉⠁⠸
 
+
+decisions / mood comment // position
+  * +++ 2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> #tag1#tag2 ultimate ⌇⡟⠉⠁⠸
+    2020-08-27 +++ [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> #tag1#tag2 ultimate ⌇⡟⠉⠁⠸
+  ? 2020-08-27 [+++] 15:00 1h15m(30m) <me> #tag1#tag2 ultimate ⌇⡟⠉⠁⠸
+    2020-08-27 [⡟⠜⠪⣡] +++ 15:00 1h15m(30m) <me> #tag1#tag2 ultimate ⌇⡟⠉⠁⠸
+    2020-08-27 [⡟⠜⠪⣡] 15:00 +++ 1h15m(30m) <me> #tag1#tag2 ultimate ⌇⡟⠉⠁⠸
+    2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) +++ <me> #tag1#tag2 ultimate ⌇⡟⠉⠁⠸
+  * 2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> +++ #tag1#tag2 ultimate ⌇⡟⠉⠁⠸
+    2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> #tag1#tag2 +++ ultimate ⌇⡟⠉⠁⠸
+    2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> #tag1#tag2 ultimate +++ ⌇⡟⠉⠁⠸
+    2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> #tag1#tag2 ultimate ⌇⡟⠉⠁⠸ // +++
 
 
 % SYNTAX %  # *nou-task-syntax*
 
   taskline ::= indent* commentstring? taskleader? decision? taskdescription... xtrefanchor?
-  taskleader ::= closingdate? taskmarker? plannedtime? duration? tag*
+  taskleader ::= closingdate? taskmarker? plannedtime? duration? association? tag* group?
   taskmarker ::= "[" taskstatus "]"
   duration ::= elapsed? "(" estimated ")" | estimated
     elapsed ::= timespan
     estimated ::= "℮"? timespan
     timespan ::= weeks "w" days "d" hours "h" minutes "m" seconds "s"
-  taskstatus ::= "_" | "X" | braille
+  taskstatus ::= statustodo | statusdone
+  statustodo ::= /[_?!@]/ | /0+%/ | /0+\/\d+/
+  statusdone ::= "$" | "X" | braille
   xtrefanchor ::= "⌇" creationdate
   creationdate ::= dateiso | braille
   closingdate ::= dateday
@@ -105,6 +125,7 @@ SEE: prio-mgmt ※⡟⠛⠎⠰
   Apply operator to named textobj in taskline
     <count> <LL><Operator><Textobj>
   Operators
+    <y> yank    [_] FIND: how to create new textobj for operators OR map directly to "y<LL>..."
     <i> insert  USAGE: date/time/status
     <d> delete  [_] TRY: :omap to apply action in operator-pending textobj
     <c> change (replace)
@@ -113,21 +134,22 @@ SEE: prio-mgmt ※⡟⠛⠎⠰
     <?> search prev (jump)
     # MAYBE: <h> highlight
   Textobj
-    <m> mood coloring / emotional decision marker / <c> connotation
     <!> priority / <u> urgency / <i> importance
     <d> date
-    <s> status OR <l> lacuna OR <g> goal
+    <s> status OR <l> lacuna OR <g> goal OR <c> checkbox
     <t> time
     <E> elapsed / logged / spent / period
     <e> OR <u> estimated duration
     <>> OR <<> association (toggle ?)
+    <m> mood coloring / emotional decision marker / <c> connotation
+    <@> addressing  # -- can be combined #tags (nothing more than special form)
+    <^> webref      # -- can be combined with #tags
     <#> tag BUT:ALSO: need operator <append> e.g. <LL a #>
     <%> group OR progress
-    <@> addressing
     <$> variable
     <b> body (only description until xtref)
     <B> whole body (everything after estimated)
-    <x> xtrefanchor
+    <x> xtref-anchor
   Shortcuts
     # DECI <count> <LL> <Space> new task with ?progress?
     # DECI <LL> <count> new task with ?time?
@@ -152,11 +174,11 @@ SEE: prio-mgmt ※⡟⠛⠎⠰
     <<> OR <LL a w> associate with work *<W>*
     <LL a c> associate *<common>*
   Category flags
-    %U urgent (and important)
-    %I important (but not urgent)
-    %D (OR %O) delegate to others (urgent but not important)
-    %N nice to have / new cool ideas
-    %E expired
+    [U] %U urgent (?and important? BUT inconsistent naming)
+    [I] %I important (but not urgent)
+    [D] %D (OR %O) delegate to others (urgent but not important BUT unobvious meaning)
+    [N] %N nice to have / new cool ideas
+    [E] %E expired
   Subtasks
     <+> create/convert unrelated (completed) to subtask "[+]"
     <W> append below new subtask "[_] WAIT …" in insert mode
@@ -174,3 +196,9 @@ WFs
     elapsed                      | <LL T>
   Annotate
     enrich   | <LL @>
+  Progress
+    # [_] => [0/] new           |    <LL .>
+    # [2/12] => [0/12] zero     |    <LL .>
+    [0/12] => [4/12] progress |  4 <LL .>
+    [4/12] => [4/13] total    | 13 <LL />
+      [_] THINK:BET: <,./13> .vs. <,.4/>
