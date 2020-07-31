@@ -49,7 +49,7 @@ let s:RprogressN = '\[%('.s:RratioN.'|'.s:RpercentN.')\]'
 "" status
 " FIXME: mixed :: status .vs. priority .vs. progress
 let s:Rstatus0 = '%([_]|[@!?]|[0-9])'
-let s:RstatusN = '[$X]'
+let s:RstatusN = '[X+$]'
 let s:RstatusD = '%('.s:RstatusN.'|'.s:Rbraille.'|'.s:Rdatetime.')'
 let s:Rstatus = '%('.s:Rstatus0.'|'.s:RstatusN.')'
 let s:Rtodo = '%(\['.s:Rstatus0.'\]|'.s:Rprogress0.')'

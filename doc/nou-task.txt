@@ -86,10 +86,14 @@ SEE: prio-mgmt ※⡟⠛⠎⠰
     [+] unrelated completed subtask -- finished in the same timeslot
     [+] 30m unrelated activity in same timeframe
     [~] partially achieved OR achieved in some another nonpresumable way
+    MAYBE: [>] postponed/rescheduled :: "REQ was done" => "WAIT future results"
+    MAYBE: [<] already done (as part of another project -- to distinguish with [$])
   2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> +++ ^JIRA-12345 @user #tag1#tag2 ultimate ⌇⡟⠉⠁⠸
 
 
-decisions / mood comment // position
+% DECI: relative order // positions
+
+decisions / mood comment
   * +++ 2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> #tag1#tag2 ultimate ⌇⡟⠉⠁⠸
     2020-08-27 +++ [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> #tag1#tag2 ultimate ⌇⡟⠉⠁⠸
   ? 2020-08-27 [+++] 15:00 1h15m(30m) <me> #tag1#tag2 ultimate ⌇⡟⠉⠁⠸
@@ -100,6 +104,15 @@ decisions / mood comment // position
     2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> #tag1#tag2 +++ ultimate ⌇⡟⠉⠁⠸
     2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> #tag1#tag2 ultimate +++ ⌇⡟⠉⠁⠸
     2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> #tag1#tag2 ultimate ⌇⡟⠉⠁⠸ // +++
+
+
+context
+  NICE: alignment of all *<contexts>* on single line after time
+    21:20 <common> 5m #body stretching / neck gymnastics
+    21:30 <common> 50m(40m+30m) #leisure fantasy + tea
+  NICE: estimate/duration is logically next after time
+    21:20 5m <common> #body stretching / neck gymnastics
+    21:30 50m(40m+30m) <common> toilet + #leisure fantasy / bed
 
 
 % SYNTAX %  # *nou-task-syntax*
@@ -119,6 +132,10 @@ decisions / mood comment // position
   closingdate ::= dateday
   braille ::= /[⠀-⣿]{4}/
   tag ::= "#" word
+
+  [_] TODO? duedate=???  << because task leading prefix "planned date" != "duedate"
+    NOTE: "duedate" plays role when doing :: planning + prio + postponing
+    BAD?(confusing for others):FMT:(reverse-order):  <duedate> [_] task-desc <creationdate>
 
 
 %%% LIOR
@@ -202,3 +219,5 @@ WFs
     [0/12] => [4/12] progress |  4 <LL .>
     [4/12] => [4/13] total    | 13 <LL />
       [_] THINK:BET: <,./13> .vs. <,.4/>
+  Replanning
+    shift rest of day -- visual-select area and update each time from now/<count> keeping duration between entries
