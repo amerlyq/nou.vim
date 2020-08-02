@@ -231,6 +231,10 @@ syn match nouDate display excludenl
 syn match nouDate display excludenl '\v<20\d\d-W%([0-4]\d|5[0-3])>'
 syn match nouDate display excludenl '\v<CW%([0-4]\d|5[0-3])>'
 
+" e.g. 20161114 OR 20161114_043540
+syn match nouDate display excludenl
+  \ '\v<20\d\d%(0\d|1[012])%([012]\d|3[01])%(_%([01]\d|2[0-4])[0-5]\d[0-5]\d)?>'
+
 syn cluster nouGenericQ add=nouTime
 " hi! nouTime ctermfg=210 guifg=#ff8787
 hi! nouTime ctermfg=248 guifg=#a8a8a8
