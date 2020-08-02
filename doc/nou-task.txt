@@ -26,6 +26,7 @@
   [1/12] progress ratio       |
   [8/12] progress ratio       |
   [12/12] progress ratio      |
+  [4/3] ratio overdue         | RED:SEE※⡟⠧⠦⡽
 
 
 % FMT:ex:
@@ -41,7 +42,9 @@
   [_] 30m estimated
   [_] (30m) estimated  # BET?DECI:(uniformity): estimation is always in parentheses
   [X] 30m completed
-  [X] 2h(30m) overdue  # OR?  2h//30m
+  [X] 2h(30m) overdue (task)   # OR? notation 2h//30m
+  [X] 1h(2h/3h) progress (pj)  # OR? 1h(3h/3h) -- THINK: log progress including .vs. excluding current task
+  [X] 1h(4h/3h) overdue (pj)   # ⌇⡟⠧⠦⡽ OR? 1h([4/3]h) -- reuse "progress" notation BAD: must have same time-sfx
 
   [_] 10:00 planned (today)
   [@] 11:00 mandatory (not scheduled but strictly today)
@@ -70,8 +73,8 @@ SEE: prio-mgmt ※⡟⠛⠎⠰
   ? [_] questionable     │  [_] ? questionable     │  [?] questionable     │  [?0] questionable
   ~~~ [_] very dubious   │  [_] ~~~ very dubious   │  [~~~] very dubious   │  [~3] very dubious
 
-  2021-03-20 [_] planned (future)
-  2020-09-20 [!] scheduled (future)
+  2021-03-20 [_] planned (future)    // OR:BET? deadline
+  2020-09-20 [!] scheduled (future)  // OR:BET? deadline
   2020-07-25 [X] completed (past)
   2020-04-02 [⡟⠜⠴⡳] pastdue (expire)
 
