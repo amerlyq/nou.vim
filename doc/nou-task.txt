@@ -43,8 +43,6 @@
   [_] (30m) estimated  # BET?DECI:(uniformity): estimation is always in parentheses
   [X] 30m completed
   [X] 2h(30m) overdue (task)   # OR? notation 2h//30m
-  [X] 1h(2h/3h) progress (pj)  # OR? 1h(3h/3h) -- THINK: log progress including .vs. excluding current task
-  [X] 1h(4h/3h) overdue (pj)   # ⌇⡟⠧⠦⡽ OR? 1h([4/3]h) -- reuse "progress" notation BAD: must have same time-sfx
 
   [_] 10:00 planned (today)
   [@] 11:00 mandatory (not scheduled but strictly today)
@@ -53,18 +51,37 @@
   [$] 13:00 canceled (or skipped but remembered)
   [_] 14:00 1h allocated
 
-  # THINK:MAYBE: split taskstatus and taskprogress ?
-  #   BUT: "relative" .vs. "absolute" percent value -- based on history of previous efforts
-  #   BUT: "fixed" .vs. "growing" scope of 100% -- BAD: next "absolute" value may become even less
-  # [X] (30m) {20%} absolute percent progress in dynamic scope
-  # [X] (30m) {=20%} absolute percent progress in fixed scope
-  # [X] (30m) {+20%} relative percent progress in dynamic scope
-  # [X] 30m {1/20} absolute discrete progress in fixed scope
-  # [X] 30m {+4/12} relative discrete progress in fixed scope
-  # [X] 30m {+4} relative discrete progress in dynamic scope
-  # [X] (30m) #5 absolute discrete progress in dynamic scope
-  # [X] (30m) (5) absolute discrete progress in dynamic scope
-  # [X] (30m) {5} absolute discrete progress in dynamic scope
+
+SEE: project progress
+  [X] 1h(2h/3h) progress (pj)  # OR? 1h(3h/3h) -- THINK: log progress including .vs. excluding current task
+  [X] 1h(4h/3h) overdue (pj)   # ⌇⡟⠧⠦⡽ OR? 1h([4/3]h) -- reuse "progress" notation BAD: must have same time-sfx
+
+  [X] (/3h) allocated project
+  [X] [/3h] allocated project
+  [X] [3h] allocated project
+
+  [X] (2h/3h) nextstep previous progress
+  [X] [2h/3h] nextstep previous progress
+
+  [X] (1h)(2h/3h) estimated nextstep
+  [X] (1h) [2h/3h] estimated nextstep
+  [X] 2h(1h)(4h/3h) overdue nextstep
+  [X] (2h/1h)(4h/3h) overdue nextstep
+  [X] 2h(1h) [4h/3h] overdue nextstep
+
+  THINK:MAYBE: split taskstatus and taskprogress indicators ?
+    BUT: "relative" .vs. "absolute" percent value -- based on history of previous efforts
+    BUT: "fixed" .vs. "growing" scope of 100% -- BAD: next "absolute" value may become even less
+  [X] (30m) {20%} absolute percent progress in dynamic scope
+  [X] (30m) {=20%} absolute percent progress in fixed scope
+  [X] (30m) {+20%} relative percent progress in dynamic scope
+  [X] 30m {1/20} absolute discrete progress in fixed scope
+  [X] 30m {+4/12} relative discrete progress in fixed scope
+  [X] 30m {+4} relative discrete progress in dynamic scope
+  [X] (30m) #5 absolute discrete progress in dynamic scope
+  [X] (30m) (5) absolute discrete progress in dynamic scope
+  [X] (30m) {5} absolute discrete progress in dynamic scope
+
 
 SEE: prio-mgmt ※⡟⠛⠎⠰
   ! [_] foremost         │  [_] ! foremost         │  [!] foremost         │  [!0] foremost
