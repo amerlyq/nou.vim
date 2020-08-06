@@ -224,10 +224,11 @@ runtime autoload/nou/syntax/group.vim
 " ALT: explicit sfx /%(-%(Mon|Tue|Wed|Thu|Fri|Sat|Sun|Mo|Tu|We|Th|Fr|Sa|Su))?/
 " TODO: dim hi for weekday sfx
 " TODO: different color for Sat and Sun -- whole date (red) or only suffix
+" MAYBE: different darkish color for dates below 2000-- to emphasize unrelated historical meaning?
 syn cluster nouGenericQ add=nouDate
 hi! nouDate ctermfg=178 guifg=#dfaf00
 syn match nouDate display excludenl
-  \ '\v<20\d\d-%(0\d|1[012])%(-%([012]\d|3[01])%(-\u\l\l?)?)?%(-W%([0-4]\d|5[0-3]))?>'
+  \ '\v<%(19|20)\d\d-%(0\d|1[012])%(-%([012]\d|3[01])%(-\u\l\l?)?)?%(-W%([0-4]\d|5[0-3]))?>'
 syn match nouDate display excludenl '\v<20\d\d-W%([0-4]\d|5[0-3])>'
 syn match nouDate display excludenl '\v<CW%([0-4]\d|5[0-3])>'
 
@@ -300,7 +301,7 @@ syn match nouTask display excludenl contains=@nouTaskQ
 " MAYBE:BET: add "progress" cluster globally insted of limiting into nouTaskQ
 syn cluster nouTaskQ add=nouProgressRatio
 exe 'hi! nouProgressRatio '. g:nou.task.colors[8]
-syn match nouProgressRatio display excludenl contains=@nouProgressRatioQ '\V[\d\+/\d\+]'
+syn match nouProgressRatio display excludenl contains=@nouProgressRatioQ '\v\[\d+[/⁄]\d+\]'
 
 hi! nouProgressRatioF ctermfg=14 guifg=#586e75
 syn cluster nouProgressRatioQ add=nouProgressRatioF

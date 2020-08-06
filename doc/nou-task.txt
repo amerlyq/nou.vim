@@ -22,11 +22,22 @@
   2020-01-17 [90%] progress   |     <LL> 9
   2020-01-17 [X] done         |     <LL> x
   [⡞⣶⡓⡙] done (braille ts)    |     <LL> b
+                              |
   [0/12] progress ratio       |
   [1/12] progress ratio       |
   [8/12] progress ratio       |
+  [8⁄12] progress fraction    |
   [12/12] progress ratio      |
   [4/3] ratio overdue         | RED:SEE※⡟⠧⠦⡽
+                              |
+  [2h] timeslot allocated     |
+  [2h/] timeslot time-tracked |
+  [2h/∞] timeslot infinite    |
+  [1h/2h] timeslot progress   |
+  [+1h/2h] continue (before)  | OR: +[1h/2h] | [>1h/2h]
+  [1h+1h/2h] math (transient) |
+  [2h/2h] totals/done (after) | OR: [=2h/2h] -- instead of preliminary [+1h/2h] BUT: still must rename after copying
+  [2h20m/2h] timeslot overdue |
 
 
 % FMT:ex:
