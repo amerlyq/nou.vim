@@ -62,6 +62,18 @@
   [$] 13:00 canceled (or skipped but remembered)
   [_] 14:00 1h allocated
 
+MAYBE: write "planned" time inside task itself -- to distinguish from "occurred" time
+  [_] 12:15 planned (alt)
+  [12:15] planned (alt)
+  ![12:15] scheduled (alt)
+  [!12:15] scheduled (alt)
+  [!12:15!] scheduled (alt)
+  [12:15!] scheduled (alt)
+  [12:15]! scheduled (alt)
+  [12:15] ! scheduled (alt)
+  [!][12:15] scheduled (alt)
+  [12:15][!] scheduled (alt)
+
 
 SEE: project progress
   [X] 1h(2h/3h) progress (pj)  # OR? 1h(3h/3h) -- THINK: log progress including .vs. excluding current task
