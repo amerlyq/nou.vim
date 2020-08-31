@@ -23,6 +23,12 @@
   2020-01-17 [X] done         |     <LL> x
   [⡞⣶⡓⡙] done (braille ts)    |     <LL> b
                               |
+  [⡞⣶] done (braille/1d)      |
+  [⡞⣶⡓] done (braille/5m)     |
+  [⡞⣶⡓⡙] done (braille/1s)    |
+  [⡞⣶⡓⡙⡙] done (braille/5ms)  |
+  [⡞⣶⡓⡙⡙⡙] done (braille/20us)|
+                              |
   [0/12] progress ratio       |
   [1/12] progress ratio       |
   [8/12] progress ratio       |
