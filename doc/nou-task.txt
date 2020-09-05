@@ -207,6 +207,7 @@ context
     <?> search prev (jump)
     # MAYBE: <h> highlight
   Textobj
+    <i> indent / <l> lead
     <!> priority / <u> urgency / <i> importance
     <d> date
     <s> status OR <l> lacuna OR <g> goal OR <c> checkbox
@@ -215,8 +216,8 @@ context
     <e> OR <u> estimated duration
     <>> OR <<> association (toggle ?)
     <m> mood coloring / emotional decision marker / <c> connotation
-    <@> addressing  # -- can be combined #tags (nothing more than special form)
-    <^> webref      # -- can be combined with #tags
+    <@> addressing / person / name  # -- can be combined with #tags (nothing more than special form of tag)
+    <^> webref / urlalias OR uri  # -- can be combined with #tags
     <#> tag BUT:ALSO: need operator <append> e.g. <LL a #>
     <%> group OR progress
     <$> variable

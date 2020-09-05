@@ -48,12 +48,12 @@ let s:RprogressN = '\[%('.s:RratioN.'|'.s:RpercentN.')\]'
 
 "" status
 " FIXME: mixed :: status .vs. priority .vs. progress
-let s:Rstatus0 = '%([_]|[@!?]|[0-9])'
-let s:RstatusN = '[X+$]'
-let s:RstatusD = '%('.s:RstatusN.'|'.s:Rbraille.'|'.s:Rdatetime.')'
-let s:Rstatus = '%('.s:Rstatus0.'|'.s:RstatusN.')'
-let s:Rtodo = '%(\['.s:Rstatus0.'\]|'.s:Rprogress0.')'
-let s:Rdone = '%(\['.s:RstatusD.'\]|'.s:RprogressN.')'
+let s:Rstate0 = '%([_]|[@!?]|[0-9])'
+let s:RstateN = '[X+$]'
+let s:RstateD = '%('.s:RstateN.'|'.s:Rbraille.'|'.s:Rdatetime.')'
+let s:Rstate = '%('.s:Rstate0.'|'.s:RstateN.')'
+let s:Rtodo = '%(\['.s:Rstate0.'\]|'.s:Rprogress0.')'
+let s:Rdone = '%(\['.s:RstateD.'\]|'.s:RprogressN.')'
 let s:Rgoal = '%('.s:Rtodo.'|'.s:Rdone.')'
 
 "" duration
@@ -67,15 +67,22 @@ let s:Rassoc = '\<\k+\>'
 let s:Rmood = '[-*•@+=:~?!<>]{-1,3}'
 
 "" tags
-let s:Raddressing = '\@\k\S{-}'
-let s:Rurlalias = '\^\k\S{-}'
+let s:Rperson = '\@\k\S{-}'
+let s:Rwebref = '\^\k\S{-}'
 let s:Rhashtag = '[#]\k\S{-}'
-let s:Rtag = '[#@^]\k\S{-}'  " OR: %('.s:Raddressing.'|'.s:Rurlalias.'|'.s:Rhashtag.')
+let s:Rtag = '[#@^]\k\S{-}'  " OR: %('.s:Rperson.'|'.s:Rwebref.'|'.s:Rhashtag.')
 let s:Rtags = '%(\s*'.s:Rtag.')+'
-" let s:Rxtref = '\u2307'.s:Rbraille  " OR: /⌇[⠀-⣿]{4}/
+let s:Rxtpin = '\u2307'.s:Rbraille  " OR: /⌇[⠀-⣿]{4}/
+let s:Rxtref = '\u203b'.s:Rbraille  " OR: /※[⠀-⣿]{4}/
+
+"" TODO: search by regex whole "ctx" and then use #seekE() to pick tags/group/etc.
+" let s:Rctx = '%(\s*%('.s:Rtags.'|'.s:Rgroup.'|'.s:Rvar.'|'.s:Rwebref.'|'.s:Rperson.'|'.s:Rxtref.'))+'
 
 "" body
-let s:Rtext = '.*'  " BUG: consumes trailing everything :: s:Rxtref, ...
+" BUG: consumes trailing everything :: s:Rxtref, ...
+" NEED: search s:Rxtref from any position inside of a line
+" TODO: ignore developer's trailing comments e.g. ... #% ...
+let s:Rtext = '.*'
 let s:Rexplanation = s:Rcomment.s:Rtext
 let s:Rbody = ''
   \.'%(('.s:Rassoc.')%(\s+|$))?'
@@ -95,7 +102,7 @@ let s:Rtask = ''
 " \0 = whole-line OR empty match
 " \1 = indent / leading comment
 " \2 = date
-" \3 = goal
+" \3 = goal OR 'state' inside of 'goal'
 " \4 = time
 " \5 = elapsed
 " \6 = association
@@ -108,64 +115,100 @@ let s:Rtaskline = ''
   \.'%('.s:Rtask.'\s*)?'
   \.'%('.s:Rbody.'\s*)?'
 
+"" VIZ: different combined objects
+" status = date + goal
+" span = time + dura
+" plan = status + span
+" task = plan + assoc
+" meta = assoc + mood + tags
+" body = meta + text
+" entry/whole = <all> - indent
+let s:R_combo = ['status', 'span', 'plan', 'task', 'meta', 'body', 'entry']
+
 
 " DEV:(replace): call substitute(nou#util#getline(), s:Rtaskline, '\=nou#util#print(lst, submatch(0))', 'g')
 fun! nou#util#parsetask() abort
   " DEBUG: ultimate task
-  " let l = '  # 2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> +++ ^JIRA-12345 @user #tag1#tag2 ultimate ⌇⡟⠉⠁⠸'
+  " let L = '  # 2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> +++ ^JIRA-12345 @user #tag1#tag2 ultimate ⌇⡟⠉⠁⠸'
   " ALT: directly use :: let [bln,bco] = searchpos(a:patt, 'cW',  line('.'))
-  let l = getline('.')
-  let elems = matchlist(l, '\v^'.s:Rtaskline.'$')
-  if !len(elems)| echoerr "WTF/impossible: no taskline" |en
+  let L = getline('.')
+  let elems = matchlist(L, '\v^'.s:Rtaskline.'$')
+  if !len(elems)| echoerr 'WTF/impossible: no taskline' |en
 
-  let dpos = {}
-  let dpos[s:R_elems[0]] = [elems[0], getpos('.')]
+  let T = {}
+  let T.pos = getpos('.')
+  let l = elems[0]
+  let T[s:R_elems[0]] = {'m': l, s: '', 'b': 0, 'e': strlen(l), 'E': strlen(L)}
 
   " NOTE: extract position of each submatch
-  let pos = 0
+  let c = 0
   for i in range(1, len(elems) - 1)
     let m = elems[i]
-    let b = stridx(l, m, pos)  " ALT? matchstrpos() by regex
-    if b<0| echoerr "WTF/impossible: no task elem" |en
+    let b = stridx(L, m, c)  " ALT? matchstrpos() by regex
+    if b<0| echoerr 'WTF/impossible: no task elem' |en
     let e = b + strlen(m)
-    let pos = e + (strlen(matchstr(l, '^\s*', e)))  " HACK: skip spaces
+    let s = matchstr(L, '^\s*', e)
+    let c = e + strlen(s)  " HACK: skip spaces
     "" FAIL: positions are useful to insert only single entry OR span
     ""   ALT:(workaround): start inserting from the end to keep positions
-    " call add(mpos, printf('[%d,%d] %s"', b, e, strpart(l, b, e - b)))
+    " call add(mpos, printf('[%d,%d] %s"', b, e, strpart(L, b, e - b)))
     " return join(mpos, "\n")
-    let dpos[s:R_elems[i]] = [m, b, e]
+    let T[s:R_elems[i]] = {'m': m, 's': s, 'B': b, 'b': b + 1, 'e': e, 'E': c}
   endfor
-  return dpos
+  return T
 endf
 
-" FIXME: if new line is the same -- don't modify it
-fun! nou#util#get_goal_i()
-  let dpos = nou#util#parsetask()
-  let [m, b, e] = dpos.goal
-  let pos1 = deepcopy(dpos.line[1])
-  let pos2 = deepcopy(dpos.line[1])
-  let pos1[2] = b + 1
-  let pos2[2] = e
-  return ['v', pos1, pos2]
+"" NOTE: search free elements
+" xtref
+" group
+" tag
+fun! nou#util#seek_E(T, elem, ...) abort
+  let pos = get(a:, 1)
 endf
 
-fun! nou#util#get_goal_a()
-  let dpos = nou#util#parsetask()
-  let [m, b, e] = dpos.goal
-  let pos1 = deepcopy(dpos.line[1])
-  let pos2 = deepcopy(dpos.line[1])
-  let pos1[2] = b + 1
-  echo strlen(matchstr(getline('.'), '^\s*', e))
-  let pos2[2] = e + strlen(matchstr(getline('.'), '^\s*', e))
-  return ['v', pos1, pos2]
+fun! nou#util#merge_E(lhs, rhs) abort
+  return {'m': lhs.m + lhs.s + rhs.m, 's': rhs.s
+    \, 'B': lhs.B, 'b': lhs.b, 'e': rhs.e, 'E': rhs.E}
 endf
 
-" DEP:NEED: |kana/vim-textobj-user|
-call textobj#user#plugin('task', {
-\   'goal': {
-\     'select-i': '<LocalLeader>t',
-\     'select-a': '<LocalLeader>T',
-\     'select-i-function': 'nou#util#get_goal_i',
-\     'select-a-function': 'nou#util#get_goal_a',
-\   },
-\ })
+fun! nou#util#combo_task(...) abort
+  let T = a:0 ? a:1 : nou#util#parsetask()
+  let T.status = nou#util#merge_E(T.date, T.goal)
+  let T.span = nou#util#merge_E(T.time, T.dura)
+  let T.plan = nou#util#merge_E(T.status, T.span)
+  let T.task = nou#util#merge_E(T.plan, T.assoc)
+  let T.meta = nou#util#merge_E(T.mood, T.tags)
+  let T.actx = nou#util#merge_E(T.assoc, T.meta)
+  let T.body = nou#util#merge_E(T.meta, T.text)
+  let T.entry = nou#util#merge_E(T.task, T.body)
+  return T
+endf
+
+fun! nou#util#Targs(...)
+  if a:0>1| return a:000
+  elseif a:0<1| return ['b', 'e']
+  elseif a:1==1 | return ['b', 'E']
+  elseif a:1=='S' | return ['B', 'E']
+  else | return ['B', a:1]
+  endif
+endf
+
+" FIXME: if new line is the same -- don't modify it to preserve buffer state
+"   TRY: return empty list i.e. invalid textobj selection ?
+fun! nou#util#Tpos(elem, ...)
+  let T = nou#util#parsetask()
+  let x = T[a:elem]
+  let [b, e] = call('nou#util#Targs', a:000)
+  let Pb = deepcopy(T.pos)
+  let Pb[2] = x[b]
+  let Pe = deepcopy(T.pos)
+  let Pe[2] = x[e]
+  return ['v', Pb, Pe]
+endf
+
+"""""""""""""""""""
+for s:nm in s:R_elems
+  let s:fnm = 'nou#util#textobj_'. s:nm
+  exe "fun! ".s:fnm."_i()\nreturn nou#util#Tpos('".s:nm."')\nendf"
+  exe "fun! ".s:fnm."_a()\nreturn nou#util#Tpos('".s:nm."',1)\nendf"
+endfor

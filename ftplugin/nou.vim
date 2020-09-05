@@ -99,3 +99,5 @@ if exists('s:nou_mappings')
     endfor
   endfor
 endif
+
+runtime ftplugin/textobj/nou.vim
