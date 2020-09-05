@@ -59,7 +59,7 @@ syn region nouPathTail display oneline excludenl contained
 " ATT: must be after nouPathBody to override it
 "   FIXED:BUG(:/doc/nou): prefix being highlighted as nouPathTail
 syn match nouPathHead display excludenl contained nextgroup=nouPathBody
-  \ '/\|[~@:%.&/…☤♆☆★]/\|\.\./\|[[:alpha:]]:[\\]\{1,2}'
+  \ '\v%(^|\k@1<!)%(/|[~@:%.&/…☤♆☆★]/|\.\./|[[:alpha:]]:[\\]{1,2})'
 
 
 " ALT(old):BAD: too complex and fragile incomprehensible regex

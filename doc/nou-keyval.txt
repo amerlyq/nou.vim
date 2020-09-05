@@ -14,6 +14,9 @@
 
   key=key:value
   key=key=value
+  key=(key=value)
+  key=func(args)
+  key=( func(args) )
 
 %% List values
 
@@ -42,6 +45,8 @@
 
 %% Non-path
 
+  key=10MiB/s           # units of measure
+  key='10 MiB/s'        # units of measure
   key=' /path/to'       # leader
   key=" /path/to"       # leader
   key='a/path/to'       # alternative
