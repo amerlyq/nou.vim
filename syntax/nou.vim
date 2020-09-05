@@ -176,6 +176,15 @@ hi nouCommentDevDoc cterm=NONE gui=NONE ctermbg=8 guibg=#002430 ctermfg=242 guif
 syn region nouCommentDevDoc display oneline keepend
   \ start='^#%' start='\s\zs#%' excludenl end='$'
 
+" NOTE: hi! dot-prefix of "obj.sub.key=val" and "obj.func()"
+" ORNG: ctermfg=224 guifg=#cb4b16 YELW: ctermfg=121 guifg=#b58900 BLUE: ctermfg=33 guifg=#2060e0
+" NICE: #c56b1f | #8f4f1f
+syn cluster nouGenericQ add=nouObjectPfx
+hi nouObjectPfx cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=224 guifg=#8f4f1f
+syn match nouObjectPfx display excludenl
+  \ '\v%(^|[[:punct:][:blank:]]@1<=)%(\k+[.])+\ze\k'
+
+
 " EXPL: https, ftp, news, file
 " THINK: diff color urls -- don't do 'contains=@nouArtifactG'
 " TRY: different color for heading and '[/?=]' in url

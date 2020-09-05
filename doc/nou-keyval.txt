@@ -10,6 +10,19 @@
   _key=val?ue
   key:=val*ue
 
+%% Object values
+
+o.
+o.ke.
+o.ke.y=val.ue
+ o.ke.y=val.ue
+  $o.ke.y=$val.ue
+
+o.ke.fn(a)
+ o.$ke.fn(a=$b)
+  o.ke.fn(a, b)
+   o.ke.fn(a).fn(b)
+
 %% Nested values
 
   key=key:value
