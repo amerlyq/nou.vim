@@ -127,11 +127,11 @@ let s:R_combo = ['status', 'span', 'plan', 'task', 'meta', 'body', 'entry']
 
 
 " DEV:(replace): call substitute(nou#util#getline(), s:Rtaskline, '\=nou#util#print(lst, submatch(0))', 'g')
-fun! nou#util#parsetask() abort
+fun! nou#util#parsetask(...) abort
   " DEBUG: ultimate task
   " let L = '  # 2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> +++ ^JIRA-12345 @user #tag1#tag2 ultimate ⌇⡟⠉⠁⠸'
   " ALT: directly use :: let [bln,bco] = searchpos(a:patt, 'cW',  line('.'))
-  let L = getline('.')
+  let L = a:0 ? a:1 : getline('.')
   let elems = matchlist(L, '\v^'.s:Rtaskline.'$')
   if !len(elems)| echoerr 'WTF/impossible: no taskline' |en
 
@@ -180,13 +180,18 @@ fun! nou#util#combo_task(...) abort
   let T.meta = nou#util#merge_E(T.mood, T.tags)
   let T.actx = nou#util#merge_E(T.assoc, T.meta)
   let T.body = nou#util#merge_E(T.meta, T.text)
-  let T.entry = nou#util#merge_E(T.task, T.body)
+  let T.entry = nou#util#merge_E(T.task, T.body)  " WTF: dif. line .vs. entry
+
+  " FIXME: B!=b if spaces surround state inside of goal
+  let T.state = {'m': T.goal.m[1:-2], 's': ''}
+  let T.state.B = T.state.b = T.goal.b + 1
+  let T.state.E = T.state.e = T.goal.e - 1
   return T
 endf
 
 fun! nou#util#Targs(...)
   if a:0>1| return a:000
-  elseif a:0<1| return ['b', 'e']
+  elseif a:0<1||a:1==0| return ['b', 'e']
   elseif a:1==1 | return ['b', 'E']
   elseif a:1=='S' | return ['B', 'E']
   else | return ['B', a:1]
@@ -195,10 +200,12 @@ endf
 
 " FIXME: if new line is the same -- don't modify it to preserve buffer state
 "   TRY: return empty list i.e. invalid textobj selection ?
-fun! nou#util#Tpos(elem, ...)
-  let T = nou#util#parsetask()
+fun! nou#util#Tpos(outer, elem, ...)
+  let T = a:0 ? a:1 : nou#util#parsetask()
+  " NOTE: lazy extend
+  if index(s:R_elems, a:elem) < 0| let T = nou#util#combo_task(T) |en
   let x = T[a:elem]
-  let [b, e] = call('nou#util#Targs', a:000)
+  let [b, e] = nou#util#Targs(a:outer)
   let Pb = deepcopy(T.pos)
   let Pb[2] = x[b]
   let Pe = deepcopy(T.pos)
@@ -206,9 +213,17 @@ fun! nou#util#Tpos(elem, ...)
   return ['v', Pb, Pe]
 endf
 
+fun! nou#util#replace(elem, newval, ...)
+  let L = a:0 ? a:1 : getline('.')
+  let [_, Pb, Pe] = nou#util#Tpos(0, a:elem, nou#util#parsetask(L))
+  " REF: [bufnum, lnum, col, off]
+  let L[Pb[2] : Pe[2]] = a:newval
+  return L
+endf
+
 """""""""""""""""""
 for s:nm in s:R_elems
   let s:fnm = 'nou#util#textobj_'. s:nm
-  exe "fun! ".s:fnm."_i()\nreturn nou#util#Tpos('".s:nm."')\nendf"
-  exe "fun! ".s:fnm."_a()\nreturn nou#util#Tpos('".s:nm."',1)\nendf"
+  exe "fun! ".s:fnm."_i()\nreturn nou#util#Tpos(0,'".s:nm."')\nendf"
+  exe "fun! ".s:fnm."_a()\nreturn nou#util#Tpos(1,'".s:nm."')\nendf"
 endfor

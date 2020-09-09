@@ -54,12 +54,17 @@ xnoremap <silent> <Plug>(nou-task-next) <Esc>/\V\%V[_]<CR>n
 nnoremap <Plug>(nou-spdx-header) 1G"=nou#spdx_header()<CR>P
 
 
+" TEMP:TRY:
+nnoremap <silent> <Plug>(nou-state-subtask) :call nou#vsel_apply(0,{x->nou#util#replace('state','+',x)})<CR>
+xnoremap <silent> <Plug>(nou-state-subtask) :<C-u>call nou#vsel_apply(1,{x->nou#util#replace('state','+',x)})<CR>
+
 let s:nou_mappings = [
   \ ['nx', 'gf', '<Plug>(nou-path-open)'],
   \ ['nx', '<LocalLeader>n', '<Plug>(nou-task-next)'],
   \ ['nx', '<LocalLeader>i', '<Plug>(nou-date)'],
   \ ['n', '<LocalLeader>I', '<Plug>(nou-datew)'],
   \ ['n',  '<LocalLeader>L', '<Plug>(nou-spdx-header)'],
+  \ ['nx', '<LocalLeader>+', '<Plug>(nou-state-subtask)'],
   \]
 
 

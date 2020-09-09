@@ -111,6 +111,15 @@ SEE: project progress
   [X] (30m) (5) absolute discrete progress in dynamic scope
   [X] (30m) {5} absolute discrete progress in dynamic scope
 
+  ALT:don't use full progress -- track only remaining work
+    << verify correctness by !grep and sum all parts
+    !! use "elapsed time till next task" as chunk size
+      ~~ instead of explicit progress [2h/6h]
+  ALG: progress-based
+    [_] [6h/6h] new  -> [X] 2h(3h) task=6h chunk1
+    [_] {4h/6h} next -> 13:20 task(6h) chunk2
+    [_] (2h/6h) last -> [+] 2h #6h chunk3
+
 
 SEE: prio-mgmt ※⡟⠛⠎⠰
   ! [_] foremost         │  [_] ! foremost         │  [!] foremost         │  [!0] foremost
@@ -243,6 +252,7 @@ context
     2020-07-26 [X] closingdate <count><LL D>
     [⡟⠜⢠⢱] time-tracked        <x>
     [X] done                   <X>
+      [+] subtask              < + >
   Association
     <>> OR <LL a m> associate with me *<me>*
     <<> OR <LL a w> associate with work *<W>*

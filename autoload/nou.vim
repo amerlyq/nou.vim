@@ -11,6 +11,20 @@ fun! nou#vsel()
 endf
 
 
+fun! nou#util#vsel_apply(visual, fn)
+  " BUG: in VSEL mode wrong cursor pos: '.' == '<
+  let pos = exists('*getcurpos') ? getcurpos() : getpos('.')
+  " echom string(l:pos)
+  let rgn = a:visual ? range(getpos("'<")[1], getpos("'>")[1]) : [line('.')]
+  for i in rgn
+    let line = getline(i)
+    let chgd = call(a:fn, [line])
+    if chgd !=# line| call setline(i, chgd) |en
+  endfor
+  call setpos('.', pos)
+endf
+
+
 fun! nou#bar(...) range
   if a:0<1 || type(a:1) != type('')| throw "wrong a:1" |en
   " USAGE: <5,.x> → 50% | <45,.x> → 45% | <105,.x> 05%

@@ -9,16 +9,25 @@ set cpo&vim
 " BAD: no way to enumerate all functions w/o codedupl or breaking lazy-loading
 let s:keys =
   \[['line', 'L']
-  \,['lead', 'i', 'I']
+  \,['lead', 'i', 'I', 'indent']
   \,['date', 'd', 'D']
-  \,['goal', 's', 'S']
+  \,['goal', 'g', 'G']
   \,['time', 't', 'T']
-  \,['dura', 'e', 'E']
-  \,['assoc','a', 'A']
+  \,['dura', 'e', 'E', 'elapsed / estimated']
+  \,['assoc','<', '>']
   \,['mood', 'm', 'M']
   \,['tags', '#', '*']
   \,['text', 'b', 'B']
+  \,['status', 'x', 'X', 'date + goal']
+  \,['span', 's', 'S', 'time + dura']
+  \,['plan', 'p', 'P', 'status + span']
+  \,['task', 'h', 'H', 'plan + assoc']
+  \,['meta', 'c', 'C', 'mood + tags = ctx']
+  \,['actx', 'a', 'A', 'assoc + meta']
+  \,['body', 'y', 'Y', 'meta + text']
+  \,['entry', 'z', 'Z', 'task + body']
   \]
+
 
 " BAD: no lazy-loading for spec-generation NEED: query if vim-textobj-user is present
 fun! s:gen_textobj_spec(km)

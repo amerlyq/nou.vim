@@ -31,6 +31,7 @@ OVERHAUL taskgoal syntax ⌇⡟⠝⡰⣚
     [_] DEV: <,.D> to prepend both <date-cal> <time> OR isotime-ubspace; RENAME:OLD: <,.D> → <,._>
     [_] DEV? <,._> to prepend <taskmarker> but keep <plannedtime> untouched
     [_] DEV: <,.t> on visual selection -- shift each item time by (v:count1 > 10 : v:count1 ? 15min * v:count1)
+    [_] DEV? <,.Del> to delete everything task-related
 
 
 %% Task/progress
