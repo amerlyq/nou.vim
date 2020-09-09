@@ -123,7 +123,7 @@ let s:Rtaskline = ''
 " meta = assoc + mood + tags
 " body = meta + text
 " entry/whole = <all> - indent
-let s:R_combo = ['status', 'span', 'plan', 'task', 'meta', 'body', 'entry']
+let s:R_combo = ['status', 'span', 'plan', 'task', 'meta', 'actx', 'body', 'entry', 'state']
 
 
 " DEV:(replace): call substitute(nou#util#getline(), s:Rtaskline, '\=nou#util#print(lst, submatch(0))', 'g')
@@ -138,7 +138,7 @@ fun! nou#util#parsetask(...) abort
   let T = {}
   let T.pos = getpos('.')
   let l = elems[0]
-  let T[s:R_elems[0]] = {'m': l, s: '', 'b': 0, 'e': strlen(l), 'E': strlen(L)}
+  let T[s:R_elems[0]] = {'m': l, 's': '', 'B': 0, 'b': 0, 'e': strlen(l), 'E': strlen(L)}
 
   " NOTE: extract position of each submatch
   let c = 0
@@ -167,8 +167,8 @@ fun! nou#util#seek_E(T, elem, ...) abort
 endf
 
 fun! nou#util#merge_E(lhs, rhs) abort
-  return {'m': lhs.m + lhs.s + rhs.m, 's': rhs.s
-    \, 'B': lhs.B, 'b': lhs.b, 'e': rhs.e, 'E': rhs.E}
+  return {'m': a:lhs.m + a:lhs.s + a:rhs.m, 's': a:rhs.s
+    \, 'B': a:lhs.B, 'b': a:lhs.b, 'e': a:rhs.e, 'E': a:rhs.E}
 endf
 
 fun! nou#util#combo_task(...) abort
@@ -183,9 +183,9 @@ fun! nou#util#combo_task(...) abort
   let T.entry = nou#util#merge_E(T.task, T.body)  " WTF: dif. line .vs. entry
 
   " FIXME: B!=b if spaces surround state inside of goal
-  let T.state = {'m': T.goal.m[1:-2], 's': ''}
-  let T.state.B = T.state.b = T.goal.b + 1
-  let T.state.E = T.state.e = T.goal.e - 1
+  let T.state = {'m': T.goal.m[1:-2], 's': ''
+    \, 'B': T.goal.b, 'b': T.goal.b + 1
+    \, 'e': T.goal.e - 1, 'E': T.goal.e}
   return T
 endf
 
@@ -217,12 +217,11 @@ fun! nou#util#replace(elem, newval, ...)
   let L = a:0 ? a:1 : getline('.')
   let [_, Pb, Pe] = nou#util#Tpos(0, a:elem, nou#util#parsetask(L))
   " REF: [bufnum, lnum, col, off]
-  let L[Pb[2] : Pe[2]] = a:newval
-  return L
+  return L[:Pb[2]] . a:newval . L[Pe[2]:]
 endf
 
 """""""""""""""""""
-for s:nm in s:R_elems
+for s:nm in extend(copy(s:R_elems), s:R_combo)
   let s:fnm = 'nou#util#textobj_'. s:nm
   exe "fun! ".s:fnm."_i()\nreturn nou#util#Tpos(0,'".s:nm."')\nendf"
   exe "fun! ".s:fnm."_a()\nreturn nou#util#Tpos(1,'".s:nm."')\nendf"

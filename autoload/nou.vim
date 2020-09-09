@@ -11,7 +11,7 @@ fun! nou#vsel()
 endf
 
 
-fun! nou#util#vsel_apply(visual, fn)
+fun! nou#vsel_apply(visual, fn)
   " BUG: in VSEL mode wrong cursor pos: '.' == '<
   let pos = exists('*getcurpos') ? getcurpos() : getpos('.')
   " echom string(l:pos)
