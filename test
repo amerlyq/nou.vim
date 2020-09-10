@@ -1,5 +1,6 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
 # vim:ts=2:sw=2:sts=2
+set -o errexit -o errtrace -o noclobber -o noglob -o nounset -o pipefail
 cd "$(dirname "$(readlink -m "$0")")"
 
 [[ " $* " =~ " -v " ]] ||
@@ -13,15 +14,19 @@ cd "$(dirname "$(readlink -m "$0")")"
   'https://github.com/junegunn/vader.vim' \
   "$TMPDIR/vader.vim"
 
-$EDITOR -i NONE -U NONE -u <(cat <<<'
+exec {fd1}<<'EOT'
   filetype off
   set rtp+=$TMPDIR/vader.vim,.
   filetype plugin indent on
   syntax enable
-') -nNesS <(cat <<<'
+EOT
+
+exec {fd2}<<'EOT'
   Vader! t/*.vader
   qall!
-') || exit $(($?-1))
+EOT
+
+$EDITOR -i NONE -U NONE -u "/dev/fd/$fd1" -nNesS "/dev/fd/$fd2" || exit $(($?-1))
 
 # ALT: [[ $? -eq 1 && $EDITOR == nvim ]]
 # BUG: on ubuntu/travis exit code ok:1 err:2 for nvim/vim ~7.4.712

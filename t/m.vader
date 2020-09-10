@@ -1,8 +1,0 @@
-= :AgGroup regex
-
-================================
-Given (word):
-  singleword
-
-Execute (check):
-  AssertEqual '', SyntaxAt(1,1)

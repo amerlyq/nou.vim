@@ -1,0 +1,33 @@
+= :omap :: taskgoal
+" BAD:REF:(:h normal): {commands} cannot start with a space
+"   HACK:(prepending): <LocalLeader>X => \<Esc>\<Space>X
+"   FAIL:(leader="\"): exe "norm \<Space>"
+" let g:maplocalleader = "\<Space>"
+================================
+Execute:
+  let g:maplocalleader = '_'
+  source $PWD/ftplugin/nou.vim
+  setf nou
+
+================================
+Given:
+  [_] task
+Do:
+  _X
+Expect:
+  [X] task
+================================
+Given:
+  [X] task
+Do:
+  _\<Space>
+Expect:
+  [_] task
+================================
+Given:
+  [_] task
+Do:
+  _+
+Expect:
+  [+] task
+================================
