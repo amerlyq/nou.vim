@@ -109,7 +109,7 @@ let s:Rtask = ''
 " \7 = mood
 " \8 = tags
 " \9 = text
-let s:R_elems = ['line', 'lead', 'date', 'goal', 'time', 'dura', 'assoc', 'mood', 'tags', 'text']
+let nou#util#T_elems = ['line', 'lead', 'date', 'goal', 'time', 'dura', 'assoc', 'mood', 'tags', 'text']
 let s:Rtaskline = ''
   \.'%(('.s:Rlinebeg.')\s*)?'
   \.'%('.s:Rtask.'\s*)?'
@@ -123,7 +123,9 @@ let s:Rtaskline = ''
 " meta = assoc + mood + tags
 " body = meta + text
 " entry/whole = <all> - indent
-let s:R_combo = ['status', 'span', 'plan', 'task', 'meta', 'actx', 'body', 'entry', 'state']
+let nou#util#T_combo = ['status', 'span', 'plan', 'task', 'meta', 'actx', 'body', 'entry', 'state']
+let nou#util#T_all = nou#util#T_elems + nou#util#T_combo
+" extend(copy(nou#util#T_elems), nou#util#T_combo)
 
 
 " DEV:(replace): call substitute(nou#util#getline(), s:Rtaskline, '\=nou#util#print(lst, submatch(0))', 'g')
@@ -138,7 +140,7 @@ fun! nou#util#parsetask(...) abort
   let T = {}
   let T.pos = getpos('.')
   let l = elems[0]
-  let T[s:R_elems[0]] = {'m': l, 's': '', 'B': 0, 'b': 0, 'e': strlen(l), 'E': strlen(L)}
+  let T[g:nou#util#T_elems[0]] = {'m': l, 's': '', 'B': 0, 'b': 0, 'e': strlen(l), 'E': strlen(L)}
 
   " NOTE: extract position of each submatch
   let c = 0
@@ -153,7 +155,7 @@ fun! nou#util#parsetask(...) abort
     ""   ALT:(workaround): start inserting from the end to keep positions
     " call add(mpos, printf('[%d,%d] %s"', b, e, strpart(L, b, e - b)))
     " return join(mpos, "\n")
-    let T[s:R_elems[i]] = {'m': m, 's': s, 'B': b, 'b': b + 1, 'e': e, 'E': c}
+    let T[g:nou#util#T_elems[i]] = {'m': m, 's': s, 'B': b, 'b': b + 1, 'e': e, 'E': c}
   endfor
   return T
 endf
@@ -189,6 +191,15 @@ fun! nou#util#combo_task(...) abort
   return T
 endf
 
+fun! nou#util#get(...)
+  let T = a:0>=2 ? a:2 : nou#util#parsetask()
+  if a:0<1| return T |en
+  " NOTE: lazy extend
+  if index(g:nou#util#T_elems, a:1)<0| let T = nou#util#combo_task(T) |en
+  let T[a:1].pos = T.pos
+  return T[a:1]
+endf
+
 fun! nou#util#Targs(...)
   if a:0>1| return a:000
   elseif a:0<1||a:1==0| return ['b', 'e']
@@ -200,15 +211,12 @@ endf
 
 " FIXME: if new line is the same -- don't modify it to preserve buffer state
 "   TRY: return empty list i.e. invalid textobj selection ?
-fun! nou#util#Tpos(outer, elem, ...)
-  let T = a:0 ? a:1 : nou#util#parsetask()
-  " NOTE: lazy extend
-  if index(s:R_elems, a:elem) < 0| let T = nou#util#combo_task(T) |en
-  let x = T[a:elem]
-  let [b, e] = nou#util#Targs(a:outer)
-  let Pb = deepcopy(T.pos)
+fun! nou#util#Tpos(spaced, elem, ...)
+  let x = call('nou#util#get', [a:elem] + a:000)
+  let [b, e] = nou#util#Targs(a:spaced)
+  let Pb = deepcopy(x.pos)
   let Pb[2] = x[b]
-  let Pe = deepcopy(T.pos)
+  let Pe = deepcopy(x.pos)
   let Pe[2] = x[e]
   return ['v', Pb, Pe]
 endf
@@ -217,11 +225,12 @@ fun! nou#util#replace(elem, newval, ...)
   let L = a:0 ? a:1 : getline('.')
   let [_, Pb, Pe] = nou#util#Tpos(0, a:elem, nou#util#parsetask(L))
   " REF: [bufnum, lnum, col, off]
+  " echo [Pb[2], Pe[2]]
   return L[:Pb[2]] . a:newval . L[Pe[2]:]
 endf
 
 """""""""""""""""""
-for s:nm in extend(copy(s:R_elems), s:R_combo)
+for s:nm in nou#util#T_all
   let s:fnm = 'nou#util#textobj_'. s:nm
   exe "fun! ".s:fnm."_i()\nreturn nou#util#Tpos(0,'".s:nm."')\nendf"
   exe "fun! ".s:fnm."_a()\nreturn nou#util#Tpos(1,'".s:nm."')\nendf"
