@@ -240,6 +240,7 @@ syn match nouDate display excludenl
   \ '\v<%(19|20)\d\d-%(0\d|1[012])%(-%([012]\d|3[01])%(-\u\l\l?)?)?%(-W%([0-4]\d|5[0-3]))?>'
 syn match nouDate display excludenl '\v<20\d\d-W%([0-4]\d|5[0-3])>'
 syn match nouDate display excludenl '\v<CW%([0-4]\d|5[0-3])>'
+syn match nouDate display excludenl '\v<20\d\d-Q[1-4]>'
 
 " e.g. 20161114 OR 20161114_043540
 syn match nouDate display excludenl
