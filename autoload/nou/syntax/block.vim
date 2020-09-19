@@ -26,6 +26,9 @@
 "     PEG0      S4    *enabled   pci:0000:00:01.0
 "  BAD: not aligned commands with and w/o output
 "  MAYBE:NICE: use "¦" blocks with dark background as output
+"  BET:HACK: use "nextgroup" and treat any lines after "$ ..." as output
+"    NICE: use grayed-out hi! for lines to distinguish from white commands in "$ ..."
+"    USAGE: endblock ::= indent(nextline) < indent($...) OR: nextline=startswith($...)
 
 " REF: Backreference for syntax region - Vi and Vim Stack Exchange ⌇⡞⡮⡴⠱
 "   https://vi.stackexchange.com/questions/15391/backreference-for-syntax-region
