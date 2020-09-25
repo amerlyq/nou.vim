@@ -8,13 +8,11 @@ syn cluster nouArtifactQ add=nouHashTag
 "   NEED: "nextgroup=" and body \S => [^#[:space:]]
 " ALSO:MAYBE:CHG: allow only single '#' before tags
 
-" TODO: hi. "tag-parameters" OR "parametric tags" e.g. #pc:vps
-
 " MAYBE:USE: for &ref-tag
 " hi nouHashTag cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=62 guifg=#5f5fdf
 
 hi nouHashTag cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=142 guifg=#afaf00
-syn match nouHashTag display excludenl contains=nouHashTagPfx
+syn match nouHashTag display excludenl contains=nouHashTagPfx,nouHashTagParam
   \ /\v%(^|[(\[{,;|[:space:]]@1<=)%([#]+\k\S{-})%([|;,}\])[:space:]]@1=|$)/
 
 
@@ -25,3 +23,6 @@ syn match nouHashTag display excludenl contains=nouHashTagPfx
 " OR:(light): compromise
 hi nouHashTagPfx cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=136 guifg=#bf7f00
 syn match nouHashTagPfx display excludenl contained '[#]'
+
+hi nouHashTagParam cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=10 guifg=#958e68
+syn match nouHashTagParam display excludenl contained ':[^:#]\+'
