@@ -25,4 +25,4 @@ hi nouHashTagPfx cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=136 guifg=#
 syn match nouHashTagPfx display excludenl contained '[#]'
 
 hi nouHashTagParam cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=10 guifg=#958e68
-syn match nouHashTagParam display excludenl contained ':[^:#]\+'
+syn match nouHashTagParam display excludenl contained ':[^:#[:blank:]]\+'
