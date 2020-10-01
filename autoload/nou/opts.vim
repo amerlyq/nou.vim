@@ -68,7 +68,7 @@ let s:nou.term.colors = {
   \ 'Wrn': ['\~', '\~', 'ctermfg=142 guifg=#b4b400 gui=bold,italic'],
   \ 'Add': ['\+', '\+', 'ctermfg=34 guifg=#00b400 gui=bold,italic'],
   \ 'Emf': ['\=', '\=', 'ctermfg=62 guifg=#5f5fdf gui=bold,italic'],
-  \ 'Not': ['\-', '\-', 'ctermfg=38 guifg=#00afdf gui=bold,italic,undercurl'],
+  \ 'Not': ['\-', '\-', 'ctermfg=38 guifg=#00afdf gui=bold,italic,strikethrough'],
   \ 'BldH': ['\*\*', '\*\*', 'ctermfg=254 guifg=#e4e4e4 gui=bold cterm=bold'],
   \ 'KeyH': ['\<\<', '\>\>', 'ctermfg=1 guifg=#dc322f gui=bold'],
   \ 'DotH': ['\.\.', '\.\.', 'ctermfg=81 guifg=#5fdfff gui=bold'],

@@ -349,6 +349,7 @@ syn cluster nouTextQ add=@Spell,@nouGenericQ,@nouTaskQ
 
 " WARNING: define after accents!
 runtime autoload/nou/syntax/block.vim
+runtime autoload/nou/syntax/xtref.vim
 
 " EXPL: must be last line -- set single-loading guard only if no exceptions
 let b:current_syntax = 'nou'

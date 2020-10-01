@@ -72,15 +72,15 @@ let s:Rwebref = '\^\k\S{-}'
 let s:Rhashtag = '[#]\k\S{-}'
 let s:Rtag = '[#@^]\k\S{-}'  " OR: %('.s:Rperson.'|'.s:Rwebref.'|'.s:Rhashtag.')
 let s:Rtags = '%(\s*'.s:Rtag.')+'
-let s:Rxtpin = '\u2307'.s:Rbraille  " OR: /⌇[⠀-⣿]{4}/
-let s:Rxtref = '\u203b'.s:Rbraille  " OR: /※[⠀-⣿]{4}/
+let nou#util#Rxtpin = "\u2307".s:Rbraille  " OR: /⌇[⠀-⣿]{4}/
+let nou#util#Rxtref = "\u203b".s:Rbraille  " OR: /※[⠀-⣿]{4}/
 
 "" TODO: search by regex whole "ctx" and then use #seekE() to pick tags/group/etc.
-" let s:Rctx = '%(\s*%('.s:Rtags.'|'.s:Rgroup.'|'.s:Rvar.'|'.s:Rwebref.'|'.s:Rperson.'|'.s:Rxtref.'))+'
+" let s:Rctx = '%(\s*%('.s:Rtags.'|'.s:Rgroup.'|'.s:Rvar.'|'.s:Rwebref.'|'.s:Rperson.'|'.nou#util#Rxtref.'))+'
 
 "" body
-" BUG: consumes trailing everything :: s:Rxtref, ...
-" NEED: search s:Rxtref from any position inside of a line
+" BUG: consumes trailing everything :: nou#util#Rxtref, ...
+" NEED: search nou#util#Rxtref from any position inside of a line
 " TODO: ignore developer's trailing comments e.g. ... #% ...
 let s:Rtext = '.*'
 let s:Rexplanation = s:Rcomment.s:Rtext
@@ -89,7 +89,7 @@ let s:Rbody = ''
   \.'%(('.s:Rmood.')\s+)?'
   \.'%(('.s:Rtags.')%(\s+|$))?'
   \.'('.s:Rtext.')\s*'
-  " \.'%('.s:Rxtref.'\s*)?'
+  " \.'%('.nou#util#Rxtref.'\s*)?'
   " \.'%('.s:Rexplanation.'\s*)?'
 
 let s:Rtask = ''
