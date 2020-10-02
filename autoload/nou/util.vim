@@ -3,7 +3,8 @@
 
 "" linebeg
 " FIXME: use function -- to get local &cms per fmt ALSO parse whole range of &comments
-let s:Rcomment = printf(&commentstring, '\s*')  " OR: '['. &commentstring[0] .']+\s*'
+" OR: '['. &commentstring[0] .']+\s*'
+let s:Rcomment = printf((&l:cms ? &l:cms : &g:commentstring), '\s*')
 let s:Rindent = '\s*'
 let s:Rsubject = '.*'.s:Rcomment
 
