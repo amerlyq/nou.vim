@@ -3,6 +3,7 @@
   [_] DEV add to nou#bar() ability to prepend line by 'decision'
     * '??' : 2<LocalLeader>?
     * '!4' : 4<LocalLeader>!
+  [_] MAYBE:USE: arrows ↓↑ instead of +/- in decision prefix
 
 
 %%% Decision

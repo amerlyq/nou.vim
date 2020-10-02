@@ -128,6 +128,12 @@ SEE: prio-mgmt ※⡟⠛⠎⠰
   ? [_] questionable     │  [_] ? questionable     │  [?] questionable     │  [?0] questionable
   ~~~ [_] very dubious   │  [_] ~~~ very dubious   │  [~~~] very dubious   │  [~3] very dubious
 
+  IDEA: relative prio change
+    [↑] task prio had risen, add to persistent daily agenda
+    [↓] task prio had lowered (maybe after some work was done), remove on next agenda review
+  SEE: @/erian/fonts/PragmataPro0.828/USEFUL\ FILES/All_chars.txt:200
+      U+2190  ← ↑ → ↓ ↔ ↕ ↖ ↗ ↘ ↙ ↚ ↛ ↜ ↝ ↞ ↟
+
   2021-03-20 [_] planned (future)    // OR:BET? deadline
   2020-09-20 [!] scheduled (future)  // OR:BET? deadline
   2020-07-25 [X] completed (past)

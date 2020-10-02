@@ -10,6 +10,8 @@ TODO
     http://unix.stackexchange.com/questions/60481/match-word-containing-characters-beyond-a-za-z
     http://stackoverflow.com/questions/19385458/vim-regex-matches-unicode-characters-are-as-non-word
     [_] ALT:BET?TODO: switch hi! places for todo [_] and decision "!!" markers
+  [_] TRY:ADD: additional syntax constructs specially for .cal ft
+    i.e. additional options like fdm=marker and highlight occured /^<time>/ as "reverse"
 
 
 OVERHAUL taskgoal syntax ⌇⡟⠝⡰⣚
