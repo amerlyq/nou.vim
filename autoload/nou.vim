@@ -88,13 +88,21 @@ fun! nou#path_open(path, ...)
   let p = strpart(p, idx)
 
   " FIXME: ./path/ must count from current file, not cwd
-  if pfx ==# '' || pfx ==# '.' || pfx ==# '..' | let p = pfx . p
+  " ENH: prepend mounted-at / remote-host prefix FIXME: '~' = remote $HOME
+  " THINK: distinguish "here" and "there" for path relative to current file
+  if pfx ==# ''  " NOTE:(/...): use abspath as-is
+  elseif pfx ==# '.' | let p = expand('%:h') . p " NOTE:(./): rel to curr file
+  " elseif pfx ==#'..' | let p = expand('%:h').'/'.pfx . p " NOTE: rel to 'here'
+  elseif pfx ==#'..' | let p = expand('%:p:h:h') . p " NOTE:(../): rel to 'there'
   elseif pfx ==# '~' | let p = $HOME . p
-  elseif pfx ==# '%' | let p = expand('%:h') . p  " CHECK: different $PWD
   elseif pfx ==# '@' | let p = $HOME .'/aura'. p  " BAD: I have nested repo
   elseif pfx ==# '♆' | let p = $HOME .'/aura/airy'. p . '/setup'
   elseif pfx ==# '☆' | let p = '/x'. p
   elseif pfx ==# '★' | let p = '/x/_fav'. p
+  " BET? merge and replace '//' by '%'
+  "   OR split WF and use '=/' for file-local vars
+  "   OR:BET: use VARs ::  '$var/path' where ⋮var=/path/to⋮ is defined in file
+  elseif pfx ==# '%' | let p = getcwd() . p  " CHECK: different $PWD
   elseif pfx ==# '/'
     " TODO: search ctx ⋮//=/path/to/dir⋮ inside same file above current line
     let d = get(b:,'nou',g:nou).loci

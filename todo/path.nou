@@ -29,7 +29,7 @@
     i.e. highlight whole continuous "/path/with space⋮"
     BUT: must never use this char in common texts
   [_] overload <gf/gF/gC-f> to jump to @/demo/ open @/airy/Makefile or repo-related :/README.md
-  [_] BET:CHG: path prefixes
+  [_] BET:CHG: <gf> path prefixes CHG exchange "./" and "%/"
     | :/ -> ./ | then vim auto-completion will work by itself, if current file is opened from its own dir
     | ./ -> %/ | so % becomes the same as $PWD
     | @/ -> git| search for any git/hg/VCS repo matching @/nm/ from root of /x/* onwards
@@ -42,10 +42,10 @@
   Desc + diagrams
     Embed links to files
       [_] NEED: override gf/gF in vim -- and fallback to general 'gf'
-      - path from pwd ./
-      - relative to current file :/ or .//
-      - relative to repo :=/ or ://
-      - search in $PATH or in user-list of paths %/
+      - path from pwd ./ BET=%/
+      - relative to current file :/ or .// BET=./
+      - relative to repo :=/ or :// BET=:/  ALSO: use ":/" for myexe-relative data SEE: @/piony
+      - search in $PATH or in user-list of paths %// or ?/ BET=…/
         E.G. %/airy/Makefile -- :lcd to '%' where placed 'airy' first, then open file
     Different prefix and color
       - distinguish from static path hi!

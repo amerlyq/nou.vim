@@ -69,9 +69,10 @@ let s:Rmood = '[-*•@+=:~?!<>]{-1,3}'
 
 "" tags
 let s:Rperson = '\@\k\S{-}'
-let s:Rwebref = '\^\k\S{-}'
+let s:Rwebref = '\^\k\S{-}'  " OR: pj-ref
 let s:Rhashtag = '[#]\k\S{-}'
-let s:Rtag = '[#@^]\k\S{-}'  " OR: %('.s:Rperson.'|'.s:Rwebref.'|'.s:Rhashtag.')
+let s:Rconcept = '[&]\k\S{-}'
+let s:Rtag = '[#@^&]\k\S{-}'  " OR: %('.s:Rperson.'|'.s:Rwebref.'|'.s:Rhashtag.'|'.s:Rconcept.')
 let s:Rtags = '%(\s*'.s:Rtag.')+'
 let nou#util#Rxtpin = "\u2307".s:Rbraille  " OR: /⌇[⠀-⣿]{4}/
 let nou#util#Rxtref = "\u203b".s:Rbraille  " OR: /※[⠀-⣿]{4}/
