@@ -1,5 +1,5 @@
 """ Tag
-syn cluster nouArtifactQ add=nouHashTag
+syn cluster nouArtifactQ add=nouHashTag,nouConceptTag
 
 " THINK: hashtags -- directly attached to words - EXPL: @some #tag &link
 
@@ -24,5 +24,18 @@ syn match nouHashTag display excludenl contains=nouHashTagPfx,nouHashTagParam
 hi nouHashTagPfx cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=136 guifg=#bf7f00
 syn match nouHashTagPfx display excludenl contained '[#]'
 
-hi nouHashTagParam cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=10 guifg=#958e68
+hi nouHashTagParam cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=101 guifg=#958e68
 syn match nouHashTagParam display excludenl contained ':[^:#[:blank:]]\+'
+
+
+""" Concepts
+" [_] TRY:DEV: dereferencing by <g[> and <gf>
+hi nouConceptTagPfx cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=30 guifg=#008787
+syn match nouConceptTagPfx display excludenl contained '[&]'
+
+hi nouConceptTag cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=36 guifg=#00af87
+syn match nouConceptTag display excludenl contains=nouConceptTagPfx,nouConceptTagParam
+  \ /\v%(^|[(\[{,;|[:space:]]@1<=)%([&]+\k\S{-})%([|;,}\])[:space:]]@1=|$)/
+
+hi nouConceptTagParam cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=66 guifg=#5f8787
+syn match nouConceptTagParam display excludenl contained ':[^:&[:blank:]]\+'
