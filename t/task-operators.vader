@@ -11,12 +11,13 @@ Execute:
   " TODO: reuse s:Rstate as list of 'L_goal' values
   " BAD: test commented groups in .nou treated as text
   "   :: 'lead': ['#', '# ', '  #', '  # ', 'code  # ', '#%', '//', 'code  // ']
+  " CHG:(disallowed): "dura=1.5h"
   let g:t_oldE =
   \{ 'lead': ['', ' ', '  ']
   \, 'date': ['', '2020-09-13']
   \, 'goal': ['', '[_]', '[X]', '[$]', '[⡟⡞⡑⢣]', '[>]', '[!]', '[!2]', '[?]', '[1]']
   \, 'time': ['', '08:40', '7:30', '00:00', '24:23', '11:62']
-  \, 'dura': ['', '15m', '1h', '1.5h', '2h10m']
+  \, 'dura': ['', '15m', '1h', '2h10m']
   \, 'assoc': ['', 'me', 'W', 'home']
   \, 'mood': ['', '+', '~~', '---', '?.']
   \, 'tags': ['', '#tag', '#tag1#tag2', '#tag1 #tag2', '@name #tag']

@@ -266,8 +266,9 @@ syn match nouTime display excludenl
 " ADD? volume-speed 1h/task OR task/1h
 hi! nouTimeSpan cterm=bold,undercurl gui=bold,undercurl ctermfg=135 guifg=#4f7fef
 syn cluster nouArtifactQ add=nouTimeSpan
+" ALT:OLD: syn match nouTimeSpan display excludenl '\v<%(\d+[wdhms]){1,5}>'
 syn match nouTimeSpan display excludenl
-  \ '\v<%([0-9.]+[wdhms]){1,5}>'
+  \ '\v<%(\d+[wdhms]|\d+w\d+d|\d+d\d+h|\d+h\d+m|\d+m\d+s)>'
 
 
 "" ATT: must be after nouNumber to override date
