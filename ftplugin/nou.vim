@@ -41,7 +41,21 @@ nnoremap <Plug>(nou-date) "=strftime('%Y-%m-%d')<CR>P
 xnoremap <Plug>(nou-date) "=strftime('%Y-%m-%d')<CR>P
 nnoremap <Plug>(nou-datew) "=strftime('%Y-%m-%d-%a-W%V')<CR>P
 inoremap <Plug>(nou-date) <C-R>=strftime('%Y-%m-%d')<CR>
-iabbrev <expr> !dts! strftime('%Y-%m-%d')
+
+" THINK:BET:USE: `dts` like in Wolfram
+inoreab <buffer><expr> !dts! strftime('%Y-%m-%d')
+
+" SEE: https://www.thetopsites.net/article/58187038.shtml
+" BAD: substitute(getline('.'), '^\s*\zs['.a:sym.']\ze $', a:rpl, '')
+function! s:lead_correct(sym, rpl)
+  let y = trim(getline('.')[:col('.')])[0] == a:sym
+  return y ? a:rpl : a:sym
+endfunction
+" ALT: inoreab <buffer> . <C-r>=<sid>lead_correct('.', '•')<CR>
+" FAIL: inoreab <buffer><expr> \<Space>\<Space>.\<Space> "  • "
+" [_] FAIL: enlarges first dot in "^   ..."
+inoreab <buffer><expr> . <sid>lead_correct('.', '•')
+
 
 " [_] FAIL: path with spaces is cropped e.g. "@/so\ me/" OR "⋮@/so me/⋮"
 nnoremap <silent> <Plug>(nou-path-open) :call nou#path_open(expand('<cWORD>'))<CR>
