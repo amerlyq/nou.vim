@@ -53,9 +53,9 @@ let s:Rstate0 = '%([_]|[@!?]|[0-9])'
 let s:RstateN = '[X+$]'
 let s:RstateD = '%('.s:RstateN.'|'.s:Rbraille.'|'.s:Rdatetime.')'
 let s:Rstate = '%('.s:Rstate0.'|'.s:RstateN.')'
-let s:Rtodo = '%(\['.s:Rstate0.'\]|'.s:Rprogress0.')'
+let nou#util#Rtodo = '%(\['.s:Rstate0.'\]|'.s:Rprogress0.')'
 let s:Rdone = '%(\['.s:RstateD.'\]|'.s:RprogressN.')'
-let s:Rgoal = '%('.s:Rtodo.'|'.s:Rdone.')'
+let s:Rgoal = '%('.nou#util#Rtodo.'|'.s:Rdone.')'
 
 "" duration
 let s:Rtimespan = '%([0-9.]+[wdhms]){1,5}>'

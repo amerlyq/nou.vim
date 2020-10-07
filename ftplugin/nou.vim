@@ -61,8 +61,8 @@ inoreab <buffer><expr> . <sid>lead_correct('.', '•')
 nnoremap <silent> <Plug>(nou-path-open) :call nou#path_open(expand('<cWORD>'))<CR>
 xnoremap <silent> <Plug>(nou-path-open) :<C-u>call nou#path_open(nou#vsel())<CR>
 
-nnoremap <silent> <Plug>(nou-task-next) /\V[_]<CR>n
-xnoremap <silent> <Plug>(nou-task-next) <Esc>/\V\%V[_]<CR>n
+nnoremap <silent> <Plug>(nou-task-next) :call setreg('/', '\v'.nou#util#Rtodo, 'c')<CR>n
+xnoremap <silent> <Plug>(nou-task-next) :<C-u>call setreg('/', '\v%V'.nou#util#Rtodo, 'c')<CR>n
 
 " FIXME: use vim function to insert 0-line
 nnoremap <Plug>(nou-spdx-header) 1G"=nou#spdx_header()<CR>P
