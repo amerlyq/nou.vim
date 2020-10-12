@@ -97,6 +97,7 @@ call nou#syntax#artf_function()
 "   DEV: toggle by option -- individual colors or general one
 "     NOTE: general has merits of contrast and more performance than individual
 
+runtime autoload/nou/syntax/operator.vim
 for k in keys(g:nou.term.colors)
   call nou#syntax#term(k)
 endfor
