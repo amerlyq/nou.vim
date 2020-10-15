@@ -38,11 +38,10 @@ fun! nou#bar(...) range
   endif
   if pfx =~# 'T'
     " HACK: asymmetric rounding to nearest 5min interval :: 02+ -> 05, 07+ -> 10
-    " BUG: 23:58 -> 24:00
     let ivl5 = str2float(strftime('%M')) / 5
     let min5 = float2nr(round(ivl5 + 0.1) * 5)
-    let hour = float2nr(str2float(strftime('%H')))
-    let now = (a:2 == 0) ? printf('%02d:%02d', hour + min5/60, min5 % 60)
+    let hour = float2nr(str2float(strftime('%H'))) + min5/60
+    let now = (a:2 == 0) ? printf('%02d:%02d', hour % 24, min5 % 60)
           \: a:2 < 24 ? printf('%02d:00', a:2)
           \: a:2 >= 100 ? printf('%02d:%02d', a:2 / 100, a:2 % 100)
           \: a:2 == 24 ? '00:00'
