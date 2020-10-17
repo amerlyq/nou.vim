@@ -95,3 +95,56 @@ OVERHAUL taskgoal syntax ⌇⡟⠝⡰⣚
     U+2770              ❶ ❷ ❸ ❹ ❺ ❻ ❼ ❽ ❾ ❿
     U+2780  ➀ ➁ ➂ ➃ ➄ ➅ ➆ ➇ ➈ ➉ ➊ ➋ ➌ ➍ ➎ ➏
     U+2790  ➐ ➑ ➒ ➓
+
+
+%%% Status
+
+Postponed/rescheduled "[>]" ⌇⡟⡅⣨⡥
+  USAGE
+    - task couldn't fit the capacity of that day
+    - incident occured
+    - if checked blocker and must WAIT more for results)
+    - "REQ was done" => "WAIT future results"
+
+  "[>]" .vs. "[>5]" markers to estimate overdue/priority
+    IDEA: use explicit number (e.g. "[>5]") of times task was consciously replanned/postponned
+    BUT: no need to track it explicitly
+      BET use git history and estimate time between appearance and closing
+      OR: add xtref to each recurrent task when it baked each time
+      ALT:(simpler): find last closed entry and compare to recurrent interval
+  ALT: annotate each baked event by expired=`2y`=(now-last-period)
+
+  ALT:BET: add xts-train of postponement
+    "[>]" my task postponed 3 times ⌇⡟⢋⡁⣂ <⡟⢃⢜⡇>⡟⢃⢜⡇>⡟⢃⢜⡇>
+    ALSO:SEE: xts-train of rememberance ※⡟⢃⢟⢿
+
+  CMP: train.task-execution-planned-time .vs. train.decision-moment-of-postponing
+    (1) immediately add xts-train by future planned time
+      BAD: unreliable -- almost 100% will change at the day of planning
+        i.e. xts-train meaning will be "list of failure attempts to predict task execution time"
+      NICE: xts-train reflects "overdue/latency" times which are almost the same as "contract breach"
+        BUT: to know the reactive "decision inertion time" we still must save "time-of-replanning-decision" (2)
+    (2) ADD xts-train of current decision times
+      NICE: reflects chain of times when task held my attention
+        BUT: is it useful for anything ?
+          ~~ I have fixed "replanning windows" at both morning and evening, so whole train will fit into them
+      FAIL: if I retrack to 3-days old forgotten task --
+        its 'decision time' won't reflect the period of ignorance/avoidance
+    (3) BET: when moving tasks keep mixed history in xts-train
+      - save item's old planned time for tasks with time "[_] xx:yy"
+      - OR that day's 00:00 if planned time is absent "[@]" / "[!]"
+      - NOTE: don't fallback to 'decision time' to avoid (2).FAIL
+      NICE: no loose predictions of future -- only precise post-factum timeline
+
+  CMP: status_of("[>]") == "done" .vs. "todo"
+    :: convert status "[_]" -> "[>]" when postponing
+    (1) NOW: treat "[>]" as status=done
+      - copy([>]) task (with "[_]" status) to future date
+      - keep each previous "[>]" copy in all agendas/files its was planned to
+        NICE: keep tasks in their original planning ctxs to bind my task-flow together
+        FAIL:(useless): after day is "closed" the original ctx is almost always totally lost
+        BAD: duplicated but still always somewhat different text in different agendas
+    (2) BET? treat "[>]" as status=todo
+      - MOVE postponed task to future date
+      - keep only single task (in the most recent agenda) -- delete all unaccomplished plans
+        NOTE: .git history still keeps intermediate states -- if you MOVE only once per commit

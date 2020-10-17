@@ -150,15 +150,9 @@ SEE: prio-mgmt ※⡟⠛⠎⠰
     [+] unrelated completed subtask -- finished in the same timeslot
     [+] 30m unrelated activity in same timeframe
     [~] partially achieved OR achieved in some another nonpresumable way
-    MAYBE: [>] postponed/rescheduled :: "REQ was done" => "WAIT future results"
-      "[>]" .vs. "[>5]" markers to estimate overdue/priority ⌇⡟⡅⣨⡥
-        IDEA: use explicit number (e.g. "[>5]") of times task was consciously replanned/postponned
-        BUT: no need to track it explicitly
-          BET use git history and estimate time between appearance and closing
-          OR: add xtref to each recurrent task when it baked each time
-          ALT:(simpler): find last closed entry and compare to recurrent interval
-      ALT: annotate each baked event by expired=`2y`=(now-last-period)
-    MAYBE: [<] already done (as part of another project -- to distinguish with [$])
+    [>] postponed/rescheduled if unfinished ※⡟⢋⡁⣂
+    MAYBE: [<] already done (as part of another project)
+      -- to distinguish from "true task" status [$] or [X]
   2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> +++ ^JIRA-12345 @user #tag1#tag2 ultimate ⌇⡟⠉⠁⠸
 
 

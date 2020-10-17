@@ -73,6 +73,32 @@ xnoremap <silent> <Plug>(nou-task-next) :<C-u>call setreg('/', '\v%V'.nou#util#R
 " FIXME: use vim function to insert 0-line
 nnoremap <Plug>(nou-spdx-header) 1G"=nou#spdx_header()<CR>P
 
+" ALSO:TODO: space-p to postpone ⌇⡟⢋⡚⡀
+" convert status "[_]" -> "[>]" when postponing
+" - save item's old planned time for tasks with time "[_] xx:yy"
+" - use next completed task as a deadline for "[_]" subtasks
+" - use "[braille]" for completed tasks
+"   i.e. cancel their completion and register ony fact of attention
+" - OR that day's 00:00 if planned time is absent "[@]" / "[!]"
+"
+"" NOTE: map yx -> convert task(time_completion + date-fallback) into xts
+" fun! s:yank_xts(a:finished)
+"   if a:finished
+"     " use next task start time OR completion time from progress
+"     " if no date
+"     let xts = match(nou#util#Rbraille, nou#util#get('status'))
+"     if !length(xts)
+"       let xdt = get(planned_time) OR: match(nou#util#Rdate, expand('%'))
+"       let ts = nou#util#get('time', getline(line('.')+1))
+"       let xts = substitute(printf('%08x', strftime('%s', xdt.' '.ts)), '..', '\=nr2char("0x28".submatch(0))', 'g')
+"     end
+"   else
+"     " use next time OR completion time from progress
+"   end
+"   call setreg('"', xts, 'c')
+" endf
+" nnoremap <buffer> <Plug>(nou-task-xts-beg) :call <sid>yank_xts(0)<CR>
+" nnoremap <buffer> <Plug>(nou-task-xts-end) :call <sid>yank_xts(1)<CR>
 
 " TEMP:TRY:
 nnoremap <silent> <Plug>(nou-state-subtask) :call nou#vsel_apply(0,{x->nou#util#replace('state','+',x)})<CR>
@@ -80,6 +106,8 @@ xnoremap <silent> <Plug>(nou-state-subtask) :<C-u>call nou#vsel_apply(1,{x->nou#
 
 let s:nou_mappings = [
   \ ['nx', 'gf', '<Plug>(nou-path-open)'],
+  \ ['n', 'yX', '<Plug>(nou-task-xts-beg)'],
+  \ ['n', 'yx', '<Plug>(nou-task-xts-end)'],
   \ ['nx', '<LocalLeader>n', '<Plug>(nou-task-next)'],
   \ ['nx', '<LocalLeader>i', '<Plug>(nou-date)'],
   \ ['n', '<LocalLeader>I', '<Plug>(nou-datew)'],
