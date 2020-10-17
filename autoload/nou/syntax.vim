@@ -234,6 +234,8 @@ fun! nou#syntax#artf_contact()
 endf
 
 " FIXME: nested function inside @nouSpoilerQ
+" [_] BUG: \k don't include "-" in expr "same-as(...)"
+"   BET: use /\w\k*/ + always include "-" in \k + surround fns by spaces
 fun! nou#syntax#artf_function()
   let nm = 'nouArtifactFunction'
   exe 'syn cluster nouArtifactQ add='.nm
