@@ -34,7 +34,7 @@ fun! nou#bar(...) range
   if pfx =~# '[_$X]'
     let pg = a:2 < 10 ? a:2*10 : a:2 >= 100 ? a:2 % 100 : a:2
     let mrk = '['. (a:2 ? printf('%02d', pg).'%' : '&') .'] '
-    let pfx = substitute(pfx, '[_$X]', mrk, '')
+    let pfx = substitute(pfx, '[_$X]', mrk.'\\2', '')
   endif
   if pfx =~# 'T'
     " HACK: asymmetric rounding to nearest 5min interval :: 02+ -> 05, 07+ -> 10
@@ -66,9 +66,9 @@ fun! nou#bar(...) range
       \ '\v^(\s*%([^[:alpha:][:blank:][\]]{-1,3}\s+)?)'
       \.'%(<\d{4}-%(0\d|1[012])-%([012]\d|3[01])>\s*)?'
       \.'%(\[%([_$X]|[\u2800-\u28FF]{4}|\d\d\%)\]\s*)?'
-      \.'%(<%(\d|[01]\d|2[0-4]):[0-5]\d%(:[0-5]\d)?>\s*)?'
+      \.'(<%(\d|[01]\d|2[0-4]):[0-5]\d%(:[0-5]\d)?>\s*)?'
       \.'(.*)$',
-      \ '\1'.pfx.'\2', '')
+      \ '\1'.pfx.'\3', '')
     if chgd !=# line| call setline(i, chgd) |en
   endfor
 
