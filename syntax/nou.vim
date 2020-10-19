@@ -60,9 +60,17 @@ syn match nouArtifactIndex display excludenl
 syn cluster nouArtifactQ add=@nouArtifactEmojiQ
 " SEE: https://emojipedia.org/red-heart/
 " VIZ: green=💚 yellow=💛 orange=🧡 brown=🤎 purple=💜 blue=💙 white=🤍♡ black=🖤♥ spark=💖 broken=💔 two=💕 glow=💗 jap=心
-syn cluster nouArtifactEmojiQ add=nouArtifactEmojiRed
-hi nouArtifactEmojiRed cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=196 guifg=#ff0000
-syn match nouArtifactEmojiRed display excludenl '[♡♥🤍🖤💛💜]'
+syn cluster nouArtifactEmojiQ add=nouEmojiRed
+hi nouEmojiRed cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=196 guifg=#ff0000
+syn match nouEmojiRed display excludenl '[♡♥🤍🖤💛💜]'
+
+syn cluster nouArtifactEmojiQ add=nouEmojiOrange
+hi nouEmojiOrange cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=172 guifg=#df8700
+syn match nouEmojiOrange display excludenl '[⋆]'
+
+syn cluster nouArtifactEmojiQ add=nouEmojiGray
+hi nouEmojiGray cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=242 guifg=#707070
+syn match nouEmojiGray display excludenl '[↻]'
 
 
 " ATT: must be before "nou#syntax#term(k)" to be overridden by "!term!"

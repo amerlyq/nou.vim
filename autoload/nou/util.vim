@@ -49,7 +49,7 @@ let s:RprogressN = '\[%('.s:RratioN.'|'.s:RpercentN.')\]'
 
 "" status
 " FIXME: mixed :: status .vs. priority .vs. progress
-let s:Rstate0 = '%([_]|[@!?]|[0-9])'
+let s:Rstate0 = '%([_]|[@!?>]|[0-9])'
 let s:RstateN = '[X+$]'
 let s:RstateD = '%('.s:RstateN.'|'.s:Rbraille.'|'.s:Rdatetime.')'
 let s:Rstate = '%('.s:Rstate0.'|'.s:RstateN.')'
@@ -58,12 +58,13 @@ let s:Rdone = '%(\['.s:RstateD.'\]|'.s:RprogressN.')'
 let s:Rgoal = '%('.nou#util#Rtodo.'|'.s:Rdone.')'
 
 "" duration
-let s:Rtimespan = '%([0-9.]+[wdhms]){1,5}>'
+let s:Rtimespan = '<%(\d+[wdhms]|\d+w\d+d|\d+d\d+h|\d+h\d+m|\d+m\d+s)>'
 let s:Rduration = '<'.s:Rtimespan.'>'
 let s:Restimated = '\('.s:Rtimespan.'\)'
 let s:Relapsed = '%('.s:Rduration.'|'.s:Restimated.'|'
   \.s:Rduration.s:Restimated.'|'.s:Rduration.'\(\))'
 
+let s:Rinfix = '[↻⋆💛]'
 let s:Rassoc = '\<\k+\>'
 let s:Rmood = '[-*•@+=:~?!<>]{-1,3}'
 
@@ -94,10 +95,14 @@ let s:Rbody = ''
   " \.'%('.nou#util#Rxtref.'\s*)?'
   " \.'%('.s:Rexplanation.'\s*)?'
 
+" [_] BAD: not enough capture groups for infix
+"   [_] TRY:HACK: match (parse) in loop one-by-one
+"   [_] BET! use external .py library to manipulate tasks
 let s:Rtask = ''
   \.'%(('.s:Rdate.')\s+)?'
   \.'%(('.s:Rgoal.')\s+)?'
   \.'%(('.s:Rtime.')\s+)?'
+  \.'%('.s:Rinfix.'\s+)?'
   \.'%(('.s:Relapsed.')\s+)?'
 
 "" LEGEND:ATT: only 9 submatch() allowed --> no space for composite groups "task-metadata" and "body"
@@ -106,6 +111,7 @@ let s:Rtask = ''
 " \2 = date
 " \3 = goal OR 'state' inside of 'goal'
 " \4 = time
+" .. = infix
 " \5 = elapsed
 " \6 = association
 " \7 = mood

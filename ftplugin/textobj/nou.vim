@@ -9,12 +9,13 @@ set cpo&vim
 " BAD: no way to enumerate all functions w/o codedupl or breaking lazy-loading
 let s:keys =
   \[['line', 'L']
-  \,['lead', 'i', 'I', 'indent']
+  \,['lead', '<Space>', '<Backspace>', 'indent']
   \,['date', 'd', 'D']
   \,['goal', 'g', 'G']
   \,['time', 't', 'T']
+  \,['infix', 'i', 'I']
   \,['dura', 'e', 'E', 'elapsed / estimated']
-  \,['assoc','<', '>']
+  \,['assoc','a', 'A']
   \,['mood', 'm', 'M']
   \,['tags', '#', '*']
   \,['text', 'b', 'B']
@@ -23,7 +24,7 @@ let s:keys =
   \,['plan', 'p', 'P', 'status + span']
   \,['task', 'h', 'H', 'plan + assoc']
   \,['meta', 'c', 'C', 'mood + tags = ctx']
-  \,['actx', 'a', 'A', 'assoc + meta']
+  \,['actx', '<', '>', 'assoc + meta']
   \,['body', 'y', 'Y', 'meta + text']
   \,['entry', 'z', 'Z', 'task + body']
   \]
@@ -50,6 +51,10 @@ endf
 " HACK: define .nou text objects only if required dependency exists
 try|call textobj#user#plugin('nou', s:gen_textobj_spec(s:keys))
 catch /E117: Unknown function: textobj#user#plugin/|endtry
+
+
+" FIXED: prevent deleting char under cursor on partial keyseq: d<Space><Esc>
+onoremap <silent><buffer><unique> <LocalLeader> <Nop>
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
