@@ -101,8 +101,9 @@ nnoremap <Plug>(nou-spdx-header) 1G"=nou#spdx_header()<CR>P
 " nnoremap <buffer> <Plug>(nou-task-xts-end) :call <sid>yank_xts(1)<CR>
 
 " TEMP:TRY:
-nnoremap <silent> <Plug>(nou-state-subtask) :call nou#vsel_apply(0,{x->nou#util#replace('state','+',x)})<CR>
-xnoremap <silent> <Plug>(nou-state-subtask) :<C-u>call nou#vsel_apply(1,{x->nou#util#replace('state','+',x)})<CR>
+" nnoremap <silent> <Plug>(nou-state-subtask) :call nou#vsel_apply(0,{x->nou#util#replace('state','+',x)})<CR>
+" xnoremap <silent> <Plug>(nou-state-subtask) :<C-u>call nou#vsel_apply(1,{x->nou#util#replace('state','+',x)})<CR>
+nmap <buffer> <Plug>(nou-state-subtask) c<Plug>(textobj-nou-goal-i)+<Esc>
 
 let s:nou_mappings = [
   \ ['nx', 'gf', '<Plug>(nou-path-open)'],

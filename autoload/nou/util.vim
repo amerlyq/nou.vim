@@ -55,7 +55,7 @@ let s:RstateD = '%('.s:RstateN.'|'.s:Rbraille.'|'.s:Rdatetime.')'
 let s:Rstate = '%('.s:Rstate0.'|'.s:RstateN.')'
 let nou#util#Rtodo = '%(\['.s:Rstate0.'\]|'.s:Rprogress0.')'
 let s:Rdone = '%(\['.s:RstateD.'\]|'.s:RprogressN.')'
-let s:Rgoal = '%('.nou#util#Rtodo.'|'.s:Rdone.')'
+let nou#util#Rgoal = '%('.nou#util#Rtodo.'|'.s:Rdone.')'
 
 "" duration
 let s:Rtimespan = '<%(\d+[wdhms]|\d+w\d+d|\d+d\d+h|\d+h\d+m|\d+m\d+s)>'
@@ -100,7 +100,7 @@ let s:Rbody = ''
 "   [_] BET! use external .py library to manipulate tasks
 let s:Rtask = ''
   \.'%(('.s:Rdate.')\s+)?'
-  \.'%(('.s:Rgoal.')\s+)?'
+  \.'%(('.nou#util#Rgoal.')\s+)?'
   \.'%(('.s:Rtime.')\s+)?'
   \.'%('.s:Rinfix.'\s+)?'
   \.'%(('.s:Relapsed.')\s+)?'
@@ -243,14 +243,20 @@ endf
 "   TRY: return empty list i.e. invalid textobj selection ?
 fun! nou#util#Tpos(spaced, elem, ...)
   let x = call('nou#util#get', [a:elem] + a:000)
-  let [b, e] = nou#util#Targs(a:spaced)  " NOTE: textobj includes end-position
+  " HACK: invert space logic when deleting
+  let wsp = ((v:operator == 'd') ? !a:spaced : a:spaced)
+  " NOTE: textobj selection always includes end-char
+  let [b, e] = nou#util#Targs(wsp)
+  " DEBUG: echom b.'|'.e.'|'.v:operator.'|'.wsp
+
   let Pb = deepcopy(x.pos)
   let Pb[2] = x[b] + 1  " NOTE: col('.') starts from 1
   let Pe = deepcopy(x.pos)
   let Pe[2] = x[e] + 1
 
   " ALG:ENH: smart-insert for :h operator
-  "   * d<LL>a = must delete/yank whole "<me>"
+  "   * d<LL>a = must delete whole "<me> " with trailing spaces
+  "   * d<LL>A = must delete whole "<me>" w/o spaces (inverted logic)
   "   * d<LL>a = when empty must do nothing
   "   * c<LL>a = must delete only "me" and leave cursor inside "<|>"
   "   * c<LL>a = when empty must insert surrounding chars "<|>"
