@@ -136,34 +136,54 @@ let nou#util#T_all = nou#util#T_elems + nou#util#T_combo
 " extend(copy(nou#util#T_elems), nou#util#T_combo)
 
 
+fun! FLastCharLen(s)
+  return strlen(strcharpart(a:s, strchars(a:s) - 1, 1))
+endf
+
+
 " DEV:(replace): call substitute(nou#util#getline(), s:Rtaskline, '\=nou#util#print(lst, submatch(0))', 'g')
 fun! nou#util#parsetask(...) abort
   " DEBUG: ultimate task
   " let L = '  # 2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> +++ ^JIRA-12345 @user #tag1#tag2 ultimate ⌇⡟⠉⠁⠸'
   " ALT: directly use :: let [bln,bco] = searchpos(a:patt, 'cW',  line('.'))
   let L = a:0 ? a:1 : getline('.')
+  let nL = strlen(L)
   let elems = matchlist(L, '\v^'.s:Rtaskline.'$')
   if !len(elems)| echoerr 'WTF/impossible: no taskline' |en
 
   let T = {}
   let T.pos = getpos('.')
   let l = elems[0]
-  let T[g:nou#util#T_elems[0]] = {'m': l, 's': '', 'B': 0, 'b': 0, 'e': strlen(l), 'E': strlen(L)}
+
+
+  "" FMT: indexes [b, e]  [B, E)  [B, S]
+  "  │elem1   element_2         elem3 ...│
+  "  │^0b  ^B ^b {m} e^^E {s} S^      0E^^0S
+  let T[g:nou#util#T_elems[0]] = {'m': l, 's': '', 'B': 0, 'b': 0,
+    \ 'e': strlen(l) - FLastCharLen(l), 'E': strlen(l), 'S': nL - FLastCharLen(L)}
 
   " NOTE: extract position of each submatch
   let c = 0
   for i in range(1, len(elems) - 1)
     let m = elems[i]
-    let b = stridx(L, m, c)  " ALT? matchstrpos() by regex
-    if b<0| echoerr 'WTF/impossible: no task elem' |en
-    let e = b + strlen(m)
-    let s = matchstr(L, '^\s*', e)
-    let c = e + strlen(s)  " HACK: skip spaces
+    let b = (c >= nL) ? nL : stridx(L, m, c)  " ALT? matchstrpos() by regex
+    if b<0| echoerr 'WTF/impossible: no #'.i.' task elem='.m
+        \.' in L['.c.':'.nL.']. Tokens: '.join(elems[1:], '|') |en
+    let E = b + strlen(m)
+    let s = matchstr(L, '^\s*', E)
+    let c = E + strlen(s)  " HACK: skip spaces
+
+    " ALT:(rev-match): let B = b - strlen(matchstr(join(reverse(split(L[E:], '.\zs')), ''), '\s*'))
+    let prev = T[g:nou#util#T_elems[i-1]]
+    let B = b - strlen(prev.s)
+
     "" FAIL: positions are useful to insert only single entry OR span
     ""   ALT:(workaround): start inserting from the end to keep positions
     " call add(mpos, printf('[%d,%d] %s"', b, e, strpart(L, b, e - b)))
     " return join(mpos, "\n")
-    let T[g:nou#util#T_elems[i]] = {'m': m, 's': s, 'B': b, 'b': b + 1, 'e': e, 'E': c}
+    let T[g:nou#util#T_elems[i]] = {'m': m, 's': s, 'B': B, 'b': b,
+      \ 'e': E - FLastCharLen(m), 'E': E, 'S': c - FLastCharLen((strlen(s) ? s : m))}
+    " DEBUG: echom json_encode(T[g:nou#util#T_elems[i]])
   endfor
   return T
 endf
@@ -177,7 +197,7 @@ fun! nou#util#seek_E(T, elem, ...) abort
 endf
 
 fun! nou#util#merge_E(lhs, rhs) abort
-  return {'m': a:lhs.m + a:lhs.s + a:rhs.m, 's': a:rhs.s
+  return {'m': a:lhs.m + a:lhs.s + a:rhs.m, 's': a:rhs.s, 'S': a:rhs.S
     \, 'B': a:lhs.B, 'b': a:lhs.b, 'e': a:rhs.e, 'E': a:rhs.E}
 endf
 
@@ -193,9 +213,11 @@ fun! nou#util#combo_task(...) abort
   let T.entry = nou#util#merge_E(T.task, T.body)  " WTF: dif. line .vs. entry
 
   " FIXME: B!=b if spaces surround state inside of goal
-  let T.state = {'m': T.goal.m[1:-2], 's': ''
+  "   CHECK: already fixed by new calculation way of 'B'?
+  let T.state = {'m': T.goal.m[1:-2]
+    \, 's': '', 'S': T.goal.S
     \, 'B': T.goal.b, 'b': T.goal.b + 1
-    \, 'e': T.goal.e - 1, 'E': T.goal.e}
+    \, 'e': T.goal.e - 1, 'E': T.goal.E}
   return T
 endf
 
@@ -211,8 +233,8 @@ endf
 fun! nou#util#Targs(...)
   if a:0>1| return a:000
   elseif a:0<1||a:1==0| return ['b', 'e']
-  elseif a:1==1 | return ['b', 'E']
-  elseif a:1=='S' | return ['B', 'E']
+  elseif a:1==1 | return ['b', 'S']
+  elseif a:1=='BS' | return ['B', 'S']
   else | return ['B', a:1]
   endif
 endf
@@ -221,11 +243,58 @@ endf
 "   TRY: return empty list i.e. invalid textobj selection ?
 fun! nou#util#Tpos(spaced, elem, ...)
   let x = call('nou#util#get', [a:elem] + a:000)
-  let [b, e] = nou#util#Targs(a:spaced)
+  let [b, e] = nou#util#Targs(a:spaced)  " NOTE: textobj includes end-position
   let Pb = deepcopy(x.pos)
-  let Pb[2] = x[b]
+  let Pb[2] = x[b] + 1  " NOTE: col('.') starts from 1
   let Pe = deepcopy(x.pos)
-  let Pe[2] = x[e]
+  let Pe[2] = x[e] + 1
+
+  " ALG:ENH: smart-insert for :h operator
+  "   * d<LL>a = must delete/yank whole "<me>"
+  "   * d<LL>a = when empty must do nothing
+  "   * c<LL>a = must delete only "me" and leave cursor inside "<|>"
+  "   * c<LL>a = when empty must insert surrounding chars "<|>"
+  "   * c<LL>G = must remove trailing space and drop into change mode
+  "     IDEA:TRY: use REPLACE mode for "goal" to insert single char easily
+  "
+  let [pfx,sfx] = get(
+    \{ 'goal': ['[', ']']
+    \, 'assoc': ['<', '>']
+    \, 'tags': ['#', '']
+    \}, a:elem, ['', ''])
+
+  "" ERR: textobj with Pb==Pe still has length=1
+  " BET:HACK: only move cursor :: return (Pb == Pe) ? 0 : ['v', Pb, Pe]
+  "   FAIL: setpos('.', Pb) don't work in operator-pending mode
+
+  " NOTE: allow textobj with real len>=1
+  if x[b]!=x[e] || x.e!=x.E
+    if v:operator == 'c'
+      let Pb[2] += strlen(pfx)
+      if e=='e' " NOTE: because in _a mode we must not subtract from 'S'
+        let Pe[2] -= strlen(sfx)
+      end
+    en
+    return ['v', Pb, Pe]
+  en
+
+  " NOTE: don't do anything when modifying non-existent element
+  if v:operator != 'c' | return 0 |en
+
+  let heads = ['goal']
+  let pfx = ((x.B == x.b && index(heads, a:elem)<0) ? ' ' : '') . pfx
+  let ifx = ' '
+  let Pb[2] += strlen(pfx)
+  let Pe[2] = Pb[2] + strlen(ifx) - FLastCharLen(ifx)
+
+  " BET:FIXME: don't append space if it's EOL {x.E == T['line'].E}
+  "   .instead-of. current name matching
+  let tails = ['text', 'body', 'entry']
+  let sfx = sfx . ((!strlen(x.s) && index(tails, a:elem)<0) ? ' ' : '')
+
+  let l = getline('.')
+  let rest = (e=='S') ? x.E + strlen(x.s) : x.E
+  call setline('.', strpart(l,0,x[b]) .pfx.ifx.sfx. strpart(l,rest))
   return ['v', Pb, Pe]
 endf
 
