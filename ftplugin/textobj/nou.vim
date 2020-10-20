@@ -7,6 +7,7 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 " BAD: no way to enumerate all functions w/o codedupl or breaking lazy-loading
+" TEMP:(prevent conflict): 'lead' {'<Space>', '<Backspace>'} => {'^' '0'}
 let s:keys =
   \[['line', 'L']
   \,['lead', '<Space>', '<Backspace>', 'indent']
@@ -36,11 +37,11 @@ fun! s:gen_textobj_spec(km)
   for x in a:km
     let [k, i, a] = [x[0], get(x,1,''), get(x,2,'')]
     let spec[k] = {}
-    if len(i)
+    if !empty(i)
       let spec[k]['select-i'] = '<LocalLeader>'.i
       let spec[k]['select-i-function'] = 'nou#util#textobj_'.k.'_i'
     endif
-    if len(a)
+    if !empty(a)
       let spec[k]['select-a'] = '<LocalLeader>'.a
       let spec[k]['select-a-function'] = 'nou#util#textobj_'.k.'_a'
     endif
@@ -48,10 +49,30 @@ fun! s:gen_textobj_spec(km)
   return spec
 endf
 
+" HACK: prevent textobj from creating 'vmap' conflicting with <Plug>(nou-bar*)
+" let g:textobj_nou_no_default_key_mappings = 1
+
 " HACK: define .nou text objects only if required dependency exists
 try|call textobj#user#plugin('nou', s:gen_textobj_spec(s:keys))
 catch /E117: Unknown function: textobj#user#plugin/|endtry
 
+" NOTE: manually define only 'omap' objects, w/o default 'xmap' ones
+" for x in s:keys
+"   let m = 'o'
+"   for k in [1,2]
+"     if empty(get(x,k))| continue |en
+"     let lhs = '<LocalLeader>'.get(x,k)
+"     let rhs = '<Plug>(textobj-nou-'. x[0] .'-'.(k==1?'i':'a').')'
+
+"     if empty(maparg(rhs, m))| echoe 'Err: no maparg='.rhs|continue |en
+"     if hasmapto(rhs, m)| continue |end
+"     if !empty(mapcheck(lhs, m))
+"       echoe 'Err: exists='.lhs.' --> '.mapcheck(lhs, m)
+"       continue
+"     end
+"     echom m.'map <buffer><silent><unique>' lhs rhs
+"   endfor
+" endfor
 
 " FIXED: prevent deleting char under cursor on partial keyseq: d<Space><Esc>
 onoremap <silent><buffer><unique> <LocalLeader> <Nop>

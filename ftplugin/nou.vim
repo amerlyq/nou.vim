@@ -38,7 +38,7 @@ digraph *  8226    " •
 
 " nnoremap <silent> <Plug>(nou-date) :<C-u>put=strftime('%Y-%m-%d')<CR>
 nnoremap <Plug>(nou-date) "=strftime('%Y-%m-%d')<CR>P
-xnoremap <Plug>(nou-date) "=strftime('%Y-%m-%d')<CR>P
+" xnoremap <Plug>(nou-date) "=strftime('%Y-%m-%d')<CR>P
 nnoremap <Plug>(nou-datew) "=strftime('%Y-%m-%d-%a-W%V')<CR>P
 inoremap <Plug>(nou-date) <C-R>=strftime('%Y-%m-%d')<CR>
 
@@ -157,9 +157,20 @@ let s:nou_mappings += [
 if exists('s:nou_mappings')
   for [modes, lhs, rhs] in s:nou_mappings
     for m in split(modes, '\zs')
-      if mapcheck(lhs, m) ==# '' && maparg(rhs, m) !=# '' && !hasmapto(rhs, m)
-        exe m.'map <buffer><silent><unique>' lhs rhs
-      endif
+      if empty(maparg(rhs, m))| echoe 'Err: no maparg='.rhs|continue |en
+      if hasmapto(rhs, m)
+        " FAIL: will ERR on each file reload
+        " BET: silently ignore -- to allow user to remap <Plug> himself
+        " echoe "Err: hasmapto=".rhs
+        continue
+      end
+      if !empty(mapcheck(lhs, m))
+        " FAIL: my own 'xmap' conflicts with textobj dfl 'vmap' keys
+        "   << especially when you open second .nou file
+        " echoe 'Err: exists='.lhs.' --> '.mapcheck(lhs, m)
+        continue
+      end
+      exe m.'map <buffer><silent><unique>' lhs rhs
     endfor
   endfor
 endif
