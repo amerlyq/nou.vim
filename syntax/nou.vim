@@ -298,11 +298,19 @@ syn match nouTaskDone display excludenl '\v\[[\u2800-\u28FF]{4}\]'
 " syn cluster nouTaskQ add=nouTaskXts
 " syn match nouTaskXts display excludenl '\v\[[\u2800-\u28FF]{4}\]'
 
+hi! nouTaskMandatory cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=196 guifg=#ff0000
+syn cluster nouTaskQ add=nouTaskMandatory
+syn match nouTaskMandatory display excludenl '\V[!]'
+
+hi! nouTaskToday cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=172 guifg=#df8700
+syn cluster nouTaskQ add=nouTaskToday
+syn match nouTaskToday display excludenl '\V[@]'
+
 hi! nouTaskCancel ctermfg=160 guifg=#df0000
 syn cluster nouTaskQ add=nouTaskCancel
 syn match nouTaskCancel display excludenl '\V[$]'
 
-hi! nouTaskAlso ctermfg=76 guifg=#5faf00
+hi! nouTaskAlso ctermfg=22 guifg=#1f881f
 syn cluster nouTaskQ add=nouTaskAlso
 syn match nouTaskAlso display excludenl '\V[+]'
 
