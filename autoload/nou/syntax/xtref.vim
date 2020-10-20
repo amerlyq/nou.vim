@@ -1,4 +1,8 @@
-""" Xtref
+""" Xtref ⌇⡟⢏⠺⠹
+
+" NOTE: xtref syntax suppression
+"   BUT: syntax errors on top-level despite ALL=TOP+CONTAINED
+syn match xtrefBraille display excludenl transparent containedin=ALL contains=@NoSpell /[\u2800-\u28FF]\{4,8\}/
 
 " NOTE:※⡟⡵⠪⡆ added xtref hi suppression
 "   NICE: prevents from "italic,bold,underline" affecting xtrefs
