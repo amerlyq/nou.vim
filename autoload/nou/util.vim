@@ -20,8 +20,8 @@ let s:Rmonth = '%(0[0-9]|1[012])'
 let s:Rday = '%([012][0-9]|3[01])'
 let s:Rwkdaynm ='(Mon|Tue|Wed|Thu|Fri|Sat|Sun)'  " OR: %(-\u\l\l?)
 let s:Rweek='W([0-4][0-9]|5[0-3])'
-let s:Rdate = s:Ryear.'-'.s:Rmonth.'-'.s:Rday
-let s:Rcal  = s:Rdate.'%(-'.s:Rwkdaynm.')?%(-'.s:Rweek.')?'
+let nou#util#Rdate = s:Ryear.'-'.s:Rmonth.'-'.s:Rday
+let s:Rcal  = nou#util#Rdate.'%(-'.s:Rwkdaynm.')?%(-'.s:Rweek.')?'
 let s:Rwkyear = s:Ryear.'-'.s:Rweek
 let s:Rwkcury = 'C'.s:Rweek
 let s:Ranydate = '<%('.s:Rcal.'|'.s:Rwkyear.'|'.s:Rwkcury.')>'
@@ -32,7 +32,7 @@ let s:Rminutes = '[0-5][0-9]'
 let s:Rseconds = '[0-5][0-9]'
 let s:Rtime = s:Rhours.':'.s:Rminutes.'%(:'.s:Rseconds.')?'
 let s:Rtimezone = '%(Z|\+%([01][0-9]|2[0-4])00)'  " ATT: don't allow fractional time zones
-let s:Rdatetime = s:Rdate.'[^0-9]'.s:Rtime.'%('.s:Rtimezone.')?'
+let s:Rdatetime = nou#util#Rdate.'[^0-9]'.s:Rtime.'%('.s:Rtimezone.')?'
 let s:Rbraille = '[\u2800-\u28FF]{4}'
 " TODO: "nano{datetime,braille}"
 
@@ -99,7 +99,7 @@ let s:Rbody = ''
 "   [_] TRY:HACK: match (parse) in loop one-by-one
 "   [_] BET! use external .py library to manipulate tasks
 let s:Rtask = ''
-  \.'%(('.s:Rdate.')\s+)?'
+  \.'%(('.nou#util#Rdate.')\s+)?'
   \.'%(('.nou#util#Rgoal.')\s+)?'
   \.'%(('.s:Rtime.')\s+)?'
   \.'%('.s:Rinfix.'\s+)?'

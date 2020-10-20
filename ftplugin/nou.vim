@@ -73,7 +73,7 @@ xnoremap <silent> <Plug>(nou-task-next) :<C-u>call setreg('/', '\v%V'.nou#util#R
 " FIXME: use vim function to insert 0-line
 nnoremap <Plug>(nou-spdx-header) 1G"=nou#spdx_header()<CR>P
 
-" ALSO:TODO: space-p to postpone ⌇⡟⢋⡚⡀
+" ALSO:TODO: "<LL>>" OR "<LL>p" to postpone ⌇⡟⢋⡚⡀
 " convert status "[_]" -> "[>]" when postponing
 " - save item's old planned time for tasks with time "[_] xx:yy"
 " - use next completed task as a deadline for "[_]" subtasks
@@ -82,38 +82,48 @@ nnoremap <Plug>(nou-spdx-header) 1G"=nou#spdx_header()<CR>P
 " - OR that day's 00:00 if planned time is absent "[@]" / "[!]"
 "
 "" NOTE: map yx -> convert task(time_completion + date-fallback) into xts
-" fun! s:yank_xts(a:finished)
-"   if a:finished
-"     " use next task start time OR completion time from progress
+fun! s:yank_xts(finished, ...)
+  " ALG: get(planned_time) OR: match(nou#util#Rdate, expand('%')) OR: gitblame OR mtime
+  "   ALSO: try match both 20201020 and 2020-10-20 in any place of line
+  let ymd = matchstr(expand('%:t'), '\v^'.g:nou#util#Rdate)
+  if a:finished
+    " use next task start time OR completion time from progress
 "     " if no date
 "     let xts = match(nou#util#Rbraille, nou#util#get('status'))
-"     if !length(xts)
-"       let xdt = get(planned_time) OR: match(nou#util#Rdate, expand('%'))
-"       let ts = nou#util#get('time', getline(line('.')+1))
-"       let xts = substitute(printf('%08x', strftime('%s', xdt.' '.ts)), '..', '\=nr2char("0x28".submatch(0))', 'g')
-"     end
-"   else
-"     " use next time OR completion time from progress
-"   end
-"   call setreg('"', xts, 'c')
-" endf
-" nnoremap <buffer> <Plug>(nou-task-xts-beg) :call <sid>yank_xts(0)<CR>
-" nnoremap <buffer> <Plug>(nou-task-xts-end) :call <sid>yank_xts(1)<CR>
+"     if !length(xts) | let hms = ...
+    let L = getline(line('.') + 1)
+    let hms = nou#util#parsetask(L).time.m
+  else
+    " use log time OR planned time
+    let hms = nou#util#parsetask().time.m
+  end
+  let iso = ymd .'T'. hms .':00'. strftime('%z')[:2] .':'.strftime('%z')[3:]
+  py import datetime as DT
+  " INFO:ALT:FAIL: strftime('%s', iso) don't support iso8601
+  let ts = pyeval('int(DT.datetime.fromisoformat("'.iso.'").timestamp())')
+  " DEBUG: echo iso.' --> '.ts
+  let xts = substitute(printf('%08x', ts), '..', '\=nr2char("0x28".submatch(0))', 'g')
+  call setreg(get(a:,1,'+'), xts, 'c')
+endf
+nnoremap <buffer> <Plug>(nou-task-xts-beg) :call <SID>yank_xts(0)<CR>
+nnoremap <buffer> <Plug>(nou-task-xts-end) :call <SID>yank_xts(1)<CR>
 
 " TEMP:TRY:
 " nnoremap <silent> <Plug>(nou-state-subtask) :call nou#vsel_apply(0,{x->nou#util#replace('state','+',x)})<CR>
 " xnoremap <silent> <Plug>(nou-state-subtask) :<C-u>call nou#vsel_apply(1,{x->nou#util#replace('state','+',x)})<CR>
 nmap <buffer> <Plug>(nou-state-subtask) c<Plug>(textobj-nou-goal-i)+<Esc>
+nmap <buffer> <Plug>(nou-state-postpone) c<Plug>(textobj-nou-goal-i)><Esc>
 
 let s:nou_mappings = [
   \ ['nx', 'gf', '<Plug>(nou-path-open)'],
-  \ ['n', 'yX', '<Plug>(nou-task-xts-beg)'],
-  \ ['n', 'yx', '<Plug>(nou-task-xts-end)'],
+  \ ['n', '<LocalLeader>yx', '<Plug>(nou-task-xts-beg)'],
+  \ ['n', '<LocalLeader>yX', '<Plug>(nou-task-xts-end)'],
   \ ['nx', '<LocalLeader>n', '<Plug>(nou-task-next)'],
-  \ ['nx', '<LocalLeader>i', '<Plug>(nou-date)'],
+  \ ['n', '<LocalLeader>i', '<Plug>(nou-date)'],
   \ ['n', '<LocalLeader>I', '<Plug>(nou-datew)'],
   \ ['n',  '<LocalLeader>L', '<Plug>(nou-spdx-header)'],
-  \ ['nx', '<LocalLeader>+', '<Plug>(nou-state-subtask)'],
+  \ ['n', '<LocalLeader>+', '<Plug>(nou-state-subtask)'],
+  \ ['n', '<LocalLeader>>', '<Plug>(nou-state-postpone)'],
   \]
 
 
@@ -130,7 +140,7 @@ endfor | endfor
 
 " [_] BET:TRY: <LocalLeader> = <Space>  OR:BET? [Xtref] = <Space>
 let s:nou_mappings += [
-  \ ['nx', '<LocalLeader><BS>', '<Plug>(nou-bar)'],
+  \ ['nx', '<LocalLeader><Backspace>', '<Plug>(nou-bar)'],
   \ ['nx', '<LocalLeader><Space>', '<Plug>(nou-bar_)'],
   \ ['nx', '<LocalLeader>d', '<Plug>(nou-barD)'],
   \ ['nx', '<LocalLeader>D', '<Plug>(nou-barD_)'],
