@@ -80,6 +80,10 @@ nnoremap <Plug>(nou-spdx-header) 1G"=nou#spdx_header()<CR>P
 " - use "[braille]" for completed tasks
 "   i.e. cancel their completion and register ony fact of attention
 " - OR that day's 00:00 if planned time is absent "[@]" / "[!]"
+" IDEA: convert each new progress [50%] into appended progress train
+"   - FSM: [50%] -> [>50%] OR [>|50%]
+"   - <⡟⢋⡚⡀50%>⡟⢋⡚⡀70%>⡟⢋⡚⡀90%>
+"   - <50%⡟⢋⡚⡀>70%⡟⢋⡚⡀>90%⡟⢋⡚⡀>
 "
 "" NOTE: map yx -> convert task(time_completion + date-fallback) into xts
 fun! s:yank_xts(finished, ...)
@@ -109,10 +113,15 @@ nnoremap <buffer> <Plug>(nou-task-xts-beg) :call <SID>yank_xts(0)<CR>
 nnoremap <buffer> <Plug>(nou-task-xts-end) :call <SID>yank_xts(1)<CR>
 
 " TEMP:TRY:
-" nnoremap <silent> <Plug>(nou-state-subtask) :call nou#vsel_apply(0,{x->nou#util#replace('state','+',x)})<CR>
-" xnoremap <silent> <Plug>(nou-state-subtask) :<C-u>call nou#vsel_apply(1,{x->nou#util#replace('state','+',x)})<CR>
-nmap <buffer> <Plug>(nou-state-subtask) c<Plug>(textobj-nou-goal-i)+<Esc>
-nmap <buffer> <Plug>(nou-state-postpone) c<Plug>(textobj-nou-goal-i)><Esc>
+" nnoremap <silent> <Plug>(nou-set-goal-subtask) :call nou#vsel_apply(0,{x->nou#util#replace('state','+',x)})<CR>
+" xnoremap <silent> <Plug>(nou-set-goal-subtask) :<C-u>call nou#vsel_apply(1,{x->nou#util#replace('state','+',x)})<CR>
+nmap <buffer> <Plug>(nou-set-goal-new) c<Plug>(textobj-nou-goal-i)_<Esc>
+nmap <buffer> <Plug>(nou-set-goal-mandatory) c<Plug>(textobj-nou-goal-i)!<Esc>
+nmap <buffer> <Plug>(nou-set-goal-today) c<Plug>(textobj-nou-goal-i)@<Esc>
+nmap <buffer> <Plug>(nou-set-goal-subtask) c<Plug>(textobj-nou-goal-i)+<Esc>
+nmap <buffer> <Plug>(nou-set-goal-postpone) c<Plug>(textobj-nou-goal-i)><Esc>
+nmap <buffer> <Plug>(nou-del-status) d<Plug>(textobj-nou-status-i)>
+" FUTURE: nmap <buffer> <LL><Del> -> <Plug>(nou-del-calendar) == date + goal + time (w/o dura)
 
 let s:nou_mappings = [
   \ ['nx', 'gf', '<Plug>(nou-path-open)'],
@@ -122,8 +131,12 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>i', '<Plug>(nou-date)'],
   \ ['n', '<LocalLeader>I', '<Plug>(nou-datew)'],
   \ ['n',  '<LocalLeader>L', '<Plug>(nou-spdx-header)'],
-  \ ['n', '<LocalLeader>+', '<Plug>(nou-state-subtask)'],
-  \ ['n', '<LocalLeader>>', '<Plug>(nou-state-postpone)'],
+  \ ['n', '<LocalLeader>_', '<Plug>(nou-set-goal-new)'],
+  \ ['n', '<LocalLeader>!', '<Plug>(nou-set-goal-mandatory)'],
+  \ ['n', '<LocalLeader>@', '<Plug>(nou-set-goal-today)'],
+  \ ['n', '<LocalLeader>+', '<Plug>(nou-set-goal-subtask)'],
+  \ ['n', '<LocalLeader>>', '<Plug>(nou-set-goal-postpone)'],
+  \ ['n', '<LocalLeader><Backspace>', '<Plug>(nou-del-status)'],
   \]
 
 
@@ -140,7 +153,7 @@ endfor | endfor
 
 " [_] BET:TRY: <LocalLeader> = <Space>  OR:BET? [Xtref] = <Space>
 let s:nou_mappings += [
-  \ ['nx', '<LocalLeader><Backspace>', '<Plug>(nou-bar)'],
+  \ ['nx', '<LocalLeader><Del>', '<Plug>(nou-bar)'],
   \ ['nx', '<LocalLeader><Space>', '<Plug>(nou-bar_)'],
   \ ['nx', '<LocalLeader>d', '<Plug>(nou-barD)'],
   \ ['nx', '<LocalLeader>D', '<Plug>(nou-barD_)'],
