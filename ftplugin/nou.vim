@@ -112,17 +112,24 @@ endf
 nnoremap <buffer> <Plug>(nou-task-xts-beg) :call <SID>yank_xts(0)<CR>
 nnoremap <buffer> <Plug>(nou-task-xts-end) :call <SID>yank_xts(1)<CR>
 
-" TEMP:TRY:
-" nnoremap <silent> <Plug>(nou-set-goal-subtask) :call nou#vsel_apply(0,{x->nou#util#replace('state','+',x)})<CR>
-" xnoremap <silent> <Plug>(nou-set-goal-subtask) :<C-u>call nou#vsel_apply(1,{x->nou#util#replace('state','+',x)})<CR>
-nmap <buffer> <Plug>(nou-set-goal-new) c<Plug>(textobj-nou-goal-i)_<Esc>
+" ALT:
+"   nnoremap <silent> <Plug>(nou-set-goal-subdone) :call nou#vsel_apply(0,{x->nou#util#replace('state','+',x)})<CR>
+"   xnoremap <silent> <Plug>(nou-set-goal-subdone) :<C-u>call nou#vsel_apply(1,{x->nou#util#replace('state','+',x)})<CR>
+" WF:NOTE:(<LL>[_+>]): immediately convert to subtask (i.e. set indent=2)
+nmap <buffer> <Plug>(nou-cvt-subtask) c<Plug>(textobj-nou-lead-i)<Space><Space><Esc>3l
 nmap <buffer> <Plug>(nou-set-goal-mandatory) c<Plug>(textobj-nou-goal-i)!<Esc>
 nmap <buffer> <Plug>(nou-set-goal-today) c<Plug>(textobj-nou-goal-i)@<Esc>
-nmap <buffer> <Plug>(nou-set-goal-subtask) c<Plug>(textobj-nou-goal-i)+<Esc>
-nmap <buffer> <Plug>(nou-set-goal-postpone) c<Plug>(textobj-nou-goal-i)><Esc>
-nmap <buffer> <Plug>(nou-del-status) d<Plug>(textobj-nou-status-i)>
-" FUTURE: nmap <buffer> <LL><Del> -> <Plug>(nou-del-calendar) == date + goal + time (w/o dura)
+nmap <buffer> <Plug>(nou-set-goal-subtodo) c<Plug>(textobj-nou-goal-i)_<Esc><Plug>(nou-cvt-subtask)
+nmap <buffer> <Plug>(nou-set-goal-subdone) c<Plug>(textobj-nou-goal-i)+<Esc><Plug>(nou-cvt-subtask)
+nmap <buffer> <Plug>(nou-set-goal-postpone) c<Plug>(textobj-nou-goal-i)><Esc><Plug>(nou-cvt-subtask)
 
+nmap <buffer> <Plug>(nou-del-status) d<Plug>(textobj-nou-status-i)
+nmap <buffer> <Plug>(nou-del-plan) d<Plug>(textobj-nou-plan-i)
+" FAIL: can't apply multiple times to visual selection
+nmap <buffer> <Plug>(nou-cvt-task) d<Plug>(textobj-nou-lead-i)c<Plug>(textobj-nou-goal-i)_<Esc>
+
+" DISABLED: I never expect to convert subtask to task
+"   ['n', '<LocalLeader><Space>', '<Plug>(nou-cvt-task)'],
 let s:nou_mappings = [
   \ ['nx', 'gf', '<Plug>(nou-path-open)'],
   \ ['n', '<LocalLeader>yx', '<Plug>(nou-task-xts-beg)'],
@@ -131,12 +138,13 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>i', '<Plug>(nou-date)'],
   \ ['n', '<LocalLeader>I', '<Plug>(nou-datew)'],
   \ ['n',  '<LocalLeader>L', '<Plug>(nou-spdx-header)'],
-  \ ['n', '<LocalLeader>_', '<Plug>(nou-set-goal-new)'],
+  \ ['n', '<LocalLeader>_', '<Plug>(nou-set-goal-subtodo)'],
   \ ['n', '<LocalLeader>!', '<Plug>(nou-set-goal-mandatory)'],
   \ ['n', '<LocalLeader>@', '<Plug>(nou-set-goal-today)'],
-  \ ['n', '<LocalLeader>+', '<Plug>(nou-set-goal-subtask)'],
+  \ ['n', '<LocalLeader>+', '<Plug>(nou-set-goal-subdone)'],
   \ ['n', '<LocalLeader>>', '<Plug>(nou-set-goal-postpone)'],
   \ ['n', '<LocalLeader><Backspace>', '<Plug>(nou-del-status)'],
+  \ ['n', '<LocalLeader><Del>', '<Plug>(nou-del-plan)'],
   \]
 
 
@@ -152,8 +160,9 @@ for s in ['', 'D', '_', 'D_', 'D$', '$', 'X', 'DX', 'T', 'B', 'DB'] | for m in [
 endfor | endfor
 
 " [_] BET:TRY: <LocalLeader> = <Space>  OR:BET? [Xtref] = <Space>
+" ALT(batch-ops for 'x'):TRY:USE: textobj#user#select() which returns list of positions
 let s:nou_mappings += [
-  \ ['nx', '<LocalLeader><Del>', '<Plug>(nou-bar)'],
+  \ ['x', '<LocalLeader><Del>', '<Plug>(nou-bar)'],
   \ ['nx', '<LocalLeader><Space>', '<Plug>(nou-bar_)'],
   \ ['nx', '<LocalLeader>d', '<Plug>(nou-barD)'],
   \ ['nx', '<LocalLeader>D', '<Plug>(nou-barD_)'],

@@ -197,15 +197,18 @@ fun! nou#util#seek_E(T, elem, ...) abort
 endf
 
 fun! nou#util#merge_E(lhs, rhs) abort
-  return {'m': a:lhs.m + a:lhs.s + a:rhs.m, 's': a:rhs.s, 'S': a:rhs.S
-    \, 'B': a:lhs.B, 'b': a:lhs.b, 'e': a:rhs.e, 'E': a:rhs.E}
+  return {'m': (a:lhs.m . a:lhs.s . a:rhs.m)
+        \,'s': a:rhs.s, 'S': a:rhs.S
+        \,'B': a:lhs.B, 'b': a:lhs.b
+        \,'e': a:rhs.e, 'E': a:rhs.E}
 endf
 
 fun! nou#util#combo_task(...) abort
   let T = a:0 ? a:1 : nou#util#parsetask()
   let T.status = nou#util#merge_E(T.date, T.goal)
+  let T.plan = nou#util#merge_E(T.status, T.time)
   let T.span = nou#util#merge_E(T.time, T.dura)
-  let T.plan = nou#util#merge_E(T.status, T.span)
+  let T.slot = nou#util#merge_E(T.status, T.span)
   let T.task = nou#util#merge_E(T.plan, T.assoc)
   let T.meta = nou#util#merge_E(T.mood, T.tags)
   let T.actx = nou#util#merge_E(T.assoc, T.meta)
@@ -243,8 +246,13 @@ endf
 "   TRY: return empty list i.e. invalid textobj selection ?
 fun! nou#util#Tpos(spaced, elem, ...)
   let x = call('nou#util#get', [a:elem] + a:000)
+
   " HACK: invert space logic when deleting
+  " WF:BET?(consistence): don't invert textobj
+  "   + BET:chg: mechanically train pressing d<LL>G when using delete
+  "   - BAD:now: mentally remember to expect different behavior
   let wsp = ((v:operator == 'd') ? !a:spaced : a:spaced)
+
   " NOTE: textobj selection always includes end-char
   let [b, e] = nou#util#Targs(wsp)
   " DEBUG: echom b.'|'.e.'|'.v:operator.'|'.wsp
@@ -281,22 +289,25 @@ fun! nou#util#Tpos(spaced, elem, ...)
         let Pe[2] -= strlen(sfx)
       end
     en
+    " echom json_encode(['v', Pb, Pe])
     return ['v', Pb, Pe]
   en
 
   " NOTE: don't do anything when modifying non-existent element
   if v:operator != 'c' | return 0 |en
 
-  let heads = ['goal']
-  let pfx = ((x.B == x.b && index(heads, a:elem)<0) ? ' ' : '') . pfx
+  let nopfx = ['lead', 'date', 'goal', 'status', 'plan', 'task', 'entry']
+  let pfx = ((x.B == x.b && index(nopfx, a:elem)<0) ? ' ' : '') . pfx
   let ifx = ' '
   let Pb[2] += strlen(pfx)
   let Pe[2] = Pb[2] + strlen(ifx) - FLastCharLen(ifx)
 
   " BET:FIXME: don't append space if it's EOL {x.E == T['line'].E}
   "   .instead-of. current name matching
-  let tails = ['text', 'body', 'entry']
-  let sfx = sfx . ((!strlen(x.s) && index(tails, a:elem)<0) ? ' ' : '')
+  let nosfx = ['lead', 'text', 'body', 'entry']
+  let sfx = sfx . ((!strlen(x.s) && index(nosfx, a:elem)<0) ? ' ' : '')
+
+  " DEBUG: echom pfx.ifx.sfx
 
   let l = getline('.')
   let rest = (e=='S') ? x.E + strlen(x.s) : x.E
@@ -315,6 +326,6 @@ endf
 """""""""""""""""""
 for s:nm in nou#util#T_all
   let s:fnm = 'nou#util#textobj_'. s:nm
-  exe "fun! ".s:fnm."_i()\nreturn nou#util#Tpos(0,'".s:nm."')\nendf"
-  exe "fun! ".s:fnm."_a()\nreturn nou#util#Tpos(1,'".s:nm."')\nendf"
+  exe "fun! ".s:fnm."_i() range\nreturn nou#util#Tpos(0,'".s:nm."')\nendf"
+  exe "fun! ".s:fnm."_a() range\nreturn nou#util#Tpos(1,'".s:nm."')\nendf"
 endfor

@@ -21,9 +21,10 @@ let s:keys =
   \,['tags', '#', '*']
   \,['text', 'b', 'B']
   \,['status', 'x', 'X', 'date + goal']
+  \,['plan', 'p', 'P', 'status + time']
   \,['span', 's', 'S', 'time + dura']
-  \,['plan', 'p', 'P', 'status + span']
-  \,['task', 'h', 'H', 'plan + assoc']
+  \,['slot', '', '', 'status + span']
+  \,['task', 'h', 'H', 'slot + assoc']
   \,['meta', 'c', 'C', 'mood + tags = ctx']
   \,['actx', '<', '>', 'assoc + meta']
   \,['body', 'y', 'Y', 'meta + text']
@@ -37,14 +38,10 @@ fun! s:gen_textobj_spec(km)
   for x in a:km
     let [k, i, a] = [x[0], get(x,1,''), get(x,2,'')]
     let spec[k] = {}
-    if !empty(i)
-      let spec[k]['select-i'] = '<LocalLeader>'.i
-      let spec[k]['select-i-function'] = 'nou#util#textobj_'.k.'_i'
-    endif
-    if !empty(a)
-      let spec[k]['select-a'] = '<LocalLeader>'.a
-      let spec[k]['select-a-function'] = 'nou#util#textobj_'.k.'_a'
-    endif
+    if !empty(i)| let spec[k]['select-i'] = '<LocalLeader>'.i |endif
+    if !empty(a)| let spec[k]['select-a'] = '<LocalLeader>'.a |endif
+    let spec[k]['select-i-function'] = 'nou#util#textobj_'.k.'_i'
+    let spec[k]['select-a-function'] = 'nou#util#textobj_'.k.'_a'
   endfor
   return spec
 endf
