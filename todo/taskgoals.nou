@@ -56,7 +56,7 @@ OVERHAUL taskgoal syntax ⌇⡟⠝⡰⣚
     [_] MAYBE: make colors for 80-95% more bright to stimulate completion
       => the must "shout" !finish me now, there is almost nothing left!
       NOW:BAD: dark colors are easily overlooked when searching incomplete tasks to be done
-  [_] BUG ru text /[а-я]{1,3}/ treated as /\W+/ => marker placed after it
+  [⡟⢗⢁⠄] BUG ru text /[а-я]{1,3}/ treated as /\W+/ => marker placed after it
   THINK if only marker is highlighted and therefore truly visible --> MAYBE:USE: shortened form '_ x' instead of full '[_] [X]'?
   MAYBE: use shorter date spec?
     160716:[X]

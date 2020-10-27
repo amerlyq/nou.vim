@@ -63,7 +63,7 @@ fun! nou#bar(...) range
   for i in rgn
     let line = getline(i)
     let chgd = substitute(line,
-      \ '\v^(\s*%([^[:alpha:][:blank:][\]]{-1,3}\s+)?)'
+      \ '\v^(\s*%([-+=*<>!?]{-1,3}\s+)?)'
       \.'%(<\d{4}-%(0\d|1[012])-%([012]\d|3[01])>\s*)?'
       \.'%('. g:nou#util#Rgoal .'\s+)?'
       \.'(<%(\d|[01]\d|2[0-4]):[0-5]\d%(:[0-5]\d)?>\s*)?'
