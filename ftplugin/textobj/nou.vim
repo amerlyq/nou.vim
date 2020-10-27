@@ -8,9 +8,10 @@ set cpo&vim
 
 " BAD: no way to enumerate all functions w/o codedupl or breaking lazy-loading
 " TEMP:(prevent conflict): 'lead' {'<Space>', '<Backspace>'} => {'^' '0'}
+" [_] BET:DEV: <LL><Backspace> incrementally delete <count> first elements (i.e. indent, goal, time, etc...)
 let s:keys =
   \[['line', 'L']
-  \,['lead', '<Space>', '<Backspace>', 'indent']
+  \,['lead', '<Del>', '<Backspace>', 'indent']
   \,['date', 'd', 'D']
   \,['goal', 'g', 'G']
   \,['time', 't', 'T']

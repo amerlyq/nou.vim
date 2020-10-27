@@ -123,6 +123,9 @@ nmap <buffer> <Plug>(nou-set-goal-subtodo) c<Plug>(textobj-nou-goal-i)_<Esc><Plu
 nmap <buffer> <Plug>(nou-set-goal-subdone) c<Plug>(textobj-nou-goal-i)+<Esc><Plug>(nou-cvt-subtask)
 nmap <buffer> <Plug>(nou-set-goal-postpone) c<Plug>(textobj-nou-goal-i)><Esc><Plug>(nou-cvt-subtask)
 
+" nmap <buffer> <Plug>(nou-set-goal-todo) c<Plug>(textobj-nou-goal-i)_<Esc>
+" omap <buffer> <Plug>(nou-set-goal-todo) <Plug>(textobj-nou-goal-i)_<Esc>
+
 nmap <buffer> <Plug>(nou-del-status) d<Plug>(textobj-nou-status-i)
 nmap <buffer> <Plug>(nou-del-plan) d<Plug>(textobj-nou-plan-i)
 " FAIL: can't apply multiple times to visual selection
@@ -130,6 +133,7 @@ nmap <buffer> <Plug>(nou-cvt-task) d<Plug>(textobj-nou-lead-i)c<Plug>(textobj-no
 
 " DISABLED: I never expect to convert subtask to task
 "   ['n', '<LocalLeader><Space>', '<Plug>(nou-cvt-task)'],
+"   ['n', '<LocalLeader><Space>', '<Plug>(nou-set-goal-todo)'],
 let s:nou_mappings = [
   \ ['nx', 'gf', '<Plug>(nou-path-open)'],
   \ ['n', '<LocalLeader>yx', '<Plug>(nou-task-xts-beg)'],
