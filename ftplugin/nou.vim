@@ -116,7 +116,7 @@ nnoremap <buffer> <Plug>(nou-task-xts-end) :call <SID>yank_xts(1)<CR>
 "   nnoremap <silent> <Plug>(nou-set-goal-subdone) :call nou#vsel_apply(0,{x->nou#util#replace('state','+',x)})<CR>
 "   xnoremap <silent> <Plug>(nou-set-goal-subdone) :<C-u>call nou#vsel_apply(1,{x->nou#util#replace('state','+',x)})<CR>
 " WF:NOTE:(<LL>[_+>]): immediately convert to subtask (i.e. set indent=2)
-nmap <buffer> <Plug>(nou-cvt-subtask) c<Plug>(textobj-nou-lead-i)<Space><Space><Esc>3l
+nmap <buffer> <Plug>(nou-cvt-subtask) d<Plug>(textobj-nou-time-i)c<Plug>(textobj-nou-lead-i)<Space><Space><Esc>3l
 nmap <buffer> <Plug>(nou-set-goal-mandatory) c<Plug>(textobj-nou-goal-i)!<Esc>
 nmap <buffer> <Plug>(nou-set-goal-today) c<Plug>(textobj-nou-goal-i)@<Esc>
 nmap <buffer> <Plug>(nou-set-goal-subtodo) c<Plug>(textobj-nou-goal-i)_<Esc><Plug>(nou-cvt-subtask)
@@ -158,7 +158,7 @@ for i in range(1,9)
     \.' :<C-u>call nou#bar("X'.i.'",'.i.',0)<CR>'
   let s:nou_mappings += [['n', '<LocalLeader>'.i, '<Plug>(nou-barX'.i.')']]
 endfor
-for s in ['', 'D', '_', 'D_', 'D$', '$', 'X', 'DX', 'T', 'B', 'DB'] | for m in ['n', 'x']
+for s in ['', 'D', '_', 'D_', 'D$', '$', 'X', 'DX', 'D<', 'T', 'B', 'DB'] | for m in ['n', 'x']
   exe m.'noremap <silent> <Plug>(nou-bar'.s.')'
       \" :<C-u>call nou#bar('".s."',v:count,".(m==#'x').")<CR>"
 endfor | endfor
@@ -174,6 +174,7 @@ let s:nou_mappings += [
   \ ['nx', '<LocalLeader>#', '<Plug>(nou-bar$)'],
   \ ['nx', '<LocalLeader>x', '<Plug>(nou-barDX)'],
   \ ['nx', '<LocalLeader>X', '<Plug>(nou-barX)'],
+  \ ['n',  '<LocalLeader><', '<Plug>(nou-barD<)'],
   \ ['nx', '<LocalLeader>t', '<Plug>(nou-barT)'],
   \ ['nx', '<LocalLeader>b', '<Plug>(nou-barB)'],
   \ ['nx', '<LocalLeader>B', '<Plug>(nou-barDB)'],

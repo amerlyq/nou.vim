@@ -31,10 +31,10 @@ fun! nou#bar(...) range
   let pfx = a:1
   let pfx = substitute(pfx, '[0-9]', '', 'g')  " Strip progress lvl
   let pfx = substitute(pfx, 'D', strftime('%Y-%m-%d '), '')
-  if pfx =~# '[_$X]'
+  if pfx =~# '[_$X<]'
     let pg = a:2 < 10 ? a:2*10 : a:2 >= 100 ? a:2 % 100 : a:2
     let mrk = '['. (a:2 ? printf('%02d', pg).'%' : '&') .'] '
-    let pfx = substitute(pfx, '[_$X]', mrk.'\\2', '')
+    let pfx = substitute(pfx, '[_$X<]', mrk.'\\2', '')
   endif
   if pfx =~# 'T'
     " HACK: asymmetric rounding to nearest 5min interval :: 02+ -> 05, 07+ -> 10

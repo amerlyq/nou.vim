@@ -318,6 +318,10 @@ hi! nouTaskPostpone ctermfg=62 guifg=#5f5fdf
 syn cluster nouTaskQ add=nouTaskPostpone
 syn match nouTaskPostpone display excludenl '\V[>]'
 
+hi! nouTaskDoneBefore ctermfg=94 guifg=#875f00
+syn cluster nouTaskQ add=nouTaskDoneBefore
+syn match nouTaskDoneBefore display excludenl '\V[<]'
+
 " HACK: different yellowish/rainbow color for incomplete tasks /[01-99%]/
 for i in keys(g:nou.task.colors)
   exe 'hi! nouTaskProgress'.i .' '. g:nou.task.colors[i]
