@@ -32,6 +32,8 @@ fun! nou#bar(...) range
   let pfx = substitute(pfx, '[0-9]', '', 'g')  " Strip progress lvl
   let pfx = substitute(pfx, 'D', strftime('%Y-%m-%d '), '')
   if pfx =~# '[_$X<]'
+    " BET: use separate keys: 50<Space>% and <Space>%50 (inserts cursor at "[|%]")
+    " IDEA: use mixed log-xts "[⡟⢝⣣⣔%50]" OR "[50%⡟⢝⣣⣔]" instead of "[50%] s <⡟⢝⣣⣔>"
     let pg = a:2 < 10 ? a:2*10 : a:2 >= 100 ? a:2 % 100 : a:2
     let mrk = '['. (a:2 ? printf('%02d', pg).'%' : '&') .'] '
     let pfx = substitute(pfx, '[_$X<]', mrk.'\\2', '')
@@ -85,6 +87,12 @@ fun! nou#path_open(path, ...)
   if idx == 0 && strpart(p,1,1) == '/'| let idx = 1 |en
   let pfx = strpart(p, 0, idx)
   let p = strpart(p, idx)
+
+  " TODO: parse paths like /⡟⢟⢗⡼ OR /@/⡟⢟⢗⡼ virtually and limit results
+  "   only to standalone tags on the first lines of the files
+  " IDEA: use sfx/pfx as "selectors" e.g. /⡟⢟⢗⡼/web/github to limit search by
+  " ALSO use regex to conduct full-text search /⡟⢟⢗⡼/ into quickfix instead of opening file
+  "   -- useful for top project when you wish to collect all related ^⡟⢟⢗⡼ subtasks
 
   " FIXME: ./path/ must count from current file, not cwd
   " ENH: prepend mounted-at / remote-host prefix FIXME: '~' = remote $HOME
