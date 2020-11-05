@@ -150,3 +150,8 @@ Postponed/rescheduled "[>]" ⌇⡟⡅⣨⡥
       - MOVE postponed task to future date
       - keep only single task (in the most recent agenda) -- delete all unaccomplished plans
         NOTE: .git history still keeps intermediate states -- if you MOVE only once per commit
+      - BAD: inconsistent "undone" tasks as a mix of
+    (3) BET: keep copies only in "significant" contexts (e.g. overtimes)
+      - allow keeping copies instead of moving to future
+      - keep all "todo" tasks as the same "[_]" (consistency)
+      - understand it was postponed by having the xts-trail
