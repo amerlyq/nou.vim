@@ -37,8 +37,11 @@
   [4/3] ratio overdue         | RED:SEE※⡟⠧⠦⡽
                               |
   [2h] timeslot allocated     |
-  [2h/] timeslot time-tracked |
-  [2h/∞] timeslot infinite    |
+  [-/-] timeslot pending      |
+  [-/∞] timeslot new activity |
+  [-/2h] timeslot reserved    |
+  [2h/-] timeslot tracked     |
+  [2h/∞] accounting infinite  |
   [1h/2h] timeslot progress   |
   [+1h/2h] continue (before)  | OR: +[1h/2h] | [>1h/2h]
   [1h+1h/2h] math (transient) |
