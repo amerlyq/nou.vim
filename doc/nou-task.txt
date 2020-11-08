@@ -258,11 +258,11 @@ context
     <<> OR <LL a w> associate with work *<W>*
     <LL a c> associate *<common>*
   Category flags
-    [U] %U urgent (?and important? BUT inconsistent naming)
-    [I] %I important (but not urgent)
-    [D] %D (OR %O) delegate to others (urgent but not important BUT unobvious meaning)
-    [N] %N nice to have / new cool ideas
-    [E] %E expired
+    [U] %U [!] urgent (?and important? BUT inconsistent naming)
+    [I] %I  ⋆↯ important (but not urgent)
+    [D] %D  ▶➥ (OR %O) delegate to others (urgent but not important BUT unobvious meaning)
+    [N] %N  ☘  nice to have / new cool ideas
+    [E] %E [<] expired
   Subtasks
     <+> create/convert unrelated (completed) to subtask "[+]"
     <W> append below new subtask "[_] WAIT …" in insert mode
