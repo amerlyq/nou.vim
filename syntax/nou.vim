@@ -72,7 +72,7 @@ syn match nouEmojiOrange display excludenl '[⋆↯]'
 
 syn cluster nouArtifactEmojiQ add=nouEmojiGray
 hi nouEmojiGray cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=242 guifg=#707070
-syn match nouEmojiGray display excludenl '[↻]'
+syn match nouEmojiGray display excludenl '[↻]'
 
 syn cluster nouArtifactEmojiQ add=nouEmojiPink
 hi nouEmojiPink cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=161 guifg=#df1f5f
