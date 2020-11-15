@@ -119,9 +119,12 @@ nnoremap <buffer> <Plug>(nou-task-xts-end) :call <SID>yank_xts(1)<CR>
 nmap <buffer> <Plug>(nou-cvt-subtask) d<Plug>(textobj-nou-time-i)c<Plug>(textobj-nou-lead-i)<Space><Space><Esc>3l
 nmap <buffer> <Plug>(nou-set-goal-mandatory) c<Plug>(textobj-nou-goal-i)!<Esc>
 nmap <buffer> <Plug>(nou-set-goal-today) c<Plug>(textobj-nou-goal-i)@<Esc>
-nmap <buffer> <Plug>(nou-set-goal-subtodo) c<Plug>(textobj-nou-goal-i)_<Esc><Plug>(nou-cvt-subtask)
-nmap <buffer> <Plug>(nou-set-goal-subdone) c<Plug>(textobj-nou-goal-i)+<Esc><Plug>(nou-cvt-subtask)
-nmap <buffer> <Plug>(nou-set-goal-postpone) c<Plug>(textobj-nou-goal-i)><Esc><Plug>(nou-cvt-subtask)
+
+" NOTE: cvt to subtask is useful for *flat* log, but NOT for workflow-structured one
+"   c<Plug>(textobj-nou-goal-i)+<Esc><Plug>(nou-cvt-subtask)
+nmap <buffer> <Plug>(nou-set-goal-subtodo) c<Plug>(textobj-nou-goal-i)_<Esc>
+nmap <buffer> <Plug>(nou-set-goal-subdone) c<Plug>(textobj-nou-goal-i)+<Esc>
+nmap <buffer> <Plug>(nou-set-goal-postpone) c<Plug>(textobj-nou-goal-i)><Esc>
 
 " nmap <buffer> <Plug>(nou-set-goal-todo) c<Plug>(textobj-nou-goal-i)_<Esc>
 " omap <buffer> <Plug>(nou-set-goal-todo) <Plug>(textobj-nou-goal-i)_<Esc>

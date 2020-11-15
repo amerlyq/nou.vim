@@ -14,6 +14,12 @@ TODO
     i.e. additional options like fdm=marker and highlight occured /^<time>/ as "reverse"
 
 
+%% Log-entry
+  [_] set curr task->logentry time=last(time+elapsed/estimated)
+  [_] duplicate time of last log entry to current task->logentry
+    e.g. to start from the same time as <next> or <home>
+
+
 OVERHAUL taskgoal syntax ⌇⡟⠝⡰⣚
   [_] IDEA:ENH:USE: <count> :: when <7c<LL>t> must insert time and go to replace mode
     ¦ "[_] ↻ <bed>" -> "[_] 07:|00 ↻ <bed>"
