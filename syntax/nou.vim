@@ -294,6 +294,10 @@ hi! nouTaskTodo ctermfg=14 guifg=#586e75
 syn cluster nouTaskQ add=nouTaskTodo
 syn match nouTaskTodo display excludenl '\V[_]'
 
+hi! nouTaskWait cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=169 guifg=#ef3f9f
+syn cluster nouTaskQ add=nouTaskWait
+syn match nouTaskWait display excludenl '\V[…]'
+
 hi! nouTaskDone ctermfg=14 guifg=#586e75
 syn cluster nouTaskQ add=nouTaskDone
 syn match nouTaskDone display excludenl '\V[X]'
