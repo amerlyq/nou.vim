@@ -37,10 +37,12 @@ digraph *  8226    " •
 """ Mappings
 
 " nnoremap <silent> <Plug>(nou-date) :<C-u>put=strftime('%Y-%m-%d')<CR>
-nnoremap <Plug>(nou-date) "=strftime('%Y-%m-%d')<CR>P
 " xnoremap <Plug>(nou-date) "=strftime('%Y-%m-%d')<CR>P
-nnoremap <Plug>(nou-datew) "=strftime('%Y-%m-%d-%a-W%V')<CR>P
 inoremap <Plug>(nou-date) <C-R>=strftime('%Y-%m-%d')<CR>
+nnoremap <Plug>(nou-date-i) "=strftime('%Y-%m-%d')<CR>P
+nnoremap <Plug>(nou-datew-i) "=strftime('%Y-%m-%d-%a-W%V')<CR>P
+nnoremap <Plug>(nou-date-a) "=strftime('%Y-%m-%d')<CR>p
+nnoremap <Plug>(nou-datew-a) "=strftime('%Y-%m-%d-%a-W%V')<CR>p
 
 " THINK:BET:USE: `dts` like in Wolfram
 inoreab <buffer><expr> !dts! strftime('%Y-%m-%d')
@@ -142,8 +144,10 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>yx', '<Plug>(nou-task-xts-beg)'],
   \ ['n', '<LocalLeader>yX', '<Plug>(nou-task-xts-end)'],
   \ ['nx', '<LocalLeader>n', '<Plug>(nou-task-next)'],
-  \ ['n', '<LocalLeader>i', '<Plug>(nou-date)'],
-  \ ['n', '<LocalLeader>I', '<Plug>(nou-datew)'],
+  \ ['n', '<LocalLeader>i', '<Plug>(nou-date-i)'],
+  \ ['n', '<LocalLeader>I', '<Plug>(nou-datew-i)'],
+  \ ['n', '<LocalLeader>a', '<Plug>(nou-date-a)'],
+  \ ['n', '<LocalLeader>A', '<Plug>(nou-datew-a)'],
   \ ['n',  '<LocalLeader>L', '<Plug>(nou-spdx-header)'],
   \ ['n', '<LocalLeader>_', '<Plug>(nou-set-goal-subtodo)'],
   \ ['n', '<LocalLeader>!', '<Plug>(nou-set-goal-mandatory)'],
