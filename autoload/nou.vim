@@ -98,12 +98,16 @@ fun! nou#path_open(path, ...)
   " ENH: prepend mounted-at / remote-host prefix FIXME: '~' = remote $HOME
   " THINK: distinguish "here" and "there" for path relative to current file
   if pfx ==# ''  " NOTE:(/...): use abspath as-is
+    if match(a:path, '\v[\u2800-\u28FF]{4}') > -1
+      norm g]
+      return
+    endif
   elseif pfx ==# '.' | let p = expand('%:h') . p " NOTE:(./): rel to curr file
   " elseif pfx ==#'..' | let p = expand('%:h').'/'.pfx . p " NOTE: rel to 'here'
   elseif pfx ==#'..' | let p = expand('%:p:h:h') . p " NOTE:(../): rel to 'there'
   elseif pfx ==# '~' | let p = $HOME . p
-  elseif pfx ==# '@' | let p = $HOME .'/aura'. p  " BAD: I have nested repo
-  elseif pfx ==# '♆' | let p = $HOME .'/aura/airy'. p . '/setup'
+  elseif pfx ==# '@' | let p = '/@/aura'. p  " BAD: I have nested repo
+  elseif pfx ==# '♆' | let p = map(['', '/.edit', '/setup'], '"/@/airy'.p.'".v:val')
   elseif pfx ==# '☆' | let p = '/x'. p
   elseif pfx ==# '★' | let p = '/x/_fav'. p
   " BET? merge and replace '//' by '%'
@@ -154,6 +158,10 @@ fun! nou#path_open(path, ...)
     norm! gf
     return
   en
+  " NOTE: find primary file as first readable candidate in multivariants
+  if type(p) == type([])| let [p, xs] = [get(p, 0, ''), p]
+    for x in xs| if filereadable(x)| let p = x | break |en |endfor
+  endif
   if !bang && !filereadable(p)
     echohl ErrorMsg
     echom "No such file:" p
