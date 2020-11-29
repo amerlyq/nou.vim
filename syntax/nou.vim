@@ -283,6 +283,7 @@ syn match nouTime display excludenl
 hi! nouTimeSpan cterm=bold,undercurl gui=bold,undercurl ctermfg=135 guifg=#4f7fef
 syn cluster nouArtifactQ add=nouTimeSpan
 " ALT:OLD: syn match nouTimeSpan display excludenl '\v<%(\d+[wdhms]){1,5}>'
+" MAYBE:allow: 1mo 2mo3d 2y4mo
 syn match nouTimeSpan display excludenl
   \ '\v<%(\d+[wdhms]|\d+w\d+d|\d+d\d+h|\d+h\d+m|\d+m\d+s)>'
 
@@ -364,7 +365,34 @@ syn match nouProgressRatio0 display excludenl contained '\D0\+\D\d\+\D'
 
 exe 'hi! nouProgressRatio1 '. g:nou.task.colors[1]
 syn cluster nouProgressRatioQ add=nouProgressRatio1
-syn match nouProgressRatio1 display excludenl contained '\D1\+\D\d\+\D'
+syn match nouProgressRatio1 display excludenl contained '\D1\D\d\+\D'
+"}}}
+
+"{{{ NOTE: spent time progress e.g. "[1h30m/8h]" OR "[-/-]"
+syn cluster nouTaskQ add=nouProgressTime
+exe 'hi! nouProgressTime '. g:nou.task.colors[8]
+syn match nouProgressTime display excludenl contains=@nouProgressTimeQ,nouTimeSpan
+  \ '\v\[%(-|<%(\d+[wdhms]){1,2}%(\+%(\d+[wdhms]){1,2})*>)[/⁄]%(-|<%(\d+[wdhms]){1,2}%(\=\=%(\d+[wdhms]){1,2})?>)\]'
+
+hi! nouProgressTimePart ctermfg=14 guifg=#586e75
+syn cluster nouProgressTimeQ add=nouProgressTimePart
+syn match nouProgressTimePart display excludenl contained contains=nouTimeSpan
+  \ '\v\D(<%(\d+[wdhms]){1,2}>)[/⁄]\1\D'
+
+exe 'hi! nouProgressTimePlan '. g:nou.task.colors[7]
+syn cluster nouProgressTimeQ add=nouProgressTimePlan
+syn match nouProgressTimePlan display excludenl contained contains=nouTimeSpan
+  \ '\v\D-\D<%(\d+[wdhms]){1,2}>\D'
+
+exe 'hi! nouProgressTimeLog '. g:nou.task.colors[1]
+syn cluster nouProgressTimeQ add=nouProgressTimeLog
+syn match nouProgressTimeLog display excludenl contained contains=nouTimeSpan
+  \ '\v\D<%(\d+[wdhms]){1,2}>\D-\D'
+
+" OR: [9]
+exe 'hi! nouProgressTimeTodo '. g:nou.task.colors[0]
+syn cluster nouProgressTimeQ add=nouProgressTimeTodo
+syn match nouProgressTimeTodo display excludenl contained '\D-\D-\D'
 "}}}
 
 
