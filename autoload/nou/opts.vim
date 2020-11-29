@@ -55,6 +55,7 @@ let s:nou.accent.colors = {
 
 " TRY: use matchgroup= with half-dim color than body
 " FIXME: 'Str' must not contains @accents for cases like "_some_symbol_"
+" FIXME: don't hi everything between two "-" in "smth -> preps(-Mon-)"
 " ALT:(Foc): eye-bleeding 'ctermfg=88 guifg=#875f00 gui=bold,underline,reverse'
 " ALSO: term/key: ‹tab›
 let s:nou.term = {}
