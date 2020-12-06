@@ -338,13 +338,18 @@ syn match nouTaskDoneBefore display excludenl '\V[<]'
 for i in keys(g:nou.task.colors)
   exe 'hi! nouTaskProgress'.i .' '. g:nou.task.colors[i]
   exe 'syn cluster nouTaskQ add=nouTaskProgress'.i
-  exe 'syn match nouTaskProgress'.i.' display excludenl "\V['.i.'\d%]"'
+  exe 'syn match nouTaskProgress'.i.' display excludenl contains=nouProgressTotal "\v\['.i.'\d%(\.\d+)?\%%(\ze/\d+)?\]"'
 endfor
+
+" IDEA: use Total suffix for all tasks to specify allocated/spent/expected resources
+"   e.g. [⡟⣌⢅⠰/214] [X/214] [+/2h/214] [_/4h] [$/2h]
+hi! nouProgressTotal ctermfg=14 guifg=#586e75
+syn match nouProgressTotal display excludenl contained '/\d\+'
 
 syn cluster nouGenericQ add=nouTask
 hi! nouTask ctermfg=14 guifg=#586e75
 syn match nouTask display excludenl contains=@nouTaskQ
-  \ '\v%(\d{4}-\d\d-\d\d )?\[%([_$X]|[\u2800-\u28FF]{4}|\d\d\%)\]'
+  \ '\v%(\d{4}-\d\d-\d\d )?\[%([_$X]|[\u2800-\u28FF]{4}|\d\d%(\.\d+)?\%%(/\d+)?)\]'
 
 
 "{{{ NOTE: progress highlight e.g. "[1/8]"
