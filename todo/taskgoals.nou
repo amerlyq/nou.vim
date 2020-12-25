@@ -36,6 +36,7 @@ OVERHAUL taskgoal syntax ⌇⡟⠝⡰⣚
   [_] unify: everywhere literate programming
     [X] 30m DEV #nou <,.> => <Space> shorter local-leader (#body strain on the hands)
     [_] DEV confusing #nou <,.> and #xtref <\x> for tasks
+      BET? use global alias to "[Frame]<Space>" -> <Space> (#nou specific <LocalLeader>)
   keybinds
     [_] DEV: <,.T> to replace-anywhere OR prepend <plannedtime> w/o touching taskmarker itself
     [_] DEV: <,.D> to prepend both <date-cal> <time> OR isotime-ubspace; RENAME:OLD: <,.D> → <,._>

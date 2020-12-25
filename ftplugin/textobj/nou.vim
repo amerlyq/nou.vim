@@ -7,8 +7,9 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 " [_] NEED:DEV: operator <c r> to overwrite "goal" and "time" on top of existing
-"   << reduce number of clicks e.g. keep tail ":00" for time
+"   << reduce number of clicks e.g. keep tail ":00" for time (but delete hours)
 "   [_] ENH: accept only single char for "goal" and switch to normal mode after that
+" [_] ALT: allow to insert "6c<SP>t" -> "6:00" (instead of 6<SP>t)
 
 " BAD: no way to enumerate all functions w/o codedupl or breaking lazy-loading
 " TEMP:(prevent conflict): 'lead' {'<Space>', '<Backspace>'} => {'^' '0'}

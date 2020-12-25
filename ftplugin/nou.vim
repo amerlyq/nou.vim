@@ -44,6 +44,9 @@ nnoremap <Plug>(nou-datew-i) "=strftime('%Y-%m-%d-%a-W%V')<CR>P
 nnoremap <Plug>(nou-date-a) "=strftime('%Y-%m-%d')<CR>p
 nnoremap <Plug>(nou-datew-a) "=strftime('%Y-%m-%d-%a-W%V')<CR>p
 
+" ENH: augment many other objects beside date
+nnoremap <Plug>(nou-complement) E"=join(systemlist("date +'-%a-W%V' -d ".expand('<cWORD>')))<CR>p
+
 " THINK:BET:USE: `dts` like in Wolfram
 inoreab <buffer><expr> !dts! strftime('%Y-%m-%d')
 
@@ -156,6 +159,7 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>>', '<Plug>(nou-set-goal-postpone)'],
   \ ['n', '<LocalLeader><Backspace>', '<Plug>(nou-del-status)'],
   \ ['n', '<LocalLeader><Del>', '<Plug>(nou-del-plan)'],
+  \ ['n', '<LocalLeader><Tab>', '<Plug>(nou-complement)'],
   \]
 
 
