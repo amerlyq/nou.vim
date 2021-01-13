@@ -45,6 +45,11 @@ syn cluster nouArtifactQ add=nouArtifactUrlAlias
 hi nouArtifactUrlAlias cterm=bold,reverse ctermbg=NONE gui=bold,reverse guibg=NONE ctermfg=62 guifg=#6c71c4
 syn match nouArtifactUrlAlias display excludenl /\v%(^|[(\[{,;|[:blank:]]@1<=)%(\^\S{-1,})%([|;,}\])[:blank:]]@1=|$)/
 
+"" user group OR role like <%dev>
+syn cluster nouArtifactQ add=nouArtifactRole
+hi nouArtifactRole cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=172 guifg=#df8700
+syn match nouArtifactRole display excludenl /\v%(^|[(\[{,;|[:blank:]]@1<=)%(\%\a\k{-})%([|;,}\])[:blank:]]@1=|$)/
+
 
 " ATT: define after artf_hashtag() to override #1 hashtag
 " ALT: subgroups :: *Index{Hash,Dot,No,Braces,...}
