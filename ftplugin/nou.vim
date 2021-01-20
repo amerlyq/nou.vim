@@ -40,12 +40,12 @@ digraph *  8226    " •
 " xnoremap <Plug>(nou-date) "=strftime('%Y-%m-%d')<CR>P
 inoremap <Plug>(nou-date) <C-R>=strftime('%Y-%m-%d')<CR>
 nnoremap <Plug>(nou-date-i) "=strftime('%Y-%m-%d')<CR>P
-nnoremap <Plug>(nou-datew-i) "=strftime('%Y-%m-%d-%a-W%V')<CR>P
+nnoremap <Plug>(nou-datew-i) "=strftime('%Y-%m-%d-%a-W%W')<CR>P
 nnoremap <Plug>(nou-date-a) "=strftime('%Y-%m-%d')<CR>p
-nnoremap <Plug>(nou-datew-a) "=strftime('%Y-%m-%d-%a-W%V')<CR>p
+nnoremap <Plug>(nou-datew-a) "=strftime('%Y-%m-%d-%a-W%W')<CR>p
 
 " ENH: augment many other objects beside date
-nnoremap <Plug>(nou-complement) E"=join(systemlist("date +'-%a-W%V' -d ".expand('<cWORD>')))<CR>p
+nnoremap <Plug>(nou-complement) E"=join(systemlist("date +'-%a-W%W' -d ".expand('<cWORD>')))<CR>p
 
 " THINK:BET:USE: `dts` like in Wolfram
 inoreab <buffer><expr> !dts! strftime('%Y-%m-%d')
