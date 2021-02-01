@@ -99,14 +99,31 @@ fun! nou#path_open(path, ...)
   " THINK: distinguish "here" and "there" for path relative to current file
   if pfx ==# ''  " NOTE:(/...): use abspath as-is
     if match(a:path, '\v[\u2800-\u28FF]{4}') > -1
+      " ALT: open related '.cal' file -- but only for tasks '[⡟⢟⢗⡼]'
       norm g]
       return
     endif
+
+    "" NOTE: open any date as .cal (past/future)
+    let ymd = matchstr(a:path, '\v^'.g:nou#util#Rdate)
+    if ymd
+      let cmdline = "find -H /@/todo -regextype egrep -type f -regex '.+/".ymd."\\b.*' -print -quit"
+      echom cmdline
+      let res = systemlist(cmdline)
+      if len(res) > 0
+        let p = res[0]
+      elseif ymd > strftime('%Y-%m-%d')
+        let p = '/@/todo/planned/'. ymd .'.task'
+      else
+        let p = '/@/todo/log/'. join(systemlist("date +'%Y/%Y-%m-%d-%a-W%W' -d ".ymd))
+      endif
+    endif
+
   elseif pfx ==# '.' | let p = expand('%:h') . p " NOTE:(./): rel to curr file
   " elseif pfx ==#'..' | let p = expand('%:h').'/'.pfx . p " NOTE: rel to 'here'
   elseif pfx ==#'..' | let p = expand('%:p:h:h') . p " NOTE:(../): rel to 'there'
   elseif pfx ==# '~' | let p = $HOME . p
-  elseif pfx ==# '@' | let p = '/@/aura'. p  " BAD: I have nested repo
+  elseif pfx ==# '@' | let p = '/@/=all='. p  " BAD: I have nested repo
   elseif pfx ==# '♆' | let p = map(['', '/.edit', '/setup'], '"/@/airy'.p.'".v:val')
   elseif pfx ==# '☆' | let p = '/x'. p
   elseif pfx ==# '★' | let p = '/x/_fav'. p
@@ -125,7 +142,7 @@ fun! nou#path_open(path, ...)
     " [_] FIXME:BET: allow subpath under repo "@/nou.vim/Makefile" instead of prefix grouping ⌇⡞⣥⣕⡋
     " WARN: prefixes not allowed (i.a. @/miur/kirie) <= indistinguishable from repo subpath
     " ALT:MAYBE: extend ":" syntax ":/file/here" .vs. ":somerepo/file/there"
-    let cmdline = "find -H '".$HOME."/aura' -path '*".p."/.git' -execdir pwd \\;"
+    let cmdline = "find -H '/@/aura' -path '*".p."/.git' -execdir pwd \\;"
     let res = systemlist(cmdline)
     let repo = (len(res) > 0) ? res[0] : ($HOME .'/aura'. p)
     " BET? open dir in netrw instead of single file ? BUT: dir is accessible by <,r> anyways
