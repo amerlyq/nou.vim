@@ -1,5 +1,9 @@
 
 TODO
+  [_] Preview task xtrefs in statusline (like python preview)
+    * show only xtref under cursor
+    * decode all xtrefs in the order written in line
+    * sort all decoded xtrefs by order and *highlight* the one nearer/under cursor
   [_] MAYBE:CHG: "2020-01-14 [10%] ..." => "2020-01-14 10% ..." OR "2020-01-14 %10 ..."
     <= because I work with goals [_] => [X] and not actual tasks
   [_] MAYBE: use unicode symbols for checkbox BUT: "wide" are nice but cropped
