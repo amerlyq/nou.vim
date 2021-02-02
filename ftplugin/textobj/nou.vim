@@ -29,8 +29,8 @@ let s:keys =
   \,['tags', '#', '*']
   \,['text', 'b', 'B']
   \,['status', 'x', 'X', 'date + goal']
-  \,['plan', 'p', 'P', 'status + time']
-  \,['span', 's', 'S', 'time + dura']
+  \,['plan', 's', 'S', 'status + time']
+  \,['span', 'p', 'P', 'time + dura']
   \,['slot', '', '', 'status + span']
   \,['task', 'h', 'H', 'slot + assoc']
   \,['meta', 'c', 'C', 'mood + tags = ctx']
@@ -38,6 +38,13 @@ let s:keys =
   \,['body', 'y', 'Y', 'meta + text']
   \,['entry', 'z', 'Z', 'task + body']
   \]
+
+" [_] FIXME: textbody can be empty
+"   BUG: dura treated as body :: "[_] 5m" --(c·a)-> "[_] <W> 5m"
+" [_] BUG: plan deletes infix w/o time :: "[_] ↻ body" --(d·s)-> " body"
+"   BUT: for "[_] 12:00 ↻ body" -> "↻ body"
+" plan => sched
+" span => slot / journal => period ?
 
 
 " BAD: no lazy-loading for spec-generation NEED: query if vim-textobj-user is present
