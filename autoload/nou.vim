@@ -45,7 +45,7 @@ fun! nou#bar(...) range
     let hour = float2nr(str2float(strftime('%H'))) + min5/60
     let now = (a:2 == 0) ? printf('%02d:%02d', hour % 24, min5 % 60)
           \: a:2 < 24 ? printf('%02d:00', a:2)
-          \: a:2 >= 100 ? printf('%02d:%02d', a:2 / 100, a:2 % 100)
+          \: a:2 >= 100 ? printf('%02d:%02d', (a:2 / 100) % 24, a:2 % 100)
           \: a:2 == 24 ? '00:00'
           \: strftime('%H') . printf(':%02d', a:2)
     let pfx = substitute(pfx, 'T', now.' ', '')
