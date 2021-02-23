@@ -106,6 +106,7 @@ let s:nou.delimit.colors = [
   \ ['.~', '#dc322f'],
   \ [':', '#6c71c4'],
   \ ['#_', '#fdf6e3'],
+  \ ['─', '#dc322f'],
   \ ]
 
 let s:nou.outline = {}
