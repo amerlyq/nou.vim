@@ -237,7 +237,7 @@ fun! nou#util#Targs(...)
   if a:0>1| return a:000
   elseif a:0<1||a:1==0| return ['b', 'e']
   elseif a:1==1 | return ['b', 'S']
-  elseif a:1=='BS' | return ['B', 'S']
+  elseif a:1==#'BS' | return ['B', 'S']
   else | return ['B', a:1]
   endif
 endf
@@ -251,7 +251,7 @@ fun! nou#util#Tpos(spaced, elem, ...)
   " WF:BET?(consistence): don't invert textobj
   "   + BET:chg: mechanically train pressing d<LL>G when using delete
   "   - BAD:now: mentally remember to expect different behavior
-  let wsp = ((v:operator == 'd') ? !a:spaced : a:spaced)
+  let wsp = ((v:operator ==# 'd') ? !a:spaced : a:spaced)
 
   " NOTE: textobj selection always includes end-char
   let [b, e] = nou#util#Targs(wsp)
@@ -282,10 +282,10 @@ fun! nou#util#Tpos(spaced, elem, ...)
   "   FAIL: setpos('.', Pb) don't work in operator-pending mode
 
   " NOTE: allow textobj with real len>=1
-  if x[b]!=x[e] || x.e!=x.E
-    if v:operator == 'c'
+  if x[b] !=# x[e] || x.e !=# x.E
+    if v:operator ==# 'c'
       let Pb[2] += strlen(pfx)
-      if e=='e' " NOTE: because in _a mode we must not subtract from 'S'
+      if e==#'e' " NOTE: because in _a mode we must not subtract from 'S'
         let Pe[2] -= strlen(sfx)
       end
     en
@@ -294,7 +294,7 @@ fun! nou#util#Tpos(spaced, elem, ...)
   en
 
   " NOTE: don't do anything when modifying non-existent element
-  if v:operator != 'c' | return 0 |en
+  if v:operator !=# 'c' | return 0 |en
 
   let nopfx = ['lead', 'date', 'goal', 'status', 'plan', 'task', 'entry']
   let pfx = ((x.B == x.b && index(nopfx, a:elem)<0) ? ' ' : '') . pfx
@@ -310,7 +310,7 @@ fun! nou#util#Tpos(spaced, elem, ...)
   " DEBUG: echom pfx.ifx.sfx
 
   let l = getline('.')
-  let rest = (e=='S') ? x.E + strlen(x.s) : x.E
+  let rest = (e==#'S') ? x.E + strlen(x.s) : x.E
   call setline('.', strpart(l,0,x[b]) .pfx.ifx.sfx. strpart(l,rest))
   return ['v', Pb, Pe]
 endf

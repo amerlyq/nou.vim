@@ -58,7 +58,7 @@ inoreab <buffer><expr> !dts! strftime('%Y-%m-%d')
 function! s:lead_correct(sym, rpl)
   let pfx = getline('.')[:col('.') + 1]
   " DEBUG: echom '|'.getline('.').v:char.'|'
-  let y = (v:char == ' ') && (trim(pfx) == a:sym)
+  let y = (v:char == ' ') && (trim(pfx) ==# a:sym)
   return y ? a:rpl : a:sym
 endfunction
 " ALT: inoreab <buffer> . <C-r>=<sid>lead_correct('.', '•')<CR>
