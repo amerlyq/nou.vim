@@ -107,9 +107,8 @@ fun! s:yank_xts(finished, ...)
     let hms = nou#util#parsetask().time.m
   end
   let iso = ymd .'T'. hms .':00'. strftime('%z')[:2] .':'.strftime('%z')[3:]
-  py import datetime as DT
   " INFO:ALT:FAIL: strftime('%s', iso) don't support iso8601
-  let ts = pyeval('int(DT.datetime.fromisoformat("'.iso.'").timestamp())')
+  let ts = py3eval('int(__import__("datetime").datetime.fromisoformat("'.iso.'").timestamp())')
   " DEBUG: echo iso.' --> '.ts
   let xts = substitute(printf('%08x', ts), '..', '\=nr2char("0x28".submatch(0))', 'g')
   call setreg(get(a:,1,'+'), xts, 'c')
