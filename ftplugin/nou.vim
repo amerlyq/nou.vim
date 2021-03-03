@@ -116,6 +116,71 @@ endf
 nnoremap <buffer> <Plug>(nou-task-xts-beg) :call <SID>yank_xts(0)<CR>
 nnoremap <buffer> <Plug>(nou-task-xts-end) :call <SID>yank_xts(1)<CR>
 
+
+"" HACK: paste with nested indent
+nnoremap <buffer> gp p
+nnoremap <buffer> gP P
+nmap <buffer><silent> P <Plug>(nou-paste-nested-above)
+nmap <buffer><silent> p <Plug>(nou-paste-nested-below)
+" FIXME: use some "=" or "@" register to hide function call
+nnoremap <buffer> <Plug>(nou-paste-nested-above) :call <SID>paste_nested(v:register,'P')<CR>
+nnoremap <buffer> <Plug>(nou-paste-nested-below) :call <SID>paste_nested(v:register,'p')<CR>
+" vnoremap <buffer><unique> gp pgvy
+fun! s:paste_nested(reg, cmd)
+  let reg = a:reg == '_' ? '"' : a:reg
+  " [_] BUG: uses 'V' from <"p> when inserting short inline
+  if getregtype(reg) !=# 'V'
+    exe 'norm! "'. reg . a:cmd
+    return
+  end
+
+  let buf = getreg(reg,1,1)
+  let lead = len(buf) ? strpart(buf[0], 0, 4) : ''
+  if lead =~# '\v^%(\t|\s\s)'
+    exe 'norm! "'. reg . a:cmd
+    return
+  end
+
+  "" skip empty lines
+  let i = line('.')
+  let line = getline(i)
+  while empty(line) && i > 0
+    let i = i - 1
+    let line = getline(i)
+  endwhile
+  let skipped = line('.') - i
+
+  let off = &expandtab ? repeat(' ', &tabstop) : "\t"
+  let pfx = substitute(line, '^\(\s*\).*', '\1', '')
+  let body = strpart(line, strlen(pfx))
+
+  "" NOTE: reduce indent
+  "" ALT: use indent of above line
+  " let pfx = substitute(getline(i - 1), '^\(\s*\).*', '\1', '')
+  if body =~# '^https\?://'
+    let pfx = substitute(pfx, off.'$', '', '')
+  elseif body =~# '\V\^[_]' && lead ==# '[_] '
+    "" don't reindent tasks
+  elseif !empty(body)  " increase indent
+    let pfx = pfx . off
+  else
+    "" use current spaced line as indent
+    " if !empty(pfx) | let pfx = pfx
+  end
+
+  "" HACK: skip multiple lines before pasting to deindent
+  if skipped > 0
+    let dedent = repeat(off, skipped)
+    let pfx = strpart(pfx, 0, strlen(pfx) - strlen(dedent))
+  end
+
+  "" MAYBE: rasterize "\t" -> "  " on paste
+  ""   << easier to write external plugins e.g. qute
+  call setreg('p', map(buf, "pfx . v:val"))
+  exe 'norm! "p'. a:cmd
+endf
+
+
 " ALT:
 "   nnoremap <silent> <Plug>(nou-set-goal-subdone) :call nou#vsel_apply(0,{x->nou#util#replace('state','+',x)})<CR>
 "   xnoremap <silent> <Plug>(nou-set-goal-subdone) :<C-u>call nou#vsel_apply(1,{x->nou#util#replace('state','+',x)})<CR>
