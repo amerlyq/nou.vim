@@ -179,6 +179,7 @@ fun! nou#path_open(path, ...)
   if type(p) == type([])| let [p, xs] = [get(p, 0, ''), p]
     for x in xs| if filereadable(x)| let p = x | break |en |endfor
   endif
+  " TODO: if directory -- open in embedded fm/ranger
   if !bang && !filereadable(p)
     echohl ErrorMsg
     echom "No such file:" p

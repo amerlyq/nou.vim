@@ -25,7 +25,7 @@ syn match nouPathXdelim display excludenl contained '[/\\]'
 syn match nouPathXspace display excludenl contained '\\[[:blank:]]'
 syn match nouPathXsh    display excludenl contained '\V$\w\+\|${[^}]\+}'
 " MAYBE:FIXME: only allow comma inside {...} as nested syntax region (contains=nouPath)
-syn match nouPathXalt   display excludenl contained '[<{,}>]'
+syn match nouPathXalt   display excludenl contained '[<{,|}>]'
 
 
 "" Make functions
