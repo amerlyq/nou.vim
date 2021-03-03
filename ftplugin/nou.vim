@@ -181,6 +181,12 @@ fun! s:paste_nested(reg, cmd)
 endf
 
 
+" [_] TODO
+" nnoremap <buffer> <Plug>(nou-copy-time-above) :call <SID>TBD(0)<CR>
+" nnoremap <buffer> <Plug>(nou-copy-time-below) :call <SID>TBD(0)<CR>
+"   \ ['n', '<LocalLeader>O', '<Plug>(nou-copy-time-above)'],
+"   \ ['n', '<LocalLeader>o', '<Plug>(nou-copy-time-below)'],
+
 " ALT:
 "   nnoremap <silent> <Plug>(nou-set-goal-subdone) :call nou#vsel_apply(0,{x->nou#util#replace('state','+',x)})<CR>
 "   xnoremap <silent> <Plug>(nou-set-goal-subdone) :<C-u>call nou#vsel_apply(1,{x->nou#util#replace('state','+',x)})<CR>
