@@ -123,10 +123,12 @@ nnoremap <buffer> gP P
 nmap <buffer><silent> P <Plug>(nou-paste-nested-above)
 nmap <buffer><silent> p <Plug>(nou-paste-nested-below)
 " FIXME: use some "=" or "@" register to hide function call
-nnoremap <buffer> <Plug>(nou-paste-nested-above) :call <SID>paste_nested(v:register,'P')<CR>
-nnoremap <buffer> <Plug>(nou-paste-nested-below) :call <SID>paste_nested(v:register,'p')<CR>
+nnoremap <buffer> <Plug>(nou-paste-nested-above) :call <SID>paste_nested(v:register,'P',v:count)<CR>
+nnoremap <buffer> <Plug>(nou-paste-nested-below) :call <SID>paste_nested(v:register,'p',v:count)<CR>
 " vnoremap <buffer><unique> gp pgvy
-fun! s:paste_nested(reg, cmd)
+" [_] SPLIT:MOVE: nou/clip/paste.vim
+fun! s:paste_nested(reg, cmd, lvl) range
+  let off = &expandtab ? repeat(' ', &tabstop) : "\t"
   let reg = a:reg == '_' ? '"' : a:reg
   " [_] BUG: uses 'V' from <"p> when inserting short inline
   if getregtype(reg) !=# 'V'
@@ -134,6 +136,18 @@ fun! s:paste_nested(reg, cmd)
     return
   end
 
+  "" NOTE: use explicit level from <count> instead of contextual heuristics
+  let buf = getreg(reg,1,1)
+  if a:lvl > 0
+    let pfx = repeat(off, a:lvl - 1)
+    let cind = min(map(copy(buf), "match(v:val.'x','\\S')"))  " = common_min_indent_len
+    echom cind
+    call setreg('p', map(copy(buf), "pfx . strpart(v:val, cind)"))
+    exe 'norm! 1"p'. a:cmd
+    return
+  end
+
+  "" NOTE: don't touch buffer if first line (OR:FIXME? any line) is indented
   let buf = getreg(reg,1,1)
   let lead = len(buf) ? strpart(buf[0], 0, 4) : ''
   if lead =~# '\v^%(\t|\s\s)'
@@ -150,7 +164,6 @@ fun! s:paste_nested(reg, cmd)
   endwhile
   let skipped = line('.') - i
 
-  let off = &expandtab ? repeat(' ', &tabstop) : "\t"
   let pfx = substitute(line, '^\(\s*\).*', '\1', '')
   let body = strpart(line, strlen(pfx))
 

@@ -2,6 +2,7 @@
 " BAD:REF:(:h normal): {commands} cannot start with a space
 "   HACK:(prepending): <LocalLeader>X => \<Esc>\<Space>X
 "   FAIL:(leader="\"): exe "norm \<Space>"
+"     FIXED?(:h norm): exe "norm 1\<Space>"
 " let g:maplocalleader = "\<Space>"
 ================================
 Execute:
