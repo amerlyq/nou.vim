@@ -27,6 +27,9 @@ syn match nouHashTagPfx display excludenl contained '[#]'
 hi nouHashTagParam cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=101 guifg=#958e68
 syn match nouHashTagParam display excludenl contained ':[^:#[:blank:]]\+'
 
+hi nouHashTagList cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=95 guifg=#8f6f5f
+syn match nouHashTagList display excludenl contained containedin=nouHashTagParam ','
+
 
 """ Concepts
 " [_] TRY:DEV: dereferencing by <g[> and <gf>

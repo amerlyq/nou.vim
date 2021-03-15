@@ -1,5 +1,11 @@
 
 TODO
+  [_] THINK markers for #recurrent ("done & repeat again") tasks
+    VIZ: [⮡] [🢖] [▸] [▶] [↻] [⏎] [↵]
+    WF:
+      […] waiting -> [X] done
+      […] waiting -> [>] postponed
+      […] waiting -> { [⮡] done&repeat } -> [X] done
   [_] Preview task xtrefs in statusline (like python preview)
     * show only xtref under cursor
     * decode all xtrefs in the order written in line

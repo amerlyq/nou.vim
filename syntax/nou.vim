@@ -347,6 +347,10 @@ for i in keys(g:nou.task.colors)
   exe 'syn match nouTaskProgress'.i.' display excludenl contains=nouProgressTotal "\v\['.i.'\d%(\.\d+)?\%%(\ze/\d+)?\]"'
 endfor
 
+hi def link nouTaskProgressDone nouTaskDone
+syn cluster nouTaskQ add=nouTaskProgressDone
+syn match nouTaskProgressDone display excludenl contains=nouProgressTotal "\v\[XX\%%(\ze/\d+)?\]"
+
 " IDEA: use Total suffix for all tasks to specify allocated/spent/expected resources
 "   e.g. [⡟⣌⢅⠰/214] [X/214] [+/2h/214] [_/4h] [$/2h]
 hi! nouProgressTotal ctermfg=14 guifg=#586e75

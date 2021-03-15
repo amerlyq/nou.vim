@@ -277,6 +277,8 @@ let s:nou_mappings += [
   \ ['nx', '<LocalLeader>B', '<Plug>(nou-barDB)'],
   \]
 
+" TODO: <LL>rt -> replace on hours, <LL>rm -> replace on minutes ALT: "c<LL>:"
+
 
 if exists('s:nou_mappings')
   for [modes, lhs, rhs] in s:nou_mappings

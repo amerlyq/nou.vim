@@ -167,6 +167,7 @@ fun! nou#path_open(path, ...)
     let p = g[0] . p
   " ALT:IDEA: use "…/t_parglare" or "?/t_parglare" to search file system-wide through "locate(1)"
   elseif pfx ==# '…'
+    " [_] IDEA: use e.g. '…/agenda' OR '://agenda' to search in repo/cwd/etc for :/my/agenda.nou
     let p = strpart(p, 1)
     " NOTE: search in all 'path' like usual 'gf' do
     exe 'find' fnameescape(p)
