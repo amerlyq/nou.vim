@@ -35,41 +35,44 @@ fun! nou#paste#reindent(lines, lvl)
 endf
 
 
-fun! nou#paste#insert(lines, cmd)
-  " ALT: exe 'put' . (a:cmd ==# 'P' ? '!' : '') . '=a:lines'
-  if a:cmd ==# 'P'| put! = a:lines |else| put = a:lines |en
+""" [⡠⡖⠦⡓] BUG: paste from wrong register
+"   ALT:BUG: uses 'V' from <"p> when inserting short inline
+"   REQ v:register incorrectly persists into the next command · Issue #11202 · neovim/neovim ⌇⡠⡖⠋⢠
+"     https://github.com/neovim/neovim/issues/11202
+"     ::: FIXED: nvim>=0.5
+"   Vim - General - clipboard=unnamedplus, v:register and yanks ⌇⡠⡖⠍⡤
+"     http://vim.1045645.n5.nabble.com/clipboard-unnamedplus-v-register-and-yanks-td4822337.html
+"   neovim - Clipboard is reset after first paste in Visual Mode - Vi and Vim Stack Exchange ⌇⡠⡖⠍⣄
+"     https://vi.stackexchange.com/questions/25259/clipboard-is-reset-after-first-paste-in-visual-mode
+"   CASE: :nnoremap <buffer><silent> p  :<C-u>call setreg('p', map(getreg(v:register,1,1), "'  '. v:val"), 'V') \| exe 'norm! "pp'<CR>
+fun! nou#paste#insert(lines, cmd, ...)
+  "" MAYBE: rasterize "\t" -> "  " on paste
+  ""   << easier to write external plugins e.g. qute
 
   "" HACK: don't touch system clipboard (@", @+, @*) when modifying text
-  " call setreg('p', a:lines, 'V')
-  " exe 'norm! 1"p'. a:cmd
+  let rtp = get(a:,1,'V')
+  let reg = get(a:,2,'p')
+  let cnt = get(a:,3,'1')
+  call setreg(reg, a:lines, rtp)
+  exe 'norm! '. cnt .'"'. reg . a:cmd
 
+  "" ALT: exe 'put' . (a:cmd ==# 'P' ? '!' : '') . '=a:lines'
+  " OR: if a:cmd ==# 'P'| put! = a:lines |else| put = a:lines |en
   "" HACK: replace whole buffer
   " let cmd = '%delete_ | put = a:lst | 1delete _'
   " silent exec cmd
+  return a:lines
 endf
 
 
-fun! nou#paste#smart(reg, cmd, lvl1) range
-  let reg = a:reg == '_' ? '"' : a:reg
-  " [_] BUG: uses 'V' from <"p> when inserting short inline
-  if getregtype(reg) !=# 'V'
-    exe 'norm! "'. reg . a:cmd
-    return
-  end
-
-  "" NOTE: use explicit level from <count> instead of contextual heuristics
-  if a:lvl1 > 0
-    let lines = nou#paste#reindent(getreg(reg,1,1), a:lvl1 - 1)
-    return nou#paste#insert(lines, a:cmd)
-  end
-
+fun! nou#paste#keep_unchanged(lines, type)
   "" NOTE: don't touch buffer if first line (OR:FIXME? any line) is indented
   " [_] TODO: if we paste item i.e. /[:punct:]\s/ is equal for curr and prev lines
-  if getreg(reg) =~# '\v^%(\t|\s\s)'
-    exe 'norm! "'. reg . a:cmd
-    return
-  end
+  return a:type !=# 'V' || a:lines[0] =~# '\v^%(\t|\s\s)'
+endf
 
+
+fun! nou#paste#ctx_guess_indent(lines)
   "" skip empty lines
   let i = line('.')
   let line = getline(i)
@@ -88,7 +91,7 @@ fun! nou#paste#smart(reg, cmd, lvl1) range
   let off = &expandtab ? repeat(' ', &tabstop) : "\t"
   if body =~# '^https\?://'
     let pfx = substitute(pfx, off.'$', '', '')
-  elseif body =~# '\V\^[_]' && getreg(reg) =~# '\V\^[_] '
+  elseif body =~# '\V\^[_]' && a:lines[0] =~# '\V\^[_] '
     "" don't reindent tasks
   elseif !empty(body)  " increase indent
     let pfx = pfx . off
@@ -103,8 +106,25 @@ fun! nou#paste#smart(reg, cmd, lvl1) range
     let pfx = strpart(pfx, 0, strlen(pfx) - strlen(dedent))
   end
 
-  "" MAYBE: rasterize "\t" -> "  " on paste
-  ""   << easier to write external plugins e.g. qute
-  call setreg('p', map(getreg(reg,1,1), "pfx . v:val"))
-  exe 'norm! "p'. a:cmd
+  return pfx
+endf
+
+
+fun! nou#paste#smart(reg, cmd, lvl1) range
+  " ALT:WKRND:(nvim<0.5.0): let reg = a:reg == '_' ? '"' : a:reg
+  let [Rlines, Rtype] = [getreg(a:reg,1,1), getregtype(a:reg)]
+
+  "" NOTE: use explicit level from <count> instead of contextual heuristics
+  if a:lvl1 > 0
+    return nou#paste#insert(nou#paste#reindent(Rlines, a:lvl1 - 1), a:cmd)
+  end
+
+  if nou#paste#keep_unchanged(Rlines, Rtype)
+    exe 'norm! "'. a:reg . a:cmd
+    return
+  end
+
+  " [_] FIXME: use newer #reindent() function + guess indent int(lvl) instead of pfx
+  let pfx = nou#paste#ctx_guess_indent(Rlines)
+  return nou#paste#insert(map(Rlines, "pfx . v:val"), a:cmd, Rtype)
 endf

@@ -212,6 +212,10 @@ let s:nou_mappings += [
   \]
 
 " TODO: <LL>rt -> replace on hours, <LL>rm -> replace on minutes ALT: "c<LL>:"
+"   ALT: <LL>m/h -> directly set/replace minutes/hours (in contrast to <LL>t for whole time)
+"     MAYBE: use count=[1..6] to convert into 10..60 minutes
+"     ALSO? use count=[1..9] to set [10..19] hours, as I sleep inside [1h..5h] anyway ?
+"   DEV: <LL>e -- evaluate and set elapsed time between entries
 
 
 if exists('s:nou_mappings')
