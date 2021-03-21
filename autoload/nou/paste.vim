@@ -110,6 +110,7 @@ fun! nou#paste#ctx_guess_indent(lines)
 endf
 
 
+" [_] ALSO:IDEA: when pasting into some code (instead of .nou) -- prepend &comment to each line
 fun! nou#paste#smart(reg, cmd, lvl1) range
   " ALT:WKRND:(nvim<0.5.0): let reg = a:reg == '_' ? '"' : a:reg
   let [Rlines, Rtype] = [getreg(a:reg,1,1), getregtype(a:reg)]
