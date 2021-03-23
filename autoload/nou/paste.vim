@@ -1,5 +1,6 @@
 """ Clipboard and extsrc copy-pasting
 
+" [_] FAIL: didn't deindent copied blocks on explicit level past
 fun! nou#paste#dedent(lines, ...)
   " NOTE: find common minimal indent length, ignoring empty/space-only lines
   " WARN: breaks with \t
