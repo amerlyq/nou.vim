@@ -123,7 +123,7 @@ fun! nou#path_open(path, ...)
   " elseif pfx ==#'..' | let p = expand('%:h').'/'.pfx . p " NOTE: rel to 'here'
   elseif pfx ==#'..' | let p = expand('%:p:h:h') . p " NOTE:(../): rel to 'there'
   elseif pfx ==# '~' | let p = $HOME . p
-  elseif pfx ==# '@' | let p = '/@/=all='. p  " BAD: I have nested repo
+  elseif pfx ==# '@' | let p = '/@'. p  " NOTE: flat list of symlinks to all features
   elseif pfx ==# '♆' | let p = map(['', '/.edit', '/setup'], '"/@/airy'.p.'".v:val')
   elseif pfx ==# '☆' | let p = '/x'. p
   elseif pfx ==# '★' | let p = '/x/_fav'. p
