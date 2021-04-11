@@ -53,8 +53,8 @@ fun! s:gen_textobj_spec(km)
   for x in a:km
     let [k, i, a] = [x[0], get(x,1,''), get(x,2,'')]
     let spec[k] = {}
-    if !empty(i)| let spec[k]['select-i'] = '<LocalLeader>'.i |endif
-    if !empty(a)| let spec[k]['select-a'] = '<LocalLeader>'.a |endif
+    if !empty(i)| let spec[k]['select-i'] = '<buffer> <LocalLeader>'.i |endif
+    if !empty(a)| let spec[k]['select-a'] = '<buffer> <LocalLeader>'.a |endif
     let spec[k]['select-i-function'] = 'nou#util#textobj_'.k.'_i'
     let spec[k]['select-a-function'] = 'nou#util#textobj_'.k.'_a'
   endfor
