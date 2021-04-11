@@ -160,6 +160,11 @@ fun! nou#path_open(path, ...)
     "   echom 'Not found: '. d .'/&/'. p
     "   return
     " en
+    "" NOTE: search in ./&*/* only relative to current file
+    let p = expand('%:h') . '/&*' . p
+    let found = glob(p, 1, 1)
+    if len(found) > 1| echom "Warn: found ".found." files, use 1st one" |en
+    if len(found) > 0| let p = found[0] |en
   elseif pfx ==# ':'
     " ALT: see "\cd" cmd impl
     let d = fnameescape(expand('%:h'))
