@@ -1,7 +1,6 @@
 " DEP:NEED: |kana/vim-textobj-user|
-
-if exists('g:loaded_textobj_nou')| finish |endif
-let g:loaded_textobj_nou = 1
+if exists('b:loaded_textobj_nou')| finish |endif
+let b:loaded_textobj_nou = 1
 
 let s:save_cpo = &cpo
 set cpo&vim

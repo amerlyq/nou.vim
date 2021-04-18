@@ -1,5 +1,5 @@
-" BUG: loaded 3 times -- verify by wild echo
-" FIXME: buffer mappings aren't loaded on next buffer open
+" BUG: loaded 2 times on startup and 1 more for each :edit / reopen
+" DEBUG: $ nvim -V20/t/vv backup.task
 if exists("b:did_ftplugin")| finish |else| let b:did_ftplugin = 1 |endif
 let b:undo_ftplugin = "setl ai< cin< inde< ts< sw< sts< com< cms< fdm< cole< cocu< wrap<"
 call nou#opts#init()
