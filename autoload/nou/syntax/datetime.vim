@@ -44,11 +44,17 @@ syn match nouTime display excludenl
   \ '\v<%(\d|[01]\d|2[0-4]):[0-5]\d%(:[0-5]\d)?>'
 
 
-"" HACK: emphasize now()
+"" HACK: emphasize now() and floored time window
+" ALT:BET? cvt localtime()±1h30m -> rgx for full time
+" MAYBE: different color for past and future parts of the window
 let s:nowh = join(map([-1,0,1], {x-> printf('%02d',(strftime('%H')+23+x)%24)}),'|')
+hi! nouTimeWnd cterm=bold gui=bold ctermfg=248 guifg=#a8a8a8
+exe 'syn match nouTimeWnd display excludenl contained containedin=nouTime '
+  \. "'\\v:@1<!%(". s:nowh ."):[0-9:]+'"
+
 hi! nouTimeNow cterm=bold,reverse gui=bold,reverse ctermfg=248 guifg=#a8a8a8
 exe 'syn match nouTimeNow display excludenl contained containedin=nouTime '
-  \. "'\\v:@1<!%(". s:nowh ."):[0-9:]+'"
+  \. "'\\v:@1<!". strftime('%H') .":[0-9:]+'"
 
 
 """ Span

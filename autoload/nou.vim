@@ -113,6 +113,7 @@ fun! nou#path_open(path, ...)
       if len(res) > 0
         let p = res[0]
       elseif ymd > strftime('%Y-%m-%d')
+        " FIXME: also search for .cal in :/{my,work}/{agenda,upcoming}.nou
         let p = '/@/todo/planned/'. ymd .'.task'
       else
         let p = '/@/todo/log/'. join(systemlist("date +'%Y/%Y-%m-%d-%a-W%W' -d ".ymd))
