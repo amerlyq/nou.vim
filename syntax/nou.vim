@@ -339,20 +339,21 @@ syn cluster nouProgressRatioQ add=nouProgressRatio1
 syn match nouProgressRatio1 display excludenl contained '\D1\D\d\+\D'
 "}}}
 
-"{{{ NOTE: spent time progress e.g. "[1h30m/8h]" OR "[-/-]"
+"{{{ NOTE: spent time progress e.g. "[1h30m/4h|6h]" OR "[-/-]"
+" [_] ENH: make it more arbitrary i.e. support anything in shape of delimiters "[…/…|…]"
 syn cluster nouTaskQ add=nouProgressTime
 exe 'hi! nouProgressTime '. g:nou.task.colors[8]
-syn match nouProgressTime display excludenl contains=@nouProgressTimeQ,nouTimeSpan
-  \ '\v\[%(-|<%(\d+[wdhms]){1,2}%(\+%(\d+[wdhms]){1,2})*>)[/⁄]%(-|<%(\d+[wdhms]){1,2}%(\=\=%(\d+[wdhms]){1,2})?>)\]'
+syn match nouProgressTime display excludenl contains=@nouProgressTimeQ,nouTimeSpan,nouTableDelim
+  \ '\v\[%(-|<%(\d+[wdhms]){1,2}%(\+%(\d+[wdhms]){1,2})*>)[/⁄]%(-|<%(\d+[wdhms]){1,2}%(\|%(\d+[wdhms]){1,2})?>)\]'
 
 hi! nouProgressTimePart ctermfg=14 guifg=#586e75
 syn cluster nouProgressTimeQ add=nouProgressTimePart
-syn match nouProgressTimePart display excludenl contained contains=nouTimeSpan
-  \ '\v\D(<%(\d+[wdhms]){1,2}>)[/⁄]\1\D'
+syn match nouProgressTimePart display excludenl contained contains=nouTimeSpan,nouTableDelim
+  \ '\v\D%(\w+\+)?(<%(\d+[wdhms]){1,2}>)[/⁄]\1%(\|%(\d+[wdhms]){1,2})?\D'
 
 exe 'hi! nouProgressTimePlan '. g:nou.task.colors[7]
 syn cluster nouProgressTimeQ add=nouProgressTimePlan
-syn match nouProgressTimePlan display excludenl contained contains=nouTimeSpan
+syn match nouProgressTimePlan display excludenl contained contains=nouTimeSpan,nouTableDelim
   \ '\v\D-\D<%(\d+[wdhms]){1,2}>\D'
 
 exe 'hi! nouProgressTimeLog '. g:nou.task.colors[1]
