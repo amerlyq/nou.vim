@@ -172,3 +172,18 @@ Postponed/rescheduled "[>]" ⌇⡟⡅⣨⡥
       - allow keeping copies instead of moving to future
       - keep all "todo" tasks as the same "[_]" (consistency)
       - understand it was postponed by having the xts-trail
+
+
+%%% Agenda
+
+  [_] #nou THEO: daily remnants/quota progress ⌇⡠⢡⠺⣶
+    i.e. to track in agenda the remaining time of the day and if I currently ahead/behind on time
+    ¦ [<rem.plan>/<rem.day>] = [3h/2h]
+    ¦ [<rem.plan>/<rem.day>|<planned>/<slot>|<total>] = [3h/2h|4h/6h|9h]
+    ¦ [<progress>/<planned>/<slot>] = [2h/6h/6h]
+    ¦ [<progress>/<planned>|<quota>/<window>] = [2h/5h|6h/8h]
+    ¦ [<remaining>+<progress>/<planned>|<quota>/<window>] = [2h+2h/5h|6h/8h]
+    [_] BET? log into cumulative tasks with preallocated quota "[1h/2h] extraneous/buffer"
+      << instead of tracking remaining quota for slot
+      IDEA: instead of separate task "[1h/-] unplanned/unexpected" -- simply overflow into "[3h/2h] buffer"
+      NICE: directly contribute them to slot progress and stop when slot is exhausted
