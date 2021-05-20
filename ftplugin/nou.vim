@@ -37,6 +37,8 @@ digraph *  8226    " •
 
 """ Mappings
 
+"" TODO:FUTURE: append timeslot size "2021-06-01-Tue-W22 [-/5h30m|8h]"
+" [_] 45m(40m‥1h20m) TODO 22<LL>I -> aug cur month | 2205<LL>I -> aug current year
 " nnoremap <silent> <Plug>(nou-date) :<C-u>put=strftime('%Y-%m-%d')<CR>
 " xnoremap <Plug>(nou-date) "=strftime('%Y-%m-%d')<CR>P
 inoremap <Plug>(nou-date) <C-R>=strftime('%Y-%m-%d')<CR>
@@ -117,6 +119,11 @@ endf
 nnoremap <buffer> <Plug>(nou-task-xts-beg) :call <SID>yank_xts(0)<CR>
 nnoremap <buffer> <Plug>(nou-task-xts-end) :call <SID>yank_xts(1)<CR>
 
+" TODO: jump cursor to "now" or nearest to "now"
+"   CASE: navigate agenda.nou and !today after reopening
+"   i.e. ( /^<date>/ | /<date>/ | None) -> /<time>/
+"     << TRY: current date first, then parse everything,
+"     sort by date/time, and search for nearest to current date/time
 
 "" HACK: paste with smart indent
 nnoremap <buffer> gp p
@@ -157,6 +164,8 @@ nmap <buffer> <Plug>(nou-del-status) d<Plug>(textobj-nou-status-i)
 nmap <buffer> <Plug>(nou-del-plan) d<Plug>(textobj-nou-plan-i)
 " FAIL: can't apply multiple times to visual selection
 nmap <buffer> <Plug>(nou-cvt-task) d<Plug>(textobj-nou-lead-i)c<Plug>(textobj-nou-goal-i)_<Esc>
+
+" [_] TODO: easier to switch association "c<LL>ame<Esc>" -> "<LL>m"
 
 " DISABLED: I never expect to convert subtask to task
 "   ['n', '<LocalLeader><Space>', '<Plug>(nou-cvt-task)'],

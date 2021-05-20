@@ -74,4 +74,4 @@ syn cluster nouArtifactQ add=nouTimeSpan
 " ALT:OLD: syn match nouTimeSpan display excludenl '\v<%(\d+[wdhms]){1,5}>'
 " MAYBE:allow: 1mo 2mo3d 2y4mo
 syn match nouTimeSpan display excludenl
-  \ '\v<%(\d+[wdhms]|\d+w\d+d|\d+d\d+h|\d+h\d+m|\d+m\d+s)>'
+  \ '\v<%(\d+w\d+d|\d+d\d+h|\d+h\d+m|\d+m\d+s|\d+[wdhms]|\d+\.\d+h)>'

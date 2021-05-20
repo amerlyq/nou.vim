@@ -58,7 +58,7 @@ let s:Rdone = '%(\['.s:RstateD.'\]|'.s:RprogressN.')'
 let nou#util#Rgoal = '%('.nou#util#Rtodo.'|'.s:Rdone.')'
 
 "" duration
-let s:Rtimespan = '<%(\d+[wdhms]|\d+w\d+d|\d+d\d+h|\d+h\d+m|\d+m\d+s)>'
+let s:Rtimespan = '<%(\d+w\d+d|\d+d\d+h|\d+h\d+m|\d+m\d+s|\d+[wdhms]|\d+\.\d+h)>'
 let s:Rduration = '<'.s:Rtimespan.'>'
 let s:Restimated = '\('.s:Rtimespan.'\)'
 let s:Relapsed = '%('.s:Rduration.'|'.s:Restimated.'|'

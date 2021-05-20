@@ -1,5 +1,7 @@
 """ Paths
 
+" FIXME: treat ' // ' as C-comment instead of path
+
 syn cluster nouArtifactQ add=@nouPathQ
 syn cluster nouPathQ add=nouPathEscaped,nouPathRegion,nouPathWindows
 syn cluster nouPathUnixQ add=nouPathHead,nouPathBody,nouPathTail
