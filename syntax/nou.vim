@@ -67,7 +67,11 @@ syn cluster nouArtifactQ add=@nouArtifactEmojiQ
 " VIZ: green=💚 yellow=💛 orange=🧡 brown=🤎 purple=💜 blue=💙 white=🤍♡ black=🖤♥ spark=💖 broken=💔 two=💕 glow=💗 jap=心
 syn cluster nouArtifactEmojiQ add=nouEmojiRed
 hi nouEmojiRed cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=196 guifg=#ff0000
-syn match nouEmojiRed display excludenl '[♡♥🤍🖤💛💜]'
+syn match nouEmojiRed display excludenl '[✗♡♥🤍🖤💛💜]'
+
+syn cluster nouArtifactEmojiQ add=nouEmojiGreen
+hi nouEmojiGreen cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=40 guifg=#00ff00
+syn match nouEmojiGreen display excludenl '[✓]'
 
 " SPLIT: rename "syn match" to "nouInfix" and "hi link" to nouEmoji colors
 " nouInfix(source/intent) {{{
@@ -257,6 +261,8 @@ hi! nouTaskTodo ctermfg=14 guifg=#586e75
 syn cluster nouTaskQ add=nouTaskTodo
 syn match nouTaskTodo display excludenl '\V[_]'
 
+" MAYBE:ADD: inprogress/ongoing "[o]"
+
 hi! nouTaskWait cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=169 guifg=#ef3f9f
 syn cluster nouTaskQ add=nouTaskWait
 syn match nouTaskWait display excludenl '\V[…]'
@@ -264,7 +270,8 @@ syn match nouTaskWait display excludenl '\V[…]'
 hi! nouTaskDone ctermfg=14 guifg=#586e75
 syn cluster nouTaskQ add=nouTaskDone
 syn match nouTaskDone display excludenl '\V[X]'
-syn match nouTaskDone display excludenl '\v\[[\u2800-\u28FF]{4}\]'
+syn match nouTaskDone display excludenl '\v\[[\u2800-\u28FF]{2}\]'  " day
+syn match nouTaskDone display excludenl '\v\[[\u2800-\u28FF]{4}\]'  " ts
 
 """ ALT: separate xts group
 " " hi! nouTaskXts cterm=bold gui=bold ctermfg=14 guifg=#586e75
@@ -326,6 +333,11 @@ syn cluster nouTaskQ add=nouProgressRatio
 exe 'hi! nouProgressRatio '. g:nou.task.colors[8]
 syn match nouProgressRatio display excludenl contains=@nouProgressRatioQ '\v\[\d+%(\.\d+)?[/⁄]\d+\]'
 
+"" WARN: must be above "nouProgressRatioF" for [1/1] to highlight as "finished"
+exe 'hi! nouProgressRatio1 '. g:nou.task.colors[1]
+syn cluster nouProgressRatioQ add=nouProgressRatio1
+syn match nouProgressRatio1 display excludenl contained '\D1\D\d\+\D'
+
 hi! nouProgressRatioF ctermfg=14 guifg=#586e75
 syn cluster nouProgressRatioQ add=nouProgressRatioF
 syn match nouProgressRatioF display excludenl contained '\v\D(\d+%(\.\d+)?)[/⁄]\1\D'
@@ -333,10 +345,6 @@ syn match nouProgressRatioF display excludenl contained '\v\D(\d+%(\.\d+)?)[/⁄
 exe 'hi! nouProgressRatio0 '. g:nou.task.colors[7]
 syn cluster nouProgressRatioQ add=nouProgressRatio0
 syn match nouProgressRatio0 display excludenl contained '\D0\+\D\d\+\D'
-
-exe 'hi! nouProgressRatio1 '. g:nou.task.colors[1]
-syn cluster nouProgressRatioQ add=nouProgressRatio1
-syn match nouProgressRatio1 display excludenl contained '\D1\D\d\+\D'
 "}}}
 
 "{{{ NOTE: spent time progress e.g. "[1h30m/4h|6h]" OR "[-/-]"
