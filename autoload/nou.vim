@@ -81,6 +81,7 @@ endf
 fun! nou#path_open(path, ...)
   let p = a:path
   let bang = get(a:, 1, 0)  "ALT:USE: <count> i.e. <1 g f> == force open non-existent file
+  let deref = get(a:, 2, 0)  " NOTE: deref symlinks after resolving FUTURE smart keep symlink dirs
 
   let idx = stridx(p, '/')
   if idx < 0| let idx = 0 |en
@@ -192,6 +193,7 @@ fun! nou#path_open(path, ...)
     echom "No such file:" p
     echohl None
   else
+    if deref| let p = resolve(p) |en
     exe 'edit' fnameescape(p)
   endif
 endf
