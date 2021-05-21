@@ -161,11 +161,20 @@ nmap <buffer> <Plug>(nou-set-goal-waiting) c<Plug>(textobj-nou-goal-i)…<Esc>
 " omap <buffer> <Plug>(nou-set-goal-todo) <Plug>(textobj-nou-goal-i)_<Esc>
 
 nmap <buffer> <Plug>(nou-del-status) d<Plug>(textobj-nou-status-i)
+
+" HACK: merge next task with prev line time
+nmap <buffer> <Plug>(nou-merge-plan) d<Plug>(textobj-nou-status-i)kJ
 nmap <buffer> <Plug>(nou-del-plan) d<Plug>(textobj-nou-plan-i)
+
 " FAIL: can't apply multiple times to visual selection
 nmap <buffer> <Plug>(nou-cvt-task) d<Plug>(textobj-nou-lead-i)c<Plug>(textobj-nou-goal-i)_<Esc>
 
-" [_] TODO: easier to switch association "c<LL>ame<Esc>" -> "<LL>m"
+
+" NOTE: easier to switch association "c<LL>ame<Esc>" -> "<LL>m"
+nmap <buffer> <Plug>(nou-set-assoc-me) c<Plug>(textobj-nou-assoc-i)me<Esc>
+nmap <buffer> <Plug>(nou-set-assoc-work) c<Plug>(textobj-nou-assoc-i)W<Esc>
+nmap <buffer> <Plug>(nou-set-assoc-urgent) c<Plug>(textobj-nou-assoc-i)U<Esc>
+
 
 " DISABLED: I never expect to convert subtask to task
 "   ['n', '<LocalLeader><Space>', '<Plug>(nou-cvt-task)'],
@@ -174,20 +183,23 @@ let s:nou_mappings = [
   \ ['nx', 'gf', '<Plug>(nou-path-open)'],
   \ ['n', '<LocalLeader>yx', '<Plug>(nou-task-xts-beg)'],
   \ ['n', '<LocalLeader>yX', '<Plug>(nou-task-xts-end)'],
-  \ ['nx', '<LocalLeader>n', '<Plug>(nou-task-next)'],
-  \ ['n', '<LocalLeader>i', '<Plug>(nou-date-i)'],
-  \ ['n', '<LocalLeader>I', '<Plug>(nou-datew-i)'],
   \ ['n', '<LocalLeader>a', '<Plug>(nou-date-a)'],
   \ ['n', '<LocalLeader>A', '<Plug>(nou-datew-a)'],
-  \ ['n',  '<LocalLeader>L', '<Plug>(nou-spdx-header)'],
+  \ ['n', '<LocalLeader>i', '<Plug>(nou-date-i)'],
+  \ ['n', '<LocalLeader>I', '<Plug>(nou-datew-i)'],
+  \ ['n', '<LocalLeader>L', '<Plug>(nou-spdx-header)'],
+  \ ['n', '<LocalLeader>m', '<Plug>(nou-set-assoc-me)'],
+  \ ['nx', '<LocalLeader>n', '<Plug>(nou-task-next)'],
+  \ ['n', '<LocalLeader>w', '<Plug>(nou-set-assoc-work)'],
+  \ ['n', '<LocalLeader>u', '<Plug>(nou-set-assoc-urgent)'],
   \ ['n', '<LocalLeader>_', '<Plug>(nou-set-goal-subtodo)'],
   \ ['n', '<LocalLeader>!', '<Plug>(nou-set-goal-mandatory)'],
   \ ['n', '<LocalLeader>@', '<Plug>(nou-set-goal-today)'],
   \ ['n', '<LocalLeader>+', '<Plug>(nou-set-goal-subdone)'],
   \ ['n', '<LocalLeader>>', '<Plug>(nou-set-goal-postpone)'],
   \ ['n', '<LocalLeader>.', '<Plug>(nou-set-goal-waiting)'],
-  \ ['n', '<LocalLeader><Backspace>', '<Plug>(nou-del-status)'],
-  \ ['n', '<LocalLeader><Del>', '<Plug>(nou-del-plan)'],
+  \ ['n', '<LocalLeader><Backspace>', '<Plug>(nou-merge-plan)'],
+  \ ['n', '<LocalLeader><Del>', '<Plug>(nou-del-status)'],
   \ ['n', '<LocalLeader><Tab>', '<Plug>(nou-complement)'],
   \]
 
