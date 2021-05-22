@@ -1,0 +1,15 @@
+# REF: http://pylint.pycqa.org/en/latest/technical_reference/features.html#format-checker-options
+
+[FORMAT]
+
+# Regexp for a line that is allowed to be longer than the limit.
+# SEE: https://github.com/PyCQA/pylint/issues/2178
+ignore-long-lines=^\s*(#.*\s+)?https?://\S+$
+
+
+[TYPECHECK]
+
+# List of members which are set dynamically and missed by pylint inference
+# system, and so shouldn't trigger E1101 when accessed. Python regular
+# expressions are accepted.
+generated-members=(?:unyt|U)\..+
