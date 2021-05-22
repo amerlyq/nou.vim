@@ -1,0 +1,120 @@
+= :omap :: taskgoal
+" BAD:REF:(:h normal): {commands} cannot start with a space
+"   HACK:(prepending): <LocalLeader>X => \<Esc>\<Space>X
+"   FAIL:(leader="\"): exe "norm \<Space>"
+"     FIXED?(:h norm): exe "norm 1\<Space>"
+" let g:maplocalleader = "\<Space>"
+================================
+Execute:
+  let g:maplocalleader = '_'
+  source $PWD/ftplugin/nou.vim
+  setf nou
+  " TODO: reuse s:Rstate as list of 'L_goal' values
+  " BAD: test commented groups in .nou treated as text
+  "   :: 'lead': ['#', '# ', '  #', '  # ', 'code  # ', '#%', '//', 'code  // ']
+  " CHG:(disallowed): "dura=1.5h"
+  let g:t_oldE =
+  \{ 'lead': ['', ' ', '  ']
+  \, 'date': ['', '2020-09-13']
+  \, 'goal': ['', '[_]', '[X]', '[$]', '[⡟⡞⡑⢣]', '[>]', '[!]', '[!2]', '[?]', '[1]']
+  \, 'time': ['', '08:40', '7:30', '00:00', '24:23', '11:62']
+  \, 'dura': ['', '15m', '1h', '2h10m']
+  \, 'assoc': ['', 'me', 'W', 'home']
+  \, 'mood': ['', '+', '~~', '---', '?.']
+  \, 'tags': ['', '#tag', '#tag1#tag2', '#tag1 #tag2', '@name #tag']
+  \, 'text': ['', 'text', 'ы', 'text ※⡟⡞⡑⢣ with xtref ⌇⡟⡞⡑⢣', 'text #tag embedded']
+  \}
+  let g:t_oldN = eval(join(map(values(g:t_oldE), 'len(v:val)'), '*'))
+  let g:t_tmpl = nou#util#T_elems[1:]
+
+  let g:t_newE =
+  \{ 'lead': ['', '  ']
+  \, 'date': ['', '2020-08-08']
+  \, 'goal': ['', '[X]', '[$]']
+  \, 'time': ['', '11:23']
+  \, 'dura': ['', '30m']
+  \, 'assoc': ['', 'pj']
+  \, 'mood': ['', '+++']
+  \, 'tags': ['', '@smb #new', '@me']
+  \, 'text': ['', 'some']
+  \}
+  let g:t_newN = eval(join(map(values(g:t_newE), 'len(v:val)'), '*'))
+
+Then:
+  Log [g:t_oldN, g:t_newN, (g:t_oldN * g:t_newN)]
+  let i = 0
+  while i < 0  " TEMP: g:t_oldN
+    let T = []
+    let k = i
+    " TODO? variate text first, indent last :: reverse(copy(g:t_tmpl))
+    for e in g:t_tmpl
+      let V = g:t_oldE[e]
+      let E = V[i % len(V)]
+      if !empty(E)| call add(T, E) |en
+      let k = i / len(V)
+    endfor
+
+    for j in range(len(T))
+      let X = copy(T)
+      for v in g:t_newE[e]
+        " MAYBE: split each assert into its own "Then" block
+        " PERF: use embedded python code to run tests
+        " call nou#task#replace(join(T, ' '), e, v)
+        let X[j] = v
+        " AssertEqual T, X
+        Log X
+      endfor
+    endfor
+
+    " Log join(T, ' ')
+    let i = i + 1
+  endwhile
+
+  " for e in nou#util#T_elems
+  "   for x in get(g:t_old, e, [])
+  "   endfor
+  " endfor
+
+================================
+Given:
+  [_] task
+Do:
+  _X
+Expect:
+  [X] task
+================================
+Given:
+  [X] task
+Do:
+  _\<Space>
+Expect:
+  [_] task
+================================
+Given:
+  [_] task
+Do:
+  _+
+Expect:
+  [+] task
+================================
+Given:
+  task
+Do:
+  _+
+Expect:
+  [+] task
+================================
+Given:
+    [_] task
+Do:
+  _+
+Expect:
+    [+] task
+================================
+Given:
+    task
+Do:
+  _+
+Expect:
+    [+] task
+================================

@@ -218,7 +218,7 @@ fun! nou#syntax#artf_addressing()
   let nm = 'nouArtifactAddressing'
   exe 'syn cluster nouArtifactQ add='.nm
   exe 'syn match '.nm.' display excludenl'
-    \.' '.s:pbe('\@\a\S{-}', '(\[{,;|', '|;,}\])')
+    \.' '.s:pbe('\@\a\k{-}', '(\[{,;|', '|;,}\])')
   let B = ' cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE '
   exe join(['hi', nm, B, 'ctermfg=80 guifg=#5fdfdf'])
 endf
@@ -234,6 +234,8 @@ fun! nou#syntax#artf_contact()
 endf
 
 " FIXME: nested function inside @nouSpoilerQ
+" [_] BUG: \k don't include "-" in expr "same-as(...)"
+"   BET: use /\w\k*/ + always include "-" in \k + surround fns by spaces
 fun! nou#syntax#artf_function()
   let nm = 'nouArtifactFunction'
   exe 'syn cluster nouArtifactQ add='.nm

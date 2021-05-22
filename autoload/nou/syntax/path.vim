@@ -1,5 +1,7 @@
 """ Paths
 
+" FIXME: treat ' // ' as C-comment instead of path
+
 syn cluster nouArtifactQ add=@nouPathQ
 syn cluster nouPathQ add=nouPathEscaped,nouPathRegion,nouPathWindows
 syn cluster nouPathUnixQ add=nouPathHead,nouPathBody,nouPathTail
@@ -25,7 +27,7 @@ syn match nouPathXdelim display excludenl contained '[/\\]'
 syn match nouPathXspace display excludenl contained '\\[[:blank:]]'
 syn match nouPathXsh    display excludenl contained '\V$\w\+\|${[^}]\+}'
 " MAYBE:FIXME: only allow comma inside {...} as nested syntax region (contains=nouPath)
-syn match nouPathXalt   display excludenl contained '[<{,}>]'
+syn match nouPathXalt   display excludenl contained '[<{,|}>]'
 
 
 "" Make functions
@@ -59,7 +61,7 @@ syn region nouPathTail display oneline excludenl contained
 " ATT: must be after nouPathBody to override it
 "   FIXED:BUG(:/doc/nou): prefix being highlighted as nouPathTail
 syn match nouPathHead display excludenl contained nextgroup=nouPathBody
-  \ '/\|[~@:%.&/…☤♆☆★]/\|\.\./\|[[:alpha:]]:[\\]\{1,2}'
+  \ '\v%(^|\k@1<!)%(/|[~@:%.&/…☤♆☆★]/|\.\./|[[:alpha:]]:[\\]{1,2})'
 
 
 " ALT(old):BAD: too complex and fragile incomprehensible regex

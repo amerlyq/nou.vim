@@ -10,3 +10,10 @@
     [_] key: value
     2020-03-02 [X] key=value
   E.G.(hi!): id=val -- "id" is bold dark blue, "=" nobold dark blue, "val" is common solarized text
+
+
+IDEA: value-enums
+  USAGE: press <Enter> when cursor stands on value to open suggestion list
+  E.G.VIZ: tracking / planning / timesheet
+    * tag #task-mgmt:tracking
+    * function task.mgmt(tracking)

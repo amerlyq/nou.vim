@@ -22,24 +22,272 @@
   2020-01-17 [90%] progress   |     <LL> 9
   2020-01-17 [X] done         |     <LL> x
   [⡞⣶⡓⡙] done (braille ts)    |     <LL> b
+                              |
+  [⡞⣶] done (braille/1d)      |
+  [⡞⣶⡓] done (braille/5m)     |
+  [⡞⣶⡓⡙] done (braille/1s)    |
+  [⡞⣶⡓⡙⡙] done (braille/5ms)  |
+  [⡞⣶⡓⡙⡙⡙] done (braille/20us)|
+                              |
   [0/12] progress ratio       |
   [1/12] progress ratio       |
   [8/12] progress ratio       |
+  [8⁄12] progress fraction    |
   [12/12] progress ratio      |
+  [4/3] ratio overdue         | RED:SEE※⡟⠧⠦⡽
+                              |
+  [2h] timeslot allocated     |
+  [-/-] timeslot pending      |
+  [-/∞] timeslot new activity |
+  [-/2h] timeslot reserved    |
+  [2h/-] timeslot tracked     |
+  [2h/∞] accounting infinite  |
+  [1h/2h] timeslot progress   |
+  [+1h/2h] continue (before)  | OR: +[1h/2h] | [>1h/2h]
+  [1h+1h/2h] math (transient) |
+  [2h/2h] totals/done (after) | OR: [=2h/2h] -- instead of preliminary [+1h/2h] BUT: still must rename after copying
+  [2h20m/2h] timeslot overdue |
 
 
-SYNTAX
-  taskline ::= decision? taskleader? taskdescription... xtrefanchor?
-  taskleader ::= closingdate? taskmarker? plannedtime? estimatedduration? tag*
+% FMT:ex:
+
+  wild-statement
+  [_] arbitrary
+  [_] <me> associated  # OR: context
+  [_] ^JIRA-12345 aliased
+  [_] @user addressed
+  [_] #tag tagged
+  [_] ^BUG-123 @me #tag1#tag2 annotated
+
+  [_] 30m estimated
+  [_] (30m) estimated  # BET?DECI:(uniformity): estimation is always in parentheses
+  [X] 30m completed
+  [X] 2h(30m) overdue (task)   # OR? notation 2h//30m
+
+  [_] 10:00 planned (today)
+  [@] 11:00 mandatory (not scheduled but strictly today)
+  [!] 12:00 scheduled (today)
+  [?] 13:00 optional (desired but not mandatory)
+  [$] 13:00 canceled (or skipped but remembered)
+  [_] 14:00 1h allocated
+
+MAYBE: write "planned" time inside task itself -- to distinguish from "occurred" time
+  [_] 12:15 planned (alt)
+  [12:15] planned (alt)
+  ![12:15] scheduled (alt)
+  [!12:15] scheduled (alt)
+  [!12:15!] scheduled (alt)
+  [12:15!] scheduled (alt)
+  [12:15]! scheduled (alt)
+  [12:15] ! scheduled (alt)
+  [!][12:15] scheduled (alt)
+  [12:15][!] scheduled (alt)
+
+
+SEE: project progress
+  [X] 1h(2h/3h) progress (pj)  # OR? 1h(3h/3h) -- THINK: log progress including .vs. excluding current task
+  [X] 1h(4h/3h) overdue (pj)   # ⌇⡟⠧⠦⡽ OR? 1h([4/3]h) -- reuse "progress" notation BAD: must have same time-sfx
+
+  [X] (/3h) allocated project
+  [X] [/3h] allocated project
+  [X] [3h] allocated project
+
+  [X] (2h/3h) nextstep previous progress
+  [X] [2h/3h] nextstep previous progress
+
+  [X] (1h)(2h/3h) estimated nextstep
+  [X] (1h) [2h/3h] estimated nextstep
+  [X] 2h(1h)(4h/3h) overdue nextstep
+  [X] (2h/1h)(4h/3h) overdue nextstep
+  [X] 2h(1h) [4h/3h] overdue nextstep
+
+  THINK:MAYBE: split taskstatus and taskprogress indicators ?
+    BUT: "relative" .vs. "absolute" percent value -- based on history of previous efforts
+    BUT: "fixed" .vs. "growing" scope of 100% -- BAD: next "absolute" value may become even less
+  [X] (30m) {20%} absolute percent progress in dynamic scope
+  [X] (30m) {=20%} absolute percent progress in fixed scope
+  [X] (30m) {+20%} relative percent progress in dynamic scope
+  [X] 30m {1/20} absolute discrete progress in fixed scope
+  [X] 30m {+4/12} relative discrete progress in fixed scope
+  [X] 30m {+4} relative discrete progress in dynamic scope
+  [X] (30m) #5 absolute discrete progress in dynamic scope
+  [X] (30m) (5) absolute discrete progress in dynamic scope
+  [X] (30m) {5} absolute discrete progress in dynamic scope
+
+  ALT:don't use full progress -- track only remaining work
+    << verify correctness by !grep and sum all parts
+    !! use "elapsed time till next task" as chunk size
+      ~~ instead of explicit progress [2h/6h]
+  ALG: progress-based
+    [_] [6h/6h] new  -> [X] 2h(3h) task=6h chunk1
+    [_] {4h/6h} next -> 13:20 task(6h) chunk2
+    [_] (2h/6h) last -> [+] 2h #6h chunk3
+
+
+SEE: prio-mgmt ※⡟⠛⠎⠰
+  ! [_] foremost         │  [_] ! foremost         │  [!] foremost         │  [!0] foremost
+  !3 [_] prioritized     │  [_] !3 prioritized     │  [3] prioritized      │  [!3] prioritized   # DECI
+  ++ [_] favourable      │  [_] ++ favourable      │  [++] favourable      │  [+2] favourable
+  ? [_] questionable     │  [_] ? questionable     │  [?] questionable     │  [?0] questionable
+  ~~~ [_] very dubious   │  [_] ~~~ very dubious   │  [~~~] very dubious   │  [~3] very dubious
+
+  IDEA: relative prio change
+    [↑] task prio had risen, add to persistent daily agenda
+    [↓] task prio had lowered (maybe after some work was done), remove on next agenda review
+  SEE: @/erian/fonts/PragmataPro0.828/USEFUL\ FILES/All_chars.txt:200
+      U+2190  ← ↑ → ↓ ↔ ↕ ↖ ↗ ↘ ↙ ↚ ↛ ↜ ↝ ↞ ↟
+
+  2021-03-20 [_] planned (future)    // OR:BET? deadline
+  2020-09-20 [!] scheduled (future)  // OR:BET? deadline
+  2020-07-25 [X] completed (past)
+  2020-04-02 [⡟⠜⠴⡳] pastdue (expire)
+
+  03:00 dailylog
+  2020-07-11 03:00 changelog ※⡟⠉⠁⠸ | <LL t><LL i>
+  15:30 20m(30m) #tag1#tag2 journalled ⌇⡟⠉⠁⠸
+  !2 2020-08-27 [_] 15:00 30m <W> #tag1#tag2 featured ⌇⡟⠉⠁⠸
+  2020-08-27 [!2] 15:00 30m <W> #tag1#tag2 featured ⌇⡟⠉⠁⠸
+  2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> +++ #tag1#tag2 enriched ⌇⡟⠉⠁⠸
+    [⡟⠜⠨⣉] time-tracked subtask
+    [X] completed subtask (exact time was forgotten)
+    [+] unrelated completed subtask -- finished in the same timeslot
+    [+] 30m unrelated activity in same timeframe
+    [~] partially achieved OR achieved in some another nonpresumable way
+    [>] postponed/rescheduled if unfinished ※⡟⢋⡁⣂
+    MAYBE: [<] already done (as part of another project)
+      -- to distinguish from "true task" status [$] or [X]
+  2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> +++ ^JIRA-12345 @user #tag1#tag2 ultimate ⌇⡟⠉⠁⠸
+
+
+% DECI: relative order // positions
+
+decisions / mood comment
+  * +++ 2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> #tag1#tag2 ultimate ⌇⡟⠉⠁⠸
+    2020-08-27 +++ [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> #tag1#tag2 ultimate ⌇⡟⠉⠁⠸
+  ? 2020-08-27 [+++] 15:00 1h15m(30m) <me> #tag1#tag2 ultimate ⌇⡟⠉⠁⠸
+    2020-08-27 [⡟⠜⠪⣡] +++ 15:00 1h15m(30m) <me> #tag1#tag2 ultimate ⌇⡟⠉⠁⠸
+    2020-08-27 [⡟⠜⠪⣡] 15:00 +++ 1h15m(30m) <me> #tag1#tag2 ultimate ⌇⡟⠉⠁⠸
+    2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) +++ <me> #tag1#tag2 ultimate ⌇⡟⠉⠁⠸
+  * 2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> +++ #tag1#tag2 ultimate ⌇⡟⠉⠁⠸
+    2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> #tag1#tag2 +++ ultimate ⌇⡟⠉⠁⠸
+    2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> #tag1#tag2 ultimate +++ ⌇⡟⠉⠁⠸
+    2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> #tag1#tag2 ultimate ⌇⡟⠉⠁⠸ // +++
+
+
+context
+  NICE: alignment of all *<contexts>* on single line after time
+    21:20 <common> 5m #body stretching / neck gymnastics
+    21:30 <common> 50m(40m+30m) #leisure fantasy + tea
+  NICE: estimate/duration is logically next after time
+    21:20 5m <common> #body stretching / neck gymnastics
+    21:30 50m(40m+30m) <common> toilet + #leisure fantasy / bed
+
+
+% SYNTAX %  # *nou-task-syntax*
+
+  taskline ::= indent* commentstring? taskleader? decision? taskdescription... xtrefanchor?
+  taskleader ::= closingdate? taskmarker? plannedtime? duration? association? tag* group?
   taskmarker ::= "[" taskstatus "]"
-  taskstatus ::= "_" | "X" | braille
+  duration ::= elapsed? "(" estimated ")" | estimated
+    elapsed ::= timespan
+    estimated ::= "℮"? timespan
+    timespan ::= weeks "w" days "d" hours "h" minutes "m" seconds "s"
+  taskstatus ::= statustodo | statusdone
+  statustodo ::= /[_?!@]/ | /0+%/ | /0+\/\d+/
+  statusdone ::= "$" | "X" | braille
   xtrefanchor ::= "⌇" creationdate
   creationdate ::= dateiso | braille
   closingdate ::= dateday
   braille ::= /[⠀-⣿]{4}/
   tag ::= "#" word
 
+  [_] TODO? duedate=???  << because task leading prefix "planned date" != "duedate"
+    NOTE: "duedate" plays role when doing :: planning + prio + postponing
+    BAD?(confusing for others):FMT:(reverse-order):  <duedate> [_] task-desc <creationdate>
 
-ex:
-  2020-07-11 03:00 journal  | <LL t><LL i>
-  [⡟⠉⠁⠸] subtask
+
+%%% LIOR
+  Apply operator to named textobj in taskline
+    <count> <LL><Operator><Textobj>
+  Operators
+    <y> yank    [_] FIND: how to create new textobj for operators OR map directly to "y<LL>..."
+    <i> insert  USAGE: date/time/status
+    <d> delete  [_] TRY: :omap to apply action in operator-pending textobj
+    <c> change (replace)
+    <v> visual select
+    </> search next (jump)
+    <?> search prev (jump)
+    # MAYBE: <h> highlight
+  Textobj
+    <i> indent / <l> lead
+    <!> priority / <u> urgency / <i> importance
+    <d> date
+    <s> status OR <l> lacuna OR <g> goal OR <c> checkbox
+    <t> time
+    <E> elapsed / logged / spent / period
+    <e> OR <u> estimated duration
+    <>> OR <<> association (toggle ?)
+    <m> mood coloring / emotional decision marker / <c> connotation
+    <@> addressing / person / name  # -- can be combined with #tags (nothing more than special form of tag)
+    <^> webref / urlalias OR uri  # -- can be combined with #tags
+    <#> tag BUT:ALSO: need operator <append> e.g. <LL a #>
+    <%> group OR progress
+    <$> variable
+    <b> body (only description until xtref)
+    <B> whole body (everything after estimated)
+    <x> xtref-anchor
+  Shortcuts
+    # DECI <count> <LL> <Space> new task with ?progress?
+    # DECI <LL> <count> new task with ?time?
+    <Space> OR <l> create/set task status=new
+    <Del> delete everything beside body
+    <Backspace> delete task status marker
+    # MAYBE: <h> delete task status marker -- symmetrical to <l> create
+    # TBD: <j> journal down (time-tracking) -- actualize current task open-ended task OR insert planned time (now+estimate)
+    # TBD: <k> journal up (time-tracking) -- append current task to prev time (OR: create prev time by (now-estimate)) and insert new current time
+    <*> search/highlight any #tag @name ※xtref from taskline
+  Direct insert
+    <count><m> estimated=10m  <2m>=20m   <25m>=25m    <145m>=1h45m
+    <count><h> estimated=1h   <2h>=(2h)  <23h>=2h30m  <315h>=3h15m
+    <count><M> elapsed=30m    <3M>=30m(20m)
+    <count><H> elapsed=1h
+    2020-07-26 [_] planneddate <count><LL d>
+    2020-07-26 [X] closingdate <count><LL D>
+    [⡟⠜⢠⢱] time-tracked        <x>
+    [X] done                   <X>
+      [+] subtask              < + >
+  Association
+    <>> OR <LL a m> associate with me *<me>*
+    <<> OR <LL a w> associate with work *<W>*
+    <LL a c> associate *<common>*
+  Category flags
+    [U] %U [!] urgent (?and important? BUT inconsistent naming)
+    [I] %I  ⋆↯ important (but not urgent)
+    [D] %D  ▶➥ (OR %O) delegate to others (urgent but not important BUT unobvious meaning)
+    [N] %N  ☘  nice to have / new cool ideas
+    [E] %E [<] expired
+  Subtasks
+    <+> create/convert unrelated (completed) to subtask "[+]"
+    <W> append below new subtask "[_] WAIT …" in insert mode
+
+
+WFs
+  AchieveGoal
+    notate                       | <o … Esc>
+    [_] create                   | <LL l>
+    [_] (1h) estimate            | <LL e>
+    [_] 12:30 (1h) plantime      | <count> <LL T>  # now OR =hours
+    2020-07-26 [_] (1h) plandate | <count> <LL d>  # now OR +DD OR =DD00 OR =MMDD OR =YYMMDD
+    (1h) journal                 | <LL t>
+    fixtime                      | <LL T>
+    elapsed                      | <LL T>
+  Annotate
+    enrich   | <LL @>
+  Progress
+    # [_] => [0/] new           |    <LL .>
+    # [2/12] => [0/12] zero     |    <LL .>
+    [0/12] => [4/12] progress |  4 <LL .>
+    [4/12] => [4/13] total    | 13 <LL />
+      [_] THINK:BET: <,./13> .vs. <,.4/>
+  Replanning
+    shift rest of day -- visual-select area and update each time from now/<count> keeping duration between entries

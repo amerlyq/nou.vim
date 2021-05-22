@@ -60,16 +60,17 @@ e.g.USAGE: function calltree for linux kernel
   ~/
   ~/dir
   ~/in/home
-  ./file                # path relative to cwd ($PWD)
+  ./file                # path relative to current file (./nou-path.txt)
   ../relat/path         # same as above == ./../relat/path
 
   @/airy/README.md      # repo (view) inside myrepos :: ~/aura OR /annex
   :/doc/nou.txt         # subpath (feature) inside current repo
-  # CHECK: exchange ./ and %/ FIX: docs here
-  %/../Makefile         # filepath relatively to current file (./nou-path.txt)
+  %/../Makefile         # filepath relatively to cwd ($PWD)
   …/errno.h             # search in all ':h path' (.,/usr/include) like usual 'gf' do
   &/ranger/doc/         # open reference file inside ./&/ directory in cwd or parents hierarchy
                         #   = add "&/" to pj .gitignore and keep all temporary third-party materials there
+  ^/amv/*               # path somewhere on remote (unspecified), locally unavailable
+                        #   THINK:BET? always use parametrized path $nas/amv/* to encode <remote> placeholder
   ♆/dunst               # *airy* feature (=@/airy/dunst)
   ☆/dunst               # generic feature (=/x/*)
   ★/dunst               # favorite feature (=/x/_(now|fav)/*)

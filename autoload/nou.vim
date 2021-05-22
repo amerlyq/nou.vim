@@ -11,32 +11,41 @@ fun! nou#vsel()
 endf
 
 
-" TODO: extract "tasks" into separate "everywhere" module to allow literate programming
-"   e.g. like it's already done with xtref and notches functionality
-"   BAD:THINK: must work with comments -- transparently add/skip them on ops
+fun! nou#vsel_apply(visual, fn)
+  " BUG: in VSEL mode wrong cursor pos: '.' == '<
+  let pos = exists('*getcurpos') ? getcurpos() : getpos('.')
+  " echom string(l:pos)
+  let rgn = a:visual ? range(getpos("'<")[1], getpos("'>")[1]) : [line('.')]
+  for i in rgn
+    let line = getline(i)
+    let chgd = call(a:fn, [line])
+    if chgd !=# line| call setline(i, chgd) |en
+  endfor
+  call setpos('.', pos)
+endf
+
+
 fun! nou#bar(...) range
   if a:0<1 || type(a:1) != type('')| throw "wrong a:1" |en
   " USAGE: <5,.x> → 50% | <45,.x> → 45% | <105,.x> 05%
   let pfx = a:1
   let pfx = substitute(pfx, '[0-9]', '', 'g')  " Strip progress lvl
   let pfx = substitute(pfx, 'D', strftime('%Y-%m-%d '), '')
-  if pfx =~# '[_$X]'
+  if pfx =~# '[_$X<]'
+    " BET: use separate keys: 50<Space>% and <Space>%50 (inserts cursor at "[|%]")
+    " IDEA: use mixed log-xts "[⡟⢝⣣⣔%50]" OR "[50%⡟⢝⣣⣔]" instead of "[50%] s <⡟⢝⣣⣔>"
     let pg = a:2 < 10 ? a:2*10 : a:2 >= 100 ? a:2 % 100 : a:2
     let mrk = '['. (a:2 ? printf('%02d', pg).'%' : '&') .'] '
-    let pfx = substitute(pfx, '[_$X]', mrk, '')
+    let pfx = substitute(pfx, '[_$X<]', mrk.'\\2', '')
   endif
-  " DEV: <,.T> to replace-anywhere OR prepend <plannedtime> w/o touching taskmarker itself
-  " DEV: <,.D> to prepend both <date-cal> <time> OR isotime-ubspace; RENAME:OLD: <,.D> → <,._>
-  " DEV? <,._> to prepend <taskmarker> but keep <plannedtime> untouched
-  " DEV: <,.t> on visual selection -- shift each item time by (v:count1 > 10 : v:count1 ? 15min * v:count1)
   if pfx =~# 'T'
     " HACK: asymmetric rounding to nearest 5min interval :: 02+ -> 05, 07+ -> 10
     let ivl5 = str2float(strftime('%M')) / 5
     let min5 = float2nr(round(ivl5 + 0.1) * 5)
-    let hour = float2nr(str2float(strftime('%H')))
-    let now = (a:2 == 0) ? printf('%02d:%02d', hour + min5/60, min5 % 60)
+    let hour = float2nr(str2float(strftime('%H'))) + min5/60
+    let now = (a:2 == 0) ? printf('%02d:%02d', hour % 24, min5 % 60)
           \: a:2 < 24 ? printf('%02d:00', a:2)
-          \: a:2 >= 100 ? printf('%02d:%02d', a:2 / 100, a:2 % 100)
+          \: a:2 >= 100 ? printf('%02d:%02d', (a:2 / 100) % 24, a:2 % 100)
           \: a:2 == 24 ? '00:00'
           \: strftime('%H') . printf(':%02d', a:2)
     let pfx = substitute(pfx, 'T', now.' ', '')
@@ -45,12 +54,6 @@ fun! nou#bar(...) range
     let xts = substitute(printf('%08x', strftime('%s')), '..', '\=nr2char("0x28".submatch(0))', 'g')
     let pfx = substitute(pfx, 'B', '['.xts.'] ', '')
   endif
-  "" [_] TODO: <4,..> = ratio progres [0/12] => [4/12]
-  "" TODO: <13,./> = ratio progres [4/12] => [4/13]
-  " BUT:BET: <,./13> .vs. <,.4/>
-  " if pfx =~# 'R'
-  "
-  " endif
 
   " BUG: in VSEL mode wrong cursor pos: '.' == '<
   let l:pos = exists('*getcurpos') ? getcurpos() : getpos('.')
@@ -61,16 +64,13 @@ fun! nou#bar(...) range
 
   for i in rgn
     let line = getline(i)
-    " FIXME: impossible decions ~ '=[', '<[', '-]'
-    "   => extract first word from $line and directly compare in vimscript
-    " [_] FIXME: task marker is always inserted after russian 1..3c word
     let chgd = substitute(line,
-      \ '\v^(\s*%([^[:alpha:][:blank:][\]]{-1,3}\s+)?)'
+      \ '\v^(\s*%([-+=*<>!?]{-1,3}\s+)?)'
       \.'%(<\d{4}-%(0\d|1[012])-%([012]\d|3[01])>\s*)?'
-      \.'%(\[%([_$X]|[\u2800-\u28FF]{4}|\d\d\%)\]\s*)?'
-      \.'%(<%(\d|[01]\d|2[0-4]):[0-5]\d%(:[0-5]\d)?>\s*)?'
+      \.'%('. g:nou#util#Rgoal .'\s+)?'
+      \.'(<%(\d|[01]\d|2[0-4]):[0-5]\d%(:[0-5]\d)?>\s*)?'
       \.'(.*)$',
-      \ '\1'.pfx.'\2', '')
+      \ '\1'.pfx.'\3', '')
     if chgd !=# line| call setline(i, chgd) |en
   endfor
 
@@ -81,6 +81,7 @@ endf
 fun! nou#path_open(path, ...)
   let p = a:path
   let bang = get(a:, 1, 0)  "ALT:USE: <count> i.e. <1 g f> == force open non-existent file
+  let deref = get(a:, 2, 0)  " NOTE: deref symlinks after resolving FUTURE smart keep symlink dirs
 
   let idx = stridx(p, '/')
   if idx < 0| let idx = 0 |en
@@ -88,14 +89,50 @@ fun! nou#path_open(path, ...)
   let pfx = strpart(p, 0, idx)
   let p = strpart(p, idx)
 
+  " TODO: parse paths like /⡟⢟⢗⡼ OR /@/⡟⢟⢗⡼ virtually and limit results
+  "   only to standalone tags on the first lines of the files
+  " IDEA: use sfx/pfx as "selectors" e.g. /⡟⢟⢗⡼/web/github to limit search by
+  " ALSO use regex to conduct full-text search /⡟⢟⢗⡼/ into quickfix instead of opening file
+  "   -- useful for top project when you wish to collect all related ^⡟⢟⢗⡼ subtasks
+
   " FIXME: ./path/ must count from current file, not cwd
-  if pfx ==# '' || pfx ==# '.' || pfx ==# '..' | let p = pfx . p
+  " ENH: prepend mounted-at / remote-host prefix FIXME: '~' = remote $HOME
+  " THINK: distinguish "here" and "there" for path relative to current file
+  if pfx ==# ''  " NOTE:(/...): use abspath as-is
+    if match(a:path, '\v[\u2800-\u28FF]{4}') > -1
+      " ALT: open related '.cal' file -- but only for tasks '[⡟⢟⢗⡼]'
+      norm g]
+      return
+    endif
+
+    "" NOTE: open any date as .cal (past/future)
+    let ymd = matchstr(a:path, '\v^'.g:nou#util#Rdate)
+    if ymd
+      let cmdline = "find -H /@/todo -regextype egrep -type f -regex '.+/".ymd."\\b.*' -print -quit"
+      echom cmdline
+      let res = systemlist(cmdline)
+      if len(res) > 0
+        let p = res[0]
+      elseif ymd > strftime('%Y-%m-%d')
+        " FIXME: also search for .cal in :/{my,work}/{agenda,upcoming}.nou
+        let p = '/@/todo/planned/'. ymd .'.task'
+      else
+        let p = '/@/todo/log/'. join(systemlist("date +'%Y/%Y-%m-%d-%a-W%W' -d ".ymd))
+      endif
+    endif
+
+  elseif pfx ==# '.' | let p = expand('%:h') . p " NOTE:(./): rel to curr file
+  " elseif pfx ==#'..' | let p = expand('%:h').'/'.pfx . p " NOTE: rel to 'here'
+  elseif pfx ==#'..' | let p = expand('%:p:h:h') . p " NOTE:(../): rel to 'there'
   elseif pfx ==# '~' | let p = $HOME . p
-  elseif pfx ==# '%' | let p = expand('%:h') . p  " CHECK: different $PWD
-  elseif pfx ==# '@' | let p = $HOME .'/aura'. p  " BAD: I have nested repo
-  elseif pfx ==# '♆' | let p = $HOME .'/aura/airy'. p . '/setup'
+  elseif pfx ==# '@' | let p = '/@'. p  " NOTE: flat list of symlinks to all features
+  elseif pfx ==# '♆' | let p = map(['', '/.edit', '/setup'], '"/@/airy'.p.'".v:val')
   elseif pfx ==# '☆' | let p = '/x'. p
   elseif pfx ==# '★' | let p = '/x/_fav'. p
+  " BET? merge and replace '//' by '%'
+  "   OR split WF and use '=/' for file-local vars
+  "   OR:BET: use VARs ::  '$var/path' where ⋮var=/path/to⋮ is defined in file
+  elseif pfx ==# '%' | let p = getcwd() . p  " CHECK: different $PWD
   elseif pfx ==# '/'
     " TODO: search ctx ⋮//=/path/to/dir⋮ inside same file above current line
     let d = get(b:,'nou',g:nou).loci
@@ -107,7 +144,7 @@ fun! nou#path_open(path, ...)
     " [_] FIXME:BET: allow subpath under repo "@/nou.vim/Makefile" instead of prefix grouping ⌇⡞⣥⣕⡋
     " WARN: prefixes not allowed (i.a. @/miur/kirie) <= indistinguishable from repo subpath
     " ALT:MAYBE: extend ":" syntax ":/file/here" .vs. ":somerepo/file/there"
-    let cmdline = "find -H '".$HOME."/aura' -path '*".p."/.git' -execdir pwd \\;"
+    let cmdline = "find -H '/@/aura' -path '*".p."/.git' -execdir pwd \\;"
     let res = systemlist(cmdline)
     let repo = (len(res) > 0) ? res[0] : ($HOME .'/aura'. p)
     " BET? open dir in netrw instead of single file ? BUT: dir is accessible by <,r> anyways
@@ -125,6 +162,11 @@ fun! nou#path_open(path, ...)
     "   echom 'Not found: '. d .'/&/'. p
     "   return
     " en
+    "" NOTE: search in ./&*/* only relative to current file
+    let p = expand('%:h') . '/&*' . p
+    let found = glob(p, 1, 1)
+    if len(found) > 1| echom "Warn: found ".found." files, use 1st one" |en
+    if len(found) > 0| let p = found[0] |en
   elseif pfx ==# ':'
     " ALT: see "\cd" cmd impl
     let d = fnameescape(expand('%:h'))
@@ -132,6 +174,7 @@ fun! nou#path_open(path, ...)
     let p = g[0] . p
   " ALT:IDEA: use "…/t_parglare" or "?/t_parglare" to search file system-wide through "locate(1)"
   elseif pfx ==# '…'
+    " [_] IDEA: use e.g. '…/agenda' OR '://agenda' to search in repo/cwd/etc for :/my/agenda.nou
     let p = strpart(p, 1)
     " NOTE: search in all 'path' like usual 'gf' do
     exe 'find' fnameescape(p)
@@ -140,11 +183,17 @@ fun! nou#path_open(path, ...)
     norm! gf
     return
   en
+  " NOTE: find primary file as first readable candidate in multivariants
+  if type(p) == type([])| let [p, xs] = [get(p, 0, ''), p]
+    for x in xs| if filereadable(x)| let p = x | break |en |endfor
+  endif
+  " TODO: if directory -- open in embedded fm/ranger
   if !bang && !filereadable(p)
     echohl ErrorMsg
     echom "No such file:" p
     echohl None
   else
+    if deref| let p = resolve(p) |en
     exe 'edit' fnameescape(p)
   endif
 endf

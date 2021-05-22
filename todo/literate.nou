@@ -1,0 +1,33 @@
+%%% Literate programming global mix-in
+
+TODO
+  [_] SEP extract "tasks" into separate "everywhere" module to allow literate programming
+    e.g. like it's already done with xtref and notches functionality
+    BAD:THINK: must work with comments -- transparently add/skip them on ops
+
+
+REF
+  OFF: Literate Programming - Tools ⌇⡟⠝⡭⠖
+    http://www.literateprogramming.com/tools.html
+  REF: Literate programming - Wikipedia ⌇⡟⠝⡬⣷
+    https://en.wikipedia.org/wiki/Literate_programming
+  TALK: Literate: A Modern Literate Programming System | Hacker News ⌇⡟⠝⡭⡓
+    https://news.ycombinator.com/item?id=10175087
+
+
+zyedidia
+  Literate ⌇⡟⠝⡭⡵
+    http://literate.zbyedidia.webfactional.com/
+  zyedidia/Literate: A literate programming tool for any language ⌇⡟⠝⡬⣨
+    https://github.com/zyedidia/Literate
+  zyedidia/literate.vim: Vim plugin for the Literate programming tool ⌇⡟⠝⡬⣬
+    https://github.com/zyedidia/literate.vim
+
+
+MISC
+  khardix/vim-literate: Vim syntax decriptions for literate programming ⌇⡟⠝⡬⣲
+    https://github.com/khardix/vim-literate
+  LiterateVimrc - Plugin for creating : vim online ⌇⡟⠝⡭⠂
+    https://www.vim.org/scripts/script.php?script_id=5578
+  Literate programming part 3: Modern variants – niksilver.com ⌇⡟⠝⡭⠾
+    https://niksilver.com/2019/10/29/literate-programming-part-3-modern-variants/

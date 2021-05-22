@@ -1,4 +1,8 @@
 
+  [_] NICE:TRY:ENH: !neovim -- embedded languages support
+    What is neovim treesitter language injection? : neovim ⌇⡟⢹⡃⡵
+      https://www.reddit.com/r/neovim/comments/jukizf/what_is_neovim_treesitter_language_injection/
+
   [_] Different syntax highlighting within regions of a file | Vim Tips Wiki | Fandom ⌇PW)nu
     https://vim.fandom.com/wiki/Different_syntax_highlighting_within_regions_of_a_file
     vim-scripts/Mixed-sourceassembly-syntax-objdump: Syntax for Mixed C source and assembly dump. ⌇-W)nu

@@ -25,7 +25,8 @@ let s:nou.decision.colors = [
   \ ['\?{1,3}!{,2}:?', '#dd6616'],
   \ ['\!{1,3}', '#dc322f'],
   \ ['\<{1,3}[-~=]*', '#c5a900'],
-  \ ['[-~=]*\>{1,3}', '#d33682'],
+  \ ['[-~=]+\>', '#d33682'],
+  \ ['[-~=]*\>{2,3}', '#1f6fff'],
   \ ]
 
 
@@ -54,7 +55,9 @@ let s:nou.accent.colors = {
 
 " TRY: use matchgroup= with half-dim color than body
 " FIXME: 'Str' must not contains @accents for cases like "_some_symbol_"
+" FIXME: don't hi everything between two "-" in "smth -> preps(-Mon-)"
 " ALT:(Foc): eye-bleeding 'ctermfg=88 guifg=#875f00 gui=bold,underline,reverse'
+" ALSO: term/key: ‹tab›
 let s:nou.term = {}
 let s:nou.term.colors = {
   \ 'Key': ['\<', '\>', 'ctermfg=1 guifg=#dc322f'],
@@ -62,16 +65,14 @@ let s:nou.term.colors = {
   \ 'Ops': ['·', '·', 'ctermfg=161 guifg=#df005f gui=bold'],
   \ 'Str': ['"', '"', 'ctermfg=81 guifg=#5fdfff'],
   \ 'Quo': ['“', '”', 'ctermfg=81 guifg=#5fdfff gui=italic,undercurl'],
-  \ 'Dot': ['\.', '\.', 'ctermfg=74 guifg=#1fafdf gui=bold'],
   \ 'Err': ['!', '!', 'ctermfg=124 guifg=#b40000 gui=bold,italic'],
   \ 'Que': ['\?', '\?', 'ctermfg=172 guifg=#df8700 gui=bold,italic'],
   \ 'Wrn': ['\~', '\~', 'ctermfg=142 guifg=#b4b400 gui=bold,italic'],
   \ 'Add': ['\+', '\+', 'ctermfg=34 guifg=#00b400 gui=bold,italic'],
   \ 'Emf': ['\=', '\=', 'ctermfg=62 guifg=#5f5fdf gui=bold,italic'],
-  \ 'Not': ['\-', '\-', 'ctermfg=38 guifg=#00afdf gui=bold,italic,undercurl'],
+  \ 'Not': ['\-', '\-', 'ctermfg=38 guifg=#00afdf gui=bold,italic,strikethrough'],
   \ 'BldH': ['\*\*', '\*\*', 'ctermfg=254 guifg=#e4e4e4 gui=bold cterm=bold'],
   \ 'KeyH': ['\<\<', '\>\>', 'ctermfg=1 guifg=#dc322f gui=bold'],
-  \ 'DotH': ['\.\.', '\.\.', 'ctermfg=81 guifg=#5fdfff gui=bold'],
   \ 'ErrH': ['!!', '!!', 'ctermfg=196 guifg=#ff0000 gui=bold,italic'],
   \ 'QueH': ['\?\?', '\?\?', 'ctermfg=208 guifg=#ff8700 gui=bold,italic'],
   \ 'WrnH': ['\~\~', '\~\~', 'ctermfg=226 guifg=#ffff00 gui=bold,italic'],
@@ -105,6 +106,7 @@ let s:nou.delimit.colors = [
   \ ['.~', '#dc322f'],
   \ [':', '#6c71c4'],
   \ ['#_', '#fdf6e3'],
+  \ ['─', '#dc322f'],
   \ ]
 
 let s:nou.outline = {}

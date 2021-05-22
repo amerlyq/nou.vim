@@ -1,5 +1,8 @@
 %%% Artifacts
 
+TODO
+  [_] exclude xtrefs /[※⌇]⡟⠝⡰⣚/ from syntax checks -- USE transparent hi! w/o "contains"
+
 %% Vars
   [_] TODO: higlight vars :: $PWD and ${PWD} and %{PWD}
   [_] THINK use `$var` as native syntax

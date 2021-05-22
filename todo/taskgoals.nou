@@ -1,4 +1,15 @@
 
+TODO
+  [_] THINK markers for #recurrent ("done & repeat again") tasks
+    VIZ: [⮡] [🢖] [▸] [▶] [↻] [⏎] [↵]
+    WF:
+      […] waiting -> [X] done
+      […] waiting -> [>] postponed
+      […] waiting -> { [⮡] done&repeat } -> [X] done
+  [_] Preview task xtrefs in statusline (like python preview)
+    * show only xtref under cursor
+    * decode all xtrefs in the order written in line
+    * sort all decoded xtrefs by order and *highlight* the one nearer/under cursor
   [_] MAYBE:CHG: "2020-01-14 [10%] ..." => "2020-01-14 10% ..." OR "2020-01-14 %10 ..."
     <= because I work with goals [_] => [X] and not actual tasks
   [_] MAYBE: use unicode symbols for checkbox BUT: "wide" are nice but cropped
@@ -9,6 +20,39 @@
     http://unix.stackexchange.com/questions/60481/match-word-containing-characters-beyond-a-za-z
     http://stackoverflow.com/questions/19385458/vim-regex-matches-unicode-characters-are-as-non-word
     [_] ALT:BET?TODO: switch hi! places for todo [_] and decision "!!" markers
+  [_] TRY:ADD: additional syntax constructs specially for .cal ft
+    i.e. additional options like fdm=marker and highlight occured /^<time>/ as "reverse"
+
+
+%% Log-entry
+  [_] set curr task->logentry time=last(time+elapsed/estimated)
+  [_] duplicate time of last log entry to current task->logentry
+    e.g. to start from the same time as <next> or <home>
+
+
+OVERHAUL taskgoal syntax ⌇⡟⠝⡰⣚
+  [_] IDEA:ENH:USE: <count> :: when <7c<LL>t> must insert time and go to replace mode
+    ¦ "[_] ↻ <bed>" -> "[_] 07:|00 ↻ <bed>"
+  ORG
+    [_] TODO: close/merge related entries in ☤/nou.vim/todo/
+  FMT
+    [X] E.G. #nou MAYBE: split taskstatus and taskprogress
+    [_] FIXME: task marker is always inserted after russian 1..3c word
+    [_] FIXME:(regex): impossible decions ~ '=[', '<[', '-]'
+      => [_] extract first word from $line and directly compare in vimscript
+  [_] separate manipulation of time and task elements
+    [~] 40m DEV #nou <,.t> => split task and time keybinds
+    [~] 30m DEV #nou <,.[cC]> => insert-replace prefix task
+  [_] unify: everywhere literate programming
+    [X] 30m DEV #nou <,.> => <Space> shorter local-leader (#body strain on the hands)
+    [_] DEV confusing #nou <,.> and #xtref <\x> for tasks
+      BET? use global alias to "[Frame]<Space>" -> <Space> (#nou specific <LocalLeader>)
+  keybinds
+    [_] DEV: <,.T> to replace-anywhere OR prepend <plannedtime> w/o touching taskmarker itself
+    [_] DEV: <,.D> to prepend both <date-cal> <time> OR isotime-ubspace; RENAME:OLD: <,.D> → <,._>
+    [_] DEV? <,._> to prepend <taskmarker> but keep <plannedtime> untouched
+    [_] DEV: <,.t> on visual selection -- shift each item time by (v:count1 > 10 : v:count1 ? 15min * v:count1)
+    [_] DEV? <,.Del> to delete everything task-related
 
 
 %% Task/progress
@@ -31,7 +75,7 @@
     [_] MAYBE: make colors for 80-95% more bright to stimulate completion
       => the must "shout" !finish me now, there is almost nothing left!
       NOW:BAD: dark colors are easily overlooked when searching incomplete tasks to be done
-  [_] BUG ru text /[а-я]{1,3}/ treated as /\W+/ => marker placed after it
+  [⡟⢗⢁⠄] BUG ru text /[а-я]{1,3}/ treated as /\W+/ => marker placed after it
   THINK if only marker is highlighted and therefore truly visible --> MAYBE:USE: shortened form '_ x' instead of full '[_] [X]'?
   MAYBE: use shorter date spec?
     160716:[X]
@@ -70,3 +114,76 @@
     U+2770              ❶ ❷ ❸ ❹ ❺ ❻ ❼ ❽ ❾ ❿
     U+2780  ➀ ➁ ➂ ➃ ➄ ➅ ➆ ➇ ➈ ➉ ➊ ➋ ➌ ➍ ➎ ➏
     U+2790  ➐ ➑ ➒ ➓
+
+
+%%% Status
+
+Postponed/rescheduled "[>]" ⌇⡟⡅⣨⡥
+  USAGE
+    - task couldn't fit the capacity of that day
+    - incident occured
+    - if checked blocker and must WAIT more for results)
+    - "REQ was done" => "WAIT future results"
+
+  "[>]" .vs. "[>5]" markers to estimate overdue/priority
+    IDEA: use explicit number (e.g. "[>5]") of times task was consciously replanned/postponned
+    BUT: no need to track it explicitly
+      BET use git history and estimate time between appearance and closing
+      OR: add xtref to each recurrent task when it baked each time
+      ALT:(simpler): find last closed entry and compare to recurrent interval
+  ALT: annotate each baked event by expired=`2y`=(now-last-period)
+
+  ALT:BET: add xts-train of postponement
+    "[>]" my task postponed 3 times ⌇⡟⢋⡁⣂ <⡟⢃⢜⡇>⡟⢃⢜⡇>⡟⢃⢜⡇>
+    ALSO:SEE: xts-train of rememberance ※⡟⢃⢟⢿
+
+  CMP: train.task-execution-planned-time .vs. train.decision-moment-of-postponing
+    (1) immediately add xts-train by future planned time
+      BAD: unreliable -- almost 100% will change at the day of planning
+        i.e. xts-train meaning will be "list of failure attempts to predict task execution time"
+      NICE: xts-train reflects "overdue/latency" times which are almost the same as "contract breach"
+        BUT: to know the reactive "decision inertion time" we still must save "time-of-replanning-decision" (2)
+    (2) ADD xts-train of current decision times
+      NICE: reflects chain of times when task held my attention
+        BUT: is it useful for anything ?
+          ~~ I have fixed "replanning windows" at both morning and evening, so whole train will fit into them
+      FAIL: if I retrack to 3-days old forgotten task --
+        its 'decision time' won't reflect the period of ignorance/avoidance
+    (3) BET: when moving tasks keep mixed history in xts-train
+      - save item's old planned time for tasks with time "[_] xx:yy"
+      - OR that day's 00:00 if planned time is absent "[@]" / "[!]"
+      - NOTE: don't fallback to 'decision time' to avoid (2).FAIL
+      NICE: no loose predictions of future -- only precise post-factum timeline
+
+  CMP: status_of("[>]") == "done" .vs. "todo"
+    :: convert status "[_]" -> "[>]" when postponing
+    (1) NOW: treat "[>]" as status=done
+      - copy([>]) task (with "[_]" status) to future date
+      - keep each previous "[>]" copy in all agendas/files its was planned to
+        NICE: keep tasks in their original planning ctxs to bind my task-flow together
+        FAIL:(useless): after day is "closed" the original ctx is almost always totally lost
+        BAD: duplicated but still always somewhat different text in different agendas
+    (2) BET? treat "[>]" as status=todo
+      - MOVE postponed task to future date
+      - keep only single task (in the most recent agenda) -- delete all unaccomplished plans
+        NOTE: .git history still keeps intermediate states -- if you MOVE only once per commit
+      - BAD: inconsistent "undone" tasks as a mix of
+    (3) BET: keep copies only in "significant" contexts (e.g. overtimes)
+      - allow keeping copies instead of moving to future
+      - keep all "todo" tasks as the same "[_]" (consistency)
+      - understand it was postponed by having the xts-trail
+
+
+%%% Agenda
+
+  [_] #nou THEO: daily remnants/quota progress ⌇⡠⢡⠺⣶
+    i.e. to track in agenda the remaining time of the day and if I currently ahead/behind on time
+    ¦ [<rem.plan>/<rem.day>] = [3h/2h]
+    ¦ [<rem.plan>/<rem.day>|<planned>/<slot>|<total>] = [3h/2h|4h/6h|9h]
+    ¦ [<progress>/<planned>/<slot>] = [2h/6h/6h]
+    ¦ [<progress>/<planned>|<quota>/<window>] = [2h/5h|6h/8h]
+    ¦ [<remaining>+<progress>/<planned>|<quota>/<window>] = [2h+2h/5h|6h/8h]
+    [_] BET? log into cumulative tasks with preallocated quota "[1h/2h] extraneous/buffer"
+      << instead of tracking remaining quota for slot
+      IDEA: instead of separate task "[1h/-] unplanned/unexpected" -- simply overflow into "[3h/2h] buffer"
+      NICE: directly contribute them to slot progress and stop when slot is exhausted

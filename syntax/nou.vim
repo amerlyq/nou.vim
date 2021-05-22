@@ -42,8 +42,13 @@ call nou#syntax#artf_contact()
 
 "" e.g. tag-token like <^JIRA-12345>
 syn cluster nouArtifactQ add=nouArtifactUrlAlias
-hi nouArtifactUrlAlias cterm=bold,underline ctermbg=NONE gui=bold,underline guibg=NONE ctermfg=62 guifg=#6c71c4
+hi nouArtifactUrlAlias cterm=bold,reverse ctermbg=NONE gui=bold,reverse guibg=NONE ctermfg=62 guifg=#6c71c4
 syn match nouArtifactUrlAlias display excludenl /\v%(^|[(\[{,;|[:blank:]]@1<=)%(\^\S{-1,})%([|;,}\])[:blank:]]@1=|$)/
+
+"" user group OR role like <%dev>
+syn cluster nouArtifactQ add=nouArtifactRole
+hi nouArtifactRole cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=172 guifg=#df8700
+syn match nouArtifactRole display excludenl /\v%(^|[(\[{,;|[:blank:]]@1<=)%(\%\a\k{-})%([|;,}\])[:blank:]]@1=|$)/
 
 
 " ATT: define after artf_hashtag() to override #1 hashtag
@@ -60,9 +65,28 @@ syn match nouArtifactIndex display excludenl
 syn cluster nouArtifactQ add=@nouArtifactEmojiQ
 " SEE: https://emojipedia.org/red-heart/
 " VIZ: green=💚 yellow=💛 orange=🧡 brown=🤎 purple=💜 blue=💙 white=🤍♡ black=🖤♥ spark=💖 broken=💔 two=💕 glow=💗 jap=心
-syn cluster nouArtifactEmojiQ add=nouArtifactEmojiRed
-hi nouArtifactEmojiRed cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=196 guifg=#ff0000
-syn match nouArtifactEmojiRed display excludenl '[♡♥🤍🖤💛💜]'
+syn cluster nouArtifactEmojiQ add=nouEmojiRed
+hi nouEmojiRed cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=196 guifg=#ff0000
+syn match nouEmojiRed display excludenl '[✗♡♥🤍🖤💛💜]'
+
+syn cluster nouArtifactEmojiQ add=nouEmojiGreen
+hi nouEmojiGreen cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=40 guifg=#00ff00
+syn match nouEmojiGreen display excludenl '[✓]'
+
+" SPLIT: rename "syn match" to "nouInfix" and "hi link" to nouEmoji colors
+" nouInfix(source/intent) {{{
+syn cluster nouArtifactEmojiQ add=nouEmojiOrange
+hi nouEmojiOrange cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=172 guifg=#df8700
+syn match nouEmojiOrange display excludenl '[⋆↯]'
+
+syn cluster nouArtifactEmojiQ add=nouEmojiGray
+hi nouEmojiGray cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=242 guifg=#707070
+syn match nouEmojiGray display excludenl '[↻]'
+
+syn cluster nouArtifactEmojiQ add=nouEmojiPink
+hi nouEmojiPink cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=161 guifg=#df1f5f
+syn match nouEmojiPink display excludenl '[▶➥]'
+" }}}
 
 
 " ATT: must be before "nou#syntax#term(k)" to be overridden by "!term!"
@@ -97,6 +121,7 @@ call nou#syntax#artf_function()
 "   DEV: toggle by option -- individual colors or general one
 "     NOTE: general has merits of contrast and more performance than individual
 
+runtime autoload/nou/syntax/operator.vim
 for k in keys(g:nou.term.colors)
   call nou#syntax#term(k)
 endfor
@@ -176,6 +201,15 @@ hi nouCommentDevDoc cterm=NONE gui=NONE ctermbg=8 guibg=#002430 ctermfg=242 guif
 syn region nouCommentDevDoc display oneline keepend
   \ start='^#%' start='\s\zs#%' excludenl end='$'
 
+" NOTE: hi! dot-prefix of "obj.sub.key=val" and "obj.func()"
+" ORNG: ctermfg=224 guifg=#cb4b16 YELW: ctermfg=121 guifg=#b58900 BLUE: ctermfg=33 guifg=#2060e0
+" NICE: #c56b1f | #8f4f1f
+syn cluster nouGenericQ add=nouObjectPfx
+hi nouObjectPfx cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=224 guifg=#8f4f1f
+syn match nouObjectPfx display excludenl
+  \ '\v%(^|[[:punct:][:blank:]]@1<=)%(\k+[.])+\ze\k'
+
+
 " EXPL: https, ftp, news, file
 " THINK: diff color urls -- don't do 'contains=@nouArtifactG'
 " TRY: different color for heading and '[/?=]' in url
@@ -217,42 +251,7 @@ runtime autoload/nou/syntax/path.vim
 call nou#syntax#regex()  " ATT: must be after nouPath to override rgx=/.../
 runtime autoload/nou/syntax/keyval.vim
 runtime autoload/nou/syntax/group.vim
-
-
-" MAYBE: make "nouDate/nouTime" into overlay notches to be highlighted everywhere
-" TODO: hi! weekdays/weekends dayname differently, and for week-sfx use darker color
-" ALT: explicit sfx /%(-%(Mon|Tue|Wed|Thu|Fri|Sat|Sun|Mo|Tu|We|Th|Fr|Sa|Su))?/
-" TODO: dim hi for weekday sfx
-" TODO: different color for Sat and Sun -- whole date (red) or only suffix
-syn cluster nouGenericQ add=nouDate
-hi! nouDate ctermfg=178 guifg=#dfaf00
-syn match nouDate display excludenl
-  \ '\v<20\d\d-%(0\d|1[012])%(-%([012]\d|3[01])%(-\u\l\l?)?)?%(-W%([0-4]\d|5[0-3]))?>'
-syn match nouDate display excludenl '\v<20\d\d-W%([0-4]\d|5[0-3])>'
-syn match nouDate display excludenl '\v<CW%([0-4]\d|5[0-3])>'
-
-syn cluster nouGenericQ add=nouTime
-" hi! nouTime ctermfg=210 guifg=#ff8787
-hi! nouTime ctermfg=248 guifg=#a8a8a8
-syn match nouTime display excludenl
-  \ '\v<%(\d|[01]\d|2[0-4]):[0-5]\d%(:[0-5]\d)?>'
-
-
-"" NOTE: task duration estimates and time spans
-"" FIXME: must be placed before #artf_ext() to treat ".5h" as timespan instead of extension
-""   FAIL: must be after number.vim to prevent overriding wild numbers
-" [_] MOVE = :/autoload/nou/syntax
-" MAYBE: use different color when "time" is related to "task estimate"
-"   * [_] 1h ...
-"   * 13:30 1h ...
-"   * [_] 13:30 1h ...
-" THINK: use dif. colors for each [wdhms] letter inside this hi! group
-" ADD? longer abbrev 1day4hr2min3sec
-" ADD? volume-speed 1h/task OR task/1h
-hi! nouTimeSpan cterm=bold,undercurl gui=bold,undercurl ctermfg=135 guifg=#4f7fef
-syn cluster nouArtifactQ add=nouTimeSpan
-syn match nouTimeSpan display excludenl
-  \ '\v<%([0-9.]+[wdhms]){1,5}>'
+runtime autoload/nou/syntax/datetime.vim
 
 
 "" ATT: must be after nouNumber to override date
@@ -262,10 +261,17 @@ hi! nouTaskTodo ctermfg=14 guifg=#586e75
 syn cluster nouTaskQ add=nouTaskTodo
 syn match nouTaskTodo display excludenl '\V[_]'
 
+" MAYBE:ADD: inprogress/ongoing "[o]"
+
+hi! nouTaskWait cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=169 guifg=#ef3f9f
+syn cluster nouTaskQ add=nouTaskWait
+syn match nouTaskWait display excludenl '\V[…]'
+
 hi! nouTaskDone ctermfg=14 guifg=#586e75
 syn cluster nouTaskQ add=nouTaskDone
 syn match nouTaskDone display excludenl '\V[X]'
-syn match nouTaskDone display excludenl '\v\[[\u2800-\u28FF]{4}\]'
+syn match nouTaskDone display excludenl '\v\[[\u2800-\u28FF]{2}\]'  " day
+syn match nouTaskDone display excludenl '\v\[[\u2800-\u28FF]{4}\]'  " ts
 
 """ ALT: separate xts group
 " " hi! nouTaskXts cterm=bold gui=bold ctermfg=14 guifg=#586e75
@@ -273,21 +279,50 @@ syn match nouTaskDone display excludenl '\v\[[\u2800-\u28FF]{4}\]'
 " syn cluster nouTaskQ add=nouTaskXts
 " syn match nouTaskXts display excludenl '\v\[[\u2800-\u28FF]{4}\]'
 
+hi! nouTaskMandatory cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=196 guifg=#ff0000
+syn cluster nouTaskQ add=nouTaskMandatory
+syn match nouTaskMandatory display excludenl '\V[!]'
+
+hi! nouTaskToday cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=172 guifg=#df8700
+syn cluster nouTaskQ add=nouTaskToday
+syn match nouTaskToday display excludenl '\V[@]'
+
 hi! nouTaskCancel ctermfg=160 guifg=#df0000
 syn cluster nouTaskQ add=nouTaskCancel
 syn match nouTaskCancel display excludenl '\V[$]'
+
+hi! nouTaskAlso ctermfg=22 guifg=#1f881f
+syn cluster nouTaskQ add=nouTaskAlso
+syn match nouTaskAlso display excludenl '\V[+]'
+
+hi! nouTaskPostpone ctermfg=62 guifg=#5f5fdf
+syn cluster nouTaskQ add=nouTaskPostpone
+syn match nouTaskPostpone display excludenl '\V[>]'
+
+hi! nouTaskDoneBefore ctermfg=94 guifg=#875f00
+syn cluster nouTaskQ add=nouTaskDoneBefore
+syn match nouTaskDoneBefore display excludenl '\V[<]'
 
 " HACK: different yellowish/rainbow color for incomplete tasks /[01-99%]/
 for i in keys(g:nou.task.colors)
   exe 'hi! nouTaskProgress'.i .' '. g:nou.task.colors[i]
   exe 'syn cluster nouTaskQ add=nouTaskProgress'.i
-  exe 'syn match nouTaskProgress'.i.' display excludenl "\V['.i.'\d%]"'
+  exe 'syn match nouTaskProgress'.i.' display excludenl contains=nouProgressTotal "\v\['.i.'\d%(\.\d+)?\%%(\ze/\d+)?\]"'
 endfor
+
+hi def link nouTaskProgressDone nouTaskDone
+syn cluster nouTaskQ add=nouTaskProgressDone
+syn match nouTaskProgressDone display excludenl contains=nouProgressTotal "\v\[XX\%%(\ze/\d+)?\]"
+
+" IDEA: use Total suffix for all tasks to specify allocated/spent/expected resources
+"   e.g. [⡟⣌⢅⠰/214] [X/214] [+/2h/214] [_/4h] [$/2h]
+hi! nouProgressTotal ctermfg=14 guifg=#586e75
+syn match nouProgressTotal display excludenl contained '/\d\+'
 
 syn cluster nouGenericQ add=nouTask
 hi! nouTask ctermfg=14 guifg=#586e75
 syn match nouTask display excludenl contains=@nouTaskQ
-  \ '\v%(\d{4}-\d\d-\d\d )?\[%([_$X]|[\u2800-\u28FF]{4}|\d\d\%)\]'
+  \ '\v%(\d{4}-\d\d-\d\d )?\[%([_$X]|[\u2800-\u28FF]{4}|\d\d%(\.\d+)?\%%(/\d+)?)\]'
 
 
 "{{{ NOTE: progress highlight e.g. "[1/8]"
@@ -296,19 +331,48 @@ syn match nouTask display excludenl contains=@nouTaskQ
 " MAYBE:BET: add "progress" cluster globally insted of limiting into nouTaskQ
 syn cluster nouTaskQ add=nouProgressRatio
 exe 'hi! nouProgressRatio '. g:nou.task.colors[8]
-syn match nouProgressRatio display excludenl contains=@nouProgressRatioQ '\V[\d\+/\d\+]'
+syn match nouProgressRatio display excludenl contains=@nouProgressRatioQ '\v\[\d+%(\.\d+)?[/⁄]\d+\]'
+
+"" WARN: must be above "nouProgressRatioF" for [1/1] to highlight as "finished"
+exe 'hi! nouProgressRatio1 '. g:nou.task.colors[1]
+syn cluster nouProgressRatioQ add=nouProgressRatio1
+syn match nouProgressRatio1 display excludenl contained '\D1\D\d\+\D'
 
 hi! nouProgressRatioF ctermfg=14 guifg=#586e75
 syn cluster nouProgressRatioQ add=nouProgressRatioF
-syn match nouProgressRatioF display excludenl contained '\v\D(\d+)\D\1\D'
+syn match nouProgressRatioF display excludenl contained '\v\D(\d+%(\.\d+)?)[/⁄]\1\D'
 
 exe 'hi! nouProgressRatio0 '. g:nou.task.colors[7]
 syn cluster nouProgressRatioQ add=nouProgressRatio0
 syn match nouProgressRatio0 display excludenl contained '\D0\+\D\d\+\D'
+"}}}
 
-exe 'hi! nouProgressRatio1 '. g:nou.task.colors[1]
-syn cluster nouProgressRatioQ add=nouProgressRatio1
-syn match nouProgressRatio1 display excludenl contained '\D1\+\D\d\+\D'
+"{{{ NOTE: spent time progress e.g. "[1h30m/4h|6h]" OR "[-/-]"
+" [_] ENH: make it more arbitrary i.e. support anything in shape of delimiters "[…/…|…]"
+syn cluster nouTaskQ add=nouProgressTime
+exe 'hi! nouProgressTime '. g:nou.task.colors[8]
+syn match nouProgressTime display excludenl contains=@nouProgressTimeQ,nouTimeSpan,nouTableDelim
+  \ '\v\[%(-|<%(\d+[wdhms]){1,2}%(\+%(\d+[wdhms]){1,2})*>)[/⁄]%(-|<%(\d+[wdhms]){1,2}%(\|%(\d+[wdhms]){1,2})?>)\]'
+
+hi! nouProgressTimePart ctermfg=14 guifg=#586e75
+syn cluster nouProgressTimeQ add=nouProgressTimePart
+syn match nouProgressTimePart display excludenl contained contains=nouTimeSpan,nouTableDelim
+  \ '\v\D%(\w+\+)?(<%(\d+[wdhms]){1,2}>)[/⁄]\1%(\|%(\d+[wdhms]){1,2})?\D'
+
+exe 'hi! nouProgressTimePlan '. g:nou.task.colors[7]
+syn cluster nouProgressTimeQ add=nouProgressTimePlan
+syn match nouProgressTimePlan display excludenl contained contains=nouTimeSpan,nouTableDelim
+  \ '\v\D-\D<%(\d+[wdhms]){1,2}>\D'
+
+exe 'hi! nouProgressTimeLog '. g:nou.task.colors[1]
+syn cluster nouProgressTimeQ add=nouProgressTimeLog
+syn match nouProgressTimeLog display excludenl contained contains=nouTimeSpan
+  \ '\v\D<%(\d+[wdhms]){1,2}>\D-\D'
+
+" OR: [9]
+exe 'hi! nouProgressTimeTodo '. g:nou.task.colors[0]
+syn cluster nouProgressTimeQ add=nouProgressTimeTodo
+syn match nouProgressTimeTodo display excludenl contained '\D-\D-\D'
 "}}}
 
 
@@ -334,6 +398,7 @@ syn cluster nouTextQ add=@Spell,@nouGenericQ,@nouTaskQ
 
 " WARNING: define after accents!
 runtime autoload/nou/syntax/block.vim
+runtime autoload/nou/syntax/xtref.vim
 
 " EXPL: must be last line -- set single-loading guard only if no exceptions
 let b:current_syntax = 'nou'
