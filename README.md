@@ -11,9 +11,6 @@ Intention: merge all "nou", "xtref", "notches", and "tenjo" into single plugin.
 
 # nou.vim
 
-[![Build Status](https://travis-ci.org/amerlyq/nou.vim.svg?branch=master)](
-    https://travis-ci.org/amerlyq/nou.vim)
-
 Notes and outline united.
 
 It's similar to *org-mode* but in no way compatible and there is no plans to make it so.
