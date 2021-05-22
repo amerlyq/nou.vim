@@ -1,3 +1,14 @@
+# flower
+
+Intention: merge all "nou", "xtref", "notches", and "tenjo" into single plugin.
+
+  * pure python library backend to query and manipulate .nou data format.
+  * TRY: syntax hi in .lua -- to make .nou format faster.
+  * IDEA: embed and recognize .nou tasks into comments of any other source code.
+  * CFG: use "Space" as global leader key for this "literal programming".
+
+-----
+
 # nou.vim
 
 [![Build Status](https://travis-ci.org/amerlyq/nou.vim.svg?branch=master)](
