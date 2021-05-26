@@ -163,7 +163,8 @@ nmap <buffer> <Plug>(nou-set-goal-waiting) c<Plug>(textobj-nou-goal-i)…<Esc>
 nmap <buffer> <Plug>(nou-del-status) d<Plug>(textobj-nou-status-i)
 
 " HACK: merge next task with prev line time
-nmap <buffer> <Plug>(nou-merge-plan) d<Plug>(textobj-nou-status-i)kJ
+" nmap <buffer> <Plug>(nou-merge-plan) d<Plug>(textobj-nou-plan-i)kJ
+nmap <buffer> <Plug>(nou-merge-plan) d<Plug>(textobj-nou-goal-i)d<Plug>(textobj-nou-time-i)kJ
 nmap <buffer> <Plug>(nou-del-plan) d<Plug>(textobj-nou-plan-i)
 
 " FAIL: can't apply multiple times to visual selection

@@ -23,7 +23,7 @@ hi nouPathTail   cterm=italic ctermbg=9 gui=italic guibg=#073642 ctermfg=10  gui
 
 
 "" Path elements
-syn match nouPathXdelim display excludenl contained '[/\\]'
+syn match nouPathXdelim display excludenl contained '[/\\*?]'
 syn match nouPathXspace display excludenl contained '\\[[:blank:]]'
 syn match nouPathXsh    display excludenl contained '\V$\w\+\|${[^}]\+}'
 " MAYBE:FIXME: only allow comma inside {...} as nested syntax region (contains=nouPath)
