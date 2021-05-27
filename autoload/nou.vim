@@ -89,6 +89,12 @@ fun! nou#path_open(path, ...)
   let pfx = strpart(p, 0, idx)
   let p = strpart(p, idx)
 
+  let elems = matchlist(p, '\v(.{-}[^/])%(:(\d+)%(:(\d+))?:?)?$')
+  let p = elems[1]
+  let lnum = elems[2]
+  let cnum = elems[3]
+  " echom elems
+
   " TODO: parse paths like /⡟⢟⢗⡼ OR /@/⡟⢟⢗⡼ virtually and limit results
   "   only to standalone tags on the first lines of the files
   " IDEA: use sfx/pfx as "selectors" e.g. /⡟⢟⢗⡼/web/github to limit search by
@@ -195,6 +201,7 @@ fun! nou#path_open(path, ...)
   else
     if deref| let p = resolve(p) |en
     exe 'edit' fnameescape(p)
+    if lnum | call setpos('.', [0, lnum, cnum, 0]) |en
   endif
 endf
 
