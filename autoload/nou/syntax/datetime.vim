@@ -21,9 +21,10 @@ syn match nouDate display excludenl
 
 
 "" HACK: emphasize today()
+let nou#syntax#datetime#Rtoday = strftime('\v%(%Y-%m-%d|%Y%m%d)')
 hi! nouDateToday cterm=bold,reverse gui=bold,reverse ctermfg=248 guifg=#a8a8a8
 exe 'syn match nouDateToday display excludenl contained containedin=nouDate '
-  \. strftime("'\\v%(%Y-%m-%d|%Y%m%d)'")
+  \."'". nou#syntax#datetime#Rtoday ."'"
 
 
 "" NOTE dim hi for extended suffixes :: dayname, weekends (Sat/Sun), and weeknum
@@ -48,13 +49,28 @@ syn match nouTime display excludenl
 " ALT:BET? cvt localtime()±1h30m -> rgx for full time
 " MAYBE: different color for past and future parts of the window
 let s:nowh = join(map([-1,0,1], {x-> printf('%02d',(strftime('%H')+23+x)%24)}),'|')
+let nou#syntax#datetime#Rwnd = '\v:@1<!%('. s:nowh .'):[0-9:]+'
 hi! nouTimeWnd cterm=bold gui=bold ctermfg=248 guifg=#a8a8a8
 exe 'syn match nouTimeWnd display excludenl contained containedin=nouTime '
-  \. "'\\v:@1<!%(". s:nowh ."):[0-9:]+'"
+  \."'". nou#syntax#datetime#Rwnd ."'"
 
+let nou#syntax#datetime#Rnow = '\v:@1<!'. strftime('%H') .':[0-9:]+'
 hi! nouTimeNow cterm=bold,reverse gui=bold,reverse ctermfg=248 guifg=#a8a8a8
 exe 'syn match nouTimeNow display excludenl contained containedin=nouTime '
-  \. "'\\v:@1<!". strftime('%H') .":[0-9:]+'"
+  \."'". nou#syntax#datetime#Rnow ."'"
+
+
+" FIXED: search one-by-one instead of any one whichever first
+let nou#syntax#datetime#Rall =
+  \[ nou#syntax#datetime#Rtoday
+  \, nou#syntax#datetime#Rnow
+  \, nou#syntax#datetime#Rwnd
+  \]
+" let nou#syntax#datetime#Rany =
+"   \'\v%('. nou#syntax#datetime#Rtoday
+"   \.'|'. nou#syntax#datetime#Rnow
+"   \.'|'. nou#syntax#datetime#Rwnd
+"   \.')'
 
 
 """ Span

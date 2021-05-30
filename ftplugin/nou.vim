@@ -78,6 +78,8 @@ xnoremap <silent> <Plug>(nou-path-open) :<C-u>call nou#path_open(nou#vsel())<CR>
 nnoremap <silent> <Plug>(nou-task-next) :call setreg('/', '\v'.nou#util#Rtodo, 'c')<CR>n
 xnoremap <silent> <Plug>(nou-task-next) :<C-u>call setreg('/', '\v%V'.nou#util#Rtodo, 'c')<CR>n
 
+nnoremap <silent> <Plug>(nou-jump-today) :for r in nou#syntax#datetime#Rall\|if search(r)\|break\|en\|endfor<CR>
+
 " FIXME: use vim function to insert 0-line
 nnoremap <Plug>(nou-spdx-header) 1G"=nou#spdx_header()<CR>P
 
@@ -191,6 +193,7 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>L', '<Plug>(nou-spdx-header)'],
   \ ['n', '<LocalLeader>m', '<Plug>(nou-set-assoc-me)'],
   \ ['nx', '<LocalLeader>n', '<Plug>(nou-task-next)'],
+  \ ['n', '<LocalLeader>N', '<Plug>(nou-jump-today)'],
   \ ['n', '<LocalLeader>w', '<Plug>(nou-set-assoc-work)'],
   \ ['n', '<LocalLeader>u', '<Plug>(nou-set-assoc-urgent)'],
   \ ['n', '<LocalLeader>_', '<Plug>(nou-set-goal-subtodo)'],
