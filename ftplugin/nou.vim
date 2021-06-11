@@ -177,6 +177,7 @@ nmap <buffer> <Plug>(nou-cvt-task) d<Plug>(textobj-nou-lead-i)c<Plug>(textobj-no
 nmap <buffer> <Plug>(nou-set-assoc-me) c<Plug>(textobj-nou-assoc-i)me<Esc>
 nmap <buffer> <Plug>(nou-set-assoc-work) c<Plug>(textobj-nou-assoc-i)W<Esc>
 nmap <buffer> <Plug>(nou-set-assoc-urgent) c<Plug>(textobj-nou-assoc-i)U<Esc>
+nmap <buffer> <Plug>(nou-set-assoc-overtime) c<Plug>(textobj-nou-assoc-i)OT<Esc>
 
 
 " DISABLED: I never expect to convert subtask to task
@@ -196,6 +197,7 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>N', '<Plug>(nou-jump-today)'],
   \ ['n', '<LocalLeader>w', '<Plug>(nou-set-assoc-work)'],
   \ ['n', '<LocalLeader>u', '<Plug>(nou-set-assoc-urgent)'],
+  \ ['n', '<LocalLeader>o', '<Plug>(nou-set-assoc-overtime)'],
   \ ['n', '<LocalLeader>_', '<Plug>(nou-set-goal-subtodo)'],
   \ ['n', '<LocalLeader>!', '<Plug>(nou-set-goal-mandatory)'],
   \ ['n', '<LocalLeader>@', '<Plug>(nou-set-goal-today)'],
