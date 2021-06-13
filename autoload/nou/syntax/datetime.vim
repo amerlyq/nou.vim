@@ -85,9 +85,19 @@ let nou#syntax#datetime#Rall =
 " THINK: use dif. colors for each [wdhms] letter inside this hi! group
 " ADD? longer abbrev 1day4hr2min3sec
 " ADD? volume-speed 1h/task OR task/1h
-hi! nouTimeSpan cterm=bold,undercurl gui=bold,undercurl ctermfg=135 guifg=#4f7fef
+hi! nouTimeSpan cterm=bold,undercurl gui=bold,undercurl ctermfg=69 guifg=#4f7fef
 syn cluster nouArtifactQ add=nouTimeSpan
 " ALT:OLD: syn match nouTimeSpan display excludenl '\v<%(\d+[wdhms]){1,5}>'
 " MAYBE:allow: 1mo 2mo3d 2y4mo
 syn match nouTimeSpan display excludenl
-  \ '\v<%(\d+w\d+d|\d+d\d+h|\d+h\d+m|\d+m\d+s|\d+[wdhms]|\d+\.\d+h)>'
+  \ '\v<%(\d+w\d+d|\d+d\d+h|\d+h\d+m|\d+m\d+s|\d+[wdhms])>'
+
+" MAYBE:ALSO:USE: "4h+" = 4h5m, "4h-" = 3h55m
+let s:fracs = '[⅛⅙¼⅓⅖½⅗⅔¾⅚⅞]'
+exe 'syn match nouTimeSpan display excludenl '
+  \."'". '\v<\d+\.\d+h>|<\d+h'.s:fracs.'|'.s:fracs.'h>' ."'"
+
+
+hi! nouTimeFract ctermfg=63 guifg=#4f67ef
+exe 'syn match nouTimeFract display excludenl contained '
+  \."containedin=nouTimeSpan '". s:fracs ."'"

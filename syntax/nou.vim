@@ -331,7 +331,7 @@ syn match nouTask display excludenl contains=@nouTaskQ
 " MAYBE:BET: add "progress" cluster globally insted of limiting into nouTaskQ
 syn cluster nouTaskQ add=nouProgressRatio
 exe 'hi! nouProgressRatio '. g:nou.task.colors[8]
-syn match nouProgressRatio display excludenl contains=@nouProgressRatioQ '\v\[\d+%(\.\d+)?[/⁄]\d+\]'
+syn match nouProgressRatio display excludenl contains=@nouProgressRatioQ '\v\[%(\d+[/+\\])?\d+%(\.\d+)?[/⁄]\d+\]'
 
 "" WARN: must be above "nouProgressRatioF" for [1/1] to highlight as "finished"
 exe 'hi! nouProgressRatio1 '. g:nou.task.colors[1]
