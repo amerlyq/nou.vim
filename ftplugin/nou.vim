@@ -158,6 +158,8 @@ nmap <buffer> <Plug>(nou-set-goal-subtodo) c<Plug>(textobj-nou-goal-i)_<Esc>
 nmap <buffer> <Plug>(nou-set-goal-subdone) c<Plug>(textobj-nou-goal-i)+<Esc>
 nmap <buffer> <Plug>(nou-set-goal-postpone) c<Plug>(textobj-nou-goal-i)><Esc>
 nmap <buffer> <Plug>(nou-set-goal-waiting) c<Plug>(textobj-nou-goal-i)…<Esc>
+nmap <buffer> <Plug>(nou-set-goal-likely) c<Plug>(textobj-nou-goal-i)~<Esc>
+nmap <buffer> <Plug>(nou-set-goal-unlikely) c<Plug>(textobj-nou-goal-i)?<Esc>
 
 " nmap <buffer> <Plug>(nou-set-goal-todo) c<Plug>(textobj-nou-goal-i)_<Esc>
 " omap <buffer> <Plug>(nou-set-goal-todo) <Plug>(textobj-nou-goal-i)_<Esc>
@@ -204,6 +206,8 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>+', '<Plug>(nou-set-goal-subdone)'],
   \ ['n', '<LocalLeader>>', '<Plug>(nou-set-goal-postpone)'],
   \ ['n', '<LocalLeader>.', '<Plug>(nou-set-goal-waiting)'],
+  \ ['n', '<LocalLeader>~', '<Plug>(nou-set-goal-likely)'],
+  \ ['n', '<LocalLeader>?', '<Plug>(nou-set-goal-unlikely)'],
   \ ['n', '<LocalLeader><Backspace>', '<Plug>(nou-merge-plan)'],
   \ ['n', '<LocalLeader><Del>', '<Plug>(nou-del-status)'],
   \ ['n', '<LocalLeader><Tab>', '<Plug>(nou-complement)'],

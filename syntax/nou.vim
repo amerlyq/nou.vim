@@ -303,6 +303,16 @@ hi! nouTaskDoneBefore ctermfg=94 guifg=#875f00
 syn cluster nouTaskQ add=nouTaskDoneBefore
 syn match nouTaskDoneBefore display excludenl '\V[<]'
 
+" [_] FIXME: instead of "cluster" use nested items and universal "\V[\.]" task
+hi! nouTaskLikely ctermfg=169 guifg=#ef3f9f
+syn cluster nouTaskQ add=nouTaskLikely
+syn match nouTaskLikely display excludenl '\V[~]'
+
+hi! nouTaskUnlikely ctermfg=172 guifg=#df8700
+syn cluster nouTaskQ add=nouTaskUnlikely
+syn match nouTaskUnlikely display excludenl '\V[?]'
+
+
 " HACK: different yellowish/rainbow color for incomplete tasks /[01-99%]/
 for i in keys(g:nou.task.colors)
   exe 'hi! nouTaskProgress'.i .' '. g:nou.task.colors[i]
