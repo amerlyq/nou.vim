@@ -287,7 +287,7 @@ hi! nouTaskToday cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=172 guifg=#
 syn cluster nouTaskQ add=nouTaskToday
 syn match nouTaskToday display excludenl '\V[@]'
 
-hi! nouTaskCancel ctermfg=160 guifg=#df0000
+hi! nouTaskCancel ctermfg=88 guifg=#870000
 syn cluster nouTaskQ add=nouTaskCancel
 syn match nouTaskCancel display excludenl '\V[$]'
 
