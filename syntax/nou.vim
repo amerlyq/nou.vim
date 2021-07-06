@@ -37,8 +37,16 @@ syn match nouTableDelim display excludenl '|'
 " ATT: placed before accents, to distinguish _underline_ from _extension
 call nou#syntax#artf_ext()
 runtime autoload/nou/syntax/tag.vim
-call nou#syntax#artf_addressing()
 call nou#syntax#artf_contact()
+
+
+"" ATT: placed before nouObjectPfx to override @Name.Surname
+syn cluster nouArtifactQ add=nouArtifactAddressing
+hi nouArtifactAddressing cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=80 guifg=#5fdfdf
+syn match nouArtifactAddressing display excludenl /\v%(^|[(\[{,;|[:blank:]]@1<=)%(\@\a\k{-}%(\.\k{-})?)%([|;,}\])[:blank:]]@1=|$)/
+hi nouArtifactAddrName cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=75 guifg=#67afff
+syn match nouArtifactAddrName display excludenl contained containedin=nouArtifactAddressing /\v\@\a%(\k{-}\.)?/
+
 
 "" e.g. tag-token like <^JIRA-12345>
 syn cluster nouArtifactQ add=nouArtifactUrlAlias
