@@ -34,6 +34,11 @@ digraph )) 10630   " ⦆ = nouLineSyntax
 digraph ** 8226    " •
 digraph *  8226    " •
 
+digraph RR 8635    " ↻ = repeated/framework ALT=OO
+digraph SS 8902    " ⋆ = planned/agenda ALT=II
+digraph !! 8623    " ↯ = important/agenda ALT=HH
+digraph \|> 9654   " ▶ = delegate to ALT=TT|DD
+digraph `> 10149   " ➥ = delegate from ALT=NN|FF
 
 """ Mappings
 
