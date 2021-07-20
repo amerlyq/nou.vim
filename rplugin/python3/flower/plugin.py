@@ -1,3 +1,4 @@
+# REF: https://pynvim.readthedocs.io/en/latest/usage/remote-plugins.html
 import pynvim
 
 
@@ -14,6 +15,6 @@ class Plugin:
     def testcommand(self, args, rng):
         self.nvim.current.line = "Command with args: {}, range: {}".format(args, rng)
 
-    @pynvim.autocmd("BufEnter", pattern="*.py", eval='expand("<afile>")', sync=True)
-    def on_bufenter(self, filename):
-        self.nvim.out_write("testplugin is in " + filename + "\n")
+    # @pynvim.autocmd("BufEnter", pattern="*.py", eval='expand("<afile>")', sync=True)
+    # def on_bufenter(self, filename):
+    #     self.nvim.out_write("testplugin is in " + filename + "\n")
