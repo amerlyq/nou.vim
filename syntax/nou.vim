@@ -287,6 +287,10 @@ syn match nouTaskDone display excludenl '\v\[[\u2800-\u28FF]{4}\]'  " ts
 " syn cluster nouTaskQ add=nouTaskXts
 " syn match nouTaskXts display excludenl '\v\[[\u2800-\u28FF]{4}\]'
 
+hi! nouTaskNow cterm=bold gui=bold ctermfg=251 guifg=#c6c6c6
+syn cluster nouTaskQ add=nouTaskNow
+syn match nouTaskNow display excludenl '\V[•]'
+
 hi! nouTaskMandatory cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=196 guifg=#ff0000
 syn cluster nouTaskQ add=nouTaskMandatory
 syn match nouTaskMandatory display excludenl '\V[!]'
