@@ -135,6 +135,8 @@ nnoremap <buffer> <Plug>(nou-task-xts-end) :call <SID>yank_xts(1)<CR>
 "" HACK: paste with smart indent
 nnoremap <buffer> gp p
 nnoremap <buffer> gP P
+nnoremap <buffer> <Space>p  a<Space><Esc>p
+nnoremap <buffer> <Space>P  a<Space><Esc>P
 " vnoremap <buffer><unique> gp pgvy
 nmap <buffer><silent> P <Plug>(nou-paste-smart-above)
 nmap <buffer><silent> p <Plug>(nou-paste-smart-below)
