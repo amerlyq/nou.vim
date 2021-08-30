@@ -281,6 +281,13 @@ syn match nouTaskDone display excludenl '\V[X]'
 syn match nouTaskDone display excludenl '\v\[[\u2800-\u28FF]{2}\]'  " day
 syn match nouTaskDone display excludenl '\v\[[\u2800-\u28FF]{4}\]'  " ts
 
+"" MAYBE:
+" gui=reverse,bold
+" hi! nouTaskDoneB ctermfg=14 guifg=#586e75
+" syn match nouTaskDoneB display excludenl contained
+"   \ containedin=nouTaskDone '[[\]]'
+
+
 """ ALT: separate xts group
 " " hi! nouTaskXts cterm=bold gui=bold ctermfg=14 guifg=#586e75
 " hi! nouTaskXts ctermfg=14 guifg=#586e75

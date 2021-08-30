@@ -262,6 +262,7 @@ context
     <LL a c> associate *<common>*
   Category flags
     [U] %U [!] urgent (?and important? BUT inconsistent naming)
+      ALSO: unplanned(done-too-early), unexpected(unknown)
     [I] %I  ⋆↯ important (but not urgent)
     [D] %D  ▶➥ (OR %O) delegate to others (urgent but not important BUT unobvious meaning)
     [N] %N  ☘  nice to have / new cool ideas

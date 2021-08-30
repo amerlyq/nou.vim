@@ -33,10 +33,11 @@ digraph (( 10629   " ⦅ = nouLineSyntax
 digraph )) 10630   " ⦆ = nouLineSyntax
 digraph ** 8226    " •
 digraph *  8226    " •
+digraph ~~ 8776    " ≈ ALMOST EQUAL TO
 
 digraph RR 8635    " ↻ = repeated/framework ALT=OO
-digraph SS 8902    " ⋆ = planned/agenda ALT=II
-digraph !! 8623    " ↯ = important/agenda ALT=HH
+digraph SS 8902    " ⋆ = planned/agenda ALT=II|AA
+digraph !! 8623    " ↯ = important/agenda ALT=HH|UU
 digraph \|> 9654   " ▶ = delegate to ALT=TT|DD
 digraph `> 10149   " ➥ = delegate from ALT=NN|FF
 
@@ -234,6 +235,7 @@ for s in ['', 'D', '_', 'D_', 'D$', '$', 'X', 'DX', 'D<', 'T', 'DT', 'B', 'DB']
       \" :<C-u>call nou#bar('".s."',v:count,".(m==#'x').")<CR>"
 endfor | endfor
 
+" [_] FIXME:(nou-barDB): must insert "done" by xts2 "day" instead of xts4 time
 " [_] BET:TRY: <LocalLeader> = <Space>  OR:BET? [Xtref] = <Space>
 " ALT(batch-ops for 'x'):TRY:USE: textobj#user#select() which returns list of positions
 let s:nou_mappings += [
