@@ -45,7 +45,7 @@ syn cluster nouArtifactQ add=nouArtifactAddressing
 hi nouArtifactAddressing cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=80 guifg=#5fdfdf
 syn match nouArtifactAddressing display excludenl /\v%(^|[(\[{,;|[:blank:]]@1<=)%(\@\a\k{-}%(\.\k{-})?)%([|;,}\])[:blank:]]@1=|$)/
 hi nouArtifactAddrName cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=75 guifg=#67afff
-syn match nouArtifactAddrName display excludenl contained containedin=nouArtifactAddressing /\v\@\a%(\k{-}\.)?/
+syn match nouArtifactAddrName display excludenl contained containedin=nouArtifactAddressing /\v\@%(\k{-}\.|\u\u@1=)?/
 
 
 "" e.g. tag-token like <^JIRA-12345>
