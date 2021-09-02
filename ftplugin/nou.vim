@@ -35,11 +35,14 @@ digraph ** 8226    " •
 digraph *  8226    " •
 digraph ~~ 8776    " ≈ ALMOST EQUAL TO
 
+digraph CC 9684    " ◔|𝌙  = partial progress increment
 digraph RR 8635    " ↻ = repeated/framework ALT=OO
 digraph SS 8902    " ⋆ = planned/agenda ALT=II|AA
-digraph !! 8623    " ↯ = important/agenda ALT=HH|UU
-digraph \|> 9654   " ▶ = delegate to ALT=TT|DD
-digraph `> 10149   " ➥ = delegate from ALT=NN|FF
+
+digraph WW 9676    " ◌|⚬ = waiting response
+digraph !! 8623    " ↯ = important/agenda ALT=HH|UU (like a [lightning] bolt from the blue)
+digraph \|> 9654   " ▶ = delegated to ALT=TT|DD
+digraph `> 10149   " ➥ = request (delegate from) ALT=NN|FF
 
 """ Mappings
 
