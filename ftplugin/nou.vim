@@ -194,6 +194,10 @@ nmap <buffer> <Plug>(nou-set-assoc-urgent) c<Plug>(textobj-nou-assoc-i)U<Esc>
 nmap <buffer> <Plug>(nou-set-assoc-overtime) c<Plug>(textobj-nou-assoc-i)OT<Esc>
 
 
+" TODO: <count><LL>m must set minutes w/o changing hours
+" nmap <buffer> <Plug>(nou-me-or-minutes) <Plug>(nou-set-assoc-me)
+" nmap <buffer> <Plug>(nou-task-or-hours) <Plug>(nou-set-assoc-me)
+
 " DISABLED: I never expect to convert subtask to task
 "   ['n', '<LocalLeader><Space>', '<Plug>(nou-cvt-task)'],
 "   ['n', '<LocalLeader><Space>', '<Plug>(nou-set-goal-todo)'],
