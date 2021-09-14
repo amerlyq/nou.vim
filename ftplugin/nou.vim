@@ -293,6 +293,7 @@ endif
 "" IDEA: store addressing into file by @/todo/ctl and load back
 "    $ grep -hEro '\@[[:upper:]]\w+(\.\w+)?' SU > addressings
 "    FAIL:NEED: show autocomplete lists with suggestions
+"    FIXME: rename old @/todo/log/201X/ entries '@<taskname>' -> '@ <taskname>'
 " ----
 " \   switch#Words(['one', 'two'])
 " \   switch#NormalizedCase(['one', 'two']),

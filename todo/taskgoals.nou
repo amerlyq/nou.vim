@@ -187,3 +187,7 @@ Postponed/rescheduled "[>]" ⌇⡟⡅⣨⡥
       << instead of tracking remaining quota for slot
       IDEA: instead of separate task "[1h/-] unplanned/unexpected" -- simply overflow into "[3h/2h] buffer"
       NICE: directly contribute them to slot progress and stop when slot is exhausted
+
+  [_] #automation MAYBE: add tag #agenda or some Emoji for all my daily tasks outside of #todo:fw framework ⌇⡠⢲⣫⢙
+    ALT: use complex heuristics, which excludes WF=work blocks, then <W> tasks, and then ↻ tasks
+      ~~ imprecise, and requires to post-process residue to categorize precisely anyway

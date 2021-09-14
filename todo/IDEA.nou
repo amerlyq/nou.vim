@@ -18,6 +18,8 @@
 
 %%% Python back-end
   Write back-end core in python
+  [_] #nou#python#plugin ⌇⡠⢳⣞⣘
+    https://pynvim.readthedocs.io/en/latest/api/nvim.html
   Provide interface to manipulate of outline DOM objects by API
     : THINK? base it on XHTML-dom manipulation classes?
   Use vim only as front-end to that API
