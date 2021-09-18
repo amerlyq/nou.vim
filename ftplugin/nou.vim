@@ -173,6 +173,7 @@ nmap <buffer> <Plug>(nou-set-goal-likely) c<Plug>(textobj-nou-goal-i)~<Esc>
 nmap <buffer> <Plug>(nou-set-goal-unlikely) c<Plug>(textobj-nou-goal-i)?<Esc>
 nmap <buffer> <Plug>(nou-set-goal-now) c<Plug>(textobj-nou-goal-i)•<Esc>
 
+"" DISABLED: can't batch-replace status for multiple tasks
 " nmap <buffer> <Plug>(nou-set-goal-todo) c<Plug>(textobj-nou-goal-i)_<Esc>
 " omap <buffer> <Plug>(nou-set-goal-todo) <Plug>(textobj-nou-goal-i)_<Esc>
 
@@ -300,10 +301,10 @@ endif
 " \   switch#NormalizedCaseWords(['five', 'six']),
 autocmd FileType nou let b:switch_custom_definitions =
   \[ ['^%', '^%%', '^%%%', '^%%%%', '^%%%%%']
-  \, map(split('_X…@!', '\zs'), '"[".v:val."]"')
+  \, map(split('_X+…@!', '\zs'), '"[".v:val."]"')
   \, map(split('0123456789', '\zs'), '"[".v:val."0%]"')
   \, split('↻⋆↯✓✗▶◔', '\zs')
-  \, split('10m 20m 30m 40m 50m')
+  \, split('0m 5m 10m 20m 30m 40m 50m')
   \, {'\v<(\d)h30m>': '\1.5h', '\v<(\d).5h>': '\1h30m'}
   \, map(split('me W env'), '"<".v:val.">"')
   \, map(split('eat tea coffee flax'), '"#body:".v:val')

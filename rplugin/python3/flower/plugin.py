@@ -1,4 +1,5 @@
 # REF: https://pynvim.readthedocs.io/en/latest/usage/remote-plugins.html
+# ALSO: +++ [_] NICE:READ:TRY: Writing and publishing a Python module in Rust ⌇⡡⡅⣿⢑
 import pynvim
 
 

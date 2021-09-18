@@ -36,7 +36,9 @@ fun! nou#bar(...) range
     " IDEA: use mixed log-xts "[⡟⢝⣣⣔%50]" OR "[50%⡟⢝⣣⣔]" instead of "[50%] s <⡟⢝⣣⣔>"
     let pg = a:2 < 10 ? a:2*10 : a:2 >= 100 ? a:2 % 100 : a:2
     let mrk = '['. (a:2 ? printf('%02d', pg).'%' : '&') .'] '
-    let pfx = substitute(pfx, '[_$X<]', mrk.'\\2', '')
+    " HACK: reset goal together with planned time
+    let keep = mrk.(pfx =~# '[_]' ? '' : '\\2')
+    let pfx = substitute(pfx, '[_$X<]', keep, '')
   endif
   if pfx =~# 'T'
     " HACK: asymmetric rounding to nearest 5min interval :: 02+ -> 05, 07+ -> 10
