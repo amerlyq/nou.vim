@@ -31,8 +31,8 @@ let s:Rhours = '%([0-9]|[01][0-9]|2[0-4])'
 let s:Rminutes = '[0-5][0-9]'
 let s:Rseconds = '[0-5][0-9]'
 let s:Rtime = s:Rhours.':'.s:Rminutes.'%(:'.s:Rseconds.')?'
-let s:Rtimezone = '%(Z|\+%([01][0-9]|2[0-4])00)'  " ATT: don't allow fractional time zones
-let s:Rdatetime = nou#util#Rdate.'[^0-9]'.s:Rtime.'%('.s:Rtimezone.')?'
+let s:Rtimezone = '%(Z|\+%([01][0-9]|2[0-4]):?00)'  " ATT: don't allow fractional time zones
+let nou#util#Rdatetime = nou#util#Rdate.'[^0-9]'.s:Rtime.'%('.s:Rtimezone.')?'
 let s:Rbraille = '[\u2800-\u28FF]{4}'
 " TODO: "nano{datetime,braille}"
 
@@ -51,7 +51,7 @@ let s:RprogressN = '\[%('.s:RratioN.'|'.s:RpercentN.')\]'
 " FIXME: mixed :: status .vs. priority .vs. progress
 let s:Rstate0 = '%([_…•]|[@!?]|[0-9])'
 let s:RstateN = '[X+$<>]'
-let s:RstateD = '%('.s:RstateN.'|'.s:Rbraille.'|'.s:Rdatetime.')'
+let s:RstateD = '%('.s:RstateN.'|'.s:Rbraille.'|'.nou#util#Rdatetime.')'
 let s:Rstate = '%('.s:Rstate0.'|'.s:RstateN.')'
 let nou#util#Rtodo = '%(\['.s:Rstate0.'\]|'.s:Rprogress0.')'
 let s:Rdone = '%(\['.s:RstateD.'\]|'.s:RprogressN.')'

@@ -299,7 +299,9 @@ endif
 " \   switch#Words(['one', 'two'])
 " \   switch#NormalizedCase(['one', 'two']),
 " \   switch#NormalizedCaseWords(['five', 'six']),
-autocmd FileType nou let b:switch_custom_definitions =
+
+"" VIZ: artifacts
+let g:nou_switch_groups =
   \[ ['^%', '^%%', '^%%%', '^%%%%', '^%%%%%']
   \, map(split('_X+…@!', '\zs'), '"[".v:val."]"')
   \, map(split('0123456789', '\zs'), '"[".v:val."0%]"')
@@ -312,5 +314,21 @@ autocmd FileType nou let b:switch_custom_definitions =
   \, map(split('tracking planning overview timesheet'), '"#taskmgmt:".v:val')
   \]
 
+
+"" VIZ: date/time
+let g:nou_switch_groups +=
+  \[ { '\v<(\d{10})>' : {x -> trim(system('just xts cvt '.shellescape(x).' unix fts'))}
+  \  , '\v<(20\d{6}_\d{6})>' : {x -> trim(system('just xts cvt '.shellescape(x).' fts unix'))}
+  \},{ '\v<('.nou#util#Rdatetime.')>' : {x -> trim(system('just xts cvt '.shellescape(x).' date xts4'))}
+  \  , '\v<([\u2800-\u28FF]{4})>' : {x -> trim(system('just xts cvt '.shellescape(x).' xts4 date'))}
+  \},{ '\v<(20\d\d-\d\d-\d\d|20\d{6})>' : {x -> trim(system('just xts cvt '.shellescape(x).' date xts2'))}
+  \  , '\v<([\u2800-\u28FF]{2})>' : {x -> trim(system('just xts cvt '.shellescape(x).' xts2 date'))}
+  \}]
+
+" TODO: wrap into "nou" group
+autocmd FileType nou let b:switch_custom_definitions = g:nou_switch_groups
+
+"" ALT
+" '\v<([\u2800-\u28FF]{4})>' : {br -> strftime('%Y-%m-%d %H:%M:%S%z', str2nr(substitute(br, '.', '\=printf("%02x",and(char2nr(submatch(0)),0xff))', 'g'), 16))}
 
 runtime ftplugin/textobj/nou.vim

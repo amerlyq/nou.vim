@@ -22,7 +22,7 @@ syn match nouHashTag display excludenl contains=nouHashTagPfx,nouHashTagParam
 " OR:(bright): hi nouHashTagPfx cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=172 guifg=#df8700
 " OR:(light): compromise
 hi nouHashTagPfx cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=136 guifg=#bf7f00
-syn match nouHashTagPfx display excludenl contained '[#]'
+syn match nouHashTagPfx display excludenl contained '[#.]'
 
 hi nouHashTagParam cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=101 guifg=#958e68
 syn match nouHashTagParam display excludenl contained ':[^:#[:blank:]]\+'
