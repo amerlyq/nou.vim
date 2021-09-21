@@ -160,18 +160,19 @@ nnoremap <buffer> <Plug>(nou-paste-smart-below) :call nou#paste#smart(v:register
 "   xnoremap <silent> <Plug>(nou-set-goal-subdone) :<C-u>call nou#vsel_apply(1,{x->nou#util#replace('state','+',x)})<CR>
 " WF:NOTE:(<LL>[_+>]): immediately convert to subtask (i.e. set indent=2)
 nmap <buffer> <Plug>(nou-cvt-subtask) d<Plug>(textobj-nou-time-i)c<Plug>(textobj-nou-lead-i)<Space><Space><Esc>3l
-nmap <buffer> <Plug>(nou-set-goal-mandatory) c<Plug>(textobj-nou-goal-i)!<Esc>
-nmap <buffer> <Plug>(nou-set-goal-today) c<Plug>(textobj-nou-goal-i)@<Esc>
+nmap <buffer> <Plug>(nou-set-goal-mandatory) "_c<Plug>(textobj-nou-goal-i)!<Esc>
+nmap <buffer> <Plug>(nou-set-goal-today) "_c<Plug>(textobj-nou-goal-i)@<Esc>
 
+" HACK: use black-hole-register("_) to keep clipboard during WF=task-postponing
 " NOTE: cvt to subtask is useful for *flat* log, but NOT for workflow-structured one
 "   c<Plug>(textobj-nou-goal-i)+<Esc><Plug>(nou-cvt-subtask)
-nmap <buffer> <Plug>(nou-set-goal-subtodo) c<Plug>(textobj-nou-goal-i)_<Esc>
-nmap <buffer> <Plug>(nou-set-goal-subdone) c<Plug>(textobj-nou-goal-i)+<Esc>
-nmap <buffer> <Plug>(nou-set-goal-postpone) c<Plug>(textobj-nou-goal-i)><Esc>
-nmap <buffer> <Plug>(nou-set-goal-waiting) c<Plug>(textobj-nou-goal-i)…<Esc>
-nmap <buffer> <Plug>(nou-set-goal-likely) c<Plug>(textobj-nou-goal-i)~<Esc>
-nmap <buffer> <Plug>(nou-set-goal-unlikely) c<Plug>(textobj-nou-goal-i)?<Esc>
-nmap <buffer> <Plug>(nou-set-goal-now) c<Plug>(textobj-nou-goal-i)•<Esc>
+nmap <buffer> <Plug>(nou-set-goal-subtodo) "_c<Plug>(textobj-nou-goal-i)_<Esc>
+nmap <buffer> <Plug>(nou-set-goal-subdone) "_c<Plug>(textobj-nou-goal-i)+<Esc>
+nmap <buffer> <Plug>(nou-set-goal-postpone) "_c<Plug>(textobj-nou-goal-i)><Esc>
+nmap <buffer> <Plug>(nou-set-goal-waiting) "_c<Plug>(textobj-nou-goal-i)…<Esc>
+nmap <buffer> <Plug>(nou-set-goal-likely) "_c<Plug>(textobj-nou-goal-i)~<Esc>
+nmap <buffer> <Plug>(nou-set-goal-unlikely) "_c<Plug>(textobj-nou-goal-i)?<Esc>
+nmap <buffer> <Plug>(nou-set-goal-now) "_c<Plug>(textobj-nou-goal-i)•<Esc>
 
 "" DISABLED: can't batch-replace status for multiple tasks
 " nmap <buffer> <Plug>(nou-set-goal-todo) c<Plug>(textobj-nou-goal-i)_<Esc>
