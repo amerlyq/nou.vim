@@ -256,7 +256,7 @@ context
     [⡟⠜⢠⢱] time-tracked        <x>
     [X] done                   <X>
       [+] subtask              < + >
-  Association
+  Association (time-budget src)
     <>> OR <LL a m> associate with me *<me>*
     <<> OR <LL a w> associate with work *<W>*
     <LL a c> associate *<common>*
