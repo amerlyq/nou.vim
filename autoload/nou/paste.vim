@@ -92,7 +92,7 @@ fun! nou#paste#ctx_guess_indent(lines)
   let off = &expandtab ? repeat(' ', &tabstop) : "\t"
   if body =~# '^https\?://'
     let pfx = substitute(pfx, off.'$', '', '')
-  elseif body =~# '\V\^[_]' && a:lines[0] =~# '\V\^[_] '
+  elseif body =~# '\V\^[\.]' && a:lines[0] =~# '\V\^[\.] '
     "" don't reindent tasks
   elseif !empty(body)  " increase indent
     let pfx = pfx . off

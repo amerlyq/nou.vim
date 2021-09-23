@@ -299,6 +299,13 @@ syn match nouTaskDone display excludenl '\v\[[\u2800-\u28FF]{4}\]'  " ts
 " syn cluster nouTaskQ add=nouTaskXts
 " syn match nouTaskXts display excludenl '\v\[[\u2800-\u28FF]{4}\]'
 
+hi! nouTaskFrame cterm=bold gui=bold ctermfg=14 guifg=#586e75
+syn cluster nouTaskQ add=nouTaskFrame
+syn match nouTaskFrame display excludenl '\[[∞]\]'
+
+hi! nouTaskFeed cterm=bold gui=bold ctermfg=251 guifg=#c6c6c6
+syn match nouTaskFeed display excludenl contained containedin=nouTaskFrame '∞'
+
 hi! nouTaskNow cterm=bold gui=bold ctermfg=251 guifg=#c6c6c6
 syn cluster nouTaskQ add=nouTaskNow
 syn match nouTaskNow display excludenl '\V[•]'

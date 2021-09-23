@@ -161,6 +161,7 @@ nnoremap <buffer> <Plug>(nou-paste-smart-below) :call nou#paste#smart(v:register
 " WF:NOTE:(<LL>[_+>]): immediately convert to subtask (i.e. set indent=2)
 nmap <buffer> <Plug>(nou-cvt-subtask) d<Plug>(textobj-nou-time-i)c<Plug>(textobj-nou-lead-i)<Space><Space><Esc>3l
 nmap <buffer> <Plug>(nou-set-goal-mandatory) "_c<Plug>(textobj-nou-goal-i)!<Esc>
+xnoremap <buffer> <Plug>(nou-set-goal-mandatory) :<C-u>exe "'<,'>norm \"_c\<Plug>(textobj-nou-goal-i)!<C-v><Esc>"<CR>
 nmap <buffer> <Plug>(nou-set-goal-today) "_c<Plug>(textobj-nou-goal-i)@<Esc>
 
 " HACK: use black-hole-register("_) to keep clipboard during WF=task-postponing
@@ -219,7 +220,7 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>u', '<Plug>(nou-set-assoc-urgent)'],
   \ ['n', '<LocalLeader>o', '<Plug>(nou-set-assoc-overtime)'],
   \ ['n', '<LocalLeader>_', '<Plug>(nou-set-goal-subtodo)'],
-  \ ['n', '<LocalLeader>!', '<Plug>(nou-set-goal-mandatory)'],
+  \ ['nx', '<LocalLeader>!', '<Plug>(nou-set-goal-mandatory)'],
   \ ['n', '<LocalLeader>@', '<Plug>(nou-set-goal-today)'],
   \ ['n', '<LocalLeader>+', '<Plug>(nou-set-goal-subdone)'],
   \ ['n', '<LocalLeader>>', '<Plug>(nou-set-goal-postpone)'],
@@ -309,7 +310,9 @@ let g:nou_switch_groups =
   \, split('↻⋆↯✓✗▶◔', '\zs')
   \, split('0m 5m 10m 20m 30m 40m 50m')
   \, {'\v<(\d)h30m>': '\1.5h', '\v<(\d).5h>': '\1h30m'}
-  \, map(split('me W env'), '"<".v:val.">"')
+  \, map(split('me A'), '"<".v:val.">"')
+  \, map(split('W U env'), '"<".v:val.">"')
+  \, map(split('next home sleep'), '"<".v:val.">"')
   \, map(split('eat tea coffee flax'), '"#body:".v:val')
   \, map(split('comics fantasy RSS'), '"#leisure:".v:val')
   \, map(split('tracking planning overview timesheet'), '"#taskmgmt:".v:val')

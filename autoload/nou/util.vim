@@ -50,7 +50,7 @@ let s:RprogressN = '\[%('.s:RratioN.'|'.s:RpercentN.')\]'
 "" status
 " FIXME: mixed :: status .vs. priority .vs. progress
 let s:Rstate0 = '%([_…•]|[@!?]|[0-9])'
-let s:RstateN = '[X+$<>]'
+let s:RstateN = '[X+$<>∞]'
 let s:RstateD = '%('.s:RstateN.'|'.s:Rbraille.'|'.nou#util#Rdatetime.')'
 let s:Rstate = '%('.s:Rstate0.'|'.s:RstateN.')'
 let nou#util#Rtodo = '%(\['.s:Rstate0.'\]|'.s:Rprogress0.')'
@@ -64,7 +64,7 @@ let s:Restimated = '\('.s:Rtimespan.'\)'
 let s:Relapsed = '%('.s:Rduration.'|'.s:Restimated.'|'
   \.s:Rduration.s:Restimated.'|'.s:Rduration.'\(\))'
 
-let s:Rinfix = '[↻⋆↯💛▶➥]'
+let s:Rinfix = '[↻◔⋆↯✓✗💛▶➥]'
 let s:Rassoc = '\<\k+\>'
 let s:Rmood = '[-*•@+=:~?!<>]{-1,3}'
 
