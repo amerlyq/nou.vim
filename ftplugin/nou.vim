@@ -87,6 +87,9 @@ xnoremap <silent> <Plug>(nou-path-open) :<C-u>call nou#path_open(nou#vsel())<CR>
 nnoremap <silent> <Plug>(nou-task-next) :call setreg('/', '\v'.nou#util#Rtodo, 'c')<CR>n
 xnoremap <silent> <Plug>(nou-task-next) :<C-u>call setreg('/', '\v%V'.nou#util#Rtodo, 'c')<CR>n
 
+" BET:TRY: extract regex from syn-match itself
+"   [X] SEE: kana/vim-textobj-syntax ::: BAD: it simply increments cursor until finds syntax boundary
+nnoremap <silent> <Plug>(nou-jump-current) :call search('\V[•]')<CR>
 nnoremap <silent> <Plug>(nou-jump-today) :for r in nou#syntax#datetime#Rall\|if search(r)\|break\|en\|endfor<CR>
 
 " FIXME: use vim function to insert 0-line
@@ -210,6 +213,7 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>yX', '<Plug>(nou-task-xts-end)'],
   \ ['n', '<LocalLeader>a', '<Plug>(nou-date-a)'],
   \ ['n', '<LocalLeader>A', '<Plug>(nou-datew-a)'],
+  \ ['n', '<LocalLeader>C', '<Plug>(nou-jump-current)'],
   \ ['n', '<LocalLeader>i', '<Plug>(nou-date-i)'],
   \ ['n', '<LocalLeader>I', '<Plug>(nou-datew-i)'],
   \ ['n', '<LocalLeader>L', '<Plug>(nou-spdx-header)'],
@@ -320,12 +324,18 @@ let g:nou_switch_groups =
 
 
 "" VIZ: date/time
+" BUG: default ALG="smallest len match" results in cvt(datetime -> xts2)
+"   FAIL: using "g:switch_find_smallest_match=0" requires strict order of all rules
+"     << we must load "xtref.vim" and "nou.vim" in explicit order
+"     !! impossible to ensure global order for intermixed regexes from two plugins
+"   FAIL: zero-match regex in "xtref.vim" can't convert surrounding brackets
+"   FIXED: disambigue "date" by trailing text
 let g:nou_switch_groups +=
   \[ { '\v<(\d{10})>' : {x -> trim(system('just xts cvt '.shellescape(x).' unix fts'))}
   \  , '\v<(20\d{6}_\d{6})>' : {x -> trim(system('just xts cvt '.shellescape(x).' fts unix'))}
   \},{ '\v<('.nou#util#Rdatetime.')>' : {x -> trim(system('just xts cvt '.shellescape(x).' date xts4'))}
   \  , '\v<([\u2800-\u28FF]{4})>' : {x -> trim(system('just xts cvt '.shellescape(x).' xts4 date'))}
-  \},{ '\v<(20\d\d-\d\d-\d\d|20\d{6})>' : {x -> trim(system('just xts cvt '.shellescape(x).' date xts2'))}
+  \},{ '\v<(20\d\d-\d\d-\d\d|20\d{6})>%(.'.nou#util#Rtime.')@!' : {x -> trim(system('just xts cvt '.shellescape(x).' date xts2'))}
   \  , '\v<([\u2800-\u28FF]{2})>' : {x -> trim(system('just xts cvt '.shellescape(x).' xts2 date'))}
   \}]
 

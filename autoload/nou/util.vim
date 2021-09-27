@@ -30,9 +30,9 @@ let s:Ranydate = '<%('.s:Rcal.'|'.s:Rwkyear.'|'.s:Rwkcury.')>'
 let s:Rhours = '%([0-9]|[01][0-9]|2[0-4])'
 let s:Rminutes = '[0-5][0-9]'
 let s:Rseconds = '[0-5][0-9]'
-let s:Rtime = s:Rhours.':'.s:Rminutes.'%(:'.s:Rseconds.')?'
+let nou#util#Rtime = s:Rhours.':'.s:Rminutes.'%(:'.s:Rseconds.')?'
 let s:Rtimezone = '%(Z|\+%([01][0-9]|2[0-4]):?00)'  " ATT: don't allow fractional time zones
-let nou#util#Rdatetime = nou#util#Rdate.'[^0-9]'.s:Rtime.'%('.s:Rtimezone.')?'
+let nou#util#Rdatetime = nou#util#Rdate.'[^0-9]'.nou#util#Rtime.'%('.s:Rtimezone.')?'
 let s:Rbraille = '[\u2800-\u28FF]{4}'
 " TODO: "nano{datetime,braille}"
 
@@ -101,7 +101,7 @@ let s:Rbody = ''
 let s:Rtask = ''
   \.'%(('.nou#util#Rdate.')\s+)?'
   \.'%(('.nou#util#Rgoal.')\s+)?'
-  \.'%(('.s:Rtime.')\s+)?'
+  \.'%(('.nou#util#Rtime.')\s+)?'
   \.'%('.s:Rinfix.'\s+)?'
   \.'%(('.s:Relapsed.')\s+)?'
 
