@@ -73,13 +73,14 @@ syn match nouArtifactIndex display excludenl
 syn cluster nouArtifactQ add=@nouArtifactEmojiQ
 " SEE: https://emojipedia.org/red-heart/
 " VIZ: green=💚 yellow=💛 orange=🧡 brown=🤎 purple=💜 blue=💙 white=🤍♡ black=🖤♥ spark=💖 broken=💔 two=💕 glow=💗 jap=心
+" IDEA: prio-emoji: "↥↑⮬⤉⤒⮭￪🔝🢙🮸⮉" | "⮎↪↓⮮⮯￬🮷⮋" | "￩𐇙￫⮩⮫⮊⭮⥁➺➲➛⌁⇴⇝↝→🔜"
 syn cluster nouArtifactEmojiQ add=nouEmojiRed
 hi nouEmojiRed cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=196 guifg=#ff0000
-syn match nouEmojiRed display excludenl '[✗♡♥🤍🖤💛💜]'
+syn match nouEmojiRed display excludenl '[✗♡♥🤍🖤💛💜🔝]'
 
 syn cluster nouArtifactEmojiQ add=nouEmojiGreen
 hi nouEmojiGreen cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=40 guifg=#00ff00
-syn match nouEmojiGreen display excludenl '[✓]'
+syn match nouEmojiGreen display excludenl '[✓➺]'
 
 " #1060ff #6060ff #87afff #87dfff
 syn cluster nouArtifactEmojiQ add=nouEmojiBlue
@@ -90,11 +91,11 @@ syn match nouEmojiBlue display excludenl '[↯]'
 " nouInfix(source/intent) {{{
 syn cluster nouArtifactEmojiQ add=nouEmojiOrange
 hi nouEmojiOrange cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=172 guifg=#df8700
-syn match nouEmojiOrange display excludenl '[⋆]'
+syn match nouEmojiOrange display excludenl '[⋆⇴🔜]'
 
 syn cluster nouArtifactEmojiQ add=nouEmojiGray
 hi nouEmojiGray cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=242 guifg=#707070
-syn match nouEmojiGray display excludenl '[↻]'
+syn match nouEmojiGray display excludenl '[↻📲📩↓]'
 
 syn cluster nouArtifactEmojiQ add=nouEmojiPink
 hi nouEmojiPink cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=161 guifg=#df1f5f
