@@ -89,7 +89,8 @@ xnoremap <silent> <Plug>(nou-task-next) :<C-u>call setreg('/', '\v%V'.nou#util#R
 
 " BET:TRY: extract regex from syn-match itself
 "   [X] SEE: kana/vim-textobj-syntax ::: BAD: it simply increments cursor until finds syntax boundary
-nnoremap <silent> <Plug>(nou-jump-current) :call search('\V[•]')<CR>
+" OR: :call search('\V[•]')<CR>
+nnoremap <silent> <Plug>(nou-jump-current) :call setreg('/', '\V[•]', 'c')<CR>n
 nnoremap <silent> <Plug>(nou-jump-today) :for r in nou#syntax#datetime#Rall\|if search(r)\|break\|en\|endfor<CR>
 
 " FIXME: use vim function to insert 0-line
