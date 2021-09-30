@@ -85,7 +85,7 @@ let nou#syntax#datetime#Rall =
 " THINK: use dif. colors for each [wdhms] letter inside this hi! group
 " ADD? longer abbrev 1day4hr2min3sec
 " ADD? volume-speed 1h/task OR task/1h
-hi! nouTimeSpan cterm=bold,undercurl gui=bold,undercurl ctermfg=69 guifg=#4f7fef
+hi! nouTimeSpan cterm=bold,underline gui=bold,underline ctermfg=69 guifg=#4f7fef
 syn cluster nouArtifactQ add=nouTimeSpan
 " ALT:OLD: syn match nouTimeSpan display excludenl '\v<%(\d+[wdhms]){1,5}>'
 " MAYBE:allow: 1mo 2mo3d 2y4mo
