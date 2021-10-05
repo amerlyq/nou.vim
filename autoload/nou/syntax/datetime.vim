@@ -98,6 +98,6 @@ exe 'syn match nouTimeSpan display excludenl '
   \."'". '\v<\d+\.\d+h>|<\d+h'.s:fracs.'|'.s:fracs.'h>' ."'"
 
 
-hi! nouTimeFract ctermfg=63 guifg=#4f67ef
+hi! nouTimeFract cterm=bold gui=bold ctermfg=63 guifg=#4f67ef
 exe 'syn match nouTimeFract display excludenl contained '
   \."containedin=nouTimeSpan '". s:fracs ."'"

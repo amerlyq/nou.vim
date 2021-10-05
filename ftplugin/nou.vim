@@ -90,7 +90,7 @@ xnoremap <silent> <Plug>(nou-task-next) :<C-u>call setreg('/', '\v%V'.nou#util#R
 " BET:TRY: extract regex from syn-match itself
 "   [X] SEE: kana/vim-textobj-syntax ::: BAD: it simply increments cursor until finds syntax boundary
 " OR: :call search('\V[•]')<CR>
-nnoremap <silent> <Plug>(nou-jump-current) :call setreg('/', '\V[•]', 'c')<CR>n
+nnoremap <silent> <Plug>(nou-jump-current) :call setreg('/', '\V[\[•‣\]]', 'c')<CR>n
 nnoremap <silent> <Plug>(nou-jump-today) :for r in nou#syntax#datetime#Rall\|if search(r)\|break\|en\|endfor<CR>
 
 " FIXME: use vim function to insert 0-line
@@ -178,6 +178,9 @@ nmap <buffer> <Plug>(nou-set-goal-waiting) "_c<Plug>(textobj-nou-goal-i)…<Esc>
 nmap <buffer> <Plug>(nou-set-goal-likely) "_c<Plug>(textobj-nou-goal-i)~<Esc>
 nmap <buffer> <Plug>(nou-set-goal-unlikely) "_c<Plug>(textobj-nou-goal-i)?<Esc>
 nmap <buffer> <Plug>(nou-set-goal-now) "_c<Plug>(textobj-nou-goal-i)•<Esc>
+nmap <buffer> <Plug>(nou-set-goal-next) "_c<Plug>(textobj-nou-goal-i)‣<Esc>
+nmap <buffer> <Plug>(nou-set-goal-feed) "_c<Plug>(textobj-nou-goal-i)∞<Esc>
+nmap <buffer> <Plug>(nou-set-goal-progress) "_c<Plug>(textobj-nou-goal-i)-/<C-r>=v:count1<CR>h<Esc>
 
 "" DISABLED: can't batch-replace status for multiple tasks
 " nmap <buffer> <Plug>(nou-set-goal-todo) c<Plug>(textobj-nou-goal-i)_<Esc>
@@ -208,6 +211,8 @@ nmap <buffer> <Plug>(nou-set-assoc-overtime) c<Plug>(textobj-nou-assoc-i)OT<Esc>
 " DISABLED: I never expect to convert subtask to task
 "   ['n', '<LocalLeader><Space>', '<Plug>(nou-cvt-task)'],
 "   ['n', '<LocalLeader><Space>', '<Plug>(nou-set-goal-todo)'],
+"" FAIL: don't work -- because rhs already bound
+"   ['n', '<LocalLeader>;', '<Plug>(nou-set-goal-now)'],
 let s:nou_mappings = [
   \ ['nx', 'gf', '<Plug>(nou-path-open)'],
   \ ['n', '<LocalLeader>yx', '<Plug>(nou-task-xts-beg)'],
@@ -229,10 +234,13 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>@', '<Plug>(nou-set-goal-today)'],
   \ ['n', '<LocalLeader>+', '<Plug>(nou-set-goal-subdone)'],
   \ ['n', '<LocalLeader>>', '<Plug>(nou-set-goal-postpone)'],
-  \ ['n', '<LocalLeader>.', '<Plug>(nou-set-goal-waiting)'],
+  \ ['n', '<LocalLeader>,', '<Plug>(nou-set-goal-waiting)'],
   \ ['n', '<LocalLeader>~', '<Plug>(nou-set-goal-likely)'],
   \ ['n', '<LocalLeader>?', '<Plug>(nou-set-goal-unlikely)'],
-  \ ['n', '<LocalLeader>*', '<Plug>(nou-set-goal-now)'],
+  \ ['n', '<LocalLeader>.', '<Plug>(nou-set-goal-now)'],
+  \ ['n', '<LocalLeader>;', '<Plug>(nou-set-goal-next)'],
+  \ ['n', '<LocalLeader>0', '<Plug>(nou-set-goal-feed)'],
+  \ ['n', '<LocalLeader>/', '<Plug>(nou-set-goal-progress)'],
   \ ['n', '<LocalLeader><Backspace>', '<Plug>(nou-merge-plan)'],
   \ ['n', '<LocalLeader><Del>', '<Plug>(nou-del-status)'],
   \ ['n', '<LocalLeader><Tab>', '<Plug>(nou-complement)'],

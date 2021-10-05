@@ -85,7 +85,7 @@ syn match nouEmojiGreen display excludenl '[✓➺]'
 " #1060ff #6060ff #87afff #87dfff
 syn cluster nouArtifactEmojiQ add=nouEmojiBlue
 hi nouEmojiBlue cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=117 guifg=#87dfff
-syn match nouEmojiBlue display excludenl '[↯]'
+syn match nouEmojiBlue display excludenl '[↯⁃]'
 
 " SPLIT: rename "syn match" to "nouInfix" and "hi link" to nouEmoji colors
 " nouInfix(source/intent) {{{
@@ -99,7 +99,7 @@ syn match nouEmojiGray display excludenl '[↻📲📩↓]'
 
 syn cluster nouArtifactEmojiQ add=nouEmojiPink
 hi nouEmojiPink cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=161 guifg=#df1f5f
-syn match nouEmojiPink display excludenl '[▶➥]'
+syn match nouEmojiPink display excludenl '[≈▶➥]'
 " }}}
 
 
@@ -302,10 +302,10 @@ syn match nouTaskDone display excludenl '\v\[[\u2800-\u28FF]{4}\]'  " ts
 
 hi! nouTaskFrame cterm=bold gui=bold ctermfg=14 guifg=#586e75
 syn cluster nouTaskQ add=nouTaskFrame
-syn match nouTaskFrame display excludenl '\[[∞]\]'
+syn match nouTaskFrame display excludenl '\[[∞◦‣]\]'
 
 hi! nouTaskFeed cterm=bold gui=bold ctermfg=251 guifg=#c6c6c6
-syn match nouTaskFeed display excludenl contained containedin=nouTaskFrame '∞'
+syn match nouTaskFeed display excludenl contained containedin=nouTaskFrame '[∞◦‣]'
 
 hi! nouTaskNow cterm=bold gui=bold ctermfg=251 guifg=#c6c6c6
 syn cluster nouTaskQ add=nouTaskNow
