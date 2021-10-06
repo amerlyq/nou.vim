@@ -80,7 +80,7 @@ syn match nouEmojiRed display excludenl '[✗♡♥🤍🖤💛💜🔝]'
 
 syn cluster nouArtifactEmojiQ add=nouEmojiGreen
 hi nouEmojiGreen cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=40 guifg=#00ff00
-syn match nouEmojiGreen display excludenl '[✓➺]'
+syn match nouEmojiGreen display excludenl '[✓➺⊞➕]'
 
 " #1060ff #6060ff #87afff #87dfff
 syn cluster nouArtifactEmojiQ add=nouEmojiBlue
