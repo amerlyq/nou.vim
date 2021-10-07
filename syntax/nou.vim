@@ -255,8 +255,11 @@ syn match nouArtifactKey display excludenl
 "  => E.G. even '\v^%(\s{4})@<=\k+' isn't working
 hi! nouArtifactVar cterm=bold ctermfg=9 gui=bold guifg=#df5f00
 syn cluster nouArtifactQ add=nouArtifactVar
-syn match nouArtifactVar display excludenl
+syn match nouArtifactVar display excludenl contains=nouArtifactVarPfx
   \ '\v%([$]\w+>|[$]\{\w+\}|[$]\(\w+\))'
+
+hi nouArtifactVarPfx cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=9 guifg=#8f3f00
+syn match nouArtifactVarPfx display excludenl contained '[$]'
 
 "" ATT: must be after nouArtifactKey for correct 'nouNumberXaddr' hi!
 "" BAD:(syntax/nou/*): will load all files inside by vim itself
