@@ -340,12 +340,12 @@ let g:nou_switch_groups =
 "   FAIL: zero-match regex in "xtref.vim" can't convert surrounding brackets
 "   FIXED: disambigue "date" by trailing text
 let g:nou_switch_groups +=
-  \[ { '\v<(\d{10})>' : {x -> trim(system('just xts cvt '.shellescape(x).' unix fts'))}
-  \  , '\v<(20\d{6}_\d{6})>' : {x -> trim(system('just xts cvt '.shellescape(x).' fts unix'))}
-  \},{ '\v<('.nou#util#Rdatetime.')>' : {x -> trim(system('just xts cvt '.shellescape(x).' date xts4'))}
-  \  , '\v<([\u2800-\u28FF]{4})>' : {x -> trim(system('just xts cvt '.shellescape(x).' xts4 date'))}
-  \},{ '\v<(20\d\d-\d\d-\d\d|20\d{6})>%(.'.nou#util#Rtime.')@!' : {x -> trim(system('just xts cvt '.shellescape(x).' date xts2'))}
-  \  , '\v<([\u2800-\u28FF]{2})>' : {x -> trim(system('just xts cvt '.shellescape(x).' xts2 date'))}
+  \[ { '\v<(\d{10})>' : {m -> trim(system('just xts cvt '.shellescape(m[0]).' unix fts'))}
+  \  , '\v<(20\d{6}_\d{6})>' : {m -> trim(system('just xts cvt '.shellescape(m[0]).' fts unix'))}
+  \},{ '\v<('.nou#util#Rdatetime.')>' : {m -> trim(system('just xts cvt '.shellescape(m[0]).' date xts4'))}
+  \  , '\v<([\u2800-\u28FF]{4})>' : {m -> trim(system('just xts cvt '.shellescape(m[0]).' xts4 date'))}
+  \},{ '\v<(20\d\d-\d\d-\d\d|20\d{6})>%(.'.nou#util#Rtime.')@!' : {m -> trim(system('just xts cvt '.shellescape(m[0]).' date xts2'))}
+  \  , '\v<([\u2800-\u28FF]{2})>' : {m -> trim(system('just xts cvt '.shellescape(m[0]).' xts2 date'))}
   \}]
 
 " TODO: wrap into "nou" group
