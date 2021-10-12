@@ -64,10 +64,11 @@ syn match nouArtifactRole display excludenl /\v%(^|[(\[{,;|[:blank:]]@1<=)%(\%\a
 " TRY: diff color :: nextgroup=nouPathBody
 " BET? isolate by space :: \%(^\|[[:punct:][:blank:]]\@1<=\)...
 " ALT: *Numero  '№'  BAD: incomplete font support -- and blades with next number
-syn cluster nouArtifactQ add=nouArtifactIndex
+syn cluster nouArtifactQ add=nouArtifactIndex,nouArtifactAltMod
 hi nouArtifactIndex cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=172 guifg=#df8700
-syn match nouArtifactIndex display excludenl
-  \ '\%([#]\d\+\>\|(\d\+)\)'
+syn match nouArtifactIndex display excludenl '\v%([#]\d+>|\(\d+\))'
+hi nouArtifactAltMod cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=142 guifg=#df4fbf
+syn match nouArtifactAltMod display excludenl '\v%([%]\d+>|\{\d+\})'
 
 
 syn cluster nouArtifactQ add=@nouArtifactEmojiQ
@@ -337,6 +338,7 @@ syn match nouTaskPostpone display excludenl '\V[>]'
 hi! nouTaskDoneBefore ctermfg=94 guifg=#875f00
 syn cluster nouTaskQ add=nouTaskDoneBefore
 syn match nouTaskDoneBefore display excludenl '\V[<]'
+syn match nouTaskDoneBefore display excludenl '\v\[⪡[\u2800-\u28FF]{2,4}\]'
 
 " [_] FIXME: instead of "cluster" use nested items and universal "\V[\.]" task
 hi! nouTaskLikely ctermfg=169 guifg=#ef3f9f

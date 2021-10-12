@@ -34,6 +34,7 @@ digraph )) 10630   " ⦆ = nouLineSyntax
 digraph ** 8226    " •
 digraph *  8226    " •
 digraph ~~ 8776    " ≈ ALMOST EQUAL TO
+digraph <. 10913   " ⪡ before then
 
 digraph CC 9684    " ◔|𝌙  = partial progress increment
 digraph RR 8635    " ↻ = repeated/framework ALT=OO
@@ -253,7 +254,7 @@ for i in range(1,9)
     \.' :<C-u>call nou#bar("X'.i.'",'.i.',0)<CR>'
   let s:nou_mappings += [['n', '<LocalLeader>'.i, '<Plug>(nou-barX'.i.')']]
 endfor
-for s in ['', 'D', '_', 'D_', 'D$', '$', 'X', 'DX', 'D<', 'T', 'DT', 'B', 'DB']
+for s in ['', 'D', '_', 'D_', 'D$', '$', 'X', 'DX', '⪡', 'D<', 'T', 'DT', 'B', 'DB']
   for m in ['n', 'x'] | exe m.'noremap <silent> <Plug>(nou-bar'.s.')'
       \" :<C-u>call nou#bar('".s."',v:count,".(m==#'x').")<CR>"
 endfor | endfor
@@ -270,7 +271,8 @@ let s:nou_mappings += [
   \ ['nx', '<LocalLeader>#', '<Plug>(nou-barD$)'],
   \ ['nx', '<LocalLeader>x', '<Plug>(nou-barX)'],
   \ ['nx', '<LocalLeader>X', '<Plug>(nou-barDX)'],
-  \ ['n',  '<LocalLeader><', '<Plug>(nou-barD<)'],
+  \ ['n',  '<LocalLeader><', '<Plug>(nou-bar⪡)'],
+  \ ['n',  '<LocalLeader>^', '<Plug>(nou-barD<)'],
   \ ['nx', '<LocalLeader>t', '<Plug>(nou-barT)'],
   \ ['nx', '<LocalLeader>T', '<Plug>(nou-barDT)'],
   \ ['nx', '<LocalLeader>b', '<Plug>(nou-barB)'],

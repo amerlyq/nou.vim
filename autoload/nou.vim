@@ -56,6 +56,10 @@ fun! nou#bar(...) range
     let xts = substitute(printf('%08x', strftime('%s')), '..', '\=nr2char("0x28".submatch(0))', 'g')
     let pfx = substitute(pfx, 'B', '['.xts.'] ', '')
   endif
+  if pfx =~# '⪡'
+    let xdt = trim(system('just xts cvt '.shellescape(strftime('%Y-%m-%d')).' date xts2'))
+    let pfx = substitute(pfx, '⪡', '[⪡'.xdt.'] ', '')
+  endif
 
   " BUG: in VSEL mode wrong cursor pos: '.' == '<
   let l:pos = exists('*getcurpos') ? getcurpos() : getpos('.')
