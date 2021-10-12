@@ -63,6 +63,10 @@ nnoremap <Plug>(nou-complement) E"=join(systemlist("date +'-%a-W%W' -d ".expand(
 " THINK:BET:USE: `dts` like in Wolfram
 inoreab <buffer><expr> !dts! strftime('%Y-%m-%d')
 
+inoreabbr <buffer> t#  #taskmgmt
+inoreabbr <buffer> tp# #taskmgmt:planning
+inoreabbr <buffer> tt# #taskmgmt:tracking
+
 " SEE: https://www.thetopsites.net/article/58187038.shtml
 " BAD: substitute(getline('.'), '^\s*\zs['.a:sym.']\ze $', a:rpl, '')
 " ALSO: https://www.reddit.com/r/vim/comments/blw37i/expanding_abbreviations_through_a_cr_expression/
