@@ -64,8 +64,13 @@ nnoremap <Plug>(nou-complement) E"=join(systemlist("date +'-%a-W%W' -d ".expand(
 inoreab <buffer><expr> !dts! strftime('%Y-%m-%d')
 
 inoreabbr <buffer> t#  #taskmgmt
+inoreabbr <buffer> to# #taskmgmt:overview
 inoreabbr <buffer> tp# #taskmgmt:planning
+inoreabbr <buffer> tr# #taskmgmt:tracking
+inoreabbr <buffer> ts# #taskmgmt:stats
 inoreabbr <buffer> tt# #taskmgmt:tracking
+inoreabbr <buffer> tw# #taskmgmt:sweeping
+inoreabbr <buffer> tz# #taskmgmt:SEIZE
 
 " SEE: https://www.thetopsites.net/article/58187038.shtml
 " BAD: substitute(getline('.'), '^\s*\zs['.a:sym.']\ze $', a:rpl, '')
@@ -148,9 +153,11 @@ nnoremap <buffer> <Plug>(nou-task-xts-end) :call <SID>yank_xts(1)<CR>
 "" HACK: paste with smart indent
 nnoremap <buffer> gp p
 nnoremap <buffer> gP P
+" ENH: trim all spaces + always cvt to charwise
 nnoremap <buffer> <Space>p  a<Space><Esc>p
 nnoremap <buffer> <Space>P  a<Space><Esc>P
 " vnoremap <buffer><unique> gp pgvy
+" ENH: if single word -- past on same line by default
 nmap <buffer><silent> P <Plug>(nou-paste-smart-above)
 nmap <buffer><silent> p <Plug>(nou-paste-smart-below)
 " FIXME: use some "=" or "@" register to hide function call
@@ -186,6 +193,8 @@ nmap <buffer> <Plug>(nou-set-goal-now) "_c<Plug>(textobj-nou-goal-i)•<Esc>
 nmap <buffer> <Plug>(nou-set-goal-next) "_c<Plug>(textobj-nou-goal-i)‣<Esc>
 nmap <buffer> <Plug>(nou-set-goal-feed) "_c<Plug>(textobj-nou-goal-i)∞<Esc>
 nmap <buffer> <Plug>(nou-set-goal-progress) "_c<Plug>(textobj-nou-goal-i)-/<C-r>=v:count1<CR>h<Esc>
+nmap <buffer> <Plug>(nou-set-goal-low) "_c<Plug>(textobj-nou-goal-i)￬<Esc>
+nmap <buffer> <Plug>(nou-set-goal-high) "_c<Plug>(textobj-nou-goal-i)￪<Esc>
 
 "" DISABLED: can't batch-replace status for multiple tasks
 " nmap <buffer> <Plug>(nou-set-goal-todo) c<Plug>(textobj-nou-goal-i)_<Esc>
@@ -242,6 +251,8 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>,', '<Plug>(nou-set-goal-waiting)'],
   \ ['n', '<LocalLeader>~', '<Plug>(nou-set-goal-likely)'],
   \ ['n', '<LocalLeader>?', '<Plug>(nou-set-goal-unlikely)'],
+  \ ['n', "<LocalLeader>'", '<Plug>(nou-set-goal-low)'],
+  \ ['n', '<LocalLeader>"', '<Plug>(nou-set-goal-high)'],
   \ ['n', '<LocalLeader>.', '<Plug>(nou-set-goal-now)'],
   \ ['n', '<LocalLeader>;', '<Plug>(nou-set-goal-next)'],
   \ ['n', '<LocalLeader>0', '<Plug>(nou-set-goal-feed)'],

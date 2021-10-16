@@ -96,7 +96,7 @@ syn match nouEmojiOrange display excludenl '[⋆⇴🔜]'
 
 syn cluster nouArtifactEmojiQ add=nouEmojiGray
 hi nouEmojiGray cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=242 guifg=#707070
-syn match nouEmojiGray display excludenl '[↻📲📩↓]'
+syn match nouEmojiGray display excludenl '[↻📲📩↓🔚終]'
 
 syn cluster nouArtifactEmojiQ add=nouEmojiPink
 hi nouEmojiPink cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=161 guifg=#df1f5f
@@ -321,7 +321,7 @@ syn match nouTaskMandatory display excludenl '\V[!]'
 
 hi! nouTaskToday cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=172 guifg=#df8700
 syn cluster nouTaskQ add=nouTaskToday
-syn match nouTaskToday display excludenl '\V[@]'
+syn match nouTaskToday display excludenl '\[[@￪]\]'
 
 hi! nouTaskCancel ctermfg=88 guifg=#870000
 syn cluster nouTaskQ add=nouTaskCancel
@@ -333,7 +333,7 @@ syn match nouTaskAlso display excludenl '\V[+]'
 
 hi! nouTaskPostpone ctermfg=62 guifg=#5f5fdf
 syn cluster nouTaskQ add=nouTaskPostpone
-syn match nouTaskPostpone display excludenl '\V[>]'
+syn match nouTaskPostpone display excludenl '\[[>￬]\]'
 
 hi! nouTaskDoneBefore ctermfg=94 guifg=#875f00
 syn cluster nouTaskQ add=nouTaskDoneBefore
