@@ -207,8 +207,8 @@ endfor
 
 syn cluster nouGenericQ add=nouComment
 hi def link nouComment Comment
-syn region nouComment display oneline keepend
-  \ start='^#\s' start='\s\s\zs#\s' excludenl end='\s#\ze\s\s' end='$'
+syn region nouComment display oneline keepend excludenl
+  \ start='\v%(^|\s\zs)\z([#]+)\s' end='\v\s\z1%(\ze\s|$)' end='$'
 
 " NOTE: developer's documentation comments
 syn cluster nouGenericQ add=nouCommentDevDoc
