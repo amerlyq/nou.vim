@@ -1,0 +1,34 @@
+⌇⡡⡩⠹⣅
+
+ex: demarkate my #work and #home activities as strong/weak
+
+TODO
+  [_] BAD: icon column unaligned due to varying <estimate> length
+
+  [⡡⡰⠩⣃] MAYBE: use "mood" icon for each kind of #hours ::: NOT
+    FAIL: #hours attribute time-slots, not tasks
+    i.e. #hours:strong is a timeslot for all tasks, which make you weak
+
+  [⡡⡰⠡⣸] 30m FIND: new markup symbols
+    {R|S} %R | ☀☼⁕♪⌃⬆⬑⬏⮝⌁🔌    # Replenishing/Refill -> Strong
+    {B|N} %B | ⌯⁜⌢⏭⌥⌦⌬⎚⎓⏸🔦    # Bearable -> Neutral/Normal
+    {D|W} %D | ☁☔☣⌄⬇⬐⬎⮟⏻🔋🗻  # Draining -> Weak
+
+  [⡡⡰⠦⡔] 20m DECI replace infix=planned ::: USE: +mood=(⌁ ⎓ ⏻)
+    BET? append additional status
+      [X] ⋆☼ 15m planned + strong
+      [X] ⋆⌯ 15m planned + neutral
+      [X] ⋆☁ 15m planned + weak
+      [X] ↯⌁ 15m sudden + strong
+      [X] ↯⎓ 15m sudden + neutral
+      [X] ↯⏻ 15m sudden + weak
+    ALT: traling suffix -- less intrusive (to keep energy out of focus)
+      [X] ↯ 15m some completed task something {D}
+    OR: inline prefix -- more standout (to sort activities at glance)
+      [X] ⋆ 15m {W} some completed task something
+    NICE:MAYBE: use them as a "mood" after "infix+estimate"
+      [X] ⋆ 15m ⌁ sudden + strong
+      [X] ↯ 15m ⏻ sudden + weak
+      [⡡⡰⠩⠩] ? how to be with ordering relative to <assoc> ?
+        ::: TEMP: place after assoc, like any other "mood"
+        FUTURE: if it will conflict with too much mood icons --> move <energy> before <assoc>
