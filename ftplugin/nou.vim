@@ -192,6 +192,7 @@ nmap <buffer> <Plug>(nou-set-goal-unlikely) "_c<Plug>(textobj-nou-goal-i)?<Esc>
 nmap <buffer> <Plug>(nou-set-goal-now) "_c<Plug>(textobj-nou-goal-i)•<Esc>
 nmap <buffer> <Plug>(nou-set-goal-next) "_c<Plug>(textobj-nou-goal-i)‣<Esc>
 nmap <buffer> <Plug>(nou-set-goal-feed) "_c<Plug>(textobj-nou-goal-i)∞<Esc>
+nmap <buffer> <Plug>(nou-set-goal-partial) "_c<Plug>(textobj-nou-goal-i)%<Esc>
 nmap <buffer> <Plug>(nou-set-goal-progress) "_c<Plug>(textobj-nou-goal-i)-/<C-r>=v:count1<CR>h<Esc>
 nmap <buffer> <Plug>(nou-set-goal-low) "_c<Plug>(textobj-nou-goal-i)￬<Esc>
 nmap <buffer> <Plug>(nou-set-goal-high) "_c<Plug>(textobj-nou-goal-i)￪<Esc>
@@ -251,6 +252,7 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>,', '<Plug>(nou-set-goal-waiting)'],
   \ ['n', '<LocalLeader>~', '<Plug>(nou-set-goal-likely)'],
   \ ['n', '<LocalLeader>?', '<Plug>(nou-set-goal-unlikely)'],
+  \ ['n', '<LocalLeader>%', '<Plug>(nou-set-goal-partial)'],
   \ ['n', "<LocalLeader>'", '<Plug>(nou-set-goal-low)'],
   \ ['n', '<LocalLeader>"', '<Plug>(nou-set-goal-high)'],
   \ ['n', '<LocalLeader>.', '<Plug>(nou-set-goal-now)'],
