@@ -111,7 +111,7 @@ let s:nou.delimit.colors = [
 
 let s:nou.outline = {}
 " ATT: don't add trailing spaces -- they irritate when typing by blinking next line color
-let s:nou.outline.wrapby = '[\\,]|\s-'
+let s:nou.outline.wrapby = '[\\,]|\s--'
 " NOTE: whole 'hi' cmdline can be specified
 let s:nou.outline.colors = [
   \ '#268bd2',
