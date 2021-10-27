@@ -37,9 +37,17 @@ digraph ~~ 8776    " ≈ ALMOST EQUAL TO
 digraph <. 10913   " ⪡ before then
 
 digraph CC 9684    " ◔|𝌙  = partial progress increment
+digraph EN 128282  " 🔚 = final part
+digraph MA 128233  " 📩 related to mail
+digraph CA 128242  " 📲 related to call
+
 digraph RR 8635    " ↻ = repeated/framework ALT=OO
 digraph SS 8902    " ⋆ = planned/agenda ALT=II|AA
+digraph !T 128285  " 🔝 top prio
+digraph !S 128284  " 🔜 next prio
 
+
+digraph !+ 128284  " 💜 passion-related goal
 digraph WW 9676    " ◌|⚬ = waiting response
 digraph !! 8623    " ↯ = important/agenda ALT=HH|UU (like a [lightning] bolt from the blue)
 digraph \|> 9654   " ▶ = delegated to ALT=TT|DD
@@ -63,14 +71,17 @@ nnoremap <Plug>(nou-complement) E"=join(systemlist("date +'-%a-W%W' -d ".expand(
 " THINK:BET:USE: `dts` like in Wolfram
 inoreab <buffer><expr> !dts! strftime('%Y-%m-%d')
 
-inoreabbr <buffer> t#  #taskmgmt
-inoreabbr <buffer> to# #taskmgmt:overview
-inoreabbr <buffer> tp# #taskmgmt:planning
-inoreabbr <buffer> tr# #taskmgmt:tracking
-inoreabbr <buffer> ts# #taskmgmt:stats
-inoreabbr <buffer> tt# #taskmgmt:tracking
-inoreabbr <buffer> tw# #taskmgmt:sweeping
-inoreabbr <buffer> tz# #taskmgmt:SEIZE
+" BAD:(end-id): can't support "#tm", only "#tm;" SEE: :h abbreviations
+inoreabbr <buffer> tm; #taskmgmt
+inoreabbr <buffer> to; #taskmgmt:overview
+inoreabbr <buffer> tp; #taskmgmt:planning
+inoreabbr <buffer> tr; #taskmgmt:tracking
+inoreabbr <buffer> ts; #taskmgmt:stats
+inoreabbr <buffer> tt; #taskmgmt:tracking
+inoreabbr <buffer> tw; #taskmgmt:sweeping
+inoreabbr <buffer> tz; #taskmgmt:SEIZE
+inoreabbr <buffer> lf; #leisure:fantasy
+
 
 " SEE: https://www.thetopsites.net/article/58187038.shtml
 " BAD: substitute(getline('.'), '^\s*\zs['.a:sym.']\ze $', a:rpl, '')
@@ -337,12 +348,17 @@ endif
 "" VIZ: artifacts
 let g:nou_switch_groups =
   \[ ['^%', '^%%', '^%%%', '^%%%%', '^%%%%%']
-  \, map(split('_X+…@!', '\zs'), '"[".v:val."]"')
+  \, map(split('_@!', '\zs'), '"[".v:val."]"')
+  \, map(split('+X…', '\zs'), '"[".v:val."]"')
   \, map(split('0123456789', '\zs'), '"[".v:val."0%]"')
-  \, split('↻⋆↯✓✗▶◔', '\zs')
+  \, split('↻⋆↯💜', '\zs')
+  \, split('~▶✓✗', '\zs')
+  \, split('◔🔚', '\zs')
+  \, ['MAIL', '📩']
+  \, ['CALL', '📲']
   \, split('0m 5m 10m 20m 30m 40m 50m')
   \, {'\v<(\d)h30m>': '\1.5h', '\v<(\d).5h>': '\1h30m'}
-  \, map(split('me A'), '"<".v:val.">"')
+  \, map(split('me A add'), '"<".v:val.">"')
   \, map(split('W U env'), '"<".v:val.">"')
   \, map(split('next home sleep'), '"<".v:val.">"')
   \, map(split('eat tea coffee flax'), '"#body:".v:val')
