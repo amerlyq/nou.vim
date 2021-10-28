@@ -43,11 +43,13 @@ digraph CA 128242  " 📲 related to call
 
 digraph RR 8635    " ↻ = repeated/framework ALT=OO
 digraph SS 8902    " ⋆ = planned/agenda ALT=II|AA
+digraph ?? 8263    " ⁇ = unsure if worthy  OR:: ❔❓⍰ ⁈ ⁉ ¿⸮ ⩻⩼ ㉄︖﹖？🯄
 digraph !T 128285  " 🔝 top prio
 digraph !S 128284  " 🔜 next prio
 
 
-digraph !+ 128284  " 💜 passion-related goal
+digraph HA 128156  " 💜 passion-related goal
+digraph !+ 128156  " 💜 passion-related goal
 digraph WW 9676    " ◌|⚬ = waiting response
 digraph !! 8623    " ↯ = important/agenda ALT=HH|UU (like a [lightning] bolt from the blue)
 digraph \|> 9654   " ▶ = delegated to ALT=TT|DD

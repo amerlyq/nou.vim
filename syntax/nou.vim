@@ -92,7 +92,7 @@ syn match nouEmojiBlue display excludenl '[↯⁃]'
 " nouInfix(source/intent) {{{
 syn cluster nouArtifactEmojiQ add=nouEmojiOrange
 hi nouEmojiOrange cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=172 guifg=#df8700
-syn match nouEmojiOrange display excludenl '[⋆⇴🔜]'
+syn match nouEmojiOrange display excludenl '[⋆⇴🔜⁇]'
 
 syn cluster nouArtifactEmojiQ add=nouEmojiGray
 hi nouEmojiGray cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=242 guifg=#707070
