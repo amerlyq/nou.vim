@@ -61,7 +61,7 @@ syn region nouPathTail display oneline excludenl contained
 " ATT: must be after nouPathBody to override it
 "   FIXED:BUG(:/doc/nou): prefix being highlighted as nouPathTail
 syn match nouPathHead display excludenl contained nextgroup=nouPathBody
-  \ '\v%(^|\k@1<!)%(/|[~@:%.&/…☤♆☆★]/|\.\./|[[:alpha:]]:[\\]{1,2})'
+  \ '\v%(^|\k@1<!)%(/[^0-9]@!|[~@:%.&/…☤♆☆★]/|\.\./|[[:alpha:]]:[\\]{1,2})'
 
 
 " ALT(old):BAD: too complex and fragile incomprehensible regex
@@ -77,7 +77,7 @@ syn match nouPathHead display excludenl contained nextgroup=nouPathBody
 
 syn region nouPathEscaped display oneline keepend excludenl transparent
   \ contains=@nouPathUnixQ
-  \ start='\%(^\|[,({\[[:blank:]]\@1<=\)\ze/[^/[:blank:]]'
+  \ start='\%(^\|[,({\[[:blank:]]\@1<=\)\ze/[^/[:blank:]0-9]'
   \ start='\%(^\|[,({\[[:blank:]]\@1<=\)\ze[~@:%.&/…☤♆☆★]/'
   \ start='\%(^\|[,({\[[:blank:]]\@1<=\)\ze\.\./'
   \ start='\%(^\|[,({\[[:blank:]]\@1<=\)\ze\$\w\+/'
