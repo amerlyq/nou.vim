@@ -58,6 +58,8 @@
   [_] @user addressed
   [_] #tag tagged
   [_] ^BUG-123 @me #tag1#tag2 annotated
+  [￪] brought forward (squeezed=втиснутая)
+  [￬] pushed back (displaced=вытесненная)
 
   [_] 30m estimated
   [_] (30m) estimated  # BET?DECI:(uniformity): estimation is always in parentheses

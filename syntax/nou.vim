@@ -306,7 +306,7 @@ syn match nouTaskDone display excludenl '\v\[[\u2800-\u28FF]{4}\]'  " ts
 
 hi! nouTaskFrame cterm=bold gui=bold ctermfg=14 guifg=#586e75
 syn cluster nouTaskQ add=nouTaskFrame
-syn match nouTaskFrame display excludenl '\[[∞◦‣%#]\]'
+syn match nouTaskFrame display excludenl '\[[∞◦‣%#￪￬]\]'
 
 hi! nouTaskFeed cterm=bold gui=bold ctermfg=251 guifg=#c6c6c6
 syn match nouTaskFeed display excludenl contained containedin=nouTaskFrame '[∞◦‣]'
@@ -316,6 +316,13 @@ syn match nouTaskPartial display excludenl contained containedin=nouTaskFrame '[
 
 hi! nouTaskRephrase cterm=bold gui=bold ctermfg=148 guifg=#afdf00
 syn match nouTaskRephrase display excludenl contained containedin=nouTaskFrame '[#]'
+
+" cterm=bold gui=bold
+hi! nouTaskBringFwd ctermfg=46 guifg=#00ff00
+syn match nouTaskBringFwd display excludenl contained containedin=nouTaskFrame '[￪]'
+
+hi! nouTaskPushBwd ctermfg=196 guifg=#ff0000
+syn match nouTaskPushBwd display excludenl contained containedin=nouTaskFrame '[￬]'
 
 
 hi! nouTaskNow cterm=bold gui=bold ctermfg=251 guifg=#c6c6c6
@@ -328,7 +335,7 @@ syn match nouTaskMandatory display excludenl '\V[!]'
 
 hi! nouTaskToday cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=172 guifg=#df8700
 syn cluster nouTaskQ add=nouTaskToday
-syn match nouTaskToday display excludenl '\[[@￪]\]'
+syn match nouTaskToday display excludenl '\V[@]'
 
 hi! nouTaskCancel ctermfg=88 guifg=#870000
 syn cluster nouTaskQ add=nouTaskCancel
@@ -340,7 +347,7 @@ syn match nouTaskAlso display excludenl '\V[+]'
 
 hi! nouTaskPostpone ctermfg=62 guifg=#5f5fdf
 syn cluster nouTaskQ add=nouTaskPostpone
-syn match nouTaskPostpone display excludenl '\[[>￬]\]'
+syn match nouTaskPostpone display excludenl '\V[>]'
 
 hi! nouTaskDoneBefore ctermfg=94 guifg=#875f00
 syn cluster nouTaskQ add=nouTaskDoneBefore
