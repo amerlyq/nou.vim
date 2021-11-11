@@ -25,32 +25,37 @@ fun! nou#vsel_apply(visual, fn)
 endf
 
 
+fun! nou#now(hint)
+  " HACK: asymmetric rounding to nearest 5min interval :: 02+ -> 05, 07+ -> 10
+  let ivl5 = str2float(strftime('%M')) / 5
+  let min5 = float2nr(round(ivl5 + 0.1) * 5)
+  let hour = float2nr(str2float(strftime('%H'))) + min5/60
+  let now = (a:hint == 0) ? printf('%02d:%02d', hour % 24, min5 % 60)
+        \: a:hint < 24 ? printf('%02d:00', a:hint)
+        \: a:hint >= 100 ? printf('%02d:%02d', (a:hint / 100) % 24, a:hint % 100)
+        \: a:hint == 24 ? '00:00'
+        \: strftime('%H') . printf(':%02d', a:hint)
+  return now
+endf
+
+
 fun! nou#bar(...) range
   if a:0<1 || type(a:1) != type('')| throw "wrong a:1" |en
   " USAGE: <5,.x> → 50% | <45,.x> → 45% | <105,.x> 05%
   let pfx = a:1
   let pfx = substitute(pfx, '[0-9]', '', 'g')  " Strip progress lvl
   let pfx = substitute(pfx, 'D', strftime('%Y-%m-%d '), '')
-  if pfx =~# '[_$X%<#]'
+  if pfx =~# '[_$X%<#⟫]'
     " BET: use separate keys: 50<Space>% and <Space>%50 (inserts cursor at "[|%]")
     " IDEA: use mixed log-xts "[⡟⢝⣣⣔%50]" OR "[50%⡟⢝⣣⣔]" instead of "[50%] s <⡟⢝⣣⣔>"
     let pg = a:2 < 10 ? a:2*10 : a:2 >= 100 ? a:2 % 100 : a:2
     let mrk = '['. (a:2 ? printf('%02d', pg).'%' : '&') .'] '
     " HACK: reset goal together with planned time
-    let keep = mrk.(pfx =~# '[_]' ? '' : '\\2')
+    let keep = mrk.(pfx =~# '[_]' ? '' : '\\3')
     let pfx = substitute(pfx, '[_$X<]', keep, '')
   endif
   if pfx =~# 'T'
-    " HACK: asymmetric rounding to nearest 5min interval :: 02+ -> 05, 07+ -> 10
-    let ivl5 = str2float(strftime('%M')) / 5
-    let min5 = float2nr(round(ivl5 + 0.1) * 5)
-    let hour = float2nr(str2float(strftime('%H'))) + min5/60
-    let now = (a:2 == 0) ? printf('%02d:%02d', hour % 24, min5 % 60)
-          \: a:2 < 24 ? printf('%02d:00', a:2)
-          \: a:2 >= 100 ? printf('%02d:%02d', (a:2 / 100) % 24, a:2 % 100)
-          \: a:2 == 24 ? '00:00'
-          \: strftime('%H') . printf(':%02d', a:2)
-    let pfx = substitute(pfx, 'T', now.' ', '')
+    let pfx = substitute(pfx, 'T', nou#now(a:2).' ', '')
   endif
   if pfx =~# 'B'
     let xts = substitute(printf('%08x', strftime('%s')), '..', '\=nr2char("0x28".submatch(0))', 'g')
@@ -72,11 +77,11 @@ fun! nou#bar(...) range
     let line = getline(i)
     let chgd = substitute(line,
       \ '\v^(\s*%([-+=*<>!?]{-1,3}\s+)?)'
-      \.'%(<\d{4}-%(0\d|1[012])-%([012]\d|3[01])>\s*)?'
+      \.'(<\d{4}-%(0\d|1[012])-%([012]\d|3[01])>\s*)?'
       \.'%('. g:nou#util#Rgoal .'\s+)?'
       \.'(<%(\d|[01]\d|2[0-4]):[0-5]\d%(:[0-5]\d)?>\s*)?'
       \.'(.*)$',
-      \ '\1'.pfx.'\3', '')
+      \ '\1\2'.pfx.'\4', '')
     if chgd !=# line| call setline(i, chgd) |en
   endfor
 

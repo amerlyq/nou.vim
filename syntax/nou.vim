@@ -77,7 +77,7 @@ syn cluster nouArtifactQ add=@nouArtifactEmojiQ
 " IDEA: prio-emoji: "↥↑⮬⤉⤒⮭￪🔝🢙🮸⮉" | "⮎↪↓⮮⮯￬🮷⮋" | "￩𐇙￫⮩⮫⮊⭮⥁➺➲➛⌁⇴⇝↝→🔜"
 syn cluster nouArtifactEmojiQ add=nouEmojiRed
 hi nouEmojiRed cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=196 guifg=#ff0000
-syn match nouEmojiRed display excludenl '[✗♡♥🤍🖤💛💜🔝]'
+syn match nouEmojiRed display excludenl '[✗♡♥🤍🖤💛💜🔝‼]'
 
 syn cluster nouArtifactEmojiQ add=nouEmojiGreen
 hi nouEmojiGreen cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=40 guifg=#00ff00
@@ -306,23 +306,27 @@ syn match nouTaskDone display excludenl '\v\[[\u2800-\u28FF]{4}\]'  " ts
 
 hi! nouTaskFrame cterm=bold gui=bold ctermfg=14 guifg=#586e75
 syn cluster nouTaskQ add=nouTaskFrame
-syn match nouTaskFrame display excludenl '\[[∞◦‣%#￪￬]\]'
+syn match nouTaskFrame display excludenl '\[[∞◦‣%#￪￬⟫]\]'
 
 hi! nouTaskFeed cterm=bold gui=bold ctermfg=251 guifg=#c6c6c6
 syn match nouTaskFeed display excludenl contained containedin=nouTaskFrame '[∞◦‣]'
 
 hi! nouTaskPartial cterm=bold gui=bold ctermfg=32 guifg=#0087df
-syn match nouTaskPartial display excludenl contained containedin=nouTaskFrame '[%]'
+syn match nouTaskPartial display excludenl contained containedin=nouTaskFrame '%'
 
+" RENAME? nouTaskAmend
 hi! nouTaskRephrase cterm=bold gui=bold ctermfg=148 guifg=#afdf00
-syn match nouTaskRephrase display excludenl contained containedin=nouTaskFrame '[#]'
+syn match nouTaskRephrase display excludenl contained containedin=nouTaskFrame '#'
+
+hi! nouTaskDelegated ctermfg=169 guifg=#ef3f9f
+syn match nouTaskDelegated display excludenl contained containedin=nouTaskFrame '⟫'
 
 " cterm=bold gui=bold
 hi! nouTaskBringFwd ctermfg=46 guifg=#00ff00
-syn match nouTaskBringFwd display excludenl contained containedin=nouTaskFrame '[￪]'
+syn match nouTaskBringFwd display excludenl contained containedin=nouTaskFrame '￪'
 
 hi! nouTaskPushBwd ctermfg=196 guifg=#ff0000
-syn match nouTaskPushBwd display excludenl contained containedin=nouTaskFrame '[￬]'
+syn match nouTaskPushBwd display excludenl contained containedin=nouTaskFrame '￬'
 
 
 hi! nouTaskNow cterm=bold gui=bold ctermfg=251 guifg=#c6c6c6

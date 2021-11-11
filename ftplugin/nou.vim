@@ -33,8 +33,8 @@ digraph (( 10629   " ⦅ = nouLineSyntax
 digraph )) 10630   " ⦆ = nouLineSyntax
 digraph ** 8226    " •
 digraph *  8226    " •
-digraph ~~ 8776    " ≈ ALMOST EQUAL TO
 digraph <. 10913   " ⪡ before then
+digraph >. 10914   " ⪢ ?delegated? OR after then
 
 digraph CC 9684    " ◔|𝌙  = partial progress increment
 digraph EN 128282  " 🔚 = final part
@@ -43,7 +43,9 @@ digraph CA 128242  " 📲 related to call
 
 digraph RR 8635    " ↻ = repeated/framework ALT=OO
 digraph SS 8902    " ⋆ = planned/agenda ALT=II|AA
+digraph ~~ 8776    " ≈ = doubtful / ALMOST EQUAL TO
 digraph ?? 8263    " ⁇ = unsure if worthy  OR:: ❔❓⍰ ⁈ ⁉ ¿⸮ ⩻⩼ ㉄︖﹖？🯄
+digraph !! 8252    " ‼ =
 digraph !T 128285  " 🔝 top prio
 digraph !S 128284  " 🔜 next prio
 
@@ -51,7 +53,7 @@ digraph !S 128284  " 🔜 next prio
 digraph HA 128156  " 💜 passion-related goal
 digraph !+ 128156  " 💜 passion-related goal
 digraph WW 9676    " ◌|⚬ = waiting response
-digraph !! 8623    " ↯ = important/agenda ALT=HH|UU (like a [lightning] bolt from the blue)
+digraph !. 8623    " ↯ = important/agenda ALT=HH|UU (like a [lightning] bolt from the blue)
 digraph \|> 9654   " ▶ = delegated to ALT=TT|DD
 digraph `> 10149   " ➥ = request (delegate from) ALT=NN|FF
 
@@ -209,12 +211,17 @@ nmap <buffer> <Plug>(nou-set-goal-partial) "_c<Plug>(textobj-nou-goal-i)%<Esc>
 nmap <buffer> <Plug>(nou-set-goal-progress) "_c<Plug>(textobj-nou-goal-i)-/<C-r>=v:count1<CR>h<Esc>
 nmap <buffer> <Plug>(nou-set-goal-low) "_c<Plug>(textobj-nou-goal-i)￬<Esc>
 nmap <buffer> <Plug>(nou-set-goal-high) "_c<Plug>(textobj-nou-goal-i)￪<Esc>
+nmap <buffer> <Plug>(nou-set-goal-rephrase) "_c<Plug>(textobj-nou-goal-i)#<Esc>
+nmap <buffer> <Plug>(nou-set-goal-delegated) "_c<Plug>(textobj-nou-goal-i)⟫<Esc>
 
 "" DISABLED: can't batch-replace status for multiple tasks
 " nmap <buffer> <Plug>(nou-set-goal-todo) c<Plug>(textobj-nou-goal-i)_<Esc>
 " omap <buffer> <Plug>(nou-set-goal-todo) <Plug>(textobj-nou-goal-i)_<Esc>
 
 nmap <buffer> <Plug>(nou-del-status) d<Plug>(textobj-nou-status-i)
+nmap <buffer> <Plug>(nou-set-date-today) "_c<Plug>(textobj-nou-date-i)<C-r>=strftime('%Y-%m-%d')<CR><Esc>
+nmap <buffer> <Plug>(nou-set-time-now) "_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(v:count)<CR><Esc>
+
 
 " HACK: merge next task with prev line time
 " nmap <buffer> <Plug>(nou-merge-plan) d<Plug>(textobj-nou-plan-i)kJ
@@ -248,6 +255,8 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>a', '<Plug>(nou-date-a)'],
   \ ['n', '<LocalLeader>A', '<Plug>(nou-datew-a)'],
   \ ['n', '<LocalLeader>C', '<Plug>(nou-jump-current)'],
+  \ ['n', '<LocalLeader>D', '<Plug>(nou-set-date-today)'],
+  \ ['n', '<LocalLeader>T', '<Plug>(nou-set-time-now)'],
   \ ['n', '<LocalLeader>i', '<Plug>(nou-date-i)'],
   \ ['n', '<LocalLeader>I', '<Plug>(nou-datew-i)'],
   \ ['n', '<LocalLeader>L', '<Plug>(nou-spdx-header)'],
@@ -260,8 +269,10 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>_', '<Plug>(nou-set-goal-subtodo)'],
   \ ['nx', '<LocalLeader>!', '<Plug>(nou-set-goal-mandatory)'],
   \ ['n', '<LocalLeader>@', '<Plug>(nou-set-goal-today)'],
+  \ ['n', '<LocalLeader>#', '<Plug>(nou-set-goal-rephrase)'],
   \ ['n', '<LocalLeader>+', '<Plug>(nou-set-goal-subdone)'],
   \ ['n', '<LocalLeader>>', '<Plug>(nou-set-goal-postpone)'],
+  \ ['n', '<LocalLeader><', '<Plug>(nou-set-goal-delegated)'],
   \ ['n', '<LocalLeader>,', '<Plug>(nou-set-goal-waiting)'],
   \ ['n', '<LocalLeader>~', '<Plug>(nou-set-goal-likely)'],
   \ ['n', '<LocalLeader>?', '<Plug>(nou-set-goal-unlikely)'],
@@ -292,19 +303,20 @@ endfor | endfor
 " [_] FIXME:(nou-barDB): must insert "done" by xts2 "day" instead of xts4 time
 " [_] BET:TRY: <LocalLeader> = <Space>  OR:BET? [Xtref] = <Space>
 " ALT(batch-ops for 'x'):TRY:USE: textobj#user#select() which returns list of positions
+" OBSOLETE
+" \ ['nx', '<LocalLeader>#', '<Plug>(nou-barD$)'],
+" \ ['nx', '<LocalLeader>D', '<Plug>(nou-barD_)'],
+" \ ['nx', '<LocalLeader>d', '<Plug>(nou-barD)'],
+" \ ['n',  '<LocalLeader>^', '<Plug>(nou-barD<)'],
+" \ ['nx', '<LocalLeader>T', '<Plug>(nou-barDT)'],
 let s:nou_mappings += [
   \ ['x', '<LocalLeader><Del>', '<Plug>(nou-bar)'],
   \ ['nx', '<LocalLeader><Space>', '<Plug>(nou-bar_)'],
-  \ ['nx', '<LocalLeader>d', '<Plug>(nou-barD)'],
-  \ ['nx', '<LocalLeader>D', '<Plug>(nou-barD_)'],
   \ ['nx', '<LocalLeader>$', '<Plug>(nou-bar$)'],
-  \ ['nx', '<LocalLeader>#', '<Plug>(nou-barD$)'],
   \ ['nx', '<LocalLeader>x', '<Plug>(nou-barX)'],
   \ ['nx', '<LocalLeader>X', '<Plug>(nou-barDX)'],
-  \ ['n',  '<LocalLeader><', '<Plug>(nou-bar⪡)'],
-  \ ['n',  '<LocalLeader>^', '<Plug>(nou-barD<)'],
+  \ ['n',  '<LocalLeader>^', '<Plug>(nou-bar⪡)'],
   \ ['nx', '<LocalLeader>t', '<Plug>(nou-barT)'],
-  \ ['nx', '<LocalLeader>T', '<Plug>(nou-barDT)'],
   \ ['nx', '<LocalLeader>b', '<Plug>(nou-barB)'],
   \ ['nx', '<LocalLeader>B', '<Plug>(nou-barDB)'],
   \]
