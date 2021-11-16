@@ -46,9 +46,17 @@ digraph SS 8902    " ⋆ = planned/agenda ALT=II|AA
 digraph ~~ 8776    " ≈ = doubtful / ALMOST EQUAL TO
 digraph ?? 8263    " ⁇ = unsure if worthy  OR:: ❔❓⍰ ⁈ ⁉ ¿⸮ ⩻⩼ ㉄︖﹖？🯄
 digraph !! 8252    " ‼ =
+digraph !^ 128285  " 🔝 top prio
 digraph !T 128285  " 🔝 top prio
 digraph !S 128284  " 🔜 next prio
 
+""" VIZ: mood :: energy※⡡⡩⠹⣅ level
+" ALT: exe 'digraph ES '.char2nr('⌁')
+digraph ES 8961    " ⌁  strong / empowering
+digraph ER 8961    " ⌁  recharging / replenishing / energizing
+digraph EF 9107    " ⎓  flat / neutral / bearable
+digraph ED 9211    " ⏻  draining / exhausting / tiring
+digraph EW 9211    " ⏻  weak / wearing
 
 digraph HA 128156  " 💜 passion-related goal
 digraph !+ 128156  " 💜 passion-related goal
@@ -171,6 +179,12 @@ nnoremap <buffer> gP P
 " ENH: trim all spaces + always cvt to charwise
 nnoremap <buffer> <Space>p  a<Space><Esc>p
 nnoremap <buffer> <Space>P  a<Space><Esc>P
+" Force in-line
+" nnoremap <silent><unique>  <Leader>p  :RegConvert b<CR>p
+" nnoremap <silent><unique>  <Leader>P  :RegConvert b<CR>P
+" nnoremap [Frame]p "+p
+" nnoremap [Frame]P "+P
+
 " vnoremap <buffer><unique> gp pgvy
 " ENH: if single word -- past on same line by default
 nmap <buffer><silent> P <Plug>(nou-paste-smart-above)

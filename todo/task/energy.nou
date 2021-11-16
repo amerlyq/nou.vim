@@ -13,6 +13,7 @@ TODO
     {R|S} %R | ☀☼⁕♪⌃⬆⬑⬏⮝⌁🔌    # Replenishing/Refill -> Strong
     {B|N} %B | ⌯⁜⌢⏭⌥⌦⌬⎚⎓⏸🔦    # Bearable -> Neutral/Normal
     {D|W} %D | ☁☔☣⌄⬇⬐⬎⮟⏻🔋🗻  # Draining -> Weak
+     * ALT:(neutral): sustaining / ripple / winter morning snowflakes
 
   [⡡⡰⠦⡔] 20m DECI replace infix=planned ::: USE: +mood=(⌁ ⎓ ⏻)
     BET? append additional status
@@ -27,7 +28,7 @@ TODO
     OR: inline prefix -- more standout (to sort activities at glance)
       [X] ⋆ 15m {W} some completed task something
     NICE:MAYBE: use them as a "mood" after "infix+estimate"
-      [X] ⋆ 15m ⌁ sudden + strong
+      [X] ⋆ 15m ⌁ planned + strong
       [X] ↯ 15m ⏻ sudden + weak
       [⡡⡰⠩⠩] ? how to be with ordering relative to <assoc> ?
         ::: TEMP: place after assoc, like any other "mood"
