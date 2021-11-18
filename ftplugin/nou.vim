@@ -37,6 +37,7 @@ digraph <. 10913   " ⪡ before then
 digraph >. 10914   " ⪢ ?delegated? OR after then
 
 digraph CC 9684    " ◔|𝌙  = partial progress increment
+digraph CE 128282  " 🔚 = end of continuation
 digraph EN 128282  " 🔚 = final part
 digraph MA 128233  " 📩 related to mail
 digraph CA 128242  " 📲 related to call
@@ -53,7 +54,8 @@ digraph !S 128284  " 🔜 next prio
 """ VIZ: mood :: energy※⡡⡩⠹⣅ level
 " ALT: exe 'digraph ES '.char2nr('⌁')
 digraph ES 8961    " ⌁  strong / empowering
-digraph ER 8961    " ⌁  recharging / replenishing / energizing
+digraph ER 8961    " ⌁  recharging / replenishing
+digraph EE 8961    " ⌁  empowering / energizing
 digraph EF 9107    " ⎓  flat / neutral / bearable
 digraph ED 9211    " ⏻  draining / exhausting / tiring
 digraph EW 9211    " ⏻  weak / wearing
