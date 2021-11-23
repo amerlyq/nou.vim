@@ -254,6 +254,8 @@ nmap <buffer> <Plug>(nou-set-assoc-work) c<Plug>(textobj-nou-assoc-i)W<Esc>
 nmap <buffer> <Plug>(nou-set-assoc-urgent) c<Plug>(textobj-nou-assoc-i)U<Esc>
 nmap <buffer> <Plug>(nou-set-assoc-overtime) c<Plug>(textobj-nou-assoc-i)OT<Esc>
 
+" Python #just
+nmap <buffer> <Plug>(nou-fix-claimed) :call NouFixClaimed()<CR>
 
 " TODO: <count><LL>m must set minutes w/o changing hours
 " nmap <buffer> <Plug>(nou-me-or-minutes) <Plug>(nou-set-assoc-me)
@@ -272,6 +274,7 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>A', '<Plug>(nou-datew-a)'],
   \ ['n', '<LocalLeader>C', '<Plug>(nou-jump-current)'],
   \ ['n', '<LocalLeader>D', '<Plug>(nou-set-date-today)'],
+  \ ['n', '<LocalLeader>E', '<Plug>(nou-fix-claimed)'],
   \ ['n', '<LocalLeader>T', '<Plug>(nou-set-time-now)'],
   \ ['n', '<LocalLeader>i', '<Plug>(nou-date-i)'],
   \ ['n', '<LocalLeader>I', '<Plug>(nou-datew-i)'],
