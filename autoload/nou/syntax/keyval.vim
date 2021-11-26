@@ -1,5 +1,15 @@
 """ Key-value
 
+" TODO: split into multiple separate matches with same name
+hi! nouArtifactKey cterm=bold ctermfg=167 gui=bold guifg=#df5f5f
+syn cluster nouArtifactQ add=nouArtifactKey
+syn match nouArtifactKey display excludenl
+  \ '\v%(^|[^[:lower:][:upper:][:digit:]]@1<=\s\zs|\s:)\S*[^:[:blank:]]:%(:\s*$|\ze\s+\S)'
+  " \ '\v%(^|[^[:lower:][:upper:][:digit:]]@1<=\s\zs|\s:)\S*[^:[:blank:]]:%(:\s*$|\ze\s*%($|\s\S))'
+  " \ '\v^%(\A{-}\s@1<=)?\zs\S+%(::?\s*$|:\ze\s)'
+  " \ '\v^%(\A{-}\s@1<=)?\zs\k+:%(\ze\s|$)'
+
+
 " FAIL: :e to reload "nou-keyval.txt" with ft=nou looses some of highlight
 syn cluster nouArtifactQ add=@nouKeyvalQ
 syn cluster nouKeyvalQ add=nouKeyval,nouKeyvalQuoted

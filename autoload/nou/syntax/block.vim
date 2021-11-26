@@ -80,7 +80,7 @@ syn region nouBlockIndented keepend excludenl fold extend
 syn region nouBlockContained keepend excludenl fold extend
   \ containedin=@nouOutlineQ
   \ matchgroup=nouBlockXmarker
-  \ start='^\z(\s*\).*\zs::\ze\s*\n\z(\s*\)'
+  \ start='^\z(\s*\).*\S\@1<!\zs::\ze\s*\n\z(\s*\)'
   \ end='\v\ze\n%(\s*$|\z1\s|\z2)@!'
 
 
