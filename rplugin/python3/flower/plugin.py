@@ -1,6 +1,6 @@
 # REF: https://pynvim.readthedocs.io/en/latest/usage/remote-plugins.html
 # ALSO: +++ [_] NICE:READ:TRY: Writing and publishing a Python module in Rust ⌇⡡⡅⣿⢑
-# USAGE: open .nou file, run :UpdateRemotePlugins, restart vim, :call NouFixClaimed()
+# USAGE: open .py file in insert, run :UpdateRemotePlugins, restart vim, :call NouFixClaimed()
 import pynvim
 from just.flower.tenjo.manipulate import entry_replace_spec
 
@@ -11,7 +11,7 @@ class TestPlugin:
         self.nvim = nvim
 
     @pynvim.function("TestFunction", sync=True)
-    def testfunction(self, args):
+    def testfunction(self, _args):
         return 3
 
     @pynvim.command("TestCmd", nargs="*", range="")
@@ -24,19 +24,22 @@ class TestPlugin:
 
     # @pynvim.command("NouFixClaimed", nargs="*", range="")
     @pynvim.function("NouFixClaimed", sync=True)
-    def fixclaimed(self, args):
-        path = self.nvim.current.buffer.name
+    def fixclaimed(self, _args):
+        buf = self.nvim.current.buffer
+        path = buf.name
         row, col = self.nvim.current.window.cursor
-        loci = f"{path}:{row}:{col}"
-        (fpth, lnum, col, nchr, txt) = entry_replace_spec(loci, "span.val.claimed", ".")
+        (_fpth, lnum, col, nchr, txt) = entry_replace_spec(
+            loci=f"{path}:{row}:{col}",
+            xkey="span.val.claimed",
+            val=".",
+            lines=buf[:],
+        )
         # FIXME: .col is unicode char, not byte offset
         # strlen(strcharpart(a:s, strchars(a:s) - 1, 1))
-        # assert str(fpth) == self.nvim.current.buffer.name
+        # assert str(fpth) == buf.name
         # ERR: TypeError: 'str' object does not support item assignment
-        # self.nvim.current.buffer[lnum][col : col + nchr] = txt
-        l = self.nvim.current.buffer[lnum - 1]
+        # buf[lnum][col : col + nchr] = txt
+        l = buf[lnum - 1]
         # BAD: replaces whole line instead of doing small edit
-        self.nvim.current.buffer[lnum - 1] = (
-            l[: col - 1] + txt + " " + l[col - 1 + nchr :].lstrip()
-        )
+        buf[lnum - 1] = l[: col - 1] + txt + " " + l[col - 1 + nchr :].lstrip()
         return (lnum, col, nchr, txt)
