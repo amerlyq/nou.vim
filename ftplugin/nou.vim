@@ -216,6 +216,7 @@ nmap <buffer> <Plug>(nou-set-goal-today) "_c<Plug>(textobj-nou-goal-i)@<Esc>
 "   c<Plug>(textobj-nou-goal-i)+<Esc><Plug>(nou-cvt-subtask)
 nmap <buffer> <Plug>(nou-set-goal-subtodo) "_c<Plug>(textobj-nou-goal-i)_<Esc>
 nmap <buffer> <Plug>(nou-set-goal-subdone) "_c<Plug>(textobj-nou-goal-i)+<Esc>
+" MAYBE:RENAME:(postpone[>]): -> carry [forward] | rescheduled -- as it's what I actually do
 nmap <buffer> <Plug>(nou-set-goal-postpone) "_c<Plug>(textobj-nou-goal-i)><Esc>
 nmap <buffer> <Plug>(nou-set-goal-waiting) "_c<Plug>(textobj-nou-goal-i)…<Esc>
 nmap <buffer> <Plug>(nou-set-goal-likely) "_c<Plug>(textobj-nou-goal-i)~<Esc>
@@ -229,6 +230,7 @@ nmap <buffer> <Plug>(nou-set-goal-low) "_c<Plug>(textobj-nou-goal-i)￬<Esc>
 nmap <buffer> <Plug>(nou-set-goal-high) "_c<Plug>(textobj-nou-goal-i)￪<Esc>
 nmap <buffer> <Plug>(nou-set-goal-rephrase) "_c<Plug>(textobj-nou-goal-i)#<Esc>
 nmap <buffer> <Plug>(nou-set-goal-delegated) "_c<Plug>(textobj-nou-goal-i)⟫<Esc>
+nmap <buffer> <Plug>(nou-set-goal-deferred) "_c<Plug>(textobj-nou-goal-i)≫<Esc>
 
 "" DISABLED: can't batch-replace status for multiple tasks
 " nmap <buffer> <Plug>(nou-set-goal-todo) c<Plug>(textobj-nou-goal-i)_<Esc>
@@ -300,6 +302,7 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>"', '<Plug>(nou-set-goal-high)'],
   \ ['n', '<LocalLeader>.', '<Plug>(nou-set-goal-now)'],
   \ ['n', '<LocalLeader>;', '<Plug>(nou-set-goal-next)'],
+  \ ['n', '<LocalLeader>:', '<Plug>(nou-set-goal-deferred)'],
   \ ['n', '<LocalLeader>0', '<Plug>(nou-set-goal-feed)'],
   \ ['n', '<LocalLeader>/', '<Plug>(nou-set-goal-progress)'],
   \ ['n', '<LocalLeader><Backspace>', '<Plug>(nou-merge-plan)'],

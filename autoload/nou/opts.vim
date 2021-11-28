@@ -80,6 +80,7 @@ let s:nou.term.colors = {
   \ 'EmfH': ['\=\=', '\=\=', 'ctermfg=99 guifg=#875fff gui=bold,italic'],
   \ 'NotH': ['\-\-', '\-\-', 'ctermfg=44 guifg=#00dfdf gui=bold,italic,undercurl'],
   \ 'Standout': ['\|', '\|', 'ctermbg=16 guibg=#000000'],
+  \ 'Meta': [':', ':', 'cterm=bold ctermfg=167 gui=bold guifg=#df5f5f'],
   \ }
 
 

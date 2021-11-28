@@ -299,7 +299,7 @@ syn match nouTaskDone display excludenl '\v\[[\u2800-\u28FF]{4}\]'  " ts
 
 hi! nouTaskFrame cterm=bold gui=bold ctermfg=14 guifg=#586e75
 syn cluster nouTaskQ add=nouTaskFrame
-syn match nouTaskFrame display excludenl '\[[∞◦‣%#￪￬⟫]\]'
+syn match nouTaskFrame display excludenl '\[[∞◦‣%#￪￬⟫≫]\]'
 
 hi! nouTaskFeed cterm=bold gui=bold ctermfg=251 guifg=#c6c6c6
 syn match nouTaskFeed display excludenl contained containedin=nouTaskFrame '[∞◦‣]'
@@ -313,6 +313,9 @@ syn match nouTaskRephrase display excludenl contained containedin=nouTaskFrame '
 
 hi! nouTaskDelegated ctermfg=169 guifg=#ef3f9f
 syn match nouTaskDelegated display excludenl contained containedin=nouTaskFrame '⟫'
+
+hi! nouTaskDeferred ctermfg=27 guifg=#1f6fff
+syn match nouTaskDeferred display excludenl contained containedin=nouTaskFrame '≫'
 
 " cterm=bold gui=bold
 hi! nouTaskBringFwd ctermfg=46 guifg=#00ff00

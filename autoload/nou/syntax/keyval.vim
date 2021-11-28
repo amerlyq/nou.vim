@@ -4,10 +4,13 @@
 hi! nouArtifactKey cterm=bold ctermfg=167 gui=bold guifg=#df5f5f
 syn cluster nouArtifactQ add=nouArtifactKey
 syn match nouArtifactKey display excludenl
-  \ '\v%(^|[^[:lower:][:upper:][:digit:]]@1<=\s\zs|\s:)\S*[^:[:blank:]]:%(:\s*$|\ze\s+\S)'
+  \ '\v%(^|[^[:lower:][:upper:][:digit:]]@1<=\s\zs)\S*[^:[:blank:]]:%(:\s*$|\ze\s+\S)'
   " \ '\v%(^|[^[:lower:][:upper:][:digit:]]@1<=\s\zs|\s:)\S*[^:[:blank:]]:%(:\s*$|\ze\s*%($|\s\S))'
   " \ '\v^%(\A{-}\s@1<=)?\zs\S+%(::?\s*$|:\ze\s)'
   " \ '\v^%(\A{-}\s@1<=)?\zs\k+:%(\ze\s|$)'
+
+"" BET: register s:nou.term.colors[:] instead of extending this match
+" syn match nouArtifactKey display excludenl '\v%(^|\s):\S*[^:[:blank:]]:%(\s|$)'
 
 
 " FAIL: :e to reload "nou-keyval.txt" with ft=nou looses some of highlight
