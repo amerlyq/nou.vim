@@ -87,6 +87,7 @@ inoreab <buffer><expr> !dts! strftime('%Y-%m-%d')
 
 " BAD:(end-id): can't support "#tm", only "#tm;" SEE: :h abbreviations
 inoreabbr <buffer> tm; #taskmgmt
+inoreabbr <buffer> ta; #taskmgmt:tracking,planning,overview
 inoreabbr <buffer> to; #taskmgmt:overview
 inoreabbr <buffer> tp; #taskmgmt:planning
 inoreabbr <buffer> tr; #taskmgmt:tracking
@@ -237,6 +238,7 @@ nmap <buffer> <Plug>(nou-set-goal-deferred) "_c<Plug>(textobj-nou-goal-i)≫<Esc
 " omap <buffer> <Plug>(nou-set-goal-todo) <Plug>(textobj-nou-goal-i)_<Esc>
 
 nmap <buffer> <Plug>(nou-del-status) d<Plug>(textobj-nou-status-i)
+nmap <buffer> <Plug>(nou-del-assoc) d<Plug>(textobj-nou-assoc-i)
 nmap <buffer> <Plug>(nou-set-date-today) "_c<Plug>(textobj-nou-date-i)<C-r>=strftime('%Y-%m-%d')<CR><Esc>
 nmap <buffer> <Plug>(nou-set-time-now) "_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(v:count)<CR><Esc>
 
@@ -250,18 +252,18 @@ nmap <buffer> <Plug>(nou-del-plan) d<Plug>(textobj-nou-plan-i)
 nmap <buffer> <Plug>(nou-cvt-task) d<Plug>(textobj-nou-lead-i)c<Plug>(textobj-nou-goal-i)_<Esc>
 
 
-" NOTE: easier to switch association "c<LL>ame<Esc>" -> "<LL>m"
-nmap <buffer> <Plug>(nou-set-assoc-me) c<Plug>(textobj-nou-assoc-i)me<Esc>
-nmap <buffer> <Plug>(nou-set-assoc-work) c<Plug>(textobj-nou-assoc-i)W<Esc>
-nmap <buffer> <Plug>(nou-set-assoc-urgent) c<Plug>(textobj-nou-assoc-i)U<Esc>
-nmap <buffer> <Plug>(nou-set-assoc-overtime) c<Plug>(textobj-nou-assoc-i)OT<Esc>
-
 " Python #just
 nmap <buffer> <Plug>(nou-fix-claimed) :call NouFixClaimed()<CR>
 
 " TODO: <count><LL>m must set minutes w/o changing hours
-" nmap <buffer> <Plug>(nou-me-or-minutes) <Plug>(nou-set-assoc-me)
-" nmap <buffer> <Plug>(nou-task-or-hours) <Plug>(nou-set-assoc-me)
+"   IDEA: pick different cmd depending on <count>
+"     e.g. <Plug>(nou-me-or-minutes) and <Plug>(nou-task-or-hours)
+"   NEED: 1st arg=>100 always treated as hours:minutes
+"   NEED: 2nd arg=0/1/-1 to pick both/hours/minutes
+"   IDEA: 3rd arg=0/1/-1 to pick abs value or increment/decrement
+"   FAIL: for 2nd and 3rd I must know value under cursor -- easier to parse by #tenjo python
+"     BAD: not much easier from #tenjo considering massive RFC needed in manipulate.py
+" nmap <buffer> <Plug>(nou-set-time-now) "_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(v:count,1)<CR><Esc>
 
 " DISABLED: I never expect to convert subtask to task
 "   ['n', '<LocalLeader><Space>', '<Plug>(nou-cvt-task)'],
@@ -281,14 +283,11 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>i', '<Plug>(nou-date-i)'],
   \ ['n', '<LocalLeader>I', '<Plug>(nou-datew-i)'],
   \ ['n', '<LocalLeader>L', '<Plug>(nou-spdx-header)'],
-  \ ['n', '<LocalLeader>m', '<Plug>(nou-set-assoc-me)'],
-  \ ['nx', '<LocalLeader>n', '<Plug>(nou-task-next)'],
+  \ ['nx','<LocalLeader>n', '<Plug>(nou-task-next)'],
   \ ['n', '<LocalLeader>N', '<Plug>(nou-jump-today)'],
-  \ ['n', '<LocalLeader>w', '<Plug>(nou-set-assoc-work)'],
-  \ ['n', '<LocalLeader>u', '<Plug>(nou-set-assoc-urgent)'],
-  \ ['n', '<LocalLeader>o', '<Plug>(nou-set-assoc-overtime)'],
+  \
   \ ['n', '<LocalLeader>_', '<Plug>(nou-set-goal-subtodo)'],
-  \ ['nx', '<LocalLeader>!', '<Plug>(nou-set-goal-mandatory)'],
+  \ ['nx','<LocalLeader>!', '<Plug>(nou-set-goal-mandatory)'],
   \ ['n', '<LocalLeader>@', '<Plug>(nou-set-goal-today)'],
   \ ['n', '<LocalLeader>#', '<Plug>(nou-set-goal-rephrase)'],
   \ ['n', '<LocalLeader>+', '<Plug>(nou-set-goal-subdone)'],
@@ -305,10 +304,49 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>:', '<Plug>(nou-set-goal-deferred)'],
   \ ['n', '<LocalLeader>0', '<Plug>(nou-set-goal-feed)'],
   \ ['n', '<LocalLeader>/', '<Plug>(nou-set-goal-progress)'],
+  \
   \ ['n', '<LocalLeader><Backspace>', '<Plug>(nou-merge-plan)'],
   \ ['n', '<LocalLeader><Del>', '<Plug>(nou-del-status)'],
   \ ['n', '<LocalLeader><Tab>', '<Plug>(nou-complement)'],
+  \ ['n', '<LocalLeader>w<Space>', '<Plug>(nou-del-assoc)'],
   \]
+
+
+" NOTE: <assoc> :: easier to switch association "c<LL>ame<Esc>" -> "<LL>wm"
+let s:nou_assoc =
+  \[ 'a agenda A'
+  \, 'b both W:both'
+  \, 'c common W:common'
+  \, 'd dev'
+  \, 'e env'
+  \, 'h home'
+  \, 'i important I'
+  \, 'k wakeup'
+  \, 'l low'
+  \, 'm me'
+  \, 'n next'
+  \, 'o overtime OT'
+  \, 'p prevwork prev:W'
+  \, 'r raw W:raw'
+  \, 's sleep'
+  \, 't travel'
+  \, 'u urgent U'
+  \, 'w work W'
+  \, 'x misc'
+  \, 'y daybreak'
+  \, 'z dozeoff'
+  \, '+ workjoin W+OT'
+  \, '. worknow W'
+  \]
+" [_] TODO:(python): vim.command("nnoremap <buffer> <silent> ...")
+"   BET: multiline to exec at once :: vim.eval() OR vim.exec_lua
+for x in s:nou_assoc
+  let m = split(x, ' ')
+  let plug = '<Plug>(nou-set-assoc-'.m[1].')'
+  exe 'nmap <buffer> '.plug.' c<Plug>(textobj-nou-assoc-i)'.m[-1].'<Esc>'
+  let s:nou_mappings += [['n', '<LocalLeader>w'.m[0], plug]]
+endfor
+
 
 
 " Range-wise modifiers

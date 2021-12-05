@@ -1,17 +1,19 @@
 # REF: https://pynvim.readthedocs.io/en/latest/usage/remote-plugins.html
 # ALSO: +++ [_] NICE:READ:TRY: Writing and publishing a Python module in Rust ⌇⡡⡅⣿⢑
 # USAGE: open .py file in insert, run :UpdateRemotePlugins, restart vim, :call NouFixClaimed()
+from typing import Any
+
 import pynvim
 from just.flower.tenjo.manipulate import entry_replace_spec
 
 
 @pynvim.plugin
 class TestPlugin:
-    def __init__(self, nvim):
+    def __init__(self, nvim: pynvim.Nvim):
         self.nvim = nvim
 
     @pynvim.function("TestFunction", sync=True)
-    def testfunction(self, _args):
+    def testfunction(self, _args: Any):
         return 3
 
     @pynvim.command("TestCmd", nargs="*", range="")
@@ -24,7 +26,7 @@ class TestPlugin:
 
     # @pynvim.command("NouFixClaimed", nargs="*", range="")
     @pynvim.function("NouFixClaimed", sync=True)
-    def fixclaimed(self, _args):
+    def fixclaimed(self, _args: Any) -> tuple[int, int, int, str]:
         buf = self.nvim.current.buffer
         path = buf.name
         row, col = self.nvim.current.window.cursor
