@@ -4,69 +4,6 @@ if exists("b:did_ftplugin")| finish |else| let b:did_ftplugin = 1 |endif
 let b:undo_ftplugin = "setl ai< cin< inde< ts< sw< sts< com< cms< fdm< cole< cocu< wrap<"
 call nou#opts#init()
 
-" Line-format has no sense for widechar lines, being treated as one long word
-setl autoindent nocindent indentexpr=
-setl tabstop=2 shiftwidth=2 softtabstop=2
-" TEMP:(experimental) using text indented by one ' ' on any outline level
-"   + intuitive support for embedded text paragraphs
-"   - lose ability to align mixed-indented text
-setl noshiftround
-setl comments=b:#,b:#%,bO:\|,b:¦,b:│  ",f:'''
-setl commentstring=#\ %s
-
-setl nowrap
-setl foldmethod=indent
-setl conceallevel=2  " NEED=2: nouSpoiler uses 'cchar'
-
-" NOTE: don't use any of "nv" -- to show nouSpoiler on cursor
-"   * ALSO:BAD: irritating 'lag' on cursor move in line
-"   * BUG="i" in deoplete.vim -- wrong cursor/menu position
-setl concealcursor=""
-
-
-" digraph ,. 8230  " … =DFL somewhere in vim path
-" digraph *1 9734  " ☆ =DFL generic feature
-" digraph *2 9733  " ★ =DFL favorite feature
-digraph @@ 9764    " ☤  dev repo (aura/**)
-digraph @# 9798    " ♆  program/package configuration (airy/*)
-digraph (( 10629   " ⦅ = nouLineSyntax
-digraph )) 10630   " ⦆ = nouLineSyntax
-digraph ** 8226    " •
-digraph *  8226    " •
-digraph <. 10913   " ⪡ before then
-digraph >. 10914   " ⪢ ?delegated? OR after then
-
-digraph CC 9684    " ◔|𝌙  = partial progress increment
-digraph CE 128282  " 🔚 = end of continuation
-digraph EN 128282  " 🔚 = final part
-digraph MA 128233  " 📩 related to mail
-digraph CA 128242  " 📲 related to call
-
-digraph RR 8635    " ↻ = repeated/framework ALT=OO
-digraph SS 8902    " ⋆ = planned/agenda ALT=II|AA
-digraph ~~ 8776    " ≈ = doubtful / ALMOST EQUAL TO
-digraph ?? 8263    " ⁇ = unsure if worthy  OR:: ❔❓⍰ ⁈ ⁉ ¿⸮ ⩻⩼ ㉄︖﹖？🯄
-digraph !! 8252    " ‼ =
-digraph !^ 128285  " 🔝 top prio
-digraph !T 128285  " 🔝 top prio
-digraph !S 128284  " 🔜 next prio
-
-""" VIZ: mood :: energy※⡡⡩⠹⣅ level
-" ALT: exe 'digraph ES '.char2nr('⌁')
-digraph ES 8961    " ⌁  strong / empowering
-digraph ER 8961    " ⌁  recharging / replenishing
-digraph EE 8961    " ⌁  empowering / energizing
-digraph EF 9107    " ⎓  flat / neutral / bearable
-digraph ED 9211    " ⏻  draining / exhausting / tiring
-digraph EW 9211    " ⏻  weak / wearing
-
-digraph HA 128156  " 💜 passion-related goal
-digraph !+ 128156  " 💜 passion-related goal
-digraph WW 9676    " ◌|⚬ = waiting response
-digraph !. 8623    " ↯ = important/agenda ALT=HH|UU (like a [lightning] bolt from the blue)
-digraph \|> 9654   " ▶ = delegated to ALT=TT|DD
-digraph `> 10149   " ➥ = request (delegate from) ALT=NN|FF
-
 """ Mappings
 
 "" TODO:FUTURE: append timeslot size "2021-06-01-Tue-W22 [-/5h30m|8h]"
@@ -82,39 +19,10 @@ nnoremap <Plug>(nou-datew-a) "=strftime('%Y-%m-%d-%a-W%W')<CR>p
 " ENH: augment many other objects beside date
 nnoremap <Plug>(nou-complement) E"=join(systemlist("date +'-%a-W%W' -d ".expand('<cWORD>')))<CR>p
 
-" THINK:BET:USE: `dts` like in Wolfram
-inoreab <buffer><expr> !dts! strftime('%Y-%m-%d')
-
-" BAD:(end-id): can't support "#tm", only "#tm;" SEE: :h abbreviations
-inoreabbr <buffer> tm; #taskmgmt
-inoreabbr <buffer> ta; #taskmgmt:tracking,planning,overview
-inoreabbr <buffer> to; #taskmgmt:overview
-inoreabbr <buffer> tp; #taskmgmt:planning
-inoreabbr <buffer> tr; #taskmgmt:tracking
-inoreabbr <buffer> ts; #taskmgmt:stats
-inoreabbr <buffer> tt; #taskmgmt:tracking
-inoreabbr <buffer> tw; #taskmgmt:sweeping
-inoreabbr <buffer> tz; #taskmgmt:SEIZE
-inoreabbr <buffer> lf; #leisure:fantasy
-
-
-" SEE: https://www.thetopsites.net/article/58187038.shtml
-" BAD: substitute(getline('.'), '^\s*\zs['.a:sym.']\ze $', a:rpl, '')
-" ALSO: https://www.reddit.com/r/vim/comments/blw37i/expanding_abbreviations_through_a_cr_expression/
-" BET?⌇⡟⢁⠉⠠ https://vi.stackexchange.com/questions/24791/how-to-create-an-abbreviation-with-space
-" ALT: https://vi.stackexchange.com/questions/20962/is-it-possible-to-supply-arguments-to-inoremap/20966#20966
-function! s:lead_correct(sym, rpl)
-  let pfx = getline('.')[:col('.') + 1]
-  " DEBUG: echom '|'.getline('.').v:char.'|'
-  let y = (v:char == ' ') && (trim(pfx) ==# a:sym)
-  return y ? a:rpl : a:sym
-endfunction
-" ALT: inoreab <buffer> . <C-r>=<sid>lead_correct('.', '•')<CR>
-" FAIL: inoreab <buffer><expr> \<Space>\<Space>.\<Space> "  • "
-" [_] FAIL: enlarges first dot in "^   ..."
-" FAIL: abbrevs insert into beg of line "I.<Esc>"
-inoreab <buffer><expr> . <sid>lead_correct('.', '•')
-
+runtime ftplugin/nou/abbrev-gen.vim
+runtime ftplugin/nou/abbrev-tags.vim
+runtime ftplugin/nou/digraphs.vim
+runtime ftplugin/nou/options.vim
 
 " [_] FAIL: path with spaces is cropped e.g. "@/so\ me/" OR "⋮@/so me/⋮"
 nnoremap <silent> <Plug>(nou-path-open) :call nou#path_open(expand('<cWORD>'))<CR>
@@ -408,59 +316,5 @@ if exists('s:nou_mappings')
     endfor
   endfor
 endif
-
-"" NOTE: loop on <CR> DEP: 'AndrewRadev/switch.vim'
-"" IDEA: store addressing into file by @/todo/ctl and load back
-"    $ grep -hEro '\@[[:upper:]]\w+(\.\w+)?' SU > addressings
-"    FAIL:NEED: show autocomplete lists with suggestions
-"    FIXME: rename old @/todo/log/201X/ entries '@<taskname>' -> '@ <taskname>'
-" ----
-" \   switch#Words(['one', 'two'])
-" \   switch#NormalizedCase(['one', 'two']),
-" \   switch#NormalizedCaseWords(['five', 'six']),
-
-"" VIZ: artifacts
-let g:nou_switch_groups =
-  \[ ['^%', '^%%', '^%%%', '^%%%%', '^%%%%%']
-  \, map(split('_@!', '\zs'), '"[".v:val."]"')
-  \, map(split('+X…', '\zs'), '"[".v:val."]"')
-  \, map(split('0123456789', '\zs'), '"[".v:val."0%]"')
-  \, split('↻⋆↯💜', '\zs')
-  \, split('~▶✓✗', '\zs')
-  \, split('◔🔚', '\zs')
-  \, ['MAIL', '📩']
-  \, ['CALL', '📲']
-  \, split('0m 5m 10m 20m 30m 40m 50m')
-  \, {'\v<(\d)h30m>': '\1.5h', '\v<(\d).5h>': '\1h30m'}
-  \, map(split('me A add'), '"<".v:val.">"')
-  \, map(split('W U env'), '"<".v:val.">"')
-  \, map(split('next home sleep'), '"<".v:val.">"')
-  \, map(split('eat tea coffee flax'), '"#body:".v:val')
-  \, map(split('comics fantasy RSS'), '"#leisure:".v:val')
-  \, map(split('tracking planning overview timesheet'), '"#taskmgmt:".v:val')
-  \]
-
-
-"" VIZ: date/time
-" BUG: default ALG="smallest len match" results in cvt(datetime -> xts2)
-"   FAIL: using "g:switch_find_smallest_match=0" requires strict order of all rules
-"     << we must load "xtref.vim" and "nou.vim" in explicit order
-"     !! impossible to ensure global order for intermixed regexes from two plugins
-"   FAIL: zero-match regex in "xtref.vim" can't convert surrounding brackets
-"   FIXED: disambigue "date" by trailing text
-let g:nou_switch_groups +=
-  \[ { '\v<(\d{10})>' : {m -> trim(system('just xts cvt '.shellescape(m[0]).' unix fts'))}
-  \  , '\v<(20\d{6}_\d{6})>' : {m -> trim(system('just xts cvt '.shellescape(m[0]).' fts unix'))}
-  \},{ '\v<('.nou#util#Rdatetime.')>' : {m -> trim(system('just xts cvt '.shellescape(m[0]).' date xts4'))}
-  \  , '\v<([\u2800-\u28FF]{4})>' : {m -> trim(system('just xts cvt '.shellescape(m[0]).' xts4 date'))}
-  \},{ '\v<(20\d\d-\d\d-\d\d|20\d{6})>%(.'.nou#util#Rtime.')@!' : {m -> trim(system('just xts cvt '.shellescape(m[0]).' date xts2'))}
-  \  , '\v<([\u2800-\u28FF]{2})>' : {m -> trim(system('just xts cvt '.shellescape(m[0]).' xts2 date'))}
-  \}]
-
-" TODO: wrap into "nou" group
-autocmd FileType nou let b:switch_custom_definitions = g:nou_switch_groups
-
-"" ALT
-" '\v<([\u2800-\u28FF]{4})>' : {br -> strftime('%Y-%m-%d %H:%M:%S%z', str2nr(substitute(br, '.', '\=printf("%02x",and(char2nr(submatch(0)),0xff))', 'g'), 16))}
 
 runtime ftplugin/textobj/nou.vim
