@@ -14,9 +14,10 @@ digraph >. 10914   " ⪢ ?delegated? OR after then
 
 digraph CC 9684    " ◔|𝌙  = partial progress increment
 digraph CE 128282  " 🔚 = end of continuation
-digraph EN 128282  " 🔚 = final part
-digraph MA 128233  " 📩 related to mail
-digraph CA 128242  " 📲 related to call
+digraph CS 128284  " 🔜 next prio
+
+digraph FC 128242  " 📲 #feed related to call
+digraph FM 128233  " 📩 #feed related to mail
 
 digraph RR 8635    " ↻ = repeated/framework ALT=OO
 digraph SS 8902    " ⋆ = planned/agenda ALT=II|AA
@@ -31,8 +32,10 @@ digraph !S 128284  " 🔜 next prio
 " ALT: exe 'digraph ES '.char2nr('⌁')
 digraph ES 8961    " ⌁  strong / empowering
 digraph ER 8961    " ⌁  recharging / replenishing
-digraph EE 8961    " ⌁  empowering / energizing
+digraph EE 8961    " ⌁  empowering
+digraph EN 8961    " ⌁  energizing
 digraph EF 9107    " ⎓  flat / neutral / bearable
+digraph EM 9107    " ⎓  mild / middle
 digraph ED 9211    " ⏻  draining / exhausting / tiring
 digraph EW 9211    " ⏻  weak / wearing
 
