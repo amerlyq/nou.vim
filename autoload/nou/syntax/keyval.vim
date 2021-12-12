@@ -4,7 +4,7 @@
 hi! nouArtifactKey cterm=bold ctermfg=167 gui=bold guifg=#df5f5f
 syn cluster nouArtifactQ add=nouArtifactKey
 syn match nouArtifactKey display excludenl
-  \ '\v%(^|[^[:lower:][:upper:][:digit:]]@1<=\s\zs)\S*[^:[:blank:]]:%(:\s*$|\ze\s+\S)'
+  \ '\v%(^|[^[:lower:][:upper:][:digit:]]@1<=\s\zs)[^#[:blank:]]\S*[^:[:blank:]]:%(:\s*$|\ze\s+\S)'
   " \ '\v%(^|[^[:lower:][:upper:][:digit:]]@1<=\s\zs|\s:)\S*[^:[:blank:]]:%(:\s*$|\ze\s*%($|\s\S))'
   " \ '\v^%(\A{-}\s@1<=)?\zs\S+%(::?\s*$|:\ze\s)'
   " \ '\v^%(\A{-}\s@1<=)?\zs\k+:%(\ze\s|$)'
