@@ -12,8 +12,16 @@ digraph *  8226    " •
 digraph <. 10913   " ⪡ before then
 digraph >. 10914   " ⪢ ?delegated? OR after then
 
+digraph ok 10003   " ✓ = result as expected
+digraph xx 10007   " ✗  = result had failed
+digraph CA 9676    " ◌ = check and wait response again (OR ⚬)
 digraph CC 9684    " ◔|𝌙  = partial progress increment
+digraph CD 9654    " ▶ = delegated to ALT=TT|DD
+digraph \|> 9654   " ▶ = delegated to
 digraph CE 128282  " 🔚 = end of continuation
+digraph CK 9676    " ◌ = check and wait response again (OR ⚬)
+digraph CQ 10149   " ➥ = query/request (delegate from) ALT=NN|FF
+digraph `> 10149   " ➥ = query/request (delegate from)
 digraph CS 128284  " 🔜 next prio
 
 digraph FC 128242  " 📲 #feed related to call
@@ -41,7 +49,5 @@ digraph EW 9211    " ⏻  weak / wearing
 
 digraph HA 128156  " 💜 passion-related goal
 digraph !+ 128156  " 💜 passion-related goal
-digraph WW 9676    " ◌|⚬ = waiting response
-digraph !. 8623    " ↯ = important/agenda ALT=HH|UU (like a [lightning] bolt from the blue)
-digraph \|> 9654   " ▶ = delegated to ALT=TT|DD
-digraph `> 10149   " ➥ = request (delegate from) ALT=NN|FF
+digraph !. 8623    " ↯ = important/agenda (like a [lightning] bolt from the blue)
+digraph II 8623    " ↯ = important/agenda ALT=HH|UU
