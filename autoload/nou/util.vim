@@ -296,7 +296,8 @@ fun! nou#util#Tpos(spaced, elem, ...)
   " NOTE: don't do anything when modifying non-existent element
   if v:operator !=# 'c' | return 0 |en
 
-  let nopfx = ['lead', 'date', 'goal', 'status', 'plan', 'task', 'entry']
+  " FIXED: undesired leading space before "<W>"
+  let nopfx = ['lead', 'date', 'goal', 'assoc', 'status', 'plan', 'task', 'entry']
   let pfx = ((x.B == x.b && index(nopfx, a:elem)<0) ? ' ' : '') . pfx
   let ifx = ' '
   let Pb[2] += strlen(pfx)
