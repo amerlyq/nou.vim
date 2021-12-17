@@ -263,7 +263,7 @@ for i in range(1,9)
     \.' :<C-u>call nou#bar("X'.i.'",'.i.',0)<CR>'
   let s:nou_mappings += [['n', '<LocalLeader>'.i, '<Plug>(nou-barX'.i.')']]
 endfor
-for s in ['', 'D', '_', 'D_', 'D$', '$', 'X', 'DX', '⪡', 'D<', 'T', 'DT', 'B', 'DB']
+for s in ['', '_', '$', 'X', 'DX', '⪡', 'T', 'B', 'C']
   for m in ['n', 'x'] | exe m.'noremap <silent> <Plug>(nou-bar'.s.')'
       \" :<C-u>call nou#bar('".s."',v:count,".(m==#'x').")<CR>"
 endfor | endfor
@@ -286,7 +286,7 @@ let s:nou_mappings += [
   \ ['n',  '<LocalLeader>^', '<Plug>(nou-bar⪡)'],
   \ ['nx', '<LocalLeader>t', '<Plug>(nou-barT)'],
   \ ['nx', '<LocalLeader>b', '<Plug>(nou-barB)'],
-  \ ['nx', '<LocalLeader>B', '<Plug>(nou-barDB)'],
+  \ ['nx', '<LocalLeader>B', '<Plug>(nou-barC)'],
   \]
 
 " TODO: <LL>rt -> replace on hours, <LL>rm -> replace on minutes ALT: "c<LL>:"
