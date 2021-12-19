@@ -162,6 +162,8 @@ nmap <buffer> <Plug>(nou-cvt-task) d<Plug>(textobj-nou-lead-i)c<Plug>(textobj-no
 
 " Python #just
 nmap <buffer> <Plug>(nou-fix-claimed) :call NouFixClaimed()<CR>
+map <buffer> <Plug>(nou-log-next) :<C-u>call NouLogAdvance(1)<CR>
+map <buffer> <Plug>(nou-log-prev) :<C-u>call NouLogAdvance(-1)<CR>
 
 " TODO: <count><LL>m must set minutes w/o changing hours
 "   IDEA: pick different cmd depending on <count>
@@ -180,6 +182,8 @@ nmap <buffer> <Plug>(nou-fix-claimed) :call NouFixClaimed()<CR>
 "   ['n', '<LocalLeader>;', '<Plug>(nou-set-goal-now)'],
 let s:nou_mappings = [
   \ ['nx', 'gf', '<Plug>(nou-path-open)'],
+  \ ['nx', '[g', '<Plug>(nou-log-prev)'],
+  \ ['nx', ']g', '<Plug>(nou-log-next)'],
   \ ['n', '<LocalLeader>yx', '<Plug>(nou-task-xts-beg)'],
   \ ['n', '<LocalLeader>yX', '<Plug>(nou-task-xts-end)'],
   \ ['n', '<LocalLeader>a', '<Plug>(nou-date-a)'],
@@ -318,3 +322,8 @@ if exists('s:nou_mappings')
 endif
 
 runtime ftplugin/textobj/nou.vim
+
+" FAIL: lazy loading + WTF? plugin loading order
+"   TEMP: add directly to /@/airy/vim/cfg/plugins/environment.vim
+" if exists('*altr#define')
+" call altr#define(['%/key/%', '%/log/%', '%/key/*/%', '%/log/*/%'])
