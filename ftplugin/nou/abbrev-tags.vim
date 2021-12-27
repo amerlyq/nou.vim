@@ -35,6 +35,7 @@ inoreabbr <buffer> tm; #taskmgmt
 inoreabbr <buffer> to; #taskmgmt:overview
 inoreabbr <buffer> tp; #taskmgmt:planning
 inoreabbr <buffer> tr; #taskmgmt:tracking
+inoreabbr <buffer> trp; #taskmgmt:tracking,planning
 inoreabbr <buffer> ts; #taskmgmt:stats
 inoreabbr <buffer> tt; #taskmgmt:tracking
 inoreabbr <buffer> tw; #taskmgmt:sweeping

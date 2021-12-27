@@ -64,7 +64,7 @@ let s:nou.term.colors = {
   \ 'Foc': ['\>', '\<', 'ctermfg=166 guifg=#df5f00 gui=bold,underline'],
   \ 'Ops': ['·', '·', 'ctermfg=161 guifg=#df005f gui=bold'],
   \ 'Str': ['"', '"', 'ctermfg=81 guifg=#5fdfff'],
-  \ 'Quo': ['“', '”', 'ctermfg=81 guifg=#5fdfff gui=italic,undercurl'],
+  \ 'Quo': ['“', '”', 'ctermfg=81 guifg=#5fdfff guisp=blue gui=italic,undercurl'],
   \ 'Err': ['!', '!', 'ctermfg=124 guifg=#b40000 gui=bold,italic'],
   \ 'Que': ['\?', '\?', 'ctermfg=172 guifg=#df8700 gui=bold,italic'],
   \ 'Wrn': ['\~', '\~', 'ctermfg=142 guifg=#b4b400 gui=bold,italic'],
