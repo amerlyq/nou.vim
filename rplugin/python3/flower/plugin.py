@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any
 
 import pynvim
-from just.flower.tenjo.manipulate import entry_replace_spec
+from just.flower.tenjo.lib.manipulate import entry_replace_spec
 
 
 @pynvim.plugin
