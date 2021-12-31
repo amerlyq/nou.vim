@@ -13,7 +13,8 @@ digraph <. 10913   " ⪡ before then
 digraph >. 10914   " ⪢ ?delegated? OR after then
 
 digraph ok 10003   " ✓ = result as expected
-digraph xx 10007   " ✗  = result had failed
+digraph xx 10007   " ✗ = result had failed
+digraph C+ 8862    " ⊞ = unplanned additional task
 digraph CA 9676    " ◌ = check and wait response again (OR ⚬)
 digraph CC 9684    " ◔|𝌙  = partial progress increment
 digraph CD 9654    " ▶ = delegated to ALT=TT|DD
@@ -29,6 +30,7 @@ digraph FM 128233  " 📩 #feed related to mail
 
 digraph RR 8635    " ↻ = repeated/framework ALT=OO
 digraph SS 8902    " ⋆ = planned/agenda ALT=II|AA
+digraph ++ 8862    " ⊞ = unplanned additional task
 digraph ~~ 8776    " ≈ = doubtful / ALMOST EQUAL TO
 digraph ?? 8263    " ⁇ = unsure if worthy  OR:: ❔❓⍰ ⁈ ⁉ ¿⸮ ⩻⩼ ㉄︖﹖？🯄
 digraph !! 8252    " ‼ =
