@@ -78,7 +78,8 @@ syn match nouPathHead display excludenl contained nextgroup=nouPathBody
 syn region nouPathEscaped display oneline keepend excludenl transparent
   \ contains=@nouPathUnixQ
   \ start='\%(^\|[,({\[[:blank:]]\@1<=\)\ze/[^/[:blank:]0-9]'
-  \ start='\%(^\|[,({\[[:blank:]]\@1<=\)\ze[~@:%.&/…☤♆☆★]/'
+  \ start='\%(^\|[,({\[[:blank:]]\@1<=\)\ze//[^/[:blank:]]'
+  \ start='\%(^\|[,({\[[:blank:]]\@1<=\)\ze[~@:%.&…☤♆☆★]/'
   \ start='\%(^\|[,({\[[:blank:]]\@1<=\)\ze\.\./'
   \ start='\%(^\|[,({\[[:blank:]]\@1<=\)\ze\$\w\+/'
   \ start='\%(^\|[,({\[[:blank:]]\@1<=\)\ze\${[^}]\+}/'

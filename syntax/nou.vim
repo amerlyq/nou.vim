@@ -209,6 +209,7 @@ syn cluster nouGenericQ add=nouComment
 hi def link nouComment Comment
 syn region nouComment display oneline keepend excludenl
   \ start='\v%(^|\s\zs)\z([#]{1,4})\s' end='\v\s\z1%(\ze\s|$)' end='$'
+syn match nouComment display excludenl '\v%(^|\s)\zs//\ze\s'
 
 " NOTE: developer's documentation comments
 syn cluster nouGenericQ add=nouCommentDevDoc
