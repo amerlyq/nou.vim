@@ -64,7 +64,7 @@ let s:Restimated = '\('.s:Rtimespan.'\)'
 let s:Relapsed = '%('.s:Rduration.'|'.s:Restimated.'|'
   \.s:Rduration.s:Restimated.'|'.s:Rduration.'\(\))'
 
-let s:Rinfix = '[↻◔⋆↯✓✗💛▶➥]'
+let s:Rinfix = '[↻ᚹ◔⋆↯✓✗💛▶➥]'
 let s:Rassoc = '\<\k+\>'
 let s:Rmood = '[-*•@+=:~?!<>]{-1,3}'
 

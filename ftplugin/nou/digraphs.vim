@@ -14,16 +14,20 @@ digraph >. 10914   " ⪢ ?delegated? OR after then
 
 digraph ok 10003   " ✓ = result as expected
 digraph xx 10007   " ✗ = result had failed
-digraph C+ 8862    " ⊞ = unplanned additional task
-digraph CA 9676    " ◌ = check and wait response again (OR ⚬)
-digraph CC 9684    " ◔|𝌙  = partial progress increment
+digraph c+ 8862    " ⊞ = unplanned additional task
+digraph ca 9676    " ◌ = check and wait response again (OR ⚬)
+digraph cc 9684    " ◔|𝌙  = partial progress increment
 digraph CD 9654    " ▶ = delegated to ALT=TT|DD
 digraph \|> 9654   " ▶ = delegated to
-digraph CE 128282  " 🔚 = end of continuation
-digraph CK 9676    " ◌ = check and wait response again (OR ⚬)
-digraph CQ 10149   " ➥ = query/request (delegate from) ALT=NN|FF
+digraph ce 128282  " 🔚 = end of continuation
+digraph cf 5817    " ᚹ = preps / configure / setup
+digraph ck 9676    " ◌ = check and wait response again (OR ⚬)
+digraph cq 10149   " ➥ = query/request (delegate from) ALT=NN|FF
 digraph `> 10149   " ➥ = query/request (delegate from)
-digraph CS 128284  " 🔜 next prio
+digraph cp 5817    " ᚹ = preps / configure / setup
+digraph cr 8635    " ↻ = repeated/framework ALT=OO
+digraph cs 128284  " 🔜 next prio
+digraph ct 8902    " ⋆ = task/planned/agenda
 
 digraph FC 128242  " 📲 #feed related to call
 digraph FM 128233  " 📩 #feed related to mail
@@ -34,6 +38,8 @@ digraph ++ 8862    " ⊞ = unplanned additional task
 digraph ~~ 8776    " ≈ = doubtful / ALMOST EQUAL TO
 digraph ?? 8263    " ⁇ = unsure if worthy  OR:: ❔❓⍰ ⁈ ⁉ ¿⸮ ⩻⩼ ㉄︖﹖？🯄
 digraph !! 8252    " ‼ =
+digraph ?! 8264    " ⁈ =
+digraph !? 8265    " ⁉ =
 digraph !^ 128285  " 🔝 top prio
 digraph !T 128285  " 🔝 top prio
 digraph !S 128284  " 🔜 next prio
@@ -42,11 +48,11 @@ digraph !S 128284  " 🔜 next prio
 " ALT: exe 'digraph ES '.char2nr('⌁')
 digraph ES 8961    " ⌁  strong / empowering
 digraph ER 8961    " ⌁  recharging / replenishing
-digraph EE 8961    " ⌁  empowering
+digraph ee 8961    " ⌁  empowering
 digraph EN 8961    " ⌁  energizing
-digraph EF 9107    " ⎓  flat / neutral / bearable
+digraph ef 9107    " ⎓  flat / neutral / bearable
 digraph EM 9107    " ⎓  mild / middle
-digraph ED 9211    " ⏻  draining / exhausting / tiring
+digraph ed 9211    " ⏻  draining / exhausting / tiring
 digraph EW 9211    " ⏻  weak / wearing
 
 digraph HA 128156  " 💜 passion-related goal
