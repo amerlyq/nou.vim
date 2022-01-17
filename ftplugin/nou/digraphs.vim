@@ -22,12 +22,12 @@ digraph \|> 9654   " ▶ = delegated to
 digraph ce 128282  " 🔚 = end of continuation
 digraph cf 5817    " ᚹ = preps / configure / setup
 digraph ck 9676    " ◌ = check and wait response again (OR ⚬)
+digraph cn 128284  " 🔜 next prio
 digraph cq 10149   " ➥ = query/request (delegate from) ALT=NN|FF
 digraph `> 10149   " ➥ = query/request (delegate from)
 digraph cp 5817    " ᚹ = preps / configure / setup
 digraph cr 8635    " ↻ = repeated/framework ALT=OO
-digraph cs 128284  " 🔜 next prio
-digraph ct 8902    " ⋆ = task/planned/agenda
+digraph cs 8902    " ⋆ = task/planned/agenda
 
 digraph FC 128242  " 📲 #feed related to call
 digraph FM 128233  " 📩 #feed related to mail
