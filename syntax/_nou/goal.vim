@@ -1,7 +1,10 @@
 """ Task Goal && Progress
 
-syn cluster nouTaskQ contains=NONE
+" syn cluster nouTaskQ contains=NONE
 syn cluster nouTextQ add=@nouTaskQ
+
+hi! nouXts ctermfg=238 guifg=#384e45
+syn match nouXts display excludenl containedin=@nouTaskQ contains=@NoSpell '[\u2800-\u28FF]\{2,4\}'
 
 "" ATT: must be after nouNumber to override date
 " DISABLED: too bright checkbox is distracting
@@ -19,6 +22,7 @@ syn match nouTaskWait display excludenl '\V[…]'
 hi! nouTaskDone ctermfg=14 guifg=#586e75
 syn cluster nouTaskQ add=nouTaskDone
 syn match nouTaskDone display excludenl '\V[X]'
+syn match nouTaskDone display excludenl '\V[/]'  " overlap/during
 syn match nouTaskDone display excludenl '\v\[[\u2800-\u28FF]{2}\]'  " day
 syn match nouTaskDone display excludenl '\v\[[\u2800-\u28FF]{4}\]'  " ts
 
@@ -38,6 +42,7 @@ syn match nouTaskDone display excludenl '\v\[[\u2800-\u28FF]{4}\]'  " ts
 hi! nouTaskFrame cterm=bold gui=bold ctermfg=14 guifg=#586e75
 syn cluster nouTaskQ add=nouTaskFrame
 syn match nouTaskFrame display excludenl '\[[∞◦‣%#￪￬⟫≫]\]'
+syn match nouTaskFrame display excludenl '\v\[[∞◦‣%#￪￬⟫≫][\u2800-\u28FF]{2,4}\]'
 
 hi! nouTaskFeed cterm=bold gui=bold ctermfg=251 guifg=#c6c6c6
 syn match nouTaskFeed display excludenl contained containedin=nouTaskFrame '[∞◦‣]'
@@ -66,6 +71,7 @@ syn match nouTaskPushBwd display excludenl contained containedin=nouTaskFrame '�
 hi! nouTaskNow cterm=bold gui=bold ctermfg=251 guifg=#c6c6c6
 syn cluster nouTaskQ add=nouTaskNow
 syn match nouTaskNow display excludenl '\V[•]'
+syn match nouTaskNow display excludenl '\v\[•[\u2800-\u28FF]{2,4}\]'
 
 hi! nouTaskMandatory cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=196 guifg=#ff0000
 syn cluster nouTaskQ add=nouTaskMandatory
@@ -78,14 +84,17 @@ syn match nouTaskToday display excludenl '\V[@]'
 hi! nouTaskCancel ctermfg=88 guifg=#870000
 syn cluster nouTaskQ add=nouTaskCancel
 syn match nouTaskCancel display excludenl '\V[$]'
+syn match nouTaskCancel display excludenl '\v\[\$[\u2800-\u28FF]{2,4}\]'
 
 hi! nouTaskAlso ctermfg=22 guifg=#1f881f
 syn cluster nouTaskQ add=nouTaskAlso
 syn match nouTaskAlso display excludenl '\V[+]'
+syn match nouTaskAlso display excludenl '\v\[\+[\u2800-\u28FF]{2,4}\]'
 
 hi! nouTaskPostpone ctermfg=62 guifg=#5f5fdf
 syn cluster nouTaskQ add=nouTaskPostpone
 syn match nouTaskPostpone display excludenl '\V[>]'
+syn match nouTaskPostpone display excludenl '\v\[\>[\u2800-\u28FF]{2,4}\]'
 
 hi! nouTaskDoneBefore ctermfg=94 guifg=#875f00
 syn cluster nouTaskQ add=nouTaskDoneBefore

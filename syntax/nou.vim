@@ -29,13 +29,11 @@ hi! nouConceal ctermfg=8 guifg=#001b26
 call nou#syntax#art_delim('[[:punct:]]+')
 " ATT: placed before accents, to distinguish _underline_ from _extension
 call nou#syntax#artf_ext()
-runtime autoload/nou/syntax/tag.vim
+runtime syntax/_nou/tag.vim
 call nou#syntax#artf_contact()
-runtime autoload/nou/syntax/artf.vim
-runtime autoload/nou/syntax/infix.vim
 
 " ATT: must be before "nou#syntax#term(k)" to be overridden by "!term!"
-runtime autoload/nou/syntax/version.vim
+runtime syntax/_nou/version.vim
 
 
 " BUG: w/o embedded syntax highlight -- "IDEA:(aa):" isn't highlighted as function
@@ -66,7 +64,7 @@ call nou#syntax#artf_function()
 "   DEV: toggle by option -- individual colors or general one
 "     NOTE: general has merits of contrast and more performance than individual
 
-runtime autoload/nou/syntax/operator.vim
+runtime syntax/_nou/operator.vim
 for k in keys(g:nou.term.colors)
   call nou#syntax#term(k)
 endfor
@@ -132,15 +130,18 @@ for i in range(len(g:nou.decision.colors))
 endfor
 
 
+runtime syntax/_nou/artf.vim
+runtime syntax/_nou/infix.vim
 "" ATT: must be after nouArtifactKey for correct 'nouNumberXaddr' hi!
-"" BAD:(syntax/nou/*): will load all files inside by vim itself
-runtime autoload/nou/syntax/number.vim
-runtime autoload/nou/syntax/path.vim
+"" [_] BAD:(syntax/_nou/*): will load all files inside by vim itself
+""   FIXED:HACK: add prefix to folder "_nou" to prevent glob auto-loading
+runtime syntax/_nou/number.vim
+runtime syntax/_nou/datetime.vim
+runtime syntax/_nou/path.vim
 call nou#syntax#regex()  " ATT: must be after nouPath to override rgx=/.../
-runtime autoload/nou/syntax/keyval.vim
-runtime autoload/nou/syntax/group.vim
-runtime autoload/nou/syntax/datetime.vim
-runtime autoload/nou/syntax/goal.vim
+runtime syntax/_nou/keyval.vim
+runtime syntax/_nou/group.vim
+runtime syntax/_nou/goal.vim
 
 
 " CHECK:
@@ -160,12 +161,11 @@ for ft in keys(g:nou.embed)
   call nou#syntax#embedded(ft)
 endfor
 
-syn cluster nouTextQ add=@Spell,@nouGenericQ
-  \,@nouArtifactQ,@nouAccentQ,@nouTermQ,@nouEmbedQ
+syn cluster nouTextQ add=@Spell,@nouArtifactQ,@nouAccentQ,@nouTermQ,@nouEmbedQ
 
 " WARNING: define after accents!
-runtime autoload/nou/syntax/block.vim
-runtime autoload/nou/syntax/xtref.vim
+runtime syntax/_nou/block.vim
+runtime syntax/_nou/xtref.vim
 
 " EXPL: must be last line -- set single-loading guard only if no exceptions
 let b:current_syntax = 'nou'

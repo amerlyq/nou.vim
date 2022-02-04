@@ -6,6 +6,7 @@
 " ALT: explicit sfx /%(-%(Mon|Tue|Wed|Thu|Fri|Sat|Sun|Mo|Tu|We|Th|Fr|Sa|Su))?/
 " MAYBE: different darkish color for dates below 2000-- to emphasize unrelated historical meaning?
 
+syn cluster nouTextQ add=@nouGenericQ
 syn cluster nouGenericQ add=nouDate
 hi! nouDate ctermfg=178 guifg=#dfaf00
 syn match nouDate display excludenl
