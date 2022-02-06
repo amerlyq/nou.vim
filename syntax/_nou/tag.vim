@@ -30,6 +30,9 @@ syn match nouHashTagParam display excludenl contained ':[^:#[:blank:]]\+'
 hi nouHashTagList cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=95 guifg=#8f6f5f
 syn match nouHashTagList display excludenl contained containedin=nouHashTagParam ','
 
+hi nouHashTagValue cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=58 guifg=#6f6842
+syn match nouHashTagValue display excludenl contained containedin=nouHashTagParam '=[^=,]\+'
+
 
 """ Concepts
 " [_] TRY:DEV: dereferencing by <g[> and <gf>

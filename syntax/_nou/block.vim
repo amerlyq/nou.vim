@@ -149,9 +149,10 @@ syn region nouLineRaw keepend excludenl extend
 "   -- Moreover -- we can't make something like oneline block (``` ... ```)
 " BAD:(fold) don't work with 'fdm=indent'
 " BUG:(display): when scroling from bottom -- last found closing ``` is treated as beginning
-syn region nouBlockMarkdown keepend excludenl transparent fold extend
-  \ matchgroup=Special containedin=@nouOutlineQ
-  \ start='\v`{3}' end='\v`{3}'
+"" DISABLED[⡡⣾⢍⡤]:UNUSED: prevent interfering with .delim, use "::" for SRC
+" syn region nouBlockMarkdown keepend excludenl transparent fold extend
+"   \ matchgroup=Special containedin=@nouOutlineQ
+"   \ start='\V```' end='\V```'
 
 
 """ Blocks

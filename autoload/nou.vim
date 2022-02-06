@@ -203,10 +203,17 @@ fun! nou#path_open(path, ...)
     norm! gf
     return
   en
-  " NOTE: find primary file as first readable candidate in multivariants
-  if type(p) == type([])| let [p, xs] = [get(p, 0, ''), p]
+
+  if type(p) == type([])
+    " NOTE: find primary file as first readable candidate in multivariants
+    let [p, xs] = [get(p, 0, ''), p]
     for x in xs| if filereadable(x)| let p = x | break |en |endfor
+  elseif type(p) == type("") && p =~# "*"
+    " NOTE: find one latest (most recent) file when passing glob(*) in path
+    " ALT: let latest = sort(systemlist("find -H /@/todo/now -mindepth 1 -type f -printf '%T@ %p\n'"))[-1]
+    let p = py3eval('max(__import__("glob").iglob("/@/todo/now/*"), key=__import__("os.path").path.getmtime)')
   endif
+
   " TODO: if directory -- open in embedded fm/ranger
   if !bang && !filereadable(p)
     echohl ErrorMsg
