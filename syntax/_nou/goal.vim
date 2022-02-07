@@ -22,9 +22,15 @@ syn match nouTaskWait display excludenl '\V[…]'
 hi! nouTaskDone ctermfg=14 guifg=#586e75
 syn cluster nouTaskQ add=nouTaskDone
 syn match nouTaskDone display excludenl '\V[X]'
-syn match nouTaskDone display excludenl '\V[/]'  " overlap/during
 syn match nouTaskDone display excludenl '\v\[[\u2800-\u28FF]{2}\]'  " day
 syn match nouTaskDone display excludenl '\v\[[\u2800-\u28FF]{4}\]'  " ts
+
+
+" Overlap/Overlay/During
+hi! nouTaskOverlap ctermfg=101 guifg=#958e68
+syn cluster nouTaskQ add=nouTaskOverlap
+syn match nouTaskOverlap display excludenl '\V[/]'
+
 
 "" MAYBE:
 " gui=reverse,bold
