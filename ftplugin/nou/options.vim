@@ -10,8 +10,23 @@ setl comments=b:#,b:#%,bO:\|,b:¦,b:│  ",f:'''
 setl commentstring=#\ %s
 
 setl nowrap
-setl foldmethod=indent
 setl conceallevel=2  " NEED=2: nouSpoiler uses 'cchar'
+
+fun! FoldExprIndentBlock(lnum)
+  let ln = getline(a:lnum)
+  " FIXME: should properly expand <Tab> e.g. indent(ln)
+  let ns = match(ln, '\S')
+  let empty = ns < 0
+  " let lvl = (ns + 1) / shiftwidth()
+  let lvl = ns / shiftwidth() + 1
+  let nextnonempty = getline(a:lnum + 1) =~ '\S'
+  " HACK:(ns+1) fold even top-level blocks
+  return ( !empty ? lvl : nextnonempty ? '<1' : 1 )
+  " return ( empty && nextnonempty ? '<1' : 1 )
+  " return ( !empty ? indent(a:lnum) + 1 : nextnonempty ? '<1' : 1 )
+endf
+setl foldmethod=expr foldexpr=FoldExprIndentBlock(v:lnum)
+" setl foldlevel=99 foldmethod=indent
 
 " NOTE: don't use any of "nv" -- to show nouSpoiler on cursor
 "   * ALSO:BAD: irritating 'lag' on cursor move in line
