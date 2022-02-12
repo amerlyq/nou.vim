@@ -166,6 +166,11 @@ nmap <buffer> <Plug>(nou-cvt-task) d<Plug>(textobj-nou-lead-i)c<Plug>(textobj-no
 
 " Python #just
 nmap <buffer> <Plug>(nou-fix-claimed) :call NouFixClaimed()<CR>
+" TRY:BET: simply open next/prev file in dir (sorted by date)
+"   BAD: can't jump between today and archived prevday
+"     MAYBE: directly create new items inside archived dir
+"     BAD: can't detect which log/key still has unclosed items
+"       MAYBE: printing warning into log is enough, and better than moving log
 map <buffer> <Plug>(nou-log-next) :<C-u>call NouLogAdvance(1)<CR>
 map <buffer> <Plug>(nou-log-prev) :<C-u>call NouLogAdvance(-1)<CR>
 
