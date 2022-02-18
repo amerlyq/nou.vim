@@ -25,7 +25,7 @@ hi nouHashTagPfx cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=136 guifg=#
 syn match nouHashTagPfx display excludenl contained '[#.]'
 
 hi nouHashTagParam cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=101 guifg=#958e68
-syn match nouHashTagParam display excludenl contained ':[^:#[:blank:]]\+'
+syn match nouHashTagParam display excludenl contained keepend ':[^:#[:blank:]]\+'
 
 hi nouHashTagList cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=95 guifg=#8f6f5f
 syn match nouHashTagList display excludenl contained containedin=nouHashTagParam ','
