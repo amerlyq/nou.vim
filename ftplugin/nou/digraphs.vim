@@ -59,3 +59,10 @@ digraph HA 128156  " 💜 passion-related goal
 digraph !+ 128156  " 💜 passion-related goal
 digraph !. 8623    " ↯ = important/agenda (like a [lightning] bolt from the blue)
 digraph II 8623    " ↯ = important/agenda ALT=HH|UU
+
+
+digraph :( 9785    " ☹  emoji frown
+digraph :) 9786    " ☺  emoji smile
+digraph (: 9786    " ☻  emoji smile
+digraph ): 128544  " 😠 emoji angry
+digraph :D 128516  " 😄 emoji laugh

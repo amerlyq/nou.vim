@@ -81,6 +81,8 @@ let s:nou.term.colors = {
   \ 'NotH': ['\-\-', '\-\-', 'ctermfg=44 guifg=#00dfdf gui=bold,italic,undercurl'],
   \ 'Standout': ['\|', '\|', 'ctermbg=16 guibg=#000000'],
   \ 'Meta': [':', ':', 'cterm=bold ctermfg=167 gui=bold guifg=#df5f5f'],
+  \ 'Entry': ['⸢', '⸥', 'ctermfg=98 guifg=#875fdf'],
+  \ 'Budget': ['⦏', '⦐', 'ctermfg=76 guifg=#5fc400'],
   \ }
 
 
