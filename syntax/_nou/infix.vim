@@ -33,5 +33,5 @@ syn match nouEmojiPurple display excludenl '[ᚹ]'
 
 syn cluster nouArtifactEmojiQ add=nouEmojiPink
 hi nouEmojiPink cterm=NONE ctermbg=NONE gui=NONE guibg=NONE ctermfg=161 guifg=#df1f5f
-syn match nouEmojiPink display excludenl '[≈▶➥]'
+syn match nouEmojiPink display excludenl '[≈▶➥±]'
 " }}}

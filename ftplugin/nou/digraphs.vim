@@ -7,6 +7,8 @@ digraph @@ 9764    " ☤  dev repo (aura/**)
 digraph @# 9798    " ♆  program/package configuration (airy/*)
 digraph (( 10629   " ⦅ = nouLineSyntax
 digraph )) 10630   " ⦆ = nouLineSyntax
+digraph [[ 10214   " ⟦ table
+digraph ]] 10215   " ⟧ table
 digraph ** 8226    " •
 digraph *  8226    " •
 digraph <. 10913   " ⪡ before then

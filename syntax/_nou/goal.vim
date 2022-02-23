@@ -47,8 +47,9 @@ syn match nouTaskOverlap display excludenl '\V[/]'
 
 hi! nouTaskFrame cterm=bold gui=bold ctermfg=14 guifg=#586e75
 syn cluster nouTaskQ add=nouTaskFrame
-syn match nouTaskFrame display excludenl '\[[∞◦‣%#￪￬⟫≫*]\]'
+syn match nouTaskFrame display excludenl '\[[∞◦‣%#￪￬⟫≫]\]'
 syn match nouTaskFrame display excludenl '\v\[[∞◦‣%#￪￬⟫≫*][\u2800-\u28FF]{2,4}\]'
+syn match nouTaskFrame display excludenl '\v\[[*][_%]?\]'
 
 hi! nouTaskFeed cterm=bold gui=bold ctermfg=251 guifg=#c6c6c6
 syn match nouTaskFeed display excludenl contained containedin=nouTaskFrame '[∞◦‣]'
@@ -97,7 +98,7 @@ syn match nouTaskCancel display excludenl '\v\[\$[\u2800-\u28FF]{2,4}\]'
 
 hi! nouTaskAlso ctermfg=22 guifg=#1f881f
 syn cluster nouTaskQ add=nouTaskAlso
-syn match nouTaskAlso display excludenl '\V[+]'
+syn match nouTaskAlso display excludenl '\v\[[+][_%]?\]'
 syn match nouTaskAlso display excludenl '\v\[\+[\u2800-\u28FF]{2,4}\]'
 
 hi! nouTaskPostpone ctermfg=62 guifg=#5f5fdf
