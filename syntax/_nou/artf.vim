@@ -9,7 +9,7 @@ syn match nouTableDelim display excludenl '|'
 "" ATT: placed before nouObjectPfx to override @Name.Surname
 syn cluster nouArtifactQ add=nouArtifactAddressing
 hi nouArtifactAddressing cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=80 guifg=#5fdfdf
-syn match nouArtifactAddressing display excludenl /\v%(^|[(\[{,;|[:blank:]]@1<=)%(\@\a\k{-}%(\.\k{-})?)%([|;,}\])[:blank:]]@1=|$)/
+syn match nouArtifactAddressing display excludenl /\v%(^|[(\[{,;|[:blank:]]@1<=)%(\@\a\k{-}%(\.\k{-})?%(\@[a-z.]+)?)%([|;,}\])[:blank:]]@1=|$)/
 hi nouArtifactAddrName cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=75 guifg=#67afff
 syn match nouArtifactAddrName display excludenl contained containedin=nouArtifactAddressing /\v\@%(\k{-}\.|\u\u@1=)?/
 
