@@ -108,14 +108,6 @@ fun! nou#syntax#term(k)
   call nou#syntax#_highlight(nm, '', c)
 endf
 
-fun! nou#syntax#art_delim(r)
-  let nm = 'nouArtifactDelim'
-  exe 'syn cluster nouArtifactQ add='.nm
-  exe 'syn match '.nm.' display excludenl'
-    \.' '.s:pbe(a:r)
-  exe 'hi link '.nm.'  Special'
-endf
-
 fun! nou#syntax#header(i)
   let nm = 'nouHeader'.a:i
   let c = g:nou.header.colors[a:i]

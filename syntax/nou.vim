@@ -26,7 +26,16 @@ hi! nouConceal ctermfg=8 guifg=#001b26
 
 """ NOTE: placed at top to be overrided by decisions
 " BUG: inlined decisions (? ... ) -- will be FIXED by def their syntax
-call nou#syntax#art_delim('[[:punct:]]+')
+" call nou#syntax#art_delim('[[:punct:]]+')
+syn cluster nouArtifactQ add=nouArtifactDelim
+" HACK: hi only standalone symbols, which are not part of the words
+syn match nouArtifactDelim display excludenl
+  \ '\v%(^|[(\[{,;|[:blank:]]@1<=)%([[:punct:]]+)%([|;,}\])[:blank:]]@1=|$)'
+" HACK: always hi ";" to see separator clearly -- and USE it more often
+syn match nouArtifactDelim display excludenl /;/
+hi link nouArtifactDelim Special
+
+
 " ATT: placed before accents, to distinguish _underline_ from _extension
 call nou#syntax#artf_ext()
 runtime syntax/_nou/tag.vim
