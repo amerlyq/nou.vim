@@ -18,7 +18,7 @@ class TestPlugin:
     # DEBUG:  :echo NouLogAdvance(-1,1)
     # :<C-u>exe 'edit '. fnameescape(NouLogAdvance(1))<CR>
     @pynvim.function("NouLogAdvance", sync=True)
-    def logadvance(self, args: Any):
+    def logadvance(self, args: Any) -> str | None:
         advance = args[0] if args else 0
         noedit = bool(args[1]) if len(args) > 1 else False
         p = Path(self.nvim.current.buffer.name)
@@ -40,7 +40,7 @@ class TestPlugin:
                         self.nvim.command("edit " + str(fpath))
 
     @pynvim.command("TestCmd", nargs="*", range="")
-    def testcommand(self, args, rng):
+    def testcommand(self, args: Any, rng: Any) -> None:
         self.nvim.current.line = "Cmd with args: {}, range: {}".format(args, rng)
 
     # @pynvim.autocmd("BufEnter", pattern="*.py", eval='expand("<afile>")', sync=True)

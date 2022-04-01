@@ -59,10 +59,10 @@ fun! nou#bar(...) range
   endif
   if pfx =~# 'B'  " = braille unix time
     let xts = substitute(printf('%08x', strftime('%s')), '..', '\=nr2char("0x28".submatch(0))', 'g')
-    let pfx = substitute(pfx, 'B', '['.xts.'] ', '')
+    let pfx = substitute(pfx, 'B', '['.xts.'] \\3', '')
   elseif pfx =~# 'C'  " = braille calendar day
     let xdt = trim(system('just xts cvt '.shellescape(strftime('%Y-%m-%d')).' date xts2'))
-    let pfx = substitute(pfx, 'C', '['.xdt.'] ', '')
+    let pfx = substitute(pfx, 'C', '['.xdt.'] \\3', '')
   endif
   if pfx =~# '⪡'
     let xdt = trim(system('just xts cvt '.shellescape(strftime('%Y-%m-%d')).' date xts2'))
