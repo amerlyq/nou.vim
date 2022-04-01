@@ -3,6 +3,7 @@
 " digraph *1 9734  " ☆ =DFL generic feature
 " digraph *2 9733  " ★ =DFL favorite feature
 
+digraph bb  166    " ¦ block bar
 digraph @@ 9764    " ☤  dev repo (aura/**)
 digraph @# 9798    " ♆  program/package configuration (airy/*)
 digraph (( 10629   " ⦅ = nouLineSyntax
