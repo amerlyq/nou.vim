@@ -1,5 +1,4 @@
 """ Tag
-syn cluster nouArtifactQ add=nouHashTag,nouConceptTag
 
 " THINK: hashtags -- directly attached to words - EXPL: @some #tag &link
 
@@ -11,9 +10,9 @@ syn cluster nouArtifactQ add=nouHashTag,nouConceptTag
 " MAYBE:USE: for &ref-tag
 " hi nouHashTag cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=62 guifg=#5f5fdf
 
+syn cluster nouArtifactQ add=nouHashTag
 hi nouHashTag cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=142 guifg=#afaf00
-syn match nouHashTag display excludenl contains=nouHashTagPfx,nouHashTagParam
-  \ /\v%(^|[(\[{,;|[:space:]]@1<=)%([#]+\k\S{-})%([|;,}\])[:space:]]@1=|$)/
+syn match nouHashTag display excludenl /\v%(^|[(\[{,;|[:space:]]@1<=)%([#]+\k\S{-})%([|;,}\])[:space:]]@1=|$)/
 
 
 " OR:(standout): hi nouHashTagPfx cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=130 guifg=#b86f00
@@ -22,10 +21,10 @@ syn match nouHashTag display excludenl contains=nouHashTagPfx,nouHashTagParam
 " OR:(bright): hi nouHashTagPfx cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=172 guifg=#df8700
 " OR:(light): compromise
 hi nouHashTagPfx cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=136 guifg=#bf7f00
-syn match nouHashTagPfx display excludenl contained '[#.]'
+syn match nouHashTagPfx display excludenl contained containedin=nouHashTag '[#.]'
 
 hi nouHashTagParam cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=101 guifg=#958e68
-syn match nouHashTagParam display excludenl contained keepend ':[^:#[:blank:]]\+'
+syn match nouHashTagParam display excludenl contained containedin=nouHashTag keepend ':[^:#[:blank:]]\+'
 
 hi nouHashTagList cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=95 guifg=#8f6f5f
 syn match nouHashTagList display excludenl contained containedin=nouHashTagParam ','
@@ -34,8 +33,21 @@ hi nouHashTagValue cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE cte
 syn match nouHashTagValue display excludenl contained containedin=nouHashTagParam '=[^=,]\+'
 
 
+""" ProjectToken / UrlAlias
+" e.g. <^JIRA-12345>
+" [_] MAYBE:SEP: differentiate UrlAlias (dereferencable) and TagToken (fuzzymatch)
+syn cluster nouArtifactQ add=nouPjTag
+hi nouPjTag cterm=bold,reverse ctermbg=NONE gui=bold,reverse guibg=NONE ctermfg=62 guifg=#6c71c4
+syn match nouPjTag display excludenl /\v%(^|[(\[{,;|[:blank:]]@1<=)%(\^\S{-1,})%([|;,}\])[:blank:]]@1=|$)/
+
+" ALT: 59=#5f5f5f
+hi nouPjPfx cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=20 guifg=#1f2fcf
+syn match nouPjPfx display excludenl contained containedin=nouPjTag '\V^'
+
+
 """ Concepts
 " [_] TRY:DEV: dereferencing by <g[> and <gf>
+syn cluster nouArtifactQ add=nouConceptTag
 hi nouConceptTagPfx cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=30 guifg=#008787
 syn match nouConceptTagPfx display excludenl contained '[&]'
 
