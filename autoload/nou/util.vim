@@ -21,10 +21,10 @@ let s:Rday = '%([012][0-9]|3[01])'
 let s:Rwkdaynm ='(Mon|Tue|Wed|Thu|Fri|Sat|Sun)'  " OR: %(-\u\l\l?)
 let s:Rweek='W([0-4][0-9]|5[0-3])'
 let nou#util#Rdate = s:Ryear.'-'.s:Rmonth.'-'.s:Rday
-let s:Rcal  = nou#util#Rdate.'%(-'.s:Rwkdaynm.')?%(-'.s:Rweek.')?'
+let nou#util#Rcal  = nou#util#Rdate.'%(-'.s:Rwkdaynm.')?%(-'.s:Rweek.')?'
 let s:Rwkyear = s:Ryear.'-'.s:Rweek
 let s:Rwkcury = 'C'.s:Rweek
-let s:Ranydate = '<%('.s:Rcal.'|'.s:Rwkyear.'|'.s:Rwkcury.')>'
+let s:Ranydate = '<%('.nou#util#Rcal.'|'.s:Rwkyear.'|'.s:Rwkcury.')>'
 
 "" time
 let s:Rhours = '%([0-9]|[01][0-9]|2[0-4])'

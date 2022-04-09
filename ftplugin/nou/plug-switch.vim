@@ -43,8 +43,9 @@ let g:nou_switch_groups +=
   \  , '\v<(20\d{6}_\d{6})>' : {m -> trim(system('just xts cvt '.shellescape(m[0]).' fts unix'))}
   \},{ '\v<('.nou#util#Rdatetime.')>' : {m -> trim(system('just xts cvt '.shellescape(m[0]).' date xts4'))}
   \  , '\v<([\u2800-\u28FF]{4})>' : {m -> trim(system('just xts cvt '.shellescape(m[0]).' xts4 date'))}
-  \},{ '\v<(20\d\d-\d\d-\d\d|20\d{6})>%(.'.nou#util#Rtime.')@!' : {m -> trim(system('just xts cvt '.shellescape(m[0]).' date xts2'))}
-  \  , '\v<([\u2800-\u28FF]{2})>' : {m -> trim(system('just xts cvt '.shellescape(m[0]).' xts2 date'))}
+  \},{ '\v<(20\d{6}|'.nou#util#Rcal.')>%(.'.nou#util#Rtime.')@!'
+  \      : {m -> trim(system('just xts cvt '.shellescape(strpart(m[0],0,10)).' date xts2'))}
+  \  , '\v<([\u2800-\u28FF]{2})>' : {m -> trim(system('just xts cvt '.shellescape(m[0]).' xts2 datew'))}
   \}]
 
 " TODO: wrap into "nou" group
