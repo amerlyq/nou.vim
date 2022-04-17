@@ -17,3 +17,10 @@ syn region nouGroup3 display oneline keepend excludenl contained transparent
 
 syn region nouGroup4 display oneline keepend excludenl contained transparent
   \ start='<'ms=s+1 skip='\\>' end='>'me=e-1
+
+
+""" Terms
+hi! nouPhraseAtomM ctermfg=254 guifg=#e4e4e4 gui=NONE cterm=NONE
+syn cluster nouGroupQ add=nouPhraseAtom
+syn region nouPhraseAtom display oneline keepend excludenl transparent
+  \ contains=NONE matchgroup=nouPhraseAtomM start='‹' end='›'
