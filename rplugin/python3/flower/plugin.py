@@ -50,13 +50,25 @@ class TestPlugin:
     # @pynvim.command("NouFixClaimed", nargs="*", range="")
     @pynvim.function("NouFixClaimed", sync=True)
     def fixclaimed(self, _args: Any) -> tuple[int, int, int, str]:
+        return self._entry_replace_spec("logtimediff")
+
+    @pynvim.function("NouSumHierarchy", sync=True)
+    def sumhierarchy(self, _args: Any) -> tuple[int, int, int, str]:
+        return self._entry_replace_spec("sumtaskhier")
+
+    @pynvim.function("NouSumLogBlock", sync=True)
+    def sumlogblock(self, _args: Any) -> tuple[int, int, int, str]:
+        return self._entry_replace_spec("sumlogblock")
+
+
+    def _entry_replace_spec(self, val:str) -> tuple[int, int, int, str]:
         buf = self.nvim.current.buffer
         path = buf.name
         row, col = self.nvim.current.window.cursor
         (_fpth, lnum, col, nchr, txt) = entry_replace_spec(
             loci=f"{path}:{row}:{col}",
             xkey="span.val.claimed",
-            val=".",
+            val=val,
             lines=buf[:],
         )
         # FIXME: .col is unicode char, not byte offset

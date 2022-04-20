@@ -166,6 +166,8 @@ nmap <buffer> <Plug>(nou-cvt-task) d<Plug>(textobj-nou-lead-i)c<Plug>(textobj-no
 
 
 " Python #just
+nmap <buffer> <Plug>(nou-sum-hierarchy) :call NouSumHierarchy()<CR>
+nmap <buffer> <Plug>(nou-sum-logblock) :call NouSumLogBlock()<CR>
 nmap <buffer> <Plug>(nou-fix-claimed) :call NouFixClaimed()<CR>
 " TRY:BET: simply open next/prev file in dir (sorted by date)
 "   BAD: can't jump between today and archived prevday
@@ -201,6 +203,8 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>C', '<Plug>(nou-jump-current)'],
   \ ['n', '<LocalLeader>D', '<Plug>(nou-set-date-today)'],
   \ ['n', '<LocalLeader>E', '<Plug>(nou-fix-claimed)'],
+  \ ['n', '<LocalLeader>H', '<Plug>(nou-sum-hierarchy)'],
+  \ ['n', '<LocalLeader>L', '<Plug>(nou-sum-logblock)'],
   \ ['n', '<LocalLeader>T', '<Plug>(nou-set-time-now)'],
   \ ['n', '<LocalLeader>i', '<Plug>(nou-date-i)'],
   \ ['n', '<LocalLeader>I', '<Plug>(nou-datew-i)'],
