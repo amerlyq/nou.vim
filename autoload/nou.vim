@@ -91,6 +91,12 @@ fun! nou#bar(...) range
   call setpos('.', l:pos)
 endf
 
+fun! nou#todo_open(path, ...) abort
+  let abspath = (strpart(a:path,0,1) == ':')
+    \ ? '/@/todo'.strpart(a:path,1)
+    \ : a:path
+  return call('nou#path_open', [abspath] + a:000)
+endf
 
 fun! nou#path_open(path, ...)
   let p = a:path
