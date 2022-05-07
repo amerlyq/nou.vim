@@ -18,6 +18,7 @@ let g:nou_switch_groups =
   \, split('↻⋆↯💜', '\zs')
   \, split('~▶✓✗', '\zs')
   \, split('◔🔚', '\zs')
+  \, split('￬￪', '\zs')
   \, ['MAIL', '📩']
   \, ['CALL', '📲']
   \, split('0m 5m 10m 20m 30m 40m 50m')
