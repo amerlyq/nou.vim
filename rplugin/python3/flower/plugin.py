@@ -38,6 +38,15 @@ class TestPlugin:
                         if noedit:
                             return str(fpath)
                         self.nvim.command("edit " + str(fpath))
+        elif nums := re.findall("[0-9]+", p.name):
+            nm, num = p.name, nums[-1]
+            idx = nm.rfind(num)
+            nm = nm[:idx] + str(int(num) + advance) + nm[idx + len(num) :]
+            fpath = next(p.parent.rglob(nm), None)
+            if fpath:
+                if noedit:
+                    return str(fpath)
+                self.nvim.command("edit " + str(fpath))
 
     @pynvim.command("TestCmd", nargs="*", range="")
     def testcommand(self, args: Any, rng: Any) -> None:
@@ -60,8 +69,7 @@ class TestPlugin:
     def sumlogblock(self, _args: Any) -> tuple[int, int, int, str]:
         return self._entry_replace_spec("sumlogblock")
 
-
-    def _entry_replace_spec(self, val:str) -> tuple[int, int, int, str]:
+    def _entry_replace_spec(self, val: str) -> tuple[int, int, int, str]:
         buf = self.nvim.current.buffer
         path = buf.name
         row, col = self.nvim.current.window.cursor
