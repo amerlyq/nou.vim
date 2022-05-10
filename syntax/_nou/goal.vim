@@ -52,13 +52,16 @@ syn match nouTaskFrame display excludenl '\v\[[∞◦‣%#￪￬⟫≫*][\u2800-
 syn match nouTaskFrame display excludenl '\v\[[*][_%]?\]'
 
 hi! nouTaskFeed cterm=bold gui=bold ctermfg=251 guifg=#c6c6c6
-syn match nouTaskFeed display excludenl contained containedin=nouTaskFrame '[∞◦‣]'
+syn match nouTaskFeed display excludenl contained containedin=nouTaskFrame '[∞◦]'
 
 hi! nouTaskPartial cterm=bold gui=bold ctermfg=32 guifg=#0087df
 syn match nouTaskPartial display excludenl contained containedin=nouTaskFrame '%'
 
 hi! nouTaskAggregate cterm=bold gui=bold ctermfg=62 guifg=#5f5fdf
 syn match nouTaskAggregate display excludenl contained containedin=nouTaskFrame '\V*'
+
+hi! nouTaskNext cterm=bold gui=bold ctermfg=226 guifg=#d8d800
+syn match nouTaskNext display excludenl contained containedin=nouTaskFrame '‣'
 
 " RENAME? nouTaskAmend
 hi! nouTaskRephrase cterm=bold gui=bold ctermfg=148 guifg=#afdf00
