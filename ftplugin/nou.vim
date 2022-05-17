@@ -129,6 +129,7 @@ nmap <buffer> <Plug>(nou-set-goal-subtodo) "_c<Plug>(textobj-nou-goal-i)_<Esc>
 nmap <buffer> <Plug>(nou-set-goal-subdone) "_c<Plug>(textobj-nou-goal-i)+<Esc>
 " MAYBE:RENAME:(postpone[>]): -> carry [forward] | rescheduled -- as it's what I actually do
 nmap <buffer> <Plug>(nou-set-goal-postpone) "_c<Plug>(textobj-nou-goal-i)><Esc>
+nmap <buffer> <Plug>(nou-set-goal-beforehand) "_c<Plug>(textobj-nou-goal-i)<<Esc>
 nmap <buffer> <Plug>(nou-set-goal-waiting) "_c<Plug>(textobj-nou-goal-i)…<Esc>
 nmap <buffer> <Plug>(nou-set-goal-likely) "_c<Plug>(textobj-nou-goal-i)~<Esc>
 nmap <buffer> <Plug>(nou-set-goal-unlikely) "_c<Plug>(textobj-nou-goal-i)?<Esc>
@@ -218,7 +219,8 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>#', '<Plug>(nou-set-goal-rephrase)'],
   \ ['n', '<LocalLeader>+', '<Plug>(nou-set-goal-subdone)'],
   \ ['n', '<LocalLeader>>', '<Plug>(nou-set-goal-postpone)'],
-  \ ['n', '<LocalLeader><', '<Plug>(nou-set-goal-delegated)'],
+  \ ['n', '<LocalLeader><', '<Plug>(nou-set-goal-beforehand)'],
+  \ ['n', '<LocalLeader>»', '<Plug>(nou-set-goal-delegated)'],
   \ ['n', '<LocalLeader>,', '<Plug>(nou-set-goal-waiting)'],
   \ ['n', '<LocalLeader>~', '<Plug>(nou-set-goal-likely)'],
   \ ['n', '<LocalLeader>?', '<Plug>(nou-set-goal-unlikely)'],
