@@ -1,7 +1,7 @@
 
 " Line-format has no sense for widechar lines, being treated as one long word
 setl autoindent nocindent indentexpr=
-setl tabstop=2 shiftwidth=2 softtabstop=2
+setl expandtab tabstop=2 shiftwidth=2 softtabstop=2
 " TEMP:(experimental) using text indented by one ' ' on any outline level
 "   + intuitive support for embedded text paragraphs
 "   - lose ability to align mixed-indented text
