@@ -67,6 +67,9 @@ fun! nou#bar(...) range
   if pfx =~# '⪡'
     let xdt = trim(system('just xts cvt '.shellescape(strftime('%Y-%m-%d')).' date xts2'))
     let pfx = substitute(pfx, '⪡', '[⪡'.xdt.'] ', '')
+  elseif pfx =~# '✗'
+    let xdt = trim(system('just xts cvt '.shellescape(strftime('%Y-%m-%d')).' date xts2'))
+    let pfx = substitute(pfx, '✗', '[✗'.xdt.'] ', '')
   endif
 
   " BUG: in VSEL mode wrong cursor pos: '.' == '<

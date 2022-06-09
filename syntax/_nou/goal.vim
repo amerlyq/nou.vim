@@ -96,8 +96,11 @@ syn match nouTaskToday display excludenl '\V[@]'
 
 hi! nouTaskCancel ctermfg=88 guifg=#870000
 syn cluster nouTaskQ add=nouTaskCancel
-syn match nouTaskCancel display excludenl '\V[$]'
-syn match nouTaskCancel display excludenl '\v\[\$[\u2800-\u28FF]{2,4}\]'
+syn match nouTaskCancel display excludenl '\[[$✗]\]'
+syn match nouTaskCancel display excludenl '\v\[[$✗][\u2800-\u28FF]{2,4}\]'
+
+hi! nouTaskFailed ctermfg=196 guifg=#ff0000
+syn match nouTaskFailed display excludenl contained containedin=nouTaskCancel '✗'
 
 hi! nouTaskAlso ctermfg=22 guifg=#1f881f
 syn cluster nouTaskQ add=nouTaskAlso

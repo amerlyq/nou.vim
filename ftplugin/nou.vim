@@ -288,7 +288,7 @@ for i in range(1,9)
     \.' :<C-u>call nou#bar("X'.i.'",'.i.',0)<CR>'
   let s:nou_mappings += [['n', '<LocalLeader>'.i, '<Plug>(nou-barX'.i.')']]
 endfor
-for s in ['', '_', '$', 'X', 'DX', '⪡', 'T', 'B', 'C']
+for s in ['', '_', '$', 'X', '✗', '⪡', 'T', 'B', 'C']
   for m in ['n', 'x'] | exe m.'noremap <silent> <Plug>(nou-bar'.s.')'
       \" :<C-u>call nou#bar('".s."',v:count,".(m==#'x').")<CR>"
 endfor | endfor
@@ -302,12 +302,13 @@ endfor | endfor
 " \ ['nx', '<LocalLeader>d', '<Plug>(nou-barD)'],
 " \ ['n',  '<LocalLeader>^', '<Plug>(nou-barD<)'],
 " \ ['nx', '<LocalLeader>T', '<Plug>(nou-barDT)'],
+" \ ['nx', '<LocalLeader>X', '<Plug>(nou-barDX)'],
 let s:nou_mappings += [
   \ ['x', '<LocalLeader><Del>', '<Plug>(nou-bar)'],
   \ ['nx', '<LocalLeader><Space>', '<Plug>(nou-bar_)'],
   \ ['nx', '<LocalLeader>$', '<Plug>(nou-bar$)'],
   \ ['nx', '<LocalLeader>x', '<Plug>(nou-barX)'],
-  \ ['nx', '<LocalLeader>X', '<Plug>(nou-barDX)'],
+  \ ['nx', '<LocalLeader>X', '<Plug>(nou-bar✗)'],
   \ ['n',  '<LocalLeader>^', '<Plug>(nou-bar⪡)'],
   \ ['nx', '<LocalLeader>t', '<Plug>(nou-barT)'],
   \ ['nx', '<LocalLeader>b', '<Plug>(nou-barB)'],
