@@ -332,7 +332,7 @@ if exists('s:nou_mappings')
         " echoe "Err: hasmapto=".rhs
         continue
       end
-      if !empty(mapcheck(lhs, m))
+      if !empty(mapcheck(lhs, m)) && mapcheck(lhs, m) != '<Nop>'
         " FAIL: my own 'xmap' conflicts with textobj dfl 'vmap' keys
         "   << especially when you open second .nou file
         " echoe 'Err: exists='.lhs.' --> '.mapcheck(lhs, m)
