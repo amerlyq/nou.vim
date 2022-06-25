@@ -9,6 +9,7 @@
 
 ## Generated build logs, local pkgs, etc.
 # /_build*/
+doc/tags
 
 ## Local-only reference materials, temporary cloned repos, etc.
 # &*/

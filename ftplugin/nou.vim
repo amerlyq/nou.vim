@@ -191,6 +191,7 @@ map <buffer> <Plug>(nou-log-prev) :<C-u>call NouLogAdvance(-1)<CR>
 " DISABLED: I never expect to convert subtask to task
 "   ['n', '<LocalLeader><Space>', '<Plug>(nou-cvt-task)'],
 "   ['n', '<LocalLeader><Space>', '<Plug>(nou-set-goal-todo)'],
+"   ['n', '<LocalLeader>L', '<Plug>(nou-spdx-header)'],
 "" FAIL: don't work -- because rhs already bound
 "   ['n', '<LocalLeader>;', '<Plug>(nou-set-goal-now)'],
 let s:nou_mappings = [
@@ -209,7 +210,6 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>T', '<Plug>(nou-set-time-now)'],
   \ ['n', '<LocalLeader>i', '<Plug>(nou-date-i)'],
   \ ['n', '<LocalLeader>I', '<Plug>(nou-datew-i)'],
-  \ ['n', '<LocalLeader>L', '<Plug>(nou-spdx-header)'],
   \ ['nx','<LocalLeader>n', '<Plug>(nou-task-next)'],
   \ ['n', '<LocalLeader>N', '<Plug>(nou-jump-today)'],
   \
@@ -332,10 +332,11 @@ if exists('s:nou_mappings')
         " echoe "Err: hasmapto=".rhs
         continue
       end
-      if !empty(mapcheck(lhs, m)) && mapcheck(lhs, m) != '<Nop>'
+      let old = mapcheck(lhs, m)
+      if !empty(old) && old != '<Nop>' && old !~ '"which-key"'
         " FAIL: my own 'xmap' conflicts with textobj dfl 'vmap' keys
         "   << especially when you open second .nou file
-        " echoe 'Err: exists='.lhs.' --> '.mapcheck(lhs, m)
+        echoe 'Err: exists='.lhs.' --> '.mapcheck(lhs, m)
         continue
       end
       exe m.'map <buffer><silent><unique>' lhs rhs
@@ -345,7 +346,8 @@ endif
 
 runtime ftplugin/textobj/nou.vim
 
-" FAIL: lazy loading + WTF? plugin loading order
-"   TEMP: add directly to /@/airy/vim/cfg/plugins/environment.vim
-" if exists('*altr#define')
-" call altr#define(['%/key/%', '%/log/%', '%/key/*/%', '%/log/*/%'])
+
+" WARN:FAIL: lazy loading
+if exists('*altr#define')
+  call altr#define(['%/key/%', '%/log/%', '%/key/*/%', '%/log/*/%'])
+endif
