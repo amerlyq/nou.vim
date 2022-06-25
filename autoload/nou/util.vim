@@ -4,6 +4,8 @@
 "" linebeg
 " FIXME: use function -- to get local &cms per fmt ALSO parse whole range of &comments
 " OR: '['. &commentstring[0] .']+\s*'
+" FIXME: if cms=='/*%s*/' -- use only pfx '/*%s'
+" FIXME: should use dynamic values to support changing &comment in runtime
 let s:Rcomment = printf((&l:cms ? &l:cms : &g:commentstring), '\s*')
 let s:Rindent = '\s*'
 let s:Rsubject = '.*'.s:Rcomment
@@ -13,26 +15,12 @@ let s:Rsubject = '.*'.s:Rcomment
 let s:R_incomments = 0 > index(map(['nou', 'text'], '&filetype =~ v:val'), 1)
 let s:Rlinebeg = (s:R_incomments ? s:Rsubject : s:Rindent)
 
+"" TEMP: keep old names
+let nou#util#Rdate = nou#rgx#Rdate
+let nou#util#Rcal  = nou#rgx#Rcal
+let nou#util#Rtime = nou#rgx#Rtime
+let nou#util#Rdatetime = nou#rgx#Rdatetime
 
-"" date
-let s:Ryear = '20[0-9][0-9]'
-let s:Rmonth = '%(0[0-9]|1[012])'
-let s:Rday = '%([012][0-9]|3[01])'
-let s:Rwkdaynm ='(Mon|Tue|Wed|Thu|Fri|Sat|Sun)'  " OR: %(-\u\l\l?)
-let s:Rweek='W([0-4][0-9]|5[0-3])'
-let nou#util#Rdate = s:Ryear.'-'.s:Rmonth.'-'.s:Rday
-let nou#util#Rcal  = nou#util#Rdate.'%(-'.s:Rwkdaynm.')?%(-'.s:Rweek.')?'
-let s:Rwkyear = s:Ryear.'-'.s:Rweek
-let s:Rwkcury = 'C'.s:Rweek
-let s:Ranydate = '<%('.nou#util#Rcal.'|'.s:Rwkyear.'|'.s:Rwkcury.')>'
-
-"" time
-let s:Rhours = '%([0-9]|[01][0-9]|2[0-4])'
-let s:Rminutes = '[0-5][0-9]'
-let s:Rseconds = '[0-5][0-9]'
-let nou#util#Rtime = s:Rhours.':'.s:Rminutes.'%(:'.s:Rseconds.')?'
-let s:Rtimezone = '%(Z|\+%([01][0-9]|2[0-4]):?00)'  " ATT: don't allow fractional time zones
-let nou#util#Rdatetime = nou#util#Rdate.'[^0-9]'.nou#util#Rtime.'%('.s:Rtimezone.')?'
 let s:Rbraille = '[\u2800-\u28FF]{4}'
 " TODO: "nano{datetime,braille}"
 

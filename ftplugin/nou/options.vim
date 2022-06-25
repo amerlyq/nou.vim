@@ -32,3 +32,9 @@ setl foldmethod=expr foldexpr=FoldExprIndentBlock(v:lnum)
 "   * ALSO:BAD: irritating 'lag' on cursor move in line
 "   * BUG="i" in deoplete.vim -- wrong cursor/menu position
 setl concealcursor=""
+
+" TODO: wrap into ":au nou" group
+if !exists('b:switch_custom_definitions')
+  let b:switch_custom_definitions = []
+endif
+let b:switch_custom_definitions += nou#ext#switch#nou#groups
