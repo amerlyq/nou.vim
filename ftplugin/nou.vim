@@ -146,6 +146,7 @@ nmap <buffer> <Plug>(nou-set-goal-high) "_c<Plug>(textobj-nou-goal-i)￪<Esc>
 nmap <buffer> <Plug>(nou-set-goal-rephrase) "_c<Plug>(textobj-nou-goal-i)#<Esc>
 nmap <buffer> <Plug>(nou-set-goal-delegated) "_c<Plug>(textobj-nou-goal-i)⟫<Esc>
 nmap <buffer> <Plug>(nou-set-goal-deferred) "_c<Plug>(textobj-nou-goal-i)≫<Esc>
+nmap <buffer> <Plug>(nou-set-goal-overachieved) "_c<Plug>(textobj-nou-goal-i)^<Esc>
 
 "" DISABLED: can't batch-replace status for multiple tasks
 " nmap <buffer> <Plug>(nou-set-goal-todo) c<Plug>(textobj-nou-goal-i)_<Esc>
@@ -220,7 +221,7 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>+', '<Plug>(nou-set-goal-subdone)'],
   \ ['n', '<LocalLeader>>', '<Plug>(nou-set-goal-postpone)'],
   \ ['n', '<LocalLeader><', '<Plug>(nou-set-goal-beforehand)'],
-  \ ['n', '<LocalLeader>»', '<Plug>(nou-set-goal-delegated)'],
+  \ ['n', '<LocalLeader>`', '<Plug>(nou-set-goal-delegated)'],
   \ ['n', '<LocalLeader>,', '<Plug>(nou-set-goal-waiting)'],
   \ ['n', '<LocalLeader>~', '<Plug>(nou-set-goal-likely)'],
   \ ['n', '<LocalLeader>?', '<Plug>(nou-set-goal-unlikely)'],
@@ -230,6 +231,7 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>.', '<Plug>(nou-set-goal-now)'],
   \ ['n', '<LocalLeader>;', '<Plug>(nou-set-goal-next)'],
   \ ['n', '<LocalLeader>:', '<Plug>(nou-set-goal-deferred)'],
+  \ ['n', '<LocalLeader>^', '<Plug>(nou-set-goal-overachieved)'],
   \ ['n', '<LocalLeader>0', '<Plug>(nou-set-goal-feed)'],
   \ ['n', '<LocalLeader>/', '<Plug>(nou-set-goal-overlap)'],
   \ ['n', '<LocalLeader>*', '<Plug>(nou-set-goal-aggregate)'],
@@ -312,7 +314,7 @@ let s:nou_mappings += [
   \ ['nx', '<LocalLeader>$', '<Plug>(nou-bar$)'],
   \ ['nx', '<LocalLeader>x', '<Plug>(nou-barX)'],
   \ ['nx', '<LocalLeader>X', '<Plug>(nou-bar✗)'],
-  \ ['n',  '<LocalLeader>^', '<Plug>(nou-bar⪡)'],
+  \ ['n',  '<LocalLeader>O', '<Plug>(nou-bar⪡)'],
   \ ['nx', '<LocalLeader>t', '<Plug>(nou-barT)'],
   \ ['nx', '<LocalLeader>b', '<Plug>(nou-barB)'],
   \ ['nx', '<LocalLeader>B', '<Plug>(nou-barC)'],

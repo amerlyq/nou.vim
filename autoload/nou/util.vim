@@ -21,7 +21,7 @@ let nou#util#Rcal  = nou#rgx#Rcal
 let nou#util#Rtime = nou#rgx#Rtime
 let nou#util#Rdatetime = nou#rgx#Rdatetime
 
-let s:Rbraille = '[\u2800-\u28FF]{4}'
+let s:Rbraille = '[\u2800-\u28FF]{2,4}'
 " TODO: "nano{datetime,braille}"
 
 "" progress
@@ -38,7 +38,7 @@ let s:RprogressN = '\[%('.s:RratioN.'|'.s:RpercentN.')\]'
 "" status
 " FIXME: mixed :: status .vs. priority .vs. progress
 let s:Rstate0 = '%([_…•‣#≫]|[@!?~￪]|[0-9])'
-let s:RstateN = '[/X%*+$<>∞⟫￬]'
+let s:RstateN = '[/X%*+$<>∞⟫￬✗^]'
 let s:RstateD = '%('.s:RstateN.'|'.s:Rbraille.'|'.s:RstateN.s:Rbraille.'|'.nou#util#Rdatetime.')'
 let s:Rstate = '%('.s:Rstate0.'|'.s:RstateN.')'
 let nou#util#Rtodo = '%(\['.s:Rstate0.'\]|'.s:Rprogress0.')'
