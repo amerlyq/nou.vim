@@ -73,12 +73,17 @@ class TestPlugin:
         buf = self.nvim.current.buffer
         path = buf.name
         row, col = self.nvim.current.window.cursor
-        (_fpth, lnum, col, nchr, txt) = entry_replace_spec(
-            loci=f"{path}:{row}:{col}",
-            xkey="span.val.claimed",
-            val=val,
-            lines=buf[:],
-        )
+        try:
+            (_fpth, lnum, col, nchr, txt) = entry_replace_spec(
+                loci=f"{path}:{row}:{col}",
+                xkey="span.val.claimed",
+                val=val,
+                lines=buf[:],
+            )
+        except ValueError as exc:
+            self.nvim.command(f"echohl ErrorMsg | echom '{exc}' | echohl None")
+            return
+
         # FIXME: .col is unicode char, not byte offset
         # strlen(strcharpart(a:s, strchars(a:s) - 1, 1))
         # assert str(fpth) == buf.name
