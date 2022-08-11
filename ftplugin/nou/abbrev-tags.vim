@@ -5,6 +5,7 @@ inoreabbr <buffer> Bk; #backup
 inoreabbr <buffer> Bm; #backup:monthly
 inoreabbr <buffer> Bq; #backup:quarterly
 inoreabbr <buffer> Bt; #backup:template
+inoreabbr <buffer> sgp; #sync:git:push
 
 inoreabbr <buffer> fa; #feed:andr
 inoreabbr <buffer> faa; #feed:andr:apps
@@ -42,6 +43,7 @@ inoreabbr <buffer> tb; #tm:budgets
 inoreabbr <buffer> tk; #taskmgmt
 inoreabbr <buffer> tm; #tm:maint
 inoreabbr <buffer> to; #tm:overview
+inoreabbr <buffer> top; #tm:t-o-p
 inoreabbr <buffer> tp; #tm:planning
 inoreabbr <buffer> tr; #tm:tracking
 inoreabbr <buffer> trp; #tm:tracking,planning
