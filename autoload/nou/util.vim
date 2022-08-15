@@ -52,9 +52,17 @@ let s:Restimated = '\('.s:Rtimespan.'\)'
 let s:Relapsed = '%('.s:Rduration.'|'.s:Restimated.'|'
   \.s:Rduration.s:Restimated.'|'.s:Rduration.'\(\))'
 
-let s:Rinfix = '[↻ᚹ◔⋆↯✓✗💛▶➥◌⊞]'
-let s:Rassoc = '\<\k+\>'
-let s:Rmood = '[-*•@+=:~?!<>]{-1,3}'
+let s:Rassoc = '\<[^ >]+\>'
+" let s:Rinfix = '[↻ᚹ◔⋆↯✓✗💛▶➥◌⊞]'
+" let s:Rmood = '[-*•@+=:~?!<>]{-1,3}'
+
+" REF:(:h \_[]): https://en.wikipedia.org/wiki/Cyrillic_(Unicode_block)
+"   WAIT: https://github.com/vim/vim/issues/576
+"     SRC: https://github.com/neovim/neovim/issues/2965
+"     ALT: https://stackoverflow.com/questions/3016965/regex-unicode-character-in-vim
+" NOTE: allow non-conflicting [:punct:] as infix/mood standalone symbols
+let s:Rinfix = "[^[:blank:][:alnum:]Ё-ї#\\\\()[\\]{}]"
+let s:Rmood = s:Rinfix . '{-1,3}'
 
 "" tags
 let s:Rperson = '\@\k\S{-}'
