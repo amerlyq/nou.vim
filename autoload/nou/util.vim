@@ -61,7 +61,7 @@ let s:Rassoc = '\<[^ >]+\>'
 "     SRC: https://github.com/neovim/neovim/issues/2965
 "     ALT: https://stackoverflow.com/questions/3016965/regex-unicode-character-in-vim
 " NOTE: allow non-conflicting [:punct:] as infix/mood standalone symbols
-let s:Rinfix = "[^[:blank:][:alnum:]Ё-ї#\\\\()[\\]{}]"
+let s:Rinfix = '[^[:blank:][:alnum:]Ё-ї#\\()[\]{}]'
 let s:Rmood = s:Rinfix . '{-1,3}'
 
 "" tags
@@ -82,12 +82,12 @@ let nou#util#Rxtref = "\u203b".s:Rbraille  " OR: /※[⠀-⣿]{4}/
 " NEED: search nou#util#Rxtref from any position inside of a line
 " TODO: ignore developer's trailing comments e.g. ... #% ...
 let s:Rtext = '.*'
-let s:Rexplanation = s:Rcomment.s:Rtext
+let s:Rexplanation = s:Rcomment . s:Rtext
 let s:Rbody = ''
   \.'%(('.s:Rassoc.')%(\s+|$))?'
   \.'%(('.s:Rmood.')\s+)?'
   \.'%(('.s:Rtags.')%(\s+|$))?'
-  \.'('.s:Rtext.')\s*'
+  \.s:Rtext
   " \.'%('.nou#util#Rxtref.'\s*)?'
   " \.'%('.s:Rexplanation.'\s*)?'
 
@@ -98,7 +98,7 @@ let s:Rtask = ''
   \.'%(('.nou#util#Rdate.')\s+)?'
   \.'%(('.nou#util#Rgoal.')\s+)?'
   \.'%(('.nou#util#Rtime.')\s+)?'
-  \.'%('.s:Rinfix.'\s+)?'
+  \.'%(('.s:Rinfix.')\s+)?'
   \.'%(('.s:Relapsed.')\s+)?'
 
 "" LEGEND:ATT: only 9 submatch() allowed --> no space for composite groups "task-metadata" and "body"
@@ -107,17 +107,14 @@ let s:Rtask = ''
 " \2 = date
 " \3 = goal OR 'state' inside of 'goal'
 " \4 = time
-" .. = infix
-" \5 = elapsed
-" \6 = association
-" \7 = mood
-" \8 = tags
-" \9 = text
-let nou#util#T_elems = ['line', 'lead', 'date', 'goal', 'time', 'dura', 'assoc', 'mood', 'tags', 'text']
-let s:Rtaskline = ''
-  \.'%(('.s:Rlinebeg.')\s*)?'
-  \.'%('.s:Rtask.'\s*)?'
-  \.'%('.s:Rbody.'\s*)?'
+" \5 = infix
+" \6 = elapsed
+" \7 = association
+" \8 = mood
+" \9 = tags
+" .. = text HACK: calc rest of the line
+let nou#util#T_elems = ['line', 'lead', 'date', 'goal', 'time', 'infix', 'dura', 'assoc', 'mood', 'tags', 'text']
+let s:Rtaskline = '('.s:Rlinebeg.')?' . s:Rtask . s:Rbody
 
 "" VIZ: different combined objects
 " status = date + goal
@@ -138,6 +135,9 @@ endf
 
 
 " DEV:(replace): call substitute(nou#util#getline(), s:Rtaskline, '\=nou#util#print(lst, submatch(0))', 'g')
+" DEBUG:
+"   :echo nou#util#parsetask()
+"   :echo matchlist(getline('.'), '\v^'.s:Rtaskline.'$')
 fun! nou#util#parsetask(...) abort
   " DEBUG: ultimate task
   " let L = '  # 2020-08-27 [⡟⠜⠪⣡] 15:00 1h15m(30m) <me> +++ ^JIRA-12345 @user #tag1#tag2 ultimate ⌇⡟⠉⠁⠸'
