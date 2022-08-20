@@ -1,6 +1,12 @@
 
 " BAD:(end-id): can't support "#tm", only "#tm;" SEE: :h abbreviations
 
+inoreabbr <buffer> A; SATISFIED<CR><CR><CR>MINDFUL<CR><CR><CR>JOYOUS<CR><CR><CR>RELIEVED<CR>
+inoreabbr <buffer> S; SATISFIED
+inoreabbr <buffer> M; MINDFUL
+inoreabbr <buffer> J; JOYOUS
+inoreabbr <buffer> R; RELIEVED
+
 inoreabbr <buffer> Bk; #backup
 inoreabbr <buffer> Bm; #backup:monthly
 inoreabbr <buffer> Bq; #backup:quarterly
