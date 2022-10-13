@@ -170,7 +170,7 @@ nmap <buffer> <Plug>(nou-cvt-task) d<Plug>(textobj-nou-lead-i)c<Plug>(textobj-no
 " Python #just
 nmap <buffer> <Plug>(nou-sum-hierarchy) :call NouSumHierarchy()<CR>
 nmap <buffer> <Plug>(nou-sum-logblock) :call NouSumLogBlock()<CR>
-nmap <buffer> <Plug>(nou-fix-claimed) :call NouFixClaimed()<CR>
+nmap <buffer> <Plug>(nou-fix-claimed) d<Plug>(textobj-nou-dura-i)<Cmd>call NouFixClaimed()<CR>
 " TRY:BET: simply open next/prev file in dir (sorted by date)
 "   BAD: can't jump between today and archived prevday
 "     MAYBE: directly create new items inside archived dir
