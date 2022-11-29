@@ -4,8 +4,8 @@
 
 syn cluster nouArtifactQ add=@nouPathQ
 syn cluster nouPathQ add=nouPathEscaped,nouPathRegion,nouPathWindows
-syn cluster nouPathUnixQ add=nouPathHead,nouPathBody,nouPathTail
-syn cluster nouPathXQ contains=nouPathXdelim,nouPathTail,nouPathXspace
+syn cluster nouPathUnixQ add=nouPathHead,nouPathBody,nouPathTail,nouPathText
+syn cluster nouPathXQ contains=nouPathXdelim,nouPathTail,nouPathText,nouPathXspace
   \,nouPathXsh,nouPathXmkV,nouPathXmkF,nouPathXalt
 
 
@@ -20,6 +20,7 @@ hi nouPathXmkV   cterm=italic ctermbg=9 gui=italic guibg=#073642 ctermfg=81  gui
 hi nouPathXmkF   cterm=italic ctermbg=9 gui=italic guibg=#073642 ctermfg=10  guifg=#688e95
 hi nouPathXmk    cterm=italic ctermbg=9 gui=italic guibg=#073642 ctermfg=33  guifg=#3087ff
 hi nouPathTail   cterm=italic ctermbg=9 gui=italic guibg=#073642 ctermfg=10  guifg=#586e75
+hi def link nouPathText  nouPathTail
 
 
 "" Path elements
@@ -46,16 +47,22 @@ syn region nouPathXmkF display oneline excludenl contained
 
 " WARN:PERF: don't use ".*" as it matches in each position
 " TRY: nextgroup=nouPathTail BAD: can't easily match non-gready body
-syn match nouPathBody display excludenl contained nextgroup=nouPathTail
+syn match nouPathBody display excludenl contained nextgroup=nouPathTail,nouPathText
   \ contains=@nouPathXQ '.\+'
 
 syn region nouPathTail display oneline excludenl contained
   \ matchgroup=nouPathHead
   \ start='\v:\ze\d+%(:\d+)?'
-  \ start='\v:[/?:*%^=]\ze'
+  \ start='\v:[/?*%^=]\ze'
   \ skip='\\/'
   \ end='/'
   \ end='$'
+
+syn region nouPathText display oneline excludenl contained extend
+  \ matchgroup=nouPathHead
+  \ start='::\ze'
+  \ end='$'
+
 
 " NOTE: highlight all prefixes inside nouPathEscaped and nouPathRegion
 " ATT: must be after nouPathBody to override it

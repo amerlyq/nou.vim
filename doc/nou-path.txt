@@ -109,6 +109,8 @@ DEV: interpret tail by <gf> to jump directly inside file
   /path:%sect           # beginning of named section
   /path:^text           # beginning of any outline line
   /path:=term           # ??? SEE: operators from ctags(1) db format and vim help
+  /path::spaced-line    # cite grep output till EOL -- allows line with spaces
+ ⋮/path::spaced-line    # ALT: use "⋮" prefix to allow cited line with spaces
 
 %% Escaped with spaces
 
