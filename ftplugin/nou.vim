@@ -17,7 +17,17 @@ nnoremap <Plug>(nou-date-a) "=strftime('%Y-%m-%d')<CR>p
 nnoremap <Plug>(nou-datew-a) "=strftime('%Y-%m-%d-%a-W%W')<CR>p
 
 " ENH: augment many other objects beside date
-nnoremap <Plug>(nou-complement) E"=join(systemlist("date +'-%a-W%W' -d ".expand('<cWORD>')))<CR>p
+" nnoremap <Plug>(nou-complement) E"=join(systemlist("date +'-%a-W%W' -d ".expand('<cWORD>')))<CR>p
+fun! s:aug_date()  " TBD: support 'sobj' argument to allow other objects inof dfl 'date *under cursor*'
+  let c = col('.') - 1
+  let L = getline('.')
+  " ALT:(universal): '\v<20[0-9][0-9]-?[01][0-9]-?[0-3][0-9]'
+  let [m, b, e] = matchstrpos(L, '\v'.g:nou#rgx#Rcal, c-17)
+  if !m || b<0 || b>c || e<=c| throw "Err:(under cursor): not an iso8601.cal datefmt" |en
+  let z = join(systemlist("date +'%Y-%m-%d-%a-W%W' --date=".m))
+  call setline('.', (b>0 ? L[:b-1] : "") . z . L[e:])
+endf
+nnoremap <Plug>(nou-complement) <Cmd>call <SID>aug_date()<CR>
 
 runtime ftplugin/nou/abbrev-gen.vim
 runtime ftplugin/nou/abbrev-tags.vim

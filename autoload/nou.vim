@@ -39,6 +39,16 @@ fun! nou#now(hint)
 endf
 
 
+fun! nou#xts()
+  return substitute(printf('%08x', strftime('%s')), '..', '\=nr2char("0x28".submatch(0))', 'g')
+endf
+
+
+fun! nou#xdt()
+  return trim(system('just xts cvt '.shellescape(strftime('%Y-%m-%d')).' date xts2'))
+endf
+
+
 fun! nou#bar(...) range
   if a:0<1 || type(a:1) != type('')| throw "wrong a:1" |en
   " USAGE: <5,.x> → 50% | <45,.x> → 45% | <105,.x> 05%
@@ -58,18 +68,14 @@ fun! nou#bar(...) range
     let pfx = substitute(pfx, 'T', nou#now(a:2).' ', '')
   endif
   if pfx =~# 'B'  " = braille unix time
-    let xts = substitute(printf('%08x', strftime('%s')), '..', '\=nr2char("0x28".submatch(0))', 'g')
-    let pfx = substitute(pfx, 'B', '['.xts.'] \\3', '')
+    let pfx = substitute(pfx, 'B', '['.nou#xts().'] \\3', '')
   elseif pfx =~# 'C'  " = braille calendar day
-    let xdt = trim(system('just xts cvt '.shellescape(strftime('%Y-%m-%d')).' date xts2'))
-    let pfx = substitute(pfx, 'C', '['.xdt.'] \\3', '')
+    let pfx = substitute(pfx, 'C', '['.nou#xdt().'] \\3', '')
   endif
   if pfx =~# '⪡'
-    let xdt = trim(system('just xts cvt '.shellescape(strftime('%Y-%m-%d')).' date xts2'))
-    let pfx = substitute(pfx, '⪡', '[⪡'.xdt.'] ', '')
+    let pfx = substitute(pfx, '⪡', '[⪡'.nou#xdt().'] ', '')
   elseif pfx =~# '✗'
-    let xdt = trim(system('just xts cvt '.shellescape(strftime('%Y-%m-%d')).' date xts2'))
-    let pfx = substitute(pfx, '✗', '[✗'.xdt.'] ', '')
+    let pfx = substitute(pfx, '✗', '[✗'.nou#xts().'] ', '')
   endif
 
   " BUG: in VSEL mode wrong cursor pos: '.' == '<

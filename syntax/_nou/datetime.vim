@@ -91,12 +91,12 @@ syn cluster nouArtifactQ add=nouTimeSpan
 " ALT:OLD: syn match nouTimeSpan display excludenl '\v<%(\d+[wdhms]){1,5}>'
 " MAYBE:allow: 1mo 2mo3d 2y4mo
 syn match nouTimeSpan display excludenl
-  \ '\v<%(\d+w\d+d|\d+d\d+h|\d+h\d+m|\d+m\d+s|\d+[wdhms])>'
+  \ '\v<%(\d+w\d+d|\d+d\d+h|\d+h\d+m|\d+m\d+s|\d+[wdhms]|\d+[mμun]s)>'
 
 " MAYBE:ALSO:USE: "4h+" = 4h5m, "4h-" = 3h55m
 let s:fracs = '[⅛⅙¼⅓⅖½⅗⅔¾⅚⅞]'
 exe 'syn match nouTimeSpan display excludenl '
-  \."'". '\v<\d+\.\d+h>|<\d+h'.s:fracs.'|'.s:fracs.'h>' ."'"
+  \."'". '\v<%(\d+\.\d+[dhms]|\d+\.\d+[mμun]s|\d+h'.s:fracs.'|'.s:fracs.'h)>' ."'"
 
 
 hi! nouTimeFract cterm=bold gui=bold ctermfg=63 guifg=#4f67ef

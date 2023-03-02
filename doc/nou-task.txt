@@ -4,8 +4,13 @@
 %% Tasks
 
   [_] todo                    |     <LL><Space>
-  [X] done                    |     <LL> X
-  [$] cancel                  | ---
+  [,] barely started          | ---
+  [%] almost done             |     <LL> %
+  [X] done (completely)       |     <LL> X
+  [^] over-achieved (like[✓✓])|     <LL> ^
+  [$] cancelled               | ---
+  [✗] failed                  | ---
+  [*] indirectly done         |     <LL> *
   [99%] progress              |  99 <LL> X
   2020-01-17 date             |     <LL> d
   2020-01-17 [_] created      |     <LL> D

@@ -36,7 +36,8 @@ let s:grps +=
   \  , '\v<([\u2800-\u28FF]{4})>' : {m -> trim(system('just xts cvt '.shellescape(m[0]).' xts4 date'))}
   \},{ '\v<(20\d{6}|'.nou#rgx#Rcal.')>%(.'.nou#rgx#Rtime.')@!'
   \      : {m -> trim(system('just xts cvt '.shellescape(strpart(m[0],0,10)).' date xts2'))}
-  \  , '\v<([\u2800-\u28FF]{2})>' : {m -> trim(system('just xts cvt '.shellescape(m[0]).' xts2 datew'))}
+  \  , '\v<([\u2800-\u28FF]{2})>' : {m -> "-".trim(system('just xts cvt '.shellescape(m[0]).' xts2 ymd3'))."-"}
+  \  , '\v-([1-9a-u][1-9abc][1-9a-v])[MTWRFSU]?-' : {m -> trim(system('just xts cvt '.shellescape(m[1]).' ymd3 datew'))}
   \}]
 "" ALT
 " '\v<([\u2800-\u28FF]{4})>' : {br -> strftime('%Y-%m-%d %H:%M:%S%z', str2nr(substitute(br, '.', '\=printf("%02x",and(char2nr(submatch(0)),0xff))', 'g'), 16))}
