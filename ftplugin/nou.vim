@@ -24,7 +24,8 @@ fun! s:aug_date()  " TBD: support 'sobj' argument to allow other objects inof df
   " ALT:(universal): '\v<20[0-9][0-9]-?[01][0-9]-?[0-3][0-9]'
   let [m, b, e] = matchstrpos(L, '\v'.g:nou#rgx#Rcal, c-17)
   if !m || b<0 || b>c || e<=c| throw "Err:(under cursor): not an iso8601.cal datefmt" |en
-  let z = join(systemlist("date +'%Y-%m-%d-%a-W%W' --date=".m))
+  " FIXED:(m[:9]): !date confuses trailer in '2023-03-20-Mon-W12' and increments date by +1d
+  let z = join(systemlist("date +'%Y-%m-%d-%a-W%W' --date=".m[:9]))
   call setline('.', (b>0 ? L[:b-1] : "") . z . L[e:])
 endf
 nnoremap <Plug>(nou-complement) <Cmd>call <SID>aug_date()<CR>
@@ -154,6 +155,7 @@ nmap <buffer> <Plug>(nou-set-goal-progressB) "_c<Plug>(textobj-nou-goal-i)<C-r>=
 nmap <buffer> <Plug>(nou-set-goal-low) "_c<Plug>(textobj-nou-goal-i)￬<Esc>
 nmap <buffer> <Plug>(nou-set-goal-high) "_c<Plug>(textobj-nou-goal-i)￪<Esc>
 nmap <buffer> <Plug>(nou-set-goal-rephrase) "_c<Plug>(textobj-nou-goal-i)#<Esc>
+nmap <buffer> <Plug>(nou-set-goal-blockedby) "_c<Plug>(textobj-nou-goal-i)🔒<Esc>
 nmap <buffer> <Plug>(nou-set-goal-delegated) "_c<Plug>(textobj-nou-goal-i)⟫<Esc>
 nmap <buffer> <Plug>(nou-set-goal-deferred) "_c<Plug>(textobj-nou-goal-i)≫<Esc>
 nmap <buffer> <Plug>(nou-set-goal-overachieved) "_c<Plug>(textobj-nou-goal-i)^<Esc>
@@ -228,6 +230,7 @@ let s:nou_mappings = [
   \ ['nx','<LocalLeader>!', '<Plug>(nou-set-goal-mandatory)'],
   \ ['n', '<LocalLeader>@', '<Plug>(nou-set-goal-today)'],
   \ ['n', '<LocalLeader>#', '<Plug>(nou-set-goal-rephrase)'],
+  \ ['n', '<LocalLeader>l', '<Plug>(nou-set-goal-blockedby)'],
   \ ['n', '<LocalLeader>+', '<Plug>(nou-set-goal-subdone)'],
   \ ['n', '<LocalLeader>>', '<Plug>(nou-set-goal-postpone)'],
   \ ['n', '<LocalLeader><', '<Plug>(nou-set-goal-beforehand)'],

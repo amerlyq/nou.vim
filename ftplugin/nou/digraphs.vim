@@ -32,6 +32,8 @@ digraph cp 5817    " ᚹ = preps / configure / setup
 digraph cr 8635    " ↻ = recurrent/daily ALT=OO
 digraph cs 8902    " ⋆ = task/planned/agenda
 digraph cu 5817    " ᚹ = preps / configure / setup
+digraph bl 128274  " 🔒 = :blocked-by-smth:
+digraph lo 128274  " 🔒 = :blocked-by-smth:
 
 digraph FC 128242  " 📲 #feed related to call
 digraph FM 128233  " 📩 #feed related to mail
