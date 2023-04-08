@@ -14,6 +14,7 @@ digraph ** 8226    " •
 digraph *  8226    " •
 digraph <. 10913   " ⪡ before then
 digraph >. 10914   " ⪢ ?delegated? OR after then
+digraph // 11005   " ⫽ during / overlapping
 
 digraph ok 10003   " ✓ = result as expected
 digraph xx 10007   " ✗ = result had failed
@@ -32,8 +33,11 @@ digraph cp 5817    " ᚹ = preps / configure / setup
 digraph cr 8635    " ↻ = recurrent/daily ALT=OO
 digraph cs 8902    " ⋆ = task/planned/agenda
 digraph cu 5817    " ᚹ = preps / configure / setup
+
 digraph bl 128274  " 🔒 = :blocked-by-smth:
 digraph lo 128274  " 🔒 = :blocked-by-smth:
+digraph ky 128273  " 🔑 = :unlocks-smth:
+
 
 digraph FC 128242  " 📲 #feed related to call
 digraph FM 128233  " 📩 #feed related to mail

@@ -149,6 +149,7 @@ nmap <buffer> <Plug>(nou-set-goal-next) "_c<Plug>(textobj-nou-goal-i)‣<Esc>
 nmap <buffer> <Plug>(nou-set-goal-feed) "_c<Plug>(textobj-nou-goal-i)∞<Esc>
 nmap <buffer> <Plug>(nou-set-goal-overlap) "_c<Plug>(textobj-nou-goal-i)/<Esc>
 nmap <buffer> <Plug>(nou-set-goal-aggregate) "_c<Plug>(textobj-nou-goal-i)*<Esc>
+nmap <buffer> <Plug>(nou-set-goal-slightly) "_c<Plug>(textobj-nou-goal-i),<Esc>
 nmap <buffer> <Plug>(nou-set-goal-partial) "_c<Plug>(textobj-nou-goal-i)%<Esc>
 nmap <buffer> <Plug>(nou-set-goal-progressA) "_c<Plug>(textobj-nou-goal-i)-/<C-r>=v:count1<CR>h<Esc>
 nmap <buffer> <Plug>(nou-set-goal-progressB) "_c<Plug>(textobj-nou-goal-i)<C-r>=v:count1<CR>h/-<Esc>
@@ -156,6 +157,7 @@ nmap <buffer> <Plug>(nou-set-goal-low) "_c<Plug>(textobj-nou-goal-i)￬<Esc>
 nmap <buffer> <Plug>(nou-set-goal-high) "_c<Plug>(textobj-nou-goal-i)￪<Esc>
 nmap <buffer> <Plug>(nou-set-goal-rephrase) "_c<Plug>(textobj-nou-goal-i)#<Esc>
 nmap <buffer> <Plug>(nou-set-goal-blockedby) "_c<Plug>(textobj-nou-goal-i)🔒<Esc>
+nmap <buffer> <Plug>(nou-set-goal-unlocking) "_c<Plug>(textobj-nou-goal-i)🔑<Esc>
 nmap <buffer> <Plug>(nou-set-goal-delegated) "_c<Plug>(textobj-nou-goal-i)⟫<Esc>
 nmap <buffer> <Plug>(nou-set-goal-deferred) "_c<Plug>(textobj-nou-goal-i)≫<Esc>
 nmap <buffer> <Plug>(nou-set-goal-overachieved) "_c<Plug>(textobj-nou-goal-i)^<Esc>
@@ -231,6 +233,7 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>@', '<Plug>(nou-set-goal-today)'],
   \ ['n', '<LocalLeader>#', '<Plug>(nou-set-goal-rephrase)'],
   \ ['n', '<LocalLeader>l', '<Plug>(nou-set-goal-blockedby)'],
+  \ ['n', '<LocalLeader>K', '<Plug>(nou-set-goal-unlocking)'],
   \ ['n', '<LocalLeader>+', '<Plug>(nou-set-goal-subdone)'],
   \ ['n', '<LocalLeader>>', '<Plug>(nou-set-goal-postpone)'],
   \ ['n', '<LocalLeader><', '<Plug>(nou-set-goal-beforehand)'],
@@ -251,6 +254,7 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>[', '<Plug>(nou-set-goal-progressA)'],
   \ ['n', '<LocalLeader>]', '<Plug>(nou-set-goal-progressB)'],
   \
+  \ ['n', '<LocalLeader><Right>', '<Plug>(nou-set-goal-slightly)'],
   \ ['n', '<LocalLeader><Backspace>', '<Plug>(nou-merge-plan)'],
   \ ['n', '<LocalLeader><Del>', '<Plug>(nou-del-status)'],
   \ ['n', '<LocalLeader><Tab>', '<Plug>(nou-complement)'],

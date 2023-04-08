@@ -4,7 +4,8 @@
 %% Tasks
 
   [_] todo                    |     <LL><Space>
-  [,] barely started          | ---
+  [,] barely started          | ---  # =slightly
+  [🔒] blocked-by-something   |     <LL> l
   [%] almost done             |     <LL> %
   [X] done (completely)       |     <LL> X
   [^] over-achieved (like[✓✓])|     <LL> ^
