@@ -16,16 +16,22 @@ digraph <. 10913   " ⪡ before then
 digraph >. 10914   " ⪢ ?delegated? OR after then
 digraph // 11005   " ⫽ during / overlapping
 
+"" VIZ: project progress increments (i.e. for top-level task)
+digraph ck 9676    " ◌ = check and wait response again (OR ⚬)
+digraph ca 9676    " ◌ = check and wait response again (OR ⚬)
+digraph cz 8857    " ⊙ = zero done (like only #plans were prepared, e.g. =ᚹ)
+digraph cb 9862    " ⚆ = beginning (like [,] but in terms of total progress)
+digraph cc 9684    " ◔ = partial/continue (𝌙 )
+digraph ch 9681    " ◑ = half-done
+digraph cm 9685    " ◕ = most done
+digraph ce 128282  " 🔚 = end of continuation
+
 digraph ok 10003   " ✓ = result as expected
 digraph xx 10007   " ✗ = result had failed
 digraph c+ 8862    " ⊞ = unplanned additional task
-digraph ca 9676    " ◌ = check and wait response again (OR ⚬)
-digraph cc 9684    " ◔|𝌙  = partial progress increment
 digraph CD 9654    " ▶ = delegated to ALT=TT|DD
 digraph \|> 9654   " ▶ = delegated to
-digraph ce 128282  " 🔚 = end of continuation
 digraph cf 8900    " ⋄ = repeated daily #frwk
-digraph ck 9676    " ◌ = check and wait response again (OR ⚬)
 digraph cn 128284  " 🔜 next prio
 digraph cq 10149   " ➥ = query/request (delegate from) ALT=NN|FF
 digraph `> 10149   " ➥ = query/request (delegate from)

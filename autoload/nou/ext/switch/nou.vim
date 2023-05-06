@@ -16,7 +16,7 @@ let nou#ext#switch#nou#groups =
   \, map(split('0123456789', '\zs'), '"[".v:val."0%]"')
   \, split('↻⋆↯💜', '\zs')
   \, split('~▶✓✗', '\zs')
-  \, split('◔🔚', '\zs')
+  \, split('⚆◔◑◕🔚', '\zs')
   \, split('￬￪', '\zs')
   \, ['MAIL', '📩']
   \, ['CALL', '📲']
