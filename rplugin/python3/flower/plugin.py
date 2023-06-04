@@ -22,7 +22,8 @@ class TestPlugin:
         advance = args[0] if args else 0
         noedit = bool(args[1]) if len(args) > 1 else False
         p = Path(self.nvim.current.buffer.name)
-        # TODO: support montly="2021-11" and weekly="2021-W32" files
+        if p.is_symlink() and not re.match(r"(20\d\d)-(0\d|1[012])", p.name):
+            p = p.resolve()
         Sdate = r"(20\d\d)-(0\d|1[012])-([012]\d|3[01])"
         if m := re.match(Sdate, p.name):
             year, month, day = map(int, m.groups())
@@ -38,6 +39,19 @@ class TestPlugin:
                         if noedit:
                             return str(fpath)
                         self.nvim.command("edit " + str(fpath))
+
+        # TODO:ALSO: support weekly="2021-W32" files
+        elif m := re.match(r"(20\d\d)-(0\d|1[012])", p.name):
+            year, month = map(int, m.groups())
+            year, month = divmod(year * 12 + month - 1 + advance, 12)
+            month += 1
+            fpath = next(p.parent.rglob(f"{year}-{month:02d}*"), None)
+            if fpath:
+                # self.nvim.command(f"echohl ErrorMsg | echom '{fpath}' | echohl None")
+                if noedit:
+                    return str(fpath)
+                self.nvim.command("edit " + str(fpath))
+
         elif nums := re.findall("[0-9]+", p.name):
             nm, num = p.name, nums[-1]
             idx = nm.rfind(num)
