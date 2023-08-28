@@ -82,3 +82,12 @@ digraph :) 9786    " ☺  emoji smile
 digraph (: 9786    " ☻  emoji smile
 digraph ): 128544  " 😠 emoji angry
 digraph :D 128516  " 😄 emoji laugh
+
+
+"" SEE: more at ※⡣⠅⠠⠉
+digraph ;a 128142  " 💎 aloof
+digraph ;e 127856  " 🍰 enjoy
+digraph ;m 127888  " 🎐 mindful
+digraph ;p 127776  " 🌠 prove
+digraph ;t 127797  " 🌵 trash
+digraph ;t 128095  " 👟 train

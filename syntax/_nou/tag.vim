@@ -53,7 +53,7 @@ syn match nouConceptTagPfx display excludenl contained '[&]'
 
 hi nouConceptTag cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=36 guifg=#00af87
 syn match nouConceptTag display excludenl contains=nouConceptTagPfx,nouConceptTagParam
-  \ /\v%(^|[(\[{,;|[:space:]]@1<=)%([&]+\k\S{-})%([|;,}\])[:space:]]@1=|$)/
+  \ '\v%(^|[(\[{,;|[:space:]]@1<=)%([&]+\k\S{-})%([|;,}\])[:space:]]@1=|$)'
 
 hi nouConceptTagParam cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=66 guifg=#5f8787
 syn match nouConceptTagParam display excludenl contained ':[^:&[:blank:]]\+'

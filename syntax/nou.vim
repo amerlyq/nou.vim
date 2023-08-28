@@ -30,7 +30,7 @@ hi! nouConceal ctermfg=8 guifg=#001b26
 syn cluster nouArtifactQ add=nouArtifactDelim
 " HACK: hi only standalone symbols, which are not part of the words
 syn match nouArtifactDelim display excludenl
-  \ '\v%(^|[(\[{,;|[:blank:]]@1<=)%([[:punct:]]+)%([|;,}\])[:blank:]]@1=|$)'
+  \ '\v%(^|[(\[{,;|[:blank:]]@1<=)%([[:punct:]←→]+)%([|;,}\])[:blank:]]@1=|$)'
 " HACK: always hi ";" to see separator clearly -- and USE it more often
 syn match nouArtifactDelim display excludenl /;/
 hi link nouArtifactDelim Special
