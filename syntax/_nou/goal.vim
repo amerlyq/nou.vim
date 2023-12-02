@@ -60,7 +60,8 @@ syn match nouTaskPartial display excludenl contained containedin=nouTaskFrame '%
 hi! nouTaskAggregate cterm=bold gui=bold ctermfg=62 guifg=#5f5fdf
 syn match nouTaskAggregate display excludenl contained containedin=nouTaskFrame '\V*'
 
-hi! nouTaskNext cterm=bold gui=bold ctermfg=226 guifg=#d8d800
+" hi! nouTaskNext cterm=bold gui=bold ctermfg=226 guifg=#d8d800
+hi! nouTaskNext cterm=bold gui=bold ctermfg=251 guifg=#c6c6c6
 syn match nouTaskNext display excludenl contained containedin=nouTaskFrame '‣'
 
 " RENAME? nouTaskAmend
@@ -163,7 +164,7 @@ syn match nouProgressTotal display excludenl contained '/\d\+'
 syn cluster nouGenericQ add=nouTask
 hi! nouTask ctermfg=14 guifg=#586e75
 syn match nouTask display excludenl contains=@nouTaskQ
-  \ '\v%(\d{4}-\d\d-\d\d )?\[%([_$X]|[\u2800-\u28FF]{4}|\d\d%(\.\d+)?\%%(/\d+)?)\]'
+  \ '\v%(\d{4}-\d\d-\d\d )?\[%(X|[^[:alnum:]]|[\u2800-\u28FF]{2,4}|\d\d%(\.\d+)?\%%(/\d+)?)\]'
 
 
 "{{{ NOTE: progress highlight e.g. "[1/8]"

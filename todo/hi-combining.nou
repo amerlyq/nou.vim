@@ -47,3 +47,19 @@
   ALSO: inherit hi! for shell: $_ -- when you want to emphasize plain commands
     TRY: override only plain text. And use $__ to override all.
   TRY: instead of 2nd/3rd set of decisions make 'contained' syntax starting on *_* or *__*
+
+
+2023-08-29-Tue-W35
+  […] REQ: Contained syntax highlight color/attribute combining is not supported [yet?] · Issue #24934 · neovim/neovim ⌇⡤⣮⡟⢭
+    https://github.com/neovim/neovim/issues/24934
+    :new
+    this is line
+    :hi! Line ctermfg=1 guifg=#ee0000 gui=NONE cterm=NONE
+    :syn region Line display oneline keepend excludenl start=/^/ end=/$/
+    :hi! Word gui=bold cterm=bold
+    :hi! Word ctermfg=NONE guifg=NONE gui=bold cterm=bold
+    :syn match Word display excludenl contained containedin=Line /is/
+    :call matchadd("Word","line")
+  [≫] SEE: if he has any nice tricks in his sleaves
+    bpstahlman/txtfmt: Txtfmt (The Vim Highlighter) : "Rich text" highlighting in Vim! (colors, underline, bold, italic, etc...) ⌇⡤⣮⡛⢮
+      https://github.com/bpstahlman/txtfmt

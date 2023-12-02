@@ -7,7 +7,7 @@ inoreabbr <buffer> S; SATISFIED
 inoreabbr <buffer> M; MINDFUL
 inoreabbr <buffer> J; JOYOUS
 inoreabbr <buffer> R; RELIEVED
-inoreabbr <buffer> W; FLOW<CR>REST<CR>CRUNCH<CR>JOY<CR>FRWK
+inoreabbr <buffer> W; FLOW<CR>REST<CR>CRUNCH<CR>RUSH<CR>ORG
 inoreabbr <buffer> F; FLOW<CR>REST<CR>CRUNCH<CR>JOY
 inoreabbr <buffer> K; FLOW<CR>REST<CR>CRUNCH<CR>JOY<CR>TODO
 inoreabbr <buffer> X; FLOW<CR>REST<CR>CRUNCH<CR>JOY<CR>XXX

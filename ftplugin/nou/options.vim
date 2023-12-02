@@ -9,6 +9,7 @@ setl noshiftround
 setl comments=b:#,b:#%,bO:\|,b:¦,b:│  ",f:'''
 setl commentstring=#\ %s
 
+setl synmaxcol=240
 setl nowrap
 setl conceallevel=2  " NEED=2: nouSpoiler uses 'cchar'
 

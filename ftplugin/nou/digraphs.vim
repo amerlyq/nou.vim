@@ -89,5 +89,5 @@ digraph ;a 128142  " 💎 aloof
 digraph ;e 127856  " 🍰 enjoy
 digraph ;m 127888  " 🎐 mindful
 digraph ;p 127776  " 🌠 prove
-digraph ;t 127797  " 🌵 trash
+digraph ;h 127797  " 🌵 trash/drain
 digraph ;t 128095  " 👟 train
