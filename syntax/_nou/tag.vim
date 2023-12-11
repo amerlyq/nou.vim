@@ -36,13 +36,21 @@ syn match nouHashTagValue display excludenl contained containedin=nouHashTagPara
 """ ProjectToken / UrlAlias
 " e.g. <^JIRA-12345>
 " [_] MAYBE:SEP: differentiate UrlAlias (dereferencable) and TagToken (fuzzymatch)
+" NOTE:ex~:(pj-comment): ^⡥⡜⣤⠨ кух.вытяжка  ^⡥⡜⣤⠨:кух.вытяжка  ^⡥⡜⣤⠨/кух.вытяжка  ^⡥⡜⣤⠨#кух.вытяжка
+"   ALSO:(enclosed): ^⡥⡜⣤⠨<кух вытяжка> (✓)  ^⡥⡜⣤⠨⸢кух вытяжка⸥ (≈)  ^⡥⡜⣤⠨[кух вытяжка] (✗)
 syn cluster nouArtifactQ add=nouPjTag
 hi nouPjTag cterm=bold,reverse ctermbg=NONE gui=bold,reverse guibg=NONE ctermfg=62 guifg=#6c71c4
-syn match nouPjTag display excludenl /\v%(^|[(\[{,;|[:blank:]]@1<=)%(\^\S{-1,})%([|;,}\])[:blank:]]@1=|$)/
+syn match nouPjTag display excludenl contains=nouPjPfx,nouPjTagComment
+  \ '\v%(^|[(\[{,;|[:blank:]]@1<=)%(\^\S{-1,})%([|;,}\])[:blank:]]@1=|$)'
 
 " ALT: 59=#5f5f5f
 hi nouPjPfx cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=20 guifg=#1f2fcf
-syn match nouPjPfx display excludenl contained containedin=nouPjTag '\V^'
+syn match nouPjPfx display excludenl contained '[<>⸢⸥=%:/# ^]'
+
+hi nouPjTagComment cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=62 guifg=#6c71c4
+syn match nouPjTagComment display excludenl contained '[=%:/# ]\@1<=[^^=%:/#[:blank:]]\+'
+syn match nouPjTagComment display excludenl contained '<\@1<=[^>]\+\ze>'
+syn match nouPjTagComment display excludenl contained '⸢\@1<=[^⸥]\+\ze⸥'
 
 
 """ Concepts
