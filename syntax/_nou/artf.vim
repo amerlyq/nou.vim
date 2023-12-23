@@ -26,11 +26,13 @@ syn match nouArtifactRole display excludenl /\v%(^|[(\[{,;|[:blank:]]@1<=)%(\%\a
 " TRY: diff color :: nextgroup=nouPathBody
 " BET? isolate by space :: \%(^\|[[:punct:][:blank:]]\@1<=\)...
 " ALT: *Numero  '№'  BAD: incomplete font support -- and blades with next number
-syn cluster nouArtifactQ add=nouArtifactIndex,nouArtifactAltMod
+syn cluster nouArtifactQ add=nouArtifactIndex,nouArtifactAltMod,nouArtifactCount
 hi nouArtifactIndex cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=172 guifg=#df8700
 syn match nouArtifactIndex display excludenl '\v%([#]\d+>|\(\d+\))'
 hi nouArtifactAltMod cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=142 guifg=#df4fbf
 syn match nouArtifactAltMod display excludenl '\v%([%]\d+>|\{\d+\})'
+hi nouArtifactCount cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=172 guifg=#df8700
+syn match nouArtifactCount display excludenl '\v<x\d+>'
 
 
 
