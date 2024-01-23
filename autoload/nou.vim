@@ -25,10 +25,17 @@ fun! nou#vsel_apply(visual, fn)
 endf
 
 
-fun! nou#now(hint)
-  " HACK: asymmetric rounding to nearest 5min interval :: 02+ -> 05, 07+ -> 10
+fun! nou#now(hint,...)
   let ivl5 = str2float(strftime('%M')) / 5
-  let min5 = float2nr(round(ivl5 + 0.1) * 5)
+  if get(a:,1)
+    "" DISABLED: round(15:54) -> should be "15:50" as I always do logging post-factum
+    ""   << meaning task starting time is always in the near past
+    " HACK: asymmetric rounding to nearest 5min interval :: 02+ -> 05, 07+ -> 10
+    " let min5 = float2nr(round(ivl5 + 0.1) * 5)
+    let min5 = float2nr(round(ivl5 + 0.4) * 5)
+  else
+    let min5 = float2nr(ivl5) * 5
+  endif
   let hour = float2nr(str2float(strftime('%H'))) + min5/60
   let now = (a:hint == 0) ? printf('%02d:%02d', hour % 24, min5 % 60)
         \: a:hint < 24 ? printf('%02d:00', a:hint)
@@ -65,7 +72,7 @@ fun! nou#bar(...) range
     let pfx = substitute(pfx, '[_$X<]', keep, '')
   endif
   if pfx =~# 'T'
-    let pfx = substitute(pfx, 'T', nou#now(a:2).' ', '')
+    let pfx = substitute(pfx, 'T', nou#now(a:2,1).' ', '')
   endif
   if pfx =~# 'B'  " = braille unix time
     let pfx = substitute(pfx, 'B', '['.nou#xts().'] \\3', '')

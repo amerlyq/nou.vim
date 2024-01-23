@@ -146,9 +146,9 @@ runtime syntax/_nou/infix.vim
 ""   FIXED:HACK: add prefix to folder "_nou" to prevent glob auto-loading
 runtime syntax/_nou/number.vim
 runtime syntax/_nou/datetime.vim
+runtime syntax/_nou/keyval.vim
 runtime syntax/_nou/path.vim
 call nou#syntax#regex()  " ATT: must be after nouPath to override rgx=/.../
-runtime syntax/_nou/keyval.vim
 runtime syntax/_nou/group.vim
 runtime syntax/_nou/goal.vim
 

@@ -52,6 +52,7 @@ syn match nouPathBody display excludenl contained nextgroup=nouPathTail,nouPathT
 
 syn region nouPathTail display oneline excludenl contained
   \ matchgroup=nouPathHead
+  \ start='\v:\ze%(\s|$)'
   \ start='\v:\ze\d+%(:\d+)?'
   \ start='\v:[/?*%^=]\ze'
   \ skip='\\/'
