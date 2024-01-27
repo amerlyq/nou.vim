@@ -39,6 +39,12 @@ runtime ftplugin/nou/options.vim
 nnoremap <silent> <Plug>(nou-path-open) :call nou#path_open(expand('<cWORD>'))<CR>
 xnoremap <silent> <Plug>(nou-path-open) :<C-u>call nou#path_open(nou#vsel())<CR>
 
+" nnoremap <silent> <Plug>(nou-calc-py) :let b:x=py3eval(expand('<cexpr>'))|call setreg('"',b:x,'c')|echom b:x<CR>
+" xnoremap <silent> <Plug>(nou-calc-py) :<C-u>let b:x=py3eval((nou#vsel()))|call setreg('"',b:x,'c')|echom b:x<CR>
+nnoremap <silent> <Plug>(nou-calc-py) :let @"=py3eval(expand('<cexpr>'))\|echom @"<CR>
+xnoremap <silent> <Plug>(nou-calc-py) :<C-u>let @"=py3eval((nou#vsel()))\|echom @"<CR>
+
+
 "" FAIL: each next "n" still prints error
 " nnoremap <silent> <Plug>(nou-task-next) :call setreg('/', '\v'.nou#util#Rtodo, 'c')\|try\|exe"norm n"\|catch /:E438/\|echom"No open task"\|endtry<CR>
 nnoremap <silent> <Plug>(nou-task-next) :call setreg('/', '\v'.nou#util#Rtodo, 'c')<CR>n
@@ -219,6 +225,7 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>A', '<Plug>(nou-datew-a)'],
   \ ['n', '<LocalLeader>C', '<Plug>(nou-jump-current)'],
   \ ['n', '<LocalLeader>D', '<Plug>(nou-set-date-today)'],
+  \ ['nx','<LocalLeader>e', '<Plug>(nou-calc-py)'],
   \ ['n', '<LocalLeader>E', '<Plug>(nou-fix-claimed)'],
   \ ['n', '<LocalLeader>H', '<Plug>(nou-sum-hierarchy)'],
   \ ['n', '<LocalLeader>G', '<Plug>(nou-sum-logblock)'],
