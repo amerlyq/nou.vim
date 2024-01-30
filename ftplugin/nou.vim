@@ -175,7 +175,7 @@ nmap <buffer> <Plug>(nou-set-goal-overachieved) "_c<Plug>(textobj-nou-goal-i)^<E
 nmap <buffer> <Plug>(nou-del-status) d<Plug>(textobj-nou-status-i)
 nmap <buffer> <Plug>(nou-del-assoc) d<Plug>(textobj-nou-assoc-i)
 nmap <buffer> <Plug>(nou-set-date-today) "_c<Plug>(textobj-nou-date-i)<C-r>=strftime('%Y-%m-%d')<CR><Esc>
-nmap <buffer> <Plug>(nou-set-time-now) "_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(v:count)<CR><Esc>
+nmap <buffer> <Plug>(nou-set-time-now) "_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(v:count,1)<CR><Esc>
 
 
 " HACK: merge next task with prev line time

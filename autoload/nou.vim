@@ -72,7 +72,7 @@ fun! nou#bar(...) range
     let pfx = substitute(pfx, '[_$X<]', keep, '')
   endif
   if pfx =~# 'T'
-    let pfx = substitute(pfx, 'T', nou#now(a:2,1).' ', '')
+    let pfx = substitute(pfx, 'T', nou#now(a:2).' ', '')
   endif
   if pfx =~# 'B'  " = braille unix time
     let pfx = substitute(pfx, 'B', '['.nou#xts().'] \\3', '')
