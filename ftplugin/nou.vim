@@ -47,8 +47,8 @@ xnoremap <silent> <Plug>(nou-calc-py) :<C-u>let @"=py3eval((nou#vsel()))\|echom 
 
 "" FAIL: each next "n" still prints error
 " nnoremap <silent> <Plug>(nou-task-next) :call setreg('/', '\v'.nou#util#Rtodo, 'c')\|try\|exe"norm n"\|catch /:E438/\|echom"No open task"\|endtry<CR>
-nnoremap <silent> <Plug>(nou-task-next) :call setreg('/', '\v'.nou#util#Rtodo, 'c')<CR>n
-xnoremap <silent> <Plug>(nou-task-next) :<C-u>call setreg('/', '\v%V'.nou#util#Rtodo, 'c')<CR>n
+nnoremap <silent> <Plug>(nou-task-next) :call setreg('/', '\v'.g:nou#util#Rtodo, 'c')<CR>n
+xnoremap <silent> <Plug>(nou-task-next) :<C-u>call setreg('/', '\v%V'.g:nou#util#Rtodo, 'c')<CR>n
 
 " BET:TRY: extract regex from syn-match itself
 "   [X] SEE: kana/vim-textobj-syntax ::: BAD: it simply increments cursor until finds syntax boundary
@@ -175,7 +175,7 @@ nmap <buffer> <Plug>(nou-set-goal-overachieved) "_c<Plug>(textobj-nou-goal-i)^<E
 nmap <buffer> <Plug>(nou-del-status) d<Plug>(textobj-nou-status-i)
 nmap <buffer> <Plug>(nou-del-assoc) d<Plug>(textobj-nou-assoc-i)
 nmap <buffer> <Plug>(nou-set-date-today) "_c<Plug>(textobj-nou-date-i)<C-r>=strftime('%Y-%m-%d')<CR><Esc>
-nmap <buffer> <Plug>(nou-set-time-now) "_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(v:count,1)<CR><Esc>
+nmap <buffer> <Plug>(nou-set-time-now) "_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(v:count,-1)<CR><Esc>
 
 
 " HACK: merge next task with prev line time
@@ -229,7 +229,7 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>E', '<Plug>(nou-fix-claimed)'],
   \ ['n', '<LocalLeader>H', '<Plug>(nou-sum-hierarchy)'],
   \ ['n', '<LocalLeader>G', '<Plug>(nou-sum-logblock)'],
-  \ ['n', '<LocalLeader>T', '<Plug>(nou-set-time-now)'],
+  \ ['n', '<LocalLeader>t', '<Plug>(nou-set-time-now)'],
   \ ['n', '<LocalLeader>i', '<Plug>(nou-date-i)'],
   \ ['n', '<LocalLeader>I', '<Plug>(nou-datew-i)'],
   \ ['nx','<LocalLeader>n', '<Plug>(nou-task-next)'],
@@ -339,7 +339,7 @@ let s:nou_mappings += [
   \ ['nx', '<LocalLeader>x', '<Plug>(nou-barX)'],
   \ ['nx', '<LocalLeader>X', '<Plug>(nou-bar✗)'],
   \ ['n',  '<LocalLeader>O', '<Plug>(nou-bar⪡)'],
-  \ ['nx', '<LocalLeader>t', '<Plug>(nou-barT)'],
+  \ ['nx', '<LocalLeader>T', '<Plug>(nou-barT)'],
   \ ['nx', '<LocalLeader>b', '<Plug>(nou-barB)'],
   \ ['nx', '<LocalLeader>B', '<Plug>(nou-barC)'],
   \]

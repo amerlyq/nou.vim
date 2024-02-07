@@ -26,15 +26,23 @@ endf
 
 
 fun! nou#now(hint,...)
+  let l:mode = get(a:,1)
+  if l:mode<0
+    "" HACK:(auto): round down "ongoing/done" tasks, and round up "planned" ones
+    let l:mode = (match(getline('.'), '\v'.g:nou#util#Rtodo) > -1 ? 1 : 0)
+  endif
   let ivl5 = str2float(strftime('%M')) / 5
-  if get(a:,1)
-    "" DISABLED: round(15:54) -> should be "15:50" as I always do logging post-factum
-    ""   << meaning task starting time is always in the near past
-    " HACK: asymmetric rounding to nearest 5min interval :: 02+ -> 05, 07+ -> 10
-    " let min5 = float2nr(round(ivl5 + 0.1) * 5)
-    let min5 = float2nr(round(ivl5 + 0.4) * 5)
-  else
+  if l:mode == 0  " =floor_0
     let min5 = float2nr(ivl5) * 5
+  elseif l:mode == 1  " =almost_ceiling
+    "" NOTE: round(15:54) -> should be "15:50" as I always do logging post-factum
+    ""   << meaning task starting time is always in the near past
+    let min5 = float2nr(round(ivl5 + 0.4) * 5)
+    " ALT:HACK: asymmetric rounding to nearest 5min interval :: 02+ -> 05, 07+ -> 10
+  elseif l:mode == 2  " =almost_rounding
+    let min5 = float2nr(round(ivl5 + 0.1) * 5)
+  else
+    throw "Value error l:mode".l:mode
   endif
   let hour = float2nr(str2float(strftime('%H'))) + min5/60
   let now = (a:hint == 0) ? printf('%02d:%02d', hour % 24, min5 % 60)
