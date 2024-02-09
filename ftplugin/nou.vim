@@ -175,7 +175,11 @@ nmap <buffer> <Plug>(nou-set-goal-overachieved) "_c<Plug>(textobj-nou-goal-i)^<E
 nmap <buffer> <Plug>(nou-del-status) d<Plug>(textobj-nou-status-i)
 nmap <buffer> <Plug>(nou-del-assoc) d<Plug>(textobj-nou-assoc-i)
 nmap <buffer> <Plug>(nou-set-date-today) "_c<Plug>(textobj-nou-date-i)<C-r>=strftime('%Y-%m-%d')<CR><Esc>
-nmap <buffer> <Plug>(nou-set-time-now) "_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(v:count,-1)<CR><Esc>
+
+nmap <buffer> <Plug>(nou-set-time-now-auto) "_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(v:count,-1)<CR><Esc>
+nmap <buffer> <Plug>(nou-set-time-now-floor) "_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(v:count,0)<CR><Esc>
+nmap <buffer> <Plug>(nou-set-time-now-ceil) "_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(v:count,1)<CR><Esc>
+nmap <buffer> <Plug>(nou-set-time-now-round) "_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(v:count,2)<CR><Esc>
 
 
 " HACK: merge next task with prev line time
@@ -229,7 +233,8 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>E', '<Plug>(nou-fix-claimed)'],
   \ ['n', '<LocalLeader>H', '<Plug>(nou-sum-hierarchy)'],
   \ ['n', '<LocalLeader>G', '<Plug>(nou-sum-logblock)'],
-  \ ['n', '<LocalLeader>t', '<Plug>(nou-set-time-now)'],
+  \ ['n', '<LocalLeader>t', '<Plug>(nou-set-time-now-floor)'],
+  \ ['n', '<LocalLeader>T', '<Plug>(nou-set-time-now-ceil)'],
   \ ['n', '<LocalLeader>i', '<Plug>(nou-date-i)'],
   \ ['n', '<LocalLeader>I', '<Plug>(nou-datew-i)'],
   \ ['nx','<LocalLeader>n', '<Plug>(nou-task-next)'],
@@ -317,7 +322,7 @@ for i in range(1,9)
     \.' :<C-u>call nou#bar("X'.i.'",'.i.',0)<CR>'
   let s:nou_mappings += [['n', '<LocalLeader>'.i, '<Plug>(nou-barX'.i.')']]
 endfor
-for s in ['', '_', '$', 'X', '✗', '⪡', 'T', 'B', 'C']
+for s in add(split('_$X⪡TBC✗✓', '\zs'), '')
   for m in ['n', 'x'] | exe m.'noremap <silent> <Plug>(nou-bar'.s.')'
       \" :<C-u>call nou#bar('".s."',v:count,".(m==#'x').")<CR>"
 endfor | endfor
@@ -337,11 +342,12 @@ let s:nou_mappings += [
   \ ['nx', '<LocalLeader><Space>', '<Plug>(nou-bar_)'],
   \ ['nx', '<LocalLeader>$', '<Plug>(nou-bar$)'],
   \ ['nx', '<LocalLeader>x', '<Plug>(nou-barX)'],
-  \ ['nx', '<LocalLeader>X', '<Plug>(nou-bar✗)'],
   \ ['n',  '<LocalLeader>O', '<Plug>(nou-bar⪡)'],
-  \ ['nx', '<LocalLeader>T', '<Plug>(nou-barT)'],
   \ ['nx', '<LocalLeader>b', '<Plug>(nou-barB)'],
   \ ['nx', '<LocalLeader>B', '<Plug>(nou-barC)'],
+  \ ['nx', '<LocalLeader>ct', '<Plug>(nou-barT)'],
+  \ ['nx', '<LocalLeader>X', '<Plug>(nou-bar✗)'],
+  \ ['nx', '<LocalLeader>V', '<Plug>(nou-bar✓)'],
   \]
 
 " TODO: <LL>rt -> replace on hours, <LL>rm -> replace on minutes ALT: "c<LL>:"

@@ -119,8 +119,9 @@ syn match nouTaskFailed display excludenl contained containedin=nouTaskCancel '�
 
 hi! nouTaskAlso ctermfg=22 guifg=#1f881f
 syn cluster nouTaskQ add=nouTaskAlso
-syn match nouTaskAlso display excludenl '\v\[[+][_%]?\]'
-syn match nouTaskAlso display excludenl '\v\[\+[\u2800-\u28FF]{2,4}\]'
+syn match nouTaskAlso display excludenl '\v\[[+✓][_%]?\]'
+syn match nouTaskAlso display excludenl '\v\[[+✓][\u2800-\u28FF]{2,4}\]'
+syn match nouTaskOverachieved display excludenl contained containedin=nouTaskAlso '\V✓'
 
 hi! nouTaskPostpone ctermfg=62 guifg=#5f5fdf
 syn cluster nouTaskQ add=nouTaskPostpone

@@ -89,8 +89,8 @@ fun! nou#bar(...) range
   endif
   if pfx =~# '⪡'
     let pfx = substitute(pfx, '⪡', '[⪡'.nou#xdt().'] ', '')
-  elseif pfx =~# '✗'
-    let pfx = substitute(pfx, '✗', '[✗'.nou#xts().'] ', '')
+  elseif pfx =~# '^[✗✓]$'
+    let pfx = substitute(pfx, pfx, '['.pfx.nou#xts().'] \\3', '')
   endif
 
   " BUG: in VSEL mode wrong cursor pos: '.' == '<
