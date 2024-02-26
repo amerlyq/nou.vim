@@ -20,6 +20,15 @@ inoreabbr <buffer> Bq; #backup:quarterly
 inoreabbr <buffer> Bt; #backup:template
 inoreabbr <buffer> sgp; #sync:git:push
 
+
+inoreabbr <buffer> b;  #b:
+inoreabbr <buffer> bc; #b:coffee,snacks
+inoreabbr <buffer> be; #b:eat,tea
+inoreabbr <buffer> bf; #b:freshen
+inoreabbr <buffer> bs; #b:sport
+
+inoreabbr <buffer> nd; #news:daily
+
 inoreabbr <buffer> fa; #feed:andr
 inoreabbr <buffer> faa; #feed:andr:apps
 inoreabbr <buffer> fag; #feed:andr:games
@@ -36,13 +45,16 @@ inoreabbr <buffer> fn; #feed:news
 inoreabbr <buffer> fs; #feed:steam
 inoreabbr <buffer> fsc; #feed:soundcloud
 
-inoreabbr <buffer> la; #leisure:comics,fantasy,RSS
-inoreabbr <buffer> lc; #leisure:comics
-inoreabbr <buffer> le; #leisure
-inoreabbr <buffer> lf; #leisure:fantasy
-inoreabbr <buffer> lg; #leisure:gaming
-inoreabbr <buffer> lr; #leisure:RSS
-inoreabbr <buffer> ly; #leisure:youtube
+inoreabbr <buffer> l;  #leisure
+inoreabbr <buffer> le; #le:
+inoreabbr <buffer> la; #le:any
+inoreabbr <buffer> lc; #le:comics
+inoreabbr <buffer> lf; #le:fantasy
+inoreabbr <buffer> lg; #le:gaming
+inoreabbr <buffer> ll; #le:comics,fantasy,RSS
+inoreabbr <buffer> lr; #le:RSS
+inoreabbr <buffer> lv; #le:vtube
+inoreabbr <buffer> ly; #le:youtube
 
 inoreabbr <buffer> od; &outcomes:daily
 inoreabbr <buffer> os; &outcomes:sprint
@@ -64,3 +76,11 @@ inoreabbr <buffer> ts; #tm:stats
 inoreabbr <buffer> tt; #tm:tmpl
 inoreabbr <buffer> tw; #tm:sweeping
 inoreabbr <buffer> tz; #tm:SEIZE
+
+
+inoreabbr <buffer> w;  #work
+inoreabbr <buffer> wk; #wk:
+inoreabbr <buffer> wa; #wk:any
+inoreabbr <buffer> wc; #wk:chats
+inoreabbr <buffer> wl; #wk:login,any
+inoreabbr <buffer> wm; #wk:mails
