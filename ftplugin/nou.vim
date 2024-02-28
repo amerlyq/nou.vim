@@ -194,7 +194,8 @@ nmap <buffer> <Plug>(nou-cvt-task) d<Plug>(textobj-nou-lead-i)c<Plug>(textobj-no
 " Python #just
 nmap <buffer> <Plug>(nou-sum-hierarchy) :call NouSumHierarchy()<CR>
 nmap <buffer> <Plug>(nou-sum-logblock) :call NouSumLogBlock()<CR>
-nmap <buffer> <Plug>(nou-fix-claimed) d<Plug>(textobj-nou-dura-i)<Cmd>call NouFixClaimed()<CR>
+nmap <buffer> <Plug>(nou-fix-claimed-floor) d<Plug>(textobj-nou-dura-i)<Cmd>call NouFixClaimed(0)<CR>
+nmap <buffer> <Plug>(nou-fix-claimed-ceil) d<Plug>(textobj-nou-dura-i)<Cmd>call NouFixClaimed(1)<CR>
 " TRY:BET: simply open next/prev file in dir (sorted by date)
 "   BAD: can't jump between today and archived prevday
 "     MAYBE: directly create new items inside archived dir
@@ -229,8 +230,8 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>A', '<Plug>(nou-datew-a)'],
   \ ['n', '<LocalLeader>C', '<Plug>(nou-jump-current)'],
   \ ['n', '<LocalLeader>D', '<Plug>(nou-set-date-today)'],
-  \ ['nx','<LocalLeader>e', '<Plug>(nou-calc-py)'],
-  \ ['n', '<LocalLeader>E', '<Plug>(nou-fix-claimed)'],
+  \ ['n', '<LocalLeader>e', '<Plug>(nou-fix-claimed-floor)'],
+  \ ['n', '<LocalLeader>E', '<Plug>(nou-fix-claimed-ceil)'],
   \ ['n', '<LocalLeader>H', '<Plug>(nou-sum-hierarchy)'],
   \ ['n', '<LocalLeader>G', '<Plug>(nou-sum-logblock)'],
   \ ['n', '<LocalLeader>t', '<Plug>(nou-set-time-now-floor)'],
@@ -266,6 +267,7 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>[', '<Plug>(nou-set-goal-progressA)'],
   \ ['n', '<LocalLeader>]', '<Plug>(nou-set-goal-progressB)'],
   \
+  \ ['nx', '<LocalLeader><CR>', '<Plug>(nou-calc-py)'],
   \ ['n', '<LocalLeader><Right>', '<Plug>(nou-set-goal-slightly)'],
   \ ['n', '<LocalLeader><Backspace>', '<Plug>(nou-merge-plan)'],
   \ ['n', '<LocalLeader><Del>', '<Plug>(nou-del-status)'],
@@ -294,7 +296,8 @@ let s:nou_assoc =
   \, 'o overtime OT'
   \, 'O space-out'
   \, 'p prevwork prev:W'
-  \, 'r raw W:raw'
+  \, 'r refocus'
+  \, 'R raw W:raw'
   \, 's sleep'
   \, 't travel'
   \, 'u urgent U'

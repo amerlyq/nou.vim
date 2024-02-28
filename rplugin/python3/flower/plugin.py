@@ -72,8 +72,8 @@ class TestPlugin:
 
     # @pynvim.command("NouFixClaimed", nargs="*", range="")
     @pynvim.function("NouFixClaimed", sync=True)
-    def fixclaimed(self, _args: Any) -> tuple[int, int, int, str]:
-        return self._entry_replace_spec("logtimediff")
+    def fixclaimed(self, args: Any) -> tuple[int, int, int, str]:
+        return self._entry_replace_spec("logtimediff", args[0])
 
     @pynvim.function("NouSumHierarchy", sync=True)
     def sumhierarchy(self, _args: Any) -> tuple[int, int, int, str]:
@@ -83,7 +83,7 @@ class TestPlugin:
     def sumlogblock(self, _args: Any) -> tuple[int, int, int, str]:
         return self._entry_replace_spec("sumlogblock")
 
-    def _entry_replace_spec(self, val: str) -> tuple[int, int, int, str]:
+    def _entry_replace_spec(self, val: str, param: int = 0) -> tuple[int, int, int, str]:
         buf = self.nvim.current.buffer
         path = buf.name
         row, col = self.nvim.current.window.cursor
@@ -93,6 +93,7 @@ class TestPlugin:
                 xkey="span.val.claimed",
                 val=val,
                 lines=buf[:],
+                param=param,
             )
         except ValueError as exc:
             self.nvim.command(f"echohl ErrorMsg | echom '{exc}' | echohl None")
