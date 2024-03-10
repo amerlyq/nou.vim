@@ -3,14 +3,18 @@
 
 %% Tasks
 
-  [_] todo                    |     <LL><Space>
-  [,] barely started          | ---  # =slightly
-  [🔒] blocked-by-something   |     <LL> l
-  [%] almost done             |     <LL> %
-  [X] done (completely)       |     <LL> X
+  [🔒] blocked-by-something   |     <LL> L
+  [🔑] key-to-unblock         |     <LL> K
+  […] waiting until event     |     <LL> ,
+  [_] todo                    |     <LL> _  | <LL><Space>
+  [,] barely started (<18%)   |     <LL x>r,  # =slightly
+  [☯] mess / unknown progress |     <LL> |    # =«помурыжил/промусолил/топтался на месте»
+  [;] around half done        |     <LL> ;
+  [%] almost done (>70%)      |     <LL> %
+  [X] done (completely)       |     <LL> x
   [^] over-achieved (like[✓✓])|     <LL> ^
-  [$] cancelled               | ---
-  [✗] failed                  | ---
+  [$] cancelled               |     <LL> $
+  [✗] failed                  |     <LL> X
   [*] indirectly done         |     <LL> *
   [99%] progress              |  99 <LL> X
   2020-01-17 date             |     <LL> d

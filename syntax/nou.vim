@@ -30,10 +30,22 @@ hi! nouConceal ctermfg=8 guifg=#001b26
 syn cluster nouArtifactQ add=nouArtifactDelim
 " HACK: hi only standalone symbols, which are not part of the words
 syn match nouArtifactDelim display excludenl
-  \ '\v%(^|[(\[{,;|[:blank:]]@1<=)%([[:punct:]←→]+)%([|;,}\])[:blank:]]@1=|$)'
+  \ '\v%(^|[(\[{,;|[:blank:]]@1<=)%([[:punct:]←→↔]+)%([|;,}\])[:blank:]]@1=|$)'
 " HACK: always hi ";" to see separator clearly -- and USE it more often
 syn match nouArtifactDelim display excludenl /;/
 hi link nouArtifactDelim Special
+
+
+""" ATT: placed before accents, to distinguish `keyterm` from `Object
+" OLD='\v%(^|[(\[{,;|[:space:]]@1<=)%([`]+\k{-1,})%([|;,}\])[:space:]]@1=|$)'
+syn cluster nouGenericQ add=nouObjectClass
+hi nouObjectClass cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=254 guifg=#e4e4b4
+syn match nouObjectClass display excludenl
+  \ '\v%(^|[/(\[{,;|[:space:]]@1<=)[`]+[^`/|;,}\])[:space:]]+'
+" hi def link nouObjectWild nouArtifactAddrName
+hi nouObjectWild cterm=bold gui=bold ctermfg=81  guifg=#cb4b16
+syn match nouObjectWild display excludenl contained containedin=nouObjectClass '\V*'
+
 
 
 " ATT: placed before accents, to distinguish _underline_ from _extension
@@ -139,11 +151,12 @@ for i in range(len(g:nou.decision.colors))
 endfor
 
 
+"" [_] BAD:(syntax/_nou/*): will load all files inside by vim itself
+""   FIXED:HACK: add prefix to folder "_nou" to prevent glob auto-loading
+
 runtime syntax/_nou/artf.vim
 runtime syntax/_nou/infix.vim
 "" ATT: must be after nouArtifactKey for correct 'nouNumberXaddr' hi!
-"" [_] BAD:(syntax/_nou/*): will load all files inside by vim itself
-""   FIXED:HACK: add prefix to folder "_nou" to prevent glob auto-loading
 runtime syntax/_nou/number.vim
 runtime syntax/_nou/datetime.vim
 runtime syntax/_nou/keyval.vim

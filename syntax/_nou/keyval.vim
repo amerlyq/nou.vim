@@ -4,7 +4,7 @@
 hi! nouArtifactKey cterm=bold ctermfg=167 gui=bold guifg=#df5f5f
 syn cluster nouArtifactQ add=nouArtifactKey
 syn match nouArtifactKey display excludenl
-  \ '\v%(^|[^[:lower:][:upper:][:digit:]]@1<=\s\zs)[^#[:blank:]]\S*[^:)[:blank:]]:%(:\s*$|\ze\s)'
+  \ '\v%(^|[^[:lower:][:upper:][:digit:]]@1<=\s\zs)[^#[:blank:][:digit:]]\S*[^:)[:blank:]]:%(:\s*$|\ze\s)'
   " \ '\v%(^|[^[:lower:][:upper:][:digit:]]@1<=\s\zs)[^#[:blank:]]\S*[^:[:blank:]]:%(:\s*$|\ze\s+\S)'
   " \ '\v%(^|[^[:lower:][:upper:][:digit:]]@1<=\s\zs|\s:)\S*[^:[:blank:]]:%(:\s*$|\ze\s*%($|\s\S))'
   " \ '\v^%(\A{-}\s@1<=)?\zs\S+%(::?\s*$|:\ze\s)'
@@ -53,6 +53,24 @@ syn region nouKeyval display oneline keepend excludenl
   \ end='\ze,$'
   \ end='\ze[[:blank:]]'
   \ end='$'
+  \ skip='\\[[:blank:]]'
+
+
+" ALT: inof hi=KeyvalKey USE hi=EqualSign(brown) distinct from assignment
+syn cluster nouGenericQ add=nouRVal
+hi def link nouRVal nouKeyval
+" syn match nouRVal display excludenl contains=@nouKeyvalValueQ,nouKeyvalXtrain
+"   \ '\v%(^|[(\[{,;|[:space:]]@1<=)%([=]+[^=[:blank:]]+)%([|;,}\])[:space:]]@1=|$)'
+syn region nouRVal display oneline keepend excludenl
+  \ matchgroup=nouKeyvalXkey
+  \ contains=@nouKeyvalValueQ,nouKeyvalXtrain
+  \ start='\v%(^|[,|[:space:]]@1<=)[=]+'
+  \ end='\v\ze[,;|]%(\s|$)'
+  \ end='\ze[[:blank:]]'
+  \ end='$'
+  \ skip='\\[[:blank:]]'
+
+
 
 " BAD:(extend): contained nouPath extends till end of line
 syn region nouKeyvalQuoted display oneline keepend excludenl

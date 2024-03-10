@@ -1,18 +1,14 @@
 
 " BAD:(end-id): can't support "#tm", only "#tm;" SEE: :h abbreviations
 
-inoreabbr <buffer> AA; SATISFIED<CR><CR><CR>MINDFUL<CR><CR><CR>JOYOUS<CR><CR><CR>RELIEVED<CR>
-inoreabbr <buffer> A; SATISFIED<CR>MINDFUL<CR>JOYOUS<CR>RELIEVED<CR>FRWK
-inoreabbr <buffer> S; SATISFIED
-inoreabbr <buffer> M; MINDFUL
-inoreabbr <buffer> J; JOYOUS
-inoreabbr <buffer> R; RELIEVED
 inoreabbr <buffer> W; FLOW<CR>REST<CR>CRUNCH<CR>RUSH<CR>ORG
-inoreabbr <buffer> F; FLOW<CR>REST<CR>CRUNCH<CR>JOY
-inoreabbr <buffer> K; FLOW<CR>REST<CR>CRUNCH<CR>JOY<CR>TODO
-inoreabbr <buffer> X; FLOW<CR>REST<CR>CRUNCH<CR>JOY<CR>XXX
+inoreabbr <buffer> &; &results<CR>&-cap<CR>&next<CR>Qs
+" ALT: ###/XXX/TODO
 inoreabbr <buffer> #; FLOW<CR>REST<CR>CRUNCH<CR>JOY<CR>###
-inoreabbr <buffer> C; FLOW<CR>REST<CR>CRUNCH<CR>JOY<CR>###<CR><Space><Space>SATISFIED<CR>MINDFUL<CR>JOYOUS<CR>RELIEVED<CR>FRWK
+inoreabbr <buffer> ##; FLOW<CR>REST<CR>CRUNCH<CR>JOY<CR>###<CR><Space><Space>SATISFIED<CR>MINDFUL<CR>JOYOUS<CR>RELIEVED<CR>FRWK
+" OLD:
+inoreabbr <buffer> AA; SATISFIED<CR><CR><CR>MINDFUL<CR><CR><CR>JOYOUS<CR><CR><CR>RELIEVED<CR>
+inoreabbr <buffer> WA; SATISFIED<CR>MINDFUL<CR>JOYOUS<CR>RELIEVED<CR>FRWK
 
 inoreabbr <buffer> Bk; #backup
 inoreabbr <buffer> Bm; #backup:monthly
@@ -22,10 +18,13 @@ inoreabbr <buffer> sgp; #sync:git:push
 
 
 inoreabbr <buffer> b;  #b:
-inoreabbr <buffer> bc; #b:coffee,snacks
+inoreabbr <buffer> bc; #b:eat,coffee
 inoreabbr <buffer> be; #b:eat,tea
 inoreabbr <buffer> bf; #b:freshen
-inoreabbr <buffer> bs; #b:sport
+inoreabbr <buffer> bk; #b:tea,snacks
+inoreabbr <buffer> bp; #b:sport
+inoreabbr <buffer> bs; #b:shower,shave
+inoreabbr <buffer> bt; #b:toilet
 
 inoreabbr <buffer> nd; #news:daily
 
@@ -52,6 +51,7 @@ inoreabbr <buffer> lc; #le:comics
 inoreabbr <buffer> lf; #le:fantasy
 inoreabbr <buffer> lg; #le:gaming
 inoreabbr <buffer> ll; #le:comics,fantasy,RSS
+inoreabbr <buffer> lL; #le:comics=0h,fantasy=0h,RSS=0h
 inoreabbr <buffer> lr; #le:RSS
 inoreabbr <buffer> lv; #le:vtube
 inoreabbr <buffer> ly; #le:youtube
@@ -82,5 +82,8 @@ inoreabbr <buffer> w;  #work
 inoreabbr <buffer> wk; #wk:
 inoreabbr <buffer> wa; #wk:any
 inoreabbr <buffer> wc; #wk:chats
-inoreabbr <buffer> wl; #wk:login,any
 inoreabbr <buffer> wm; #wk:mails
+inoreabbr <buffer> wl; #wk:login,any
+inoreabbr <buffer> wr; #wk:relogin,any
+inoreabbr <buffer> wo; #wk:logoff
+inoreabbr <buffer> ws; #wk:sweeping
