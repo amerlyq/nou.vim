@@ -158,8 +158,6 @@ nmap <buffer> <Plug>(nou-set-goal-aggregate) "_c<Plug>(textobj-nou-goal-i)*<Esc>
 nmap <buffer> <Plug>(nou-set-goal-slightly) "_c<Plug>(textobj-nou-goal-i),<Esc>
 nmap <buffer> <Plug>(nou-set-goal-partial) "_c<Plug>(textobj-nou-goal-i)%<Esc>
 nmap <buffer> <Plug>(nou-set-goal-halfly) "_c<Plug>(textobj-nou-goal-i);<Esc>
-nmap <buffer> <Plug>(nou-set-goal-progressA) "_c<Plug>(textobj-nou-goal-i)-/<C-r>=v:count1<CR>h<Esc>
-nmap <buffer> <Plug>(nou-set-goal-progressB) "_c<Plug>(textobj-nou-goal-i)<C-r>=v:count1<CR>h/-<Esc>
 nmap <buffer> <Plug>(nou-set-goal-low) "_c<Plug>(textobj-nou-goal-i)￬<Esc>
 nmap <buffer> <Plug>(nou-set-goal-high) "_c<Plug>(textobj-nou-goal-i)￪<Esc>
 nmap <buffer> <Plug>(nou-set-goal-rephrase) "_c<Plug>(textobj-nou-goal-i)#<Esc>
@@ -169,6 +167,9 @@ nmap <buffer> <Plug>(nou-set-goal-delegated) "_c<Plug>(textobj-nou-goal-i)⟫<Es
 nmap <buffer> <Plug>(nou-set-goal-deferred) "_c<Plug>(textobj-nou-goal-i)≫<Esc>
 nmap <buffer> <Plug>(nou-set-goal-overachieved) "_c<Plug>(textobj-nou-goal-i)^<Esc>
 
+nmap <buffer> <Plug>(nou-set-goal-progressA) :<C-u>let b:c=v:count1<Esc>"_c<Plug>(textobj-nou-goal-i)-/<C-r>=b:c<CR>h<Esc>
+nmap <buffer> <Plug>(nou-set-goal-progressB) :<C-u>let b:c=v:count1<Esc>"_c<Plug>(textobj-nou-goal-i)<C-r>=b:c<CR>h/-<Esc>
+
 "" DISABLED: can't batch-replace status for multiple tasks
 " nmap <buffer> <Plug>(nou-set-goal-todo) c<Plug>(textobj-nou-goal-i)_<Esc>
 " omap <buffer> <Plug>(nou-set-goal-todo) <Plug>(textobj-nou-goal-i)_<Esc>
@@ -177,10 +178,10 @@ nmap <buffer> <Plug>(nou-del-status) d<Plug>(textobj-nou-status-i)
 nmap <buffer> <Plug>(nou-del-assoc) d<Plug>(textobj-nou-assoc-i)
 nmap <buffer> <Plug>(nou-set-date-today) "_c<Plug>(textobj-nou-date-i)<C-r>=strftime('%Y-%m-%d')<CR><Esc>
 
-nmap <buffer> <Plug>(nou-set-time-now-auto) "_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(v:count,-1)<CR><Esc>
-nmap <buffer> <Plug>(nou-set-time-now-floor) "_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(v:count,0)<CR><Esc>
-nmap <buffer> <Plug>(nou-set-time-now-ceil) "_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(v:count,1)<CR><Esc>
-nmap <buffer> <Plug>(nou-set-time-now-round) "_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(v:count,2)<CR><Esc>
+nmap <buffer> <Plug>(nou-set-time-now-auto)  :<C-u>let b:c=v:count<Esc>"_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(b:c,-1)<CR><Esc>
+nmap <buffer> <Plug>(nou-set-time-now-floor) :<C-u>let b:c=v:count<Esc>"_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(b:c,0)<CR><Esc>
+nmap <buffer> <Plug>(nou-set-time-now-ceil)  :<C-u>let b:c=v:count<Esc>"_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(b:c,1)<CR><Esc>
+nmap <buffer> <Plug>(nou-set-time-now-round) :<C-u>let b:c=v:count<Esc>"_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(b:c,2)<CR><Esc>
 
 
 " HACK: merge next task with prev line time
