@@ -62,8 +62,10 @@ exe 'syn match nouTimeNow display excludenl contained containedin=nouTime '
 
 
 " FIXED: search one-by-one instead of any one whichever first
+"   NOTE: place "Rtoday" first to easily jump in "WKLOG" to "today" inof "anyday-time"
 let nou#syntax#datetime#Rall =
-  \[ nou#syntax#datetime#Rtoday
+  \[ '\V[\[•\]]'
+  \, nou#syntax#datetime#Rtoday
   \, nou#syntax#datetime#Rnow
   \, nou#syntax#datetime#Rwnd
   \]
