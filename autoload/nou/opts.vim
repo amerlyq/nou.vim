@@ -16,6 +16,7 @@ let s:nou.decision = {}
 let s:nou.decision.symbol = '[.]'
 let s:nou.decision.colors = [
   \ ['[*•]{1,3}', '#268bd2'],
+  \ ['·', '#ffffff'],
   \ ['\@{1,3}', '#df5616'],
   \ ['\+{1,3}', '#859900'],
   \ ['\-{1,3}', '#2aa198'],

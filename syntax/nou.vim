@@ -41,7 +41,7 @@ hi link nouArtifactDelim Special
 syn cluster nouGenericQ add=nouObjectClass
 hi nouObjectClass cterm=bold ctermbg=NONE gui=bold guibg=NONE ctermfg=254 guifg=#e4e4b4
 syn match nouObjectClass display excludenl
-  \ '\v%(^|[/(\[{,;|[:space:]]@1<=)[`]+[^`/|;,}\])[:space:]]+'
+  \ '\v%(^|[/(\[{,;|[:space:]]@1<=)[`]+[^`/|;,.}\])[:space:]]+'
 " hi def link nouObjectWild nouArtifactAddrName
 hi nouObjectWild cterm=bold gui=bold ctermfg=81  guifg=#cb4b16
 syn match nouObjectWild display excludenl contained containedin=nouObjectClass '\V*'
@@ -52,6 +52,10 @@ syn match nouObjectWild display excludenl contained containedin=nouObjectClass '
 call nou#syntax#artf_ext()
 runtime syntax/_nou/tag.vim
 call nou#syntax#artf_contact()
+
+""" NOTE: placed at top to be overrided by "= decisions" and "=accents="
+runtime syntax/_nou/keyval.vim
+
 
 " ATT: must be before "nou#syntax#term(k)" to be overridden by "!term!"
 runtime syntax/_nou/version.vim
@@ -159,7 +163,6 @@ runtime syntax/_nou/infix.vim
 "" ATT: must be after nouArtifactKey for correct 'nouNumberXaddr' hi!
 runtime syntax/_nou/number.vim
 runtime syntax/_nou/datetime.vim
-runtime syntax/_nou/keyval.vim
 runtime syntax/_nou/path.vim
 call nou#syntax#regex()  " ATT: must be after nouPath to override rgx=/.../
 runtime syntax/_nou/group.vim

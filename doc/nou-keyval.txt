@@ -1,6 +1,29 @@
 %%%%% Key-value %%%%%  # *nou-keyval*
 # vim:ft=nou
 
+%%%% Not key-vals
+
+=
+  =
+  trail =
+  trail => ss
+
+  = decision
+  =4 decision
+  =. decision
+  == decision
+  => decision
+  =>33 decision
+  === decision
+  != decision
+
+  =stmt=
+  ==stmt==
+  beg =stmt= end
+
+  where a == b
+  { a => b }
+
 %% Simple values
 
   key=value
@@ -9,6 +32,13 @@
   ke.y=val.ue
   _key=val?ue
   key:=val*ue
+
+%% Standalone
+
+  key=
+  o.key=
+  =value
+  ==value
 
 %% Object values
 
@@ -22,6 +52,9 @@ o.ke.fn(a)
  o.$ke.fn(a=$b)
   o.ke.fn(a, b)
    o.ke.fn(a).fn(b)
+
+  `Class.key=value
+  `Class.fn(a)
 
 %% Nested values
 

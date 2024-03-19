@@ -64,7 +64,7 @@ hi def link nouRVal nouKeyval
 syn region nouRVal display oneline keepend excludenl
   \ matchgroup=nouKeyvalXkey
   \ contains=@nouKeyvalValueQ,nouKeyvalXtrain
-  \ start='\v%(^|[,|[:space:]]@1<=)[=]+'
+  \ start='\v%(^|[,|[:space:]]@1<=)[=]+\ze[^=>.[:space:]]'
   \ end='\v\ze[,;|]%(\s|$)'
   \ end='\ze[[:blank:]]'
   \ end='$'
