@@ -50,11 +50,12 @@ syn match nouObjectWild display excludenl contained containedin=nouObjectClass '
 
 " ATT: placed before accents, to distinguish _underline_ from _extension
 call nou#syntax#artf_ext()
+""" NOTE: placed at top to be overrided by "= decisions" and "=accents="
+runtime syntax/_nou/keyval.vim
+"" NOTE: placed after "keyval" to override "&concept:" at start of line
 runtime syntax/_nou/tag.vim
 call nou#syntax#artf_contact()
 
-""" NOTE: placed at top to be overrided by "= decisions" and "=accents="
-runtime syntax/_nou/keyval.vim
 
 
 " ATT: must be before "nou#syntax#term(k)" to be overridden by "!term!"
