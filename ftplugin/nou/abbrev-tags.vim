@@ -3,7 +3,7 @@
 
 inoreabbr <buffer> W; FLOW<CR>MEET<CR>CRUNCH<CR>RUSH<CR>ORG
 inoreabbr <buffer> &; &results<CR>&-cap<CR>&next<CR>Qs
-inoreabbr <buffer> AA; <Home>&attitude<CR><CR>&outcomes<CR>[#]<CR><Home><CR><CR><CR>BODY<CR><CR><CR>FLOW<CR><CR><CR>REST<CR><CR><CR>CRUNCH<CR><CR><CR>JOY<CR><CR><CR>RUSH<CR><CR><CR>%NEW<CR><CR><CR>TODO<CR>
+inoreabbr <buffer> AA; <Home>&attitude<CR><CR>&outcomes<CR><Space><Space>[#]<CR><Home><CR><CR>BODY<CR><CR><CR>FLOW<CR><CR><CR>REST<CR><CR><CR>CRUNCH<CR><CR><CR>JOY<CR><CR><CR>RUSH<CR><CR><CR>%NEW<CR><CR><CR>TODO<CR>
 " ALT: ###/XXX/TODO
 inoreabbr <buffer> #; FLOW<CR>REST<CR>CRUNCH<CR>JOY<CR>###
 inoreabbr <buffer> ##; FLOW<CR>REST<CR>CRUNCH<CR>JOY<CR>###<CR><Space><Space>SATISFIED<CR>MINDFUL<CR>JOYOUS<CR>RELIEVED<CR>FRWK

@@ -22,10 +22,16 @@ fun! s:aug_date()  " TBD: support 'sobj' argument to allow other objects inof df
   let c = col('.') - 1
   let L = getline('.')
   " ALT:(universal): '\v<20[0-9][0-9]-?[01][0-9]-?[0-3][0-9]'
-  let [m, b, e] = matchstrpos(L, '\v'.g:nou#rgx#Rcal, c-17)
+  let [m, b, e] = matchstrpos(L, '\v<'. g:nou#rgx#Rcal .'>', c-17)
+  if m
+    let z = join(systemlist("date +'%Y-%m-%d-%a-W%W' --date=".m[:9]))
+  else
+    let [m, b, e] = matchstrpos(L, '\v<'. g:nou#rgx#Rmcal .'>', c-13)
+    " BAD: "trimester" not supported by !date, only "quarter"
+    if m| let z = join(systemlist("date +'%Y-%m-%b-Q%q' --date=".m[:6].'-01')) |en
+  endif
   if !m || b<0 || b>c || e<=c| throw "Err:(under cursor): not an iso8601.cal datefmt" |en
   " FIXED:(m[:9]): !date confuses trailer in '2023-03-20-Mon-W12' and increments date by +1d
-  let z = join(systemlist("date +'%Y-%m-%d-%a-W%W' --date=".m[:9]))
   call setline('.', (b>0 ? L[:b-1] : "") . z . L[e:])
 endf
 nnoremap <Plug>(nou-complement) <Cmd>call <SID>aug_date()<CR>
@@ -252,7 +258,7 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>+', '<Plug>(nou-set-goal-subdone)'],
   \ ['n', '<LocalLeader>>', '<Plug>(nou-set-goal-postpone)'],
   \ ['n', '<LocalLeader><', '<Plug>(nou-set-goal-beforehand)'],
-  \ ['n', '<LocalLeader>`', '<Plug>(nou-set-goal-delegated)'],
+  \ ['n', '<LocalLeader>\', '<Plug>(nou-set-goal-delegated)'],
   \ ['n', '<LocalLeader>,', '<Plug>(nou-set-goal-waiting)'],
   \ ['n', '<LocalLeader>~', '<Plug>(nou-set-goal-likely)'],
   \ ['n', '<LocalLeader>?', '<Plug>(nou-set-goal-unlikely)'],
@@ -261,7 +267,7 @@ let s:nou_mappings = [
   \ ['n', "<LocalLeader>'", '<Plug>(nou-set-goal-low)'],
   \ ['n', '<LocalLeader>"', '<Plug>(nou-set-goal-high)'],
   \ ['n', '<LocalLeader>.', '<Plug>(nou-set-goal-now)'],
-  \ ['n', '<LocalLeader>\', '<Plug>(nou-set-goal-next)'],
+  \ ['n', '<LocalLeader>`', '<Plug>(nou-set-goal-next)'],
   \ ['n', '<LocalLeader>:', '<Plug>(nou-set-goal-deferred)'],
   \ ['n', '<LocalLeader>^', '<Plug>(nou-set-goal-overachieved)'],
   \ ['n', '<LocalLeader>0', '<Plug>(nou-set-goal-feed)'],
@@ -282,12 +288,11 @@ let s:nou_mappings = [
 " NOTE: <assoc> :: easier to switch association "c<LL>ame<Esc>" -> "<LL>wm"
 let s:nou_assoc =
   \[ 'a agenda A'
-  \, 'b both W:both'
-  \, 'B bothme W+me'
+  \, 'b bed'
   \, 'c common W:common'
   \, 'd dev'
   \, 'e env'
-  \, 'E envcfg W:env'
+  \, 'E envwk W:env'
   \, 'f futures fut:W'
   \, 'h home'
   \, 'i important I'
@@ -296,15 +301,18 @@ let s:nou_assoc =
   \, 'm me'
   \, 'M me-like W:me'
   \, 'n next'
-  \, 'o overtime OT'
-  \, 'O space-out'
+  \, 'o spaceout'
+  \, 'O overtime OT'
   \, 'p prevwork prev:W'
   \, 'r refocus'
   \, 'R raw W:raw'
   \, 's sleep'
-  \, 't travel'
+  \, 't both'
+  \, 'T bothwk W:both'
   \, 'u urgent U'
+  \, 'v travel'
   \, 'w work W'
+  \, 'W workme W+me'
   \, 'x misc'
   \, 'y daybreak'
   \, 'z dozeoff'

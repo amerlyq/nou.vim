@@ -9,16 +9,14 @@
 syn cluster nouTextQ add=@nouGenericQ
 syn cluster nouGenericQ add=nouDate
 hi! nouDate ctermfg=178 guifg=#dfaf00
-syn match nouDate display excludenl
-  \ '\v<%(19|20)\d\d-%(0\d|1[012])%(-%([012]\d|3[01])%(-\u\l\l?)?)?%(-W%([0-4]\d|5[0-3]))?>'
+exe 'syn match nouDate display excludenl' '/\v<'. nou#rgx#Rmcal .'>/'
+exe 'syn match nouDate display excludenl' '/\v<'. nou#rgx#Rcal .'>/'
+" " e.g. 20161114 OR 20161114_043540
+exe 'syn match nouDate display excludenl' '/\v<'. nou#rgx#Rdts .'>/'
 syn match nouDate display excludenl '\v<20\d\d-W%([0-4]\d|5[0-3])>'
 syn match nouDate display excludenl '\v<CW%([0-4]\d|5[0-3])>'
 syn match nouDate display excludenl '\v<20\d\d-Q[1-4]>'
 syn match nouDate display excludenl '\v<20\d\d:\ze%(\s|$)'
-
-" e.g. 20161114 OR 20161114_043540
-syn match nouDate display excludenl
-  \ '\v<20\d\d%(0\d|1[012])%([012]\d|3[01])%(_%([01]\d|2[0-4])[0-5]\d[0-5]\d)?>'
 
 
 "" HACK: emphasize today()
@@ -31,10 +29,10 @@ exe 'syn match nouDateToday display excludenl contained containedin=nouDate '
 "" NOTE dim hi for extended suffixes :: dayname, weekends (Sat/Sun), and weeknum
 hi! nouDateDay ctermfg=94 guifg=#875f00
 syn match nouDateDay display excludenl contained containedin=nouDate '-\u\l\l'
-hi! nouDateOff ctermfg=88 guifg=#8c0000
-syn match nouDateOff display excludenl contained containedin=nouDate '-[S]\l\l'
-hi! nouDateWeek ctermfg=23 guifg=#005f5f
-syn match nouDateWeek display excludenl contained containedin=nouDate '-W\d\d'
+hi! nouDateWeekend ctermfg=88 guifg=#8c0000
+syn match nouDateWeekend display excludenl contained containedin=nouDate '-[S]\l\l'
+hi! nouDateWeekday ctermfg=23 guifg=#005f5f
+syn match nouDateWeekday display excludenl contained containedin=nouDate '-\%(W\d\d\|[HTQ]\d\)'
 
 
 
@@ -91,7 +89,7 @@ let nou#syntax#datetime#Rall =
 hi! nouTimeSpan cterm=bold,underline gui=bold,underline ctermfg=69 guifg=#4f7fef
 syn cluster nouArtifactQ add=nouTimeSpan
 " ALT:OLD: syn match nouTimeSpan display excludenl '\v<%(\d+[wdhms]){1,5}>'
-" MAYBE:allow: 1mo 2mo3d 2y4mo
+" MAYBE:allow: 1mo 2mo3d 2yr4mo1wk
 syn match nouTimeSpan display excludenl
   \ '\v<%(\d+w\d+d|\d+d\d+h|\d+h\d+m|\d+m\d+s|\d+[wdhms]|\d+[mμun]s)>'
 
