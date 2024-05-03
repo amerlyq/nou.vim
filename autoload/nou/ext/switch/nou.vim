@@ -20,12 +20,14 @@ let nou#ext#switch#nou#groups =
   \, split('￬￪', '\zs')
   \, ['MAIL', '📩']
   \, ['CALL', '📲']
-  \, split('0m 5m 10m 20m 30m 40m 50m')
-  \, {'\v<(\d)h30m>': '\1.5h', '\v<(\d).5h>': '\1h30m'}
   \, map(split('me A add'), '"<".v:val.">"')
   \, map(split('W U env'), '"<".v:val.">"')
   \, map(split('next home sleep'), '"<".v:val.">"')
-  \, map(split('eat tea coffee flax'), '"#body:".v:val')
-  \, map(split('comics fantasy RSS'), '"#leisure:".v:val')
-  \, map(split('tracking planning overview timesheet'), '"#taskmgmt:".v:val')
+  \, map(split('eat tea coffee flax'), '"#b:".v:val')
+  \, map(split('comics fantasy RSS'), '"#le:".v:val')
+  \, { '\v<(\d+h\d+m|\d+[hm])>' : {m -> trim(system('just tenjo wk --wk -- '.shellescape(m[0])))} }
   \]
+
+  " \, map(split('tracking planning overview timesheet'), '"#taskmgmt:".v:val')
+  " \, split('0m 5m 10m 20m 30m 40m 50m')
+  " \, {'\v<(\d)h30m>': '\1.5h', '\v<(\d).5h>': '\1h30m'}

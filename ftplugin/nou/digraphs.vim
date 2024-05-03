@@ -12,6 +12,8 @@ digraph [[ 10214   " ⟦ table
 digraph ]] 10215   " ⟧ table
 digraph ** 8226    " •
 digraph *  8226    " •
+digraph ~- 8771    " ≃ seems like ALT: ?- (asymptotically)
+digraph ~= 8773    " ≅ most likely ALT: ?= (approximately)
 digraph <. 10913   " ⪡ before then
 digraph >. 10914   " ⪢ ?delegated? OR after then
 digraph // 11005   " ⫽ during / overlapping

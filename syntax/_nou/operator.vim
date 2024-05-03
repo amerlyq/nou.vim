@@ -10,7 +10,7 @@ syn match nouOperatorDot display excludenl contains=@Spell,@nouAccentQ
 
 " ALSO: .(by|same|like|and|against|because|or|not|aka).
 syn match nouOperatorDot display excludenl contains=@Spell,@nouAccentQ
-  \ /\v%(^|[[:punct:][:blank:]]\zs)%(vs|as|bw|b4|t4|iff|inof|orse|iow|due|cmp|cvt|aka|how-to|yday|ifc|tmpl)%(\ze[[:punct:][:blank:]]|$)/
+  \ /\v%(^|[[:punct:][:blank:]]\zs)%(vs|as|bw|b4|t4|iff|imm|inof|orse|iow|due|cmp|cvt|aka|how-to|yday|ifc|tmpl)%(\ze[[:punct:][:blank:]]|$)/
 
 hi def nouOperatorDotH cterm=bold gui=bold ctermfg=81 guifg=#5fdfff
 syn match nouOperatorDotH display excludenl contains=@Spell,@nouAccentQ

@@ -8,6 +8,7 @@ setl expandtab tabstop=2 shiftwidth=2 softtabstop=2
 setl noshiftround
 setl comments=b:#,b:#%,bO:\|,:¦,:│  ",f:'''
 setl commentstring=#\ %s
+setl formatoptions=ro/qj  " inof DFL=ctqj
 
 setl synmaxcol=240
 setl nowrap

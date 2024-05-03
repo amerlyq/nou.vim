@@ -90,7 +90,7 @@ fun! nou#paste#ctx_guess_indent(lines)
   "" ALT: use indent of above line
   " let pfx = substitute(getline(i - 1), '^\(\s*\).*', '\1', '')
   let off = &expandtab ? repeat(' ', &tabstop) : "\t"
-  if body =~# '^https\?://'
+  if body =~# '^https\?://' || '^[|¦│]'
     let pfx = substitute(pfx, off.'$', '', '')
   elseif body =~# '\V\^[\.]' && a:lines[0] =~# '\V\^[\.] '
     "" don't reindent tasks
