@@ -53,6 +53,7 @@ inoreabbr <buffer> lf; #le:fantasy
 inoreabbr <buffer> lg; #le:gaming
 inoreabbr <buffer> ll; #le:comics,fantasy,RSS
 inoreabbr <buffer> lL; #le:comics=0h,fantasy=0h,RSS=0h
+inoreabbr <buffer> lm; #le:misc
 inoreabbr <buffer> lr; #le:RSS
 inoreabbr <buffer> lv; #le:vtube
 inoreabbr <buffer> ly; #le:youtube

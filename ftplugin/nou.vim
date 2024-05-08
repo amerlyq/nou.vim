@@ -158,6 +158,8 @@ nmap <buffer> <Plug>(nou-set-goal-likely) "_c<Plug>(textobj-nou-goal-i)~<Esc>
 nmap <buffer> <Plug>(nou-set-goal-unlikely) "_c<Plug>(textobj-nou-goal-i)?<Esc>
 nmap <buffer> <Plug>(nou-set-goal-now) "_c<Plug>(textobj-nou-goal-i)•<Esc>
 nmap <buffer> <Plug>(nou-set-goal-next) "_c<Plug>(textobj-nou-goal-i)‣<Esc>
+nmap <buffer> <Plug>(nou-set-goal-ok) "_c<Plug>(textobj-nou-goal-i)✓<Esc>
+nmap <buffer> <Plug>(nou-set-goal-xx) "_c<Plug>(textobj-nou-goal-i)✗<Esc>
 nmap <buffer> <Plug>(nou-set-goal-feed) "_c<Plug>(textobj-nou-goal-i)∞<Esc>
 nmap <buffer> <Plug>(nou-set-goal-overlap) "_c<Plug>(textobj-nou-goal-i)/<Esc>
 nmap <buffer> <Plug>(nou-set-goal-aggregate) "_c<Plug>(textobj-nou-goal-i)*<Esc>
@@ -255,6 +257,8 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>#', '<Plug>(nou-set-goal-rephrase)'],
   \ ['n', '<LocalLeader>L', '<Plug>(nou-set-goal-blockedby)'],
   \ ['n', '<LocalLeader>K', '<Plug>(nou-set-goal-unlocking)'],
+  \ ['n', '<LocalLeader>V', '<Plug>(nou-set-goal-ok)'],
+  \ ['n', '<LocalLeader>X', '<Plug>(nou-set-goal-xx)'],
   \ ['n', '<LocalLeader>+', '<Plug>(nou-set-goal-subdone)'],
   \ ['n', '<LocalLeader>>', '<Plug>(nou-set-goal-postpone)'],
   \ ['n', '<LocalLeader><', '<Plug>(nou-set-goal-beforehand)'],
@@ -289,6 +293,7 @@ let s:nou_mappings = [
 let s:nou_assoc =
   \[ 'a agenda A'
   \, 'b bed'
+  \, 'B bothwk W:both'
   \, 'c common W:common'
   \, 'd dev'
   \, 'e env'
@@ -308,7 +313,6 @@ let s:nou_assoc =
   \, 'R raw W:raw'
   \, 's sleep'
   \, 't both'
-  \, 'T bothwk W:both'
   \, 'u urgent U'
   \, 'v travel'
   \, 'w work W'
@@ -360,8 +364,8 @@ let s:nou_mappings += [
   \ ['nx', '<LocalLeader>b', '<Plug>(nou-barB)'],
   \ ['nx', '<LocalLeader>B', '<Plug>(nou-barC)'],
   \ ['nx', '<LocalLeader>ct', '<Plug>(nou-barT)'],
-  \ ['nx', '<LocalLeader>X', '<Plug>(nou-bar✗)'],
-  \ ['nx', '<LocalLeader>V', '<Plug>(nou-bar✓)'],
+  \ ['nx', '<LocalLeader>cx', '<Plug>(nou-bar✗)'],
+  \ ['nx', '<LocalLeader>cv', '<Plug>(nou-bar✓)'],
   \]
 
 " TODO: <LL>rt -> replace on hours, <LL>rm -> replace on minutes ALT: "c<LL>:"
