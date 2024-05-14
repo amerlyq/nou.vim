@@ -3,14 +3,19 @@
 let s:Ryear = '%(%(19|20)\d\d)'
 let s:Rmonth = '%(0\d|1[012])'
 let s:Rday = '%([012]\d|3[01])'
-" ALT: (Mo|Tu|We|Th|Fr|Sa|Su) OR [MTWRFSU]
-let s:Rwkdaynm = '%(Mon|Tue|Wed|Thu|Fri|Sat|Sun)'  " OR: %(-\u\l\l?)
-let s:Rweek = 'W%([0-4]\d|5[0-3])'
+let s:RwkA = '[MTWRFSU]'
+" let s:RwkAa = '%(Mo|Tu|We|Th|Fr|Sa|Su)'
+let s:RwkAaa = '%(Mon|Tue|Wed|Thu|Fri|Sat|Sun)'  " OR: %(-\u\l\l?)
+let s:Rweek = '%(W[0-4]\d|5[0-3])'
 let nou#rgx#Rdate = s:Ryear.'-'.s:Rmonth.'-'.s:Rday
-let nou#rgx#Rcal = nou#rgx#Rdate.'%(-'.s:Rwkdaynm.')?%(-'.s:Rweek.')?'
+let nou#rgx#Rcal = nou#rgx#Rdate.'%(-'.s:RwkAaa.')?%(-'.s:Rweek.')?'
 " let s:Rwkyear = s:Ryear.'-'.s:Rweek
 " let s:Rwkcury = 'C'.s:Rweek
 " let s:Ranydate = '<%('.nou#rgx#Rcal.'|'.s:Rwkyear.'|'.s:Rwkcury.')>'
+let s:Rymd = '[a-t][1-9abc][1-9a-v]'  " OR: [a-t0-9A-T] for dates 1990+ too
+let nou#rgx#Rymda = s:Rymd . s:RwkA .'?'
+let nou#rgx#Rymdhms = s:Rymd . '[0-9A-N][0-9A-Ya-y][0-9A-Ya-y]'
+let nou#rgx#Rdatepfx = '<%('. nou#rgx#Rdate .'|'. nou#rgx#Rymda .')>'
 
 "" cal
 let s:Rmonthnm = '(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)'

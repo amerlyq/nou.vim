@@ -165,8 +165,12 @@ syn match nouProgressTotal display excludenl contained '/\d\+'
 
 syn cluster nouGenericQ add=nouTask
 hi! nouTask ctermfg=14 guifg=#586e75
-syn match nouTask display excludenl contains=@nouTaskQ
-  \ '\v%(\d{4}-\d\d-\d\d )?\[%(X|[^[:alnum:]]|[\u2800-\u28FF]{2,4}|\d\d%(\.\d+)?\%%(/\d+)?)\]'
+exe "syn match nouTask display excludenl contains=@nouTaskQ '\\v"
+  \.'%(%('.nou#rgx#Rdatepfx.')\s+)?'
+  \.'%(\[[^[:alnum:]]\]|'.nou#util#Rgoal.')'
+  \."'"
+  " OLD: '\v%(20\d\d-\d\d-\d\d )?\[%(X|[^[:alnum:]]|[\u2800-\u28FF]{2,4}|\d\d%(\.\d+)?\%%(/\d+)?)\]'
+  " .py: r"\[([^]]+)\]" | r"(?:[/X%;,^$✗✓+∞•><]|[\u2800-\u28FF]{2,4}|[/X%;,^$✗✓+•><][\u2800-\u28FF]{2,4})
 
 
 "{{{ NOTE: progress highlight e.g. "[1/8]"

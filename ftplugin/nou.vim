@@ -23,14 +23,24 @@ fun! s:aug_date()  " TBD: support 'sobj' argument to allow other objects inof df
   let L = getline('.')
   " ALT:(universal): '\v<20[0-9][0-9]-?[01][0-9]-?[0-3][0-9]'
   let [m, b, e] = matchstrpos(L, '\v<'. g:nou#rgx#Rcal .'>', c-17)
-  if m
+  if len(m)>0 && b <= c
     let z = join(systemlist("date +'%Y-%m-%d-%a-W%W' --date=".m[:9]))
   else
-    let [m, b, e] = matchstrpos(L, '\v<'. g:nou#rgx#Rmcal .'>', c-13)
-    " BAD: "trimester" not supported by !date, only "quarter"
-    if m| let z = join(systemlist("date +'%Y-%m-%b-Q%q' --date=".m[:6].'-01')) |en
+    let [m, b, e] = matchstrpos(L, '\v<'. g:nou#rgx#Rymda .'>', c-3)
+    if len(m)>0 && b <= c
+      let ymd = map(map(split(m[:2], '\zs'), 'char2nr(v:val)'), 'v:val <= 57 ? v:val - 48 : v:val - 87')
+      let ymd[0] += 2010
+      let w0 = join(systemlist("date +'%w' --date=".join(ymd, '-')))
+      let z = m[:2] . 'MTWRFSU'[w0]
+    else
+      let [m, b, e] = matchstrpos(L, '\v<'. g:nou#rgx#Rmcal .'>', c-13)
+      " BAD: "trimester" not supported by !date, only "quarter"
+      if len(m)>0 && b <= c
+        let z = join(systemlist("date +'%Y-%m-%b-Q%q' --date=".m[:6].'-01'))
+      endif
+    endif
   endif
-  if !m || b<0 || b>c || e<=c| throw "Err:(under cursor): not an iso8601.cal datefmt" |en
+  if len(m)==0 || b<0 || b>c || e<=c| throw "Err:(under cursor): not an iso8601 or ymd3a .cal datefmt" |en
   " FIXED:(m[:9]): !date confuses trailer in '2023-03-20-Mon-W12' and increments date by +1d
   call setline('.', (b>0 ? L[:b-1] : "") . z . L[e:])
 endf
@@ -79,9 +89,9 @@ nnoremap <Plug>(nou-spdx-header) 1G"=nou#spdx_header()<CR>P
 "
 "" NOTE: map yx -> convert task(time_completion + date-fallback) into xts
 fun! s:yank_xts(finished, ...)
-  " ALG: get(planned_time) OR: match(nou#util#Rdate, expand('%')) OR: gitblame OR mtime
+  " ALG: get(planned_time) OR: match(nou#rgx#Rdate, expand('%')) OR: gitblame OR mtime
   "   ALSO: try match both 20201020 and 2020-10-20 in any place of line
-  let ymd = matchstr(expand('%:t'), '\v^'.g:nou#util#Rdate)
+  let ymd = matchstr(expand('%:t'), '\v^'.g:nou#rgx#Rdate)
   if a:finished
     " use next task start time OR completion time from progress
 "     " if no date
@@ -292,8 +302,8 @@ let s:nou_mappings = [
 " NOTE: <assoc> :: easier to switch association "c<LL>ame<Esc>" -> "<LL>wm"
 let s:nou_assoc =
   \[ 'a agenda A'
-  \, 'b bed'
-  \, 'B bothwk W:both'
+  \, 'b bothwk W:both'
+  \, 'B bed'
   \, 'c common W:common'
   \, 'd dev'
   \, 'e env'
@@ -306,13 +316,14 @@ let s:nou_assoc =
   \, 'm me'
   \, 'M me-like W:me'
   \, 'n next'
-  \, 'o spaceout'
+  \, 'o both'
   \, 'O overtime OT'
   \, 'p prevwork prev:W'
   \, 'r refocus'
   \, 'R raw W:raw'
   \, 's sleep'
-  \, 't both'
+  \, 'S spaceout'
+  \, 't TBD'
   \, 'u urgent U'
   \, 'v travel'
   \, 'w work W'

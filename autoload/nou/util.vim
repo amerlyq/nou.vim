@@ -15,12 +15,6 @@ let s:Rsubject = '.*'.s:Rcomment
 let s:R_incomments = 0 > index(map(['nou', 'text'], '&filetype =~ v:val'), 1)
 let s:Rlinebeg = (s:R_incomments ? s:Rsubject : s:Rindent)
 
-"" TEMP: keep old names
-let nou#util#Rdate = nou#rgx#Rdate
-let nou#util#Rcal  = nou#rgx#Rcal
-let nou#util#Rtime = nou#rgx#Rtime
-let nou#util#Rdatetime = nou#rgx#Rdatetime
-
 let s:Rbraille = '[\u2800-\u28FF]{2,4}'
 " TODO: "nano{datetime,braille}"
 
@@ -40,7 +34,7 @@ let s:RprogressN = '\[%('.s:RratioN.'|'.s:RpercentN.')\]'
 let s:Rstate0 = '%([_…•‣#🔒🔑]|[@!?~￪]|[0-9])'
 " let s:Rstate1 = '[•]'
 let s:RstateN = '[/X%;,*+$<>∞⟫￬≫✓✗^]'
-let s:RstateD = '%('.s:RstateN.'|'.s:Rbraille.'|'.s:RstateN.s:Rbraille.'|'.nou#util#Rdatetime.')'
+let s:RstateD = '%('.s:RstateN.'|'.s:Rbraille.'|'.s:RstateN.s:Rbraille.'|'.nou#rgx#Rdatetime.')'
 let s:Rstate = '%('.s:Rstate0.'|'.s:RstateN.')'
 let nou#util#Rtodo = '%(\['.s:Rstate0.'\]|'.s:Rprogress0.')'
 let s:Rdone = '%(\['.s:RstateD.'\]|'.s:RprogressN.')'
@@ -96,9 +90,9 @@ let s:Rbody = ''
 "   [_] TRY:HACK: match (parse) in loop one-by-one
 "   [_] BET! use external .py library to manipulate tasks
 let s:Rtask = ''
-  \.'%(('.nou#util#Rdate.')\s+)?'
+  \.'%(('.nou#rgx#Rdatepfx.')\s+)?'
   \.'%(('.nou#util#Rgoal.')\s+)?'
-  \.'%(('.nou#util#Rtime.')\s+)?'
+  \.'%(('.nou#rgx#Rtime.')\s+)?'
   \.'%(('.s:Rinfix.')\s+)?'
   \.'%(('.s:Relapsed.')\s+)?'
 

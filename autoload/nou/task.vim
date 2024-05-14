@@ -53,9 +53,9 @@ fun! nou#bar(...) range
     let line = getline(i)
     let chgd = substitute(line,
       \ '\v^(\s*%([^[:alpha:][:blank:][\]]{-1,3}\s+)?)'
-      \.'%(<\d{4}-%(0\d|1[012])-%([012]\d|3[01])>\s*)?'
-      \.'%(\[%([_$X]|[\u2800-\u28FF]{4}|\d\d\%)\]\s*)?'
-      \.'%(<%(\d|[01]\d|2[0-4]):[0-5]\d%(:[0-5]\d)?>\s*)?'
+      \.'%(%('.nou#rgx#Rdatepfx.')\s+)?'
+      \.'%(\[[^[:alnum:]]\]|'.nou#util#Rgoal.')?'
+      \.'%(%('.nou#rgx#Rtime.')\s+)?'
       \.'(.*)$',
       \ '\1'.pfx.'\2', '')
     if chgd !=# line| call setline(i, chgd) |en

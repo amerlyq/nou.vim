@@ -156,7 +156,7 @@ fun! nou#path_open(path, ...)
     endif
 
     "" NOTE: open any date as .cal (past/future)
-    let ymd = matchstr(a:path, '\v^'.g:nou#util#Rdate)
+    let ymd = matchstr(a:path, '\v^'.g:nou#rgx#Rdate)
     if ymd
       let cmdline = "find -H /@/todo -regextype egrep -type f -regex '.+/".ymd."\\b.*' -print -quit"
       echom cmdline
