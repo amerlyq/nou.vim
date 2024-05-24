@@ -20,6 +20,7 @@ nnoremap <Plug>(nou-datew-a) "=strftime('%Y-%m-%d-%a-W%W')<CR>p
 " nnoremap <Plug>(nou-complement) E"=join(systemlist("date +'-%a-W%W' -d ".expand('<cWORD>')))<CR>p
 fun! s:aug_date()  " TBD: support 'sobj' argument to allow other objects inof dfl 'date *under cursor*'
   let c = col('.') - 1
+  let off = 0
   let L = getline('.')
   " ALT:(universal): '\v<20[0-9][0-9]-?[01][0-9]-?[0-3][0-9]'
   let [m, b, e] = matchstrpos(L, '\v<'. g:nou#rgx#Rcal .'>', c-17)
@@ -37,10 +38,36 @@ fun! s:aug_date()  " TBD: support 'sobj' argument to allow other objects inof df
       " BAD: "trimester" not supported by !date, only "quarter"
       if len(m)>0 && b <= c
         let z = join(systemlist("date +'%Y-%m-%b-Q%q' --date=".m[:6].'-01'))
+      else
+        let [m, b, e] = matchstrpos(L, '\v'. g:nou#rgx#Rcwkm .'>', c-10)
+        if len(m)>0
+          let off = 5
+          let yr = L[b-off:b-2]
+          if yr !~ '20\d\d'
+            let yr = strftime("%Y")
+            let off = 1
+          endif
+          if b-off <= c
+            let firstmonday = str2nr(strftime('%u', strptime('%Y-%m-%d', yr.'-01-01')))
+            let offset = firstmonday - 1 - 7
+            let z = join(systemlist("date +'%b-%d' --date='".yr."-01-01 -".offset." days +".m[1:2]." weeks'"))
+            " HACK: only replace trailing comment, keeping used separator intact
+            let sep = L[b+3:b+3]
+            if sep == ''
+              let b += 3
+              let off += 3
+              let z = '/' . z
+            else
+              let b += 4
+              let off += 4
+              if b > e| let e = b |en
+            endif
+          endif
+        endif
       endif
     endif
   endif
-  if len(m)==0 || b<0 || b>c || e<=c| throw "Err:(under cursor): not an iso8601 or ymd3a .cal datefmt" |en
+  if len(m)==0 || b<0 || b-off>c || e<=c| throw "Err:(under cursor): not an iso8601 or ymd3a .cal datefmt" |en
   " FIXED:(m[:9]): !date confuses trailer in '2023-03-20-Mon-W12' and increments date by +1d
   call setline('.', (b>0 ? L[:b-1] : "") . z . L[e:])
 endf

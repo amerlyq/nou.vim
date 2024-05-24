@@ -6,9 +6,9 @@ let s:Rday = '%([012]\d|3[01])'
 let s:RwkA = '[MTWRFSU]'
 " let s:RwkAa = '%(Mo|Tu|We|Th|Fr|Sa|Su)'
 let s:RwkAaa = '%(Mon|Tue|Wed|Thu|Fri|Sat|Sun)'  " OR: %(-\u\l\l?)
-let s:Rweek = '%(W[0-4]\d|5[0-3])'
+let s:Rweek = '%([0-4]\d|5[0-3])'
 let nou#rgx#Rdate = s:Ryear.'-'.s:Rmonth.'-'.s:Rday
-let nou#rgx#Rcal = nou#rgx#Rdate.'%(-'.s:RwkAaa.')?%(-'.s:Rweek.')?'
+let nou#rgx#Rcal = nou#rgx#Rdate.'%(-'.s:RwkAaa.')?%(-W'.s:Rweek.')?'
 " let s:Rwkyear = s:Ryear.'-'.s:Rweek
 " let s:Rwkcury = 'C'.s:Rweek
 " let s:Ranydate = '<%('.nou#rgx#Rcal.'|'.s:Rwkyear.'|'.s:Rwkcury.')>'
@@ -20,6 +20,7 @@ let nou#rgx#Rdatepfx = '<%('. nou#rgx#Rdate .'|'. nou#rgx#Rymda .')>'
 "" cal
 let s:Rmonthnm = '(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)'
 let nou#rgx#Rmcal = s:Ryear.'-'.s:Rmonth.'%(-'.s:Rmonthnm.')?%(-%(H[12]|T[123]|Q[1234]))?'
+let nou#rgx#Rcwkm = 'W'.s:Rweek.'%([/-]'.s:Rmonthnm.')?%(-'.s:Rday.')?'
 
 
 "" time

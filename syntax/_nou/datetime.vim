@@ -9,13 +9,12 @@
 syn cluster nouTextQ add=@nouGenericQ
 syn cluster nouGenericQ add=nouDate
 hi! nouDate ctermfg=178 guifg=#dfaf00
-exe 'syn match nouDate display excludenl' '/\v<'. nou#rgx#Rmcal .'>/'
-exe 'syn match nouDate display excludenl' '/\v<'. nou#rgx#Rcal .'>/'
+exe 'syn match nouDate display excludenl' '/\v<'. nou#rgx#Rmcal .'%(>|$|\ze[^\k])/'
+exe 'syn match nouDate display excludenl' '/\v<'. nou#rgx#Rcal .'%(>|$|\ze[^\k])/'
 " " e.g. 20161114 OR 20161114_043540
-exe 'syn match nouDate display excludenl' '/\v<'. nou#rgx#Rdts .'>/'
-syn match nouDate display excludenl '\v<20\d\d-W%([0-4]\d|5[0-3])>'
-syn match nouDate display excludenl '\v<CW%([0-4]\d|5[0-3])>'
-syn match nouDate display excludenl '\v<20\d\d-Q[1-4]>'
+exe 'syn match nouDate display excludenl' '/\v<'. nou#rgx#Rdts .'%(>|$|\ze[^\k])/'
+exe 'syn match nouDate display excludenl' '/\v<%(20\d\d-|C)'. nou#rgx#Rcwkm .'%(>|$|\ze[^\k])/'
+syn match nouDate display excludenl '\v<20\d\d-%(H[12]|T[123]|Q[1234])%(>|$|\ze[^\k])'
 syn match nouDate display excludenl '\v<20\d\d:\ze%(\s|$)'
 
 
@@ -33,6 +32,8 @@ hi! nouDateWeekend ctermfg=88 guifg=#8c0000
 syn match nouDateWeekend display excludenl contained containedin=nouDate '-[S]\l\l'
 hi! nouDateWeekday ctermfg=23 guifg=#005f5f
 syn match nouDateWeekday display excludenl contained containedin=nouDate '-\%(W\d\d\|[HTQ]\d\)'
+hi! nouDateTrailing guifg=#485f6f
+syn match nouDateTrailing display excludenl contained containedin=nouDate '/\S\+'
 
 
 
