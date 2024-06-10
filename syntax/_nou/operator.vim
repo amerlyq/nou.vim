@@ -8,7 +8,7 @@ hi def nouOperatorDot cterm=bold gui=bold ctermfg=74 guifg=#1fafdf
 syn match nouOperatorDot display excludenl contains=@Spell,@nouAccentQ
   \ /\v%(^|[[:punct:][:blank:]]\zs)[.][^[:blank:].]\S*[^[:blank:].][.]%(\ze[[:punct:][:blank:]]|$)/
 
-" ALSO: .(by|same|like|and|against|because|or|not|aka).
+" ALSO: .(by|same|like|and|agst[against]|because|or|not|aka|bnf[back'n'forth]).
 syn match nouOperatorDot display excludenl contains=@Spell,@nouAccentQ
   \ /\v%(^|[[:punct:][:blank:]]\zs)%(vs|as|bw|b4|t4|iff|imm|inof|orse|iow|due|cmp|cvt|aka|how-to|yday|ifc|tmpl)%(\ze[[:punct:][:blank:]]|$)/
 

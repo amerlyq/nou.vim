@@ -31,8 +31,8 @@ fun! s:aug_date()  " TBD: support 'sobj' argument to allow other objects inof df
     if len(m)>0 && b <= c
       let ymd = map(map(split(m[:2], '\zs'), 'char2nr(v:val)'), 'v:val <= 57 ? v:val - 48 : v:val - 87')
       let ymd[0] += 2010
-      let w0 = join(systemlist("date +'%w' --date=".join(ymd, '-')))
-      let z = m[:2] . 'MTWRFSU'[w0]
+      let w1 = join(systemlist("date +'%u' --date=".join(ymd, '-')))
+      let z = m[:2] . 'MTWRFSU'[w1-1]
     else
       let [m, b, e] = matchstrpos(L, '\v<'. g:nou#rgx#Rmcal .'>', c-13)
       " BAD: "trimester" not supported by !date, only "quarter"
@@ -219,6 +219,7 @@ nmap <buffer> <Plug>(nou-set-goal-progressB) :<C-u>let b:c=v:count1<Esc>"_c<Plug
 " nmap <buffer> <Plug>(nou-set-goal-todo) c<Plug>(textobj-nou-goal-i)_<Esc>
 " omap <buffer> <Plug>(nou-set-goal-todo) <Plug>(textobj-nou-goal-i)_<Esc>
 
+nmap <buffer> <Plug>(nou-del-alloc) "_d<Plug>(textobj-nou-time-i)"_d<Plug>(textobj-nou-dura-i)
 nmap <buffer> <Plug>(nou-del-status) d<Plug>(textobj-nou-status-i)
 nmap <buffer> <Plug>(nou-del-assoc) d<Plug>(textobj-nou-assoc-i)
 nmap <buffer> <Plug>(nou-set-date-today) "_c<Plug>(textobj-nou-date-i)<C-r>=strftime('%Y-%m-%d')<CR><Esc>
@@ -264,6 +265,7 @@ map <buffer> <Plug>(nou-log-prev) :<C-u>call NouLogAdvance(-1)<CR>
 " DISABLED: I never expect to convert subtask to task
 "   ['n', '<LocalLeader><Space>', '<Plug>(nou-cvt-task)'],
 "   ['n', '<LocalLeader><Space>', '<Plug>(nou-set-goal-todo)'],
+"   ['n', '<LocalLeader><Space>', '<Plug>(nou-del-span)'],
 "   ['n', '<LocalLeader>L', '<Plug>(nou-spdx-header)'],
 "" FAIL: don't work -- because rhs already bound
 "   ['n', '<LocalLeader>;', '<Plug>(nou-set-goal-now)'],
@@ -320,7 +322,7 @@ let s:nou_mappings = [
   \ ['nx', '<LocalLeader><CR>', '<Plug>(nou-calc-py)'],
   \ ['n', '<LocalLeader><Right>', '<Plug>(nou-set-goal-slightly)'],
   \ ['n', '<LocalLeader><Backspace>', '<Plug>(nou-merge-plan)'],
-  \ ['n', '<LocalLeader><Del>', '<Plug>(nou-del-status)'],
+  \ ['n', '<LocalLeader><Del>', '<Plug>(nou-del-alloc)'],
   \ ['n', '<LocalLeader><Tab>', '<Plug>(nou-complement)'],
   \ ['n', '<LocalLeader>w<Space>', '<Plug>(nou-del-assoc)'],
   \]

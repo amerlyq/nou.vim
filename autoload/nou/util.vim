@@ -139,11 +139,12 @@ fun! nou#util#parsetask(...) abort
   " ALT: directly use :: let [bln,bco] = searchpos(a:patt, 'cW',  line('.'))
   let L = a:0 ? a:1 : getline('.')
   let nL = strlen(L)
+  " VIZ: nou#util#T_elems = ['line', 'lead', 'date', 'goal', 'time', 'infix', 'dura', 'assoc', 'mood', 'tags', 'text']
   let elems = matchlist(L, '\v^'.s:Rtaskline.'$')
   if !len(elems)| echoerr 'WTF/impossible: no taskline' |en
 
   let T = {}
-  let T.pos = getpos('.')
+  let T.pos = getpos('.')  " HACK: additional heterogeneous entry
   let l = elems[0]
 
 
@@ -155,8 +156,21 @@ fun! nou#util#parsetask(...) abort
 
   " NOTE: extract position of each submatch
   let c = 0
-  for i in range(1, len(elems) - 1)
-    let m = elems[i]
+  for i in range(1, len(elems))
+    if i < len(elems)
+      let m = elems[i]
+    else
+      " HACK: T.text = rest of the line (COS: only \9 matching groups are allowed)
+      " let lenmeta = strlen(join(elems[1:], ''))
+      " call add(elems, L[lenmeta:])
+      let last = T[g:nou#util#T_elems[i-1]]
+      let m = L[last.E+strlen(last.s):]
+      "" DEBUG
+      " echom T[g:nou#util#T_elems[i-1]]
+      " echom [m, c, L]
+      " echom stridx(L, m, c)
+    endif
+
     let b = (c >= nL) ? nL : stridx(L, m, c)  " ALT? matchstrpos() by regex
     if b<0| echoerr 'WTF/impossible: no #'.i.' task elem='.m
         \.' in L['.c.':'.nL.']. Tokens: '.join(elems[1:], '|') |en
@@ -196,6 +210,8 @@ endf
 
 fun! nou#util#combo_task(...) abort
   let T = a:0 ? a:1 : nou#util#parsetask()
+  " echom keys(T)
+  " >> ['assoc', 'lead', 'goal', 'date', 'line', 'tags', 'infix', 'time', 'dura', 'pos', 'mood']
   let T.status = nou#util#merge_E(T.date, T.goal)
   let T.plan = nou#util#merge_E(T.status, T.time)
   let T.span = nou#util#merge_E(T.time, T.dura)
@@ -215,7 +231,7 @@ fun! nou#util#combo_task(...) abort
   return T
 endf
 
-fun! nou#util#get(...)
+fun! nou#util#get(...) abort
   let T = a:0>=2 ? a:2 : nou#util#parsetask()
   if a:0<1| return T |en
   " NOTE: lazy extend
@@ -235,7 +251,7 @@ endf
 
 " FIXME: if new line is the same -- don't modify it to preserve buffer state
 "   TRY: return empty list i.e. invalid textobj selection ?
-fun! nou#util#Tpos(spaced, elem, ...)
+fun! nou#util#Tpos(spaced, elem, ...) abort
   let x = call('nou#util#get', [a:elem] + a:000)
 
   " HACK: invert space logic when deleting
@@ -318,6 +334,6 @@ endf
 """""""""""""""""""
 for s:nm in nou#util#T_all
   let s:fnm = 'nou#util#textobj_'. s:nm
-  exe "fun! ".s:fnm."_i() range\nreturn nou#util#Tpos(0,'".s:nm."')\nendf"
-  exe "fun! ".s:fnm."_a() range\nreturn nou#util#Tpos(1,'".s:nm."')\nendf"
+  exe "fun! ".s:fnm."_i() abort range\nreturn nou#util#Tpos(0,'".s:nm."')\nendf"
+  exe "fun! ".s:fnm."_a() abort range\nreturn nou#util#Tpos(1,'".s:nm."')\nendf"
 endfor
