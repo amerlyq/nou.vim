@@ -89,7 +89,7 @@ fun! nou#bar(...) range
   endif
   if pfx =~# '⪡'
     let pfx = substitute(pfx, '⪡', '[⪡'.nou#xdt().'] ', '')
-  elseif pfx =~# '^[✗✓]$'
+  elseif pfx =~# '^[✗✓≈]$'
     let pfx = substitute(pfx, pfx, '['.pfx.nou#xts().'] \\3', '')
   endif
 
