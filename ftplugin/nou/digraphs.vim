@@ -77,6 +77,8 @@ digraph HA 128156  " 💜 passion-related goal
 digraph !+ 128156  " 💜 passion-related goal
 digraph !. 8623    " ↯ = important/agenda (like a [lightning] bolt from the blue)
 digraph II 8623    " ↯ = important/agenda ALT=HH|UU
+digraph uu 9888    " ⚠ = urgent AND important
+digraph nn 9752    " ☘ = nice to have, fickle jimmicks, low prio
 
 
 digraph :( 9785    " ☹  emoji frown

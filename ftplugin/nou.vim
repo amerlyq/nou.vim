@@ -333,8 +333,8 @@ let s:nou_mappings = [
 " NOTE: <assoc> :: easier to switch association "c<LL>ame<Esc>" -> "<LL>wm"
 let s:nou_assoc =
   \[ 'a agenda A'
-  \, 'b bothwk W:both'
-  \, 'B bed'
+  \, 'b bed'
+  \, 'B bothwk W:both'
   \, 'c common W:common'
   \, 'd dev'
   \, 'e env'
