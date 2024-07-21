@@ -35,9 +35,13 @@ fun! s:aug_date()  " TBD: support 'sobj' argument to allow other objects inof df
       let z = m[:2] . 'MTWRFSU'[w1-1]
     else
       let [m, b, e] = matchstrpos(L, '\v<'. g:nou#rgx#Rmcal .'>', c-13)
-      " BAD: "trimester" not supported by !date, only "quarter"
       if len(m)>0 && b <= c
-        let z = join(systemlist("date +'%Y-%m-%b-Q%q' --date=".m[:6].'-01'))
+        "" BAD: "trimester" not supported by !date, only "quarter"
+        " let z = join(systemlist("date +'%Y-%m-%b-Q%q' --date=".m[:6].'-01'))
+        "" HACK: manually convert month index to trimester
+        let ymd = strftime('%Y-%m-%b', strptime('%Y-%m-%d', m[:6].'-01'))
+        let tri = (str2nr(split(ymd, '-')[1]) - 1) / 4 + 1
+        let z = ymd .'-T'. tri
       else
         let [m, b, e] = matchstrpos(L, '\v'. g:nou#rgx#Rcwkm .'>', c-10)
         if len(m)>0
