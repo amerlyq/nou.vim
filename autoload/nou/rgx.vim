@@ -26,7 +26,7 @@ let nou#rgx#Rcwkm = 'W'.s:Rweek.'%([/-]'.s:Rmonthnm.')?%(-'.s:Rday.')?'
 "" time
 let s:Rhours = '%([01]\d|2[0-4])'  " OR: %(\d|...
 let s:Rminutes = '[0-5]\d'
-let s:Rseconds = '[0-5]\d'
+let s:Rseconds = '[0-5]\d'  " WARN: leap-year seconds may be either 00 or 60 (but only once per year)
 let s:Rtimezone = '%(Z|\+%([01]\d|2[0-4]):?00)'  " ATT: don't allow fractional time zones
 let nou#rgx#Rtime = s:Rhours.':'.s:Rminutes.'%(:'.s:Rseconds.')?'
 let nou#rgx#Rdatetime = nou#rgx#Rdate.'[^0-9]'.nou#rgx#Rtime.'%('.s:Rtimezone.')?'

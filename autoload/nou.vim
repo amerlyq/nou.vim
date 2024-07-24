@@ -102,11 +102,13 @@ fun! nou#bar(...) range
 
   for i in rgn
     let line = getline(i)
+    " WTF: why I need "\C" here?
+    "   TEMP:FIXED: kwd="BAD:" treated as a date="bad"=2021-10-13 and infix=":"
     let chgd = substitute(line,
-      \ '\v^(\s*%([-+=*<>!?]{-1,3}\s+)?)'
-      \.'(<\d{4}-%(0\d|1[012])-%([012]\d|3[01])>\s*)?'
+      \ '\v^(\s*%(%('. g:nou#rgx#Rdecision .')\s+)?)'
+      \.'(\C'. g:nou#rgx#Rdatepfx .'\s*)?'
       \.'%('. g:nou#util#Rgoal .'\s+)?'
-      \.'(<%(\d|[01]\d|2[0-4]):[0-5]\d%(:[0-5]\d)?>\s*)?'
+      \.'('. g:nou#rgx#Rtime .'\s*)?'
       \.'(.*)$',
       \ '\1\2'.pfx.'\4', '')
     if chgd !=# line| call setline(i, chgd) |en

@@ -234,19 +234,25 @@ nmap <buffer> <Plug>(nou-set-time-now-floor) :<C-u>let b:c=v:count<Esc>"_c<Plug>
 nmap <buffer> <Plug>(nou-set-time-now-ceil)  :<C-u>let b:c=v:count<Esc>"_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(b:c,1)<CR><Esc>
 nmap <buffer> <Plug>(nou-set-time-now-round) :<C-u>let b:c=v:count<Esc>"_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(b:c,2)<CR><Esc>
 
+" WARN: forced to duplicate body of "<Esc><Plug>(nou-set-goal-now)" due to RHS
+"     being verified for uniqueness during my mapping code at the bottom
+"   MAYBE:FIX: loosen this restriction, to allow reusing <Plug> mappings in trains
+nmap <buffer> <Plug>(nou-insert-now-moment) :<C-u>if empty(trim(getline('.')))\|call setline('.', getline('.').'.')\|en<CR>"_c<Plug>(textobj-nou-goal-i)•<Esc><Plug>(nou-set-time-now-round)
+
 
 " HACK: merge next task with prev line time
 " nmap <buffer> <Plug>(nou-merge-plan) d<Plug>(textobj-nou-plan-i)kJ
 nmap <buffer> <Plug>(nou-merge-plan) d<Plug>(textobj-nou-goal-i)d<Plug>(textobj-nou-time-i)kJ
-nmap <buffer> <Plug>(nou-del-plan) d<Plug>(textobj-nou-plan-i)
+nmap <buffer> <Plug>(nou-del-plan) d<Plug>(textobj-nou-plan-i)"_c<Plug>(textobj-nou-goal-i)_<Esc>
 
 " FAIL: can't apply multiple times to visual selection
-nmap <buffer> <Plug>(nou-cvt-task) d<Plug>(textobj-nou-lead-i)c<Plug>(textobj-nou-goal-i)_<Esc>
+nmap <buffer> <Plug>(nou-cvt-task) d<Plug>(textobj-nou-lead-i)"_c<Plug>(textobj-nou-goal-i)_<Esc>
 
 
 " Python #just
 nmap <buffer> <Plug>(nou-sum-hierarchy) :call NouSumHierarchy()<CR>
 nmap <buffer> <Plug>(nou-sum-logblock) :call NouSumLogBlock()<CR>
+" HACK: delete previous duration, to recalculate its current .effective as dt=lnow()-time
 nmap <buffer> <Plug>(nou-fix-claimed-floor) d<Plug>(textobj-nou-dura-i)<Cmd>call NouFixClaimed(0)<CR>
 nmap <buffer> <Plug>(nou-fix-claimed-ceil) d<Plug>(textobj-nou-dura-i)<Cmd>call NouFixClaimed(1)<CR>
 " TRY:BET: simply open next/prev file in dir (sorted by date)
@@ -288,6 +294,7 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>E', '<Plug>(nou-fix-claimed-ceil)'],
   \ ['n', '<LocalLeader>H', '<Plug>(nou-sum-hierarchy)'],
   \ ['n', '<LocalLeader>G', '<Plug>(nou-sum-logblock)'],
+  \ ['n', '<LocalLeader>g.', '<Plug>(nou-insert-now-moment)'],
   \ ['n', '<LocalLeader>t', '<Plug>(nou-set-time-now-floor)'],
   \ ['n', '<LocalLeader>T', '<Plug>(nou-set-time-now-ceil)'],
   \ ['n', '<LocalLeader>i', '<Plug>(nou-date-i)'],

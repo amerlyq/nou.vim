@@ -1,7 +1,7 @@
 
 " BAD:(end-id): can't support "#tm", only "#tm;" SEE: :h abbreviations
 
-inoreabbr <buffer> W; FLOW<CR>MEET<CR>CRUNCH<CR>RUSH<CR>ORG
+inoreabbr <buffer> W; MEET<CR>FLOW<CR>CRUNCH<CR>RUSH<CR>ORG
 inoreabbr <buffer> &; &results<CR>&-cap<CR>&next<CR>Qs
 inoreabbr <buffer> AA; <Home>&attitude<CR><CR>&outcomes<CR><Space><Space>[#]<CR><Home><CR><CR>BODY<CR><CR><CR>FLOW<CR><CR><CR>REST<CR><CR><CR>CRUNCH<CR><CR><CR>JOY<CR><CR><CR>RUSH<CR><CR><CR>%NEW<CR><CR><CR>TODO<CR>
 " ALT: ###/XXX/TODO

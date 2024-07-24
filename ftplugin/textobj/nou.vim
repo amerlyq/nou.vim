@@ -15,9 +15,11 @@ set cpo&vim
 " [_] BET:DEV: <LL><Backspace> incrementally delete <count> first elements (i.e. indent, goal, time, etc...)
 " INFO:free: $ printf '%b\n' $(printf '\\x%x\n' {33..126}) | grep -vxFf <(:Y SS |cut -c2)
 "   !"$%&'()+-./0123456789:;=?@FJKNOQRUVW[\]^_`fjklnoqruvw{|}~
+" ALT:('deci'): use '?' inof 'F' COS: '?' means 'what I think?'
 let s:keys =
   \[['line', 'L']
   \,['lead', '<Del>', '<Backspace>', 'indent']
+  \,['deci', 'f', 'F', 'decision-marker / opinion']
   \,['date', 'd', 'D']
   \,['goal', 'g', 'G']
   \,['time', 't', 'T']

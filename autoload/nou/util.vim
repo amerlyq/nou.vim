@@ -15,6 +15,9 @@ let s:Rsubject = '.*'.s:Rcomment
 let s:R_incomments = 0 > index(map(['nou', 'text'], '&filetype =~ v:val'), 1)
 let s:Rlinebeg = (s:R_incomments ? s:Rsubject : s:Rindent)
 
+" TEMP:PERF: slow?
+let nou#rgx#Rdecision = join(mapnew(g:nou.decision.colors, "'%('. v:val[0] .')'"), '|')
+
 let s:Rbraille = '[\u2800-\u28FF]{2,4}'
 " TODO: "nano{datetime,braille}"
 
@@ -90,6 +93,7 @@ let s:Rbody = ''
 "   [_] TRY:HACK: match (parse) in loop one-by-one
 "   [_] BET! use external .py library to manipulate tasks
 let s:Rtask = ''
+  \.'%(%('.nou#rgx#Rdecision.')\s+)?'
   \.'%(('.nou#rgx#Rdatepfx.')\s+)?'
   \.'%(('.nou#util#Rgoal.')\s+)?'
   \.'%(('.nou#rgx#Rtime.')\s+)?'
@@ -108,6 +112,9 @@ let s:Rtask = ''
 " \8 = mood
 " \9 = tags
 " .. = text HACK: calc rest of the line
+" [_] FIXME: should include 'decision'-prefix bw 'lead' and 'date' ⌇⡦⢡⢄⣡
+"   ~~ TEMP: simply discard decision-prefix when parsing regex
+"   BUT: does not fit into \9 slots -- should use iterative parser
 let nou#util#T_elems = ['line', 'lead', 'date', 'goal', 'time', 'infix', 'dura', 'assoc', 'mood', 'tags', 'text']
 let s:Rtaskline = '('.s:Rlinebeg.')?' . s:Rtask . s:Rbody
 
