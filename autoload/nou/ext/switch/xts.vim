@@ -32,6 +32,10 @@ let s:grps +=
 let s:grps += [
   \{ '\v<(\d{10})>' : {m -> trim(system('just xts cvt '.shellescape(m[0]).' unix fts'))}
   \, '\v<(20\d{6}_\d{6})>' : {m -> trim(system('just xts cvt '.shellescape(m[0]).' fts unix'))}
+  \, '\v<('. nou#rgx#Rday .')\.('. nou#rgx#Rmonth .')%(\.('. nou#rgx#Ryear .'))?>'
+  \      : {m -> strftime('%Y-%m-%d', strptime('%d.%m.%Y', m[0] .(m[3] ?'':strftime('.%Y'))))}
+  \, '\v<('. nou#rgx#Rmonth .')/('. nou#rgx#Rday .')%(/('. nou#rgx#Ryear .'))?>'
+  \      : {m -> strftime('%Y-%m-%d', strptime('%m/%d/%Y', m[0] .(m[3] ?'':strftime('/%Y'))))}
   \},
   \{ '\v<('.nou#rgx#Rdatetime.')>' : {m,r -> trim(system('just xts cvt '.shellescape(m[0]).' date '.(r?'xts4':'ymdhms')))}
   \, '\v<'.nou#rgx#Rymdhms.'>' : {m,r -> trim(system('just xts cvt '.shellescape(m[0]).' ymdhms '.(r?'date':'xts4')))}
@@ -42,6 +46,7 @@ let s:grps += [
   \, '\v<'.nou#rgx#Rymda .'>' : {m,r -> trim(system('just xts cvt '.shellescape(m[0][:2]).' ymd3 '.(r?'xts2':'datew')))}
   \, '\v<[\u2800-\u28FF]{2}>' : {m,r -> trim(system('just xts cvt '.shellescape(m[0]).' xts2 '.(r?'datew':'ymd3')))}
   \}]
+
 "" ALT
 " '\v<([\u2800-\u28FF]{4})>' : {br -> strftime('%Y-%m-%d %H:%M:%S%z', str2nr(substitute(br, '.', '\=printf("%02x",and(char2nr(submatch(0)),0xff))', 'g'), 16))}
 

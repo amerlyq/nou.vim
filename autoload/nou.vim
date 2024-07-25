@@ -70,6 +70,7 @@ fun! nou#bar(...) range
   let pfx = a:1
   let pfx = substitute(pfx, '[0-9]', '', 'g')  " Strip progress lvl
   let pfx = substitute(pfx, 'D', strftime('%Y-%m-%d '), '')
+  " ALSO? ⪡TBC✗✓  -- to add v:count percents
   if pfx =~# '[_$X%;,*<#🔒🔑⟫≫]'
     " BET: use separate keys: 50<Space>% and <Space>%50 (inserts cursor at "[|%]")
     " IDEA: use mixed log-xts "[⡟⢝⣣⣔%50]" OR "[50%⡟⢝⣣⣔]" instead of "[50%] s <⡟⢝⣣⣔>"
@@ -77,7 +78,7 @@ fun! nou#bar(...) range
     let mrk = '['. (a:2 ? printf('%02d', pg).'%' : '&') .'] '
     " HACK: reset goal together with planned time
     let keep = mrk.(pfx =~# '[_]' ? '' : '\\3')
-    let pfx = substitute(pfx, '[_$X<]', keep, '')
+    let pfx = substitute(pfx, '[_$X%<]', keep, '')
   endif
   if pfx =~# 'T'
     let pfx = substitute(pfx, 'T', nou#now(a:2).' ', '')

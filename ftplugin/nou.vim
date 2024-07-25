@@ -18,7 +18,7 @@ nnoremap <Plug>(nou-datew-a) "=strftime('%Y-%m-%d-%a-W%W')<CR>p
 
 " ENH: augment many other objects beside date
 " nnoremap <Plug>(nou-complement) E"=join(systemlist("date +'-%a-W%W' -d ".expand('<cWORD>')))<CR>p
-fun! s:aug_date()  " TBD: support 'sobj' argument to allow other objects inof dfl 'date *under cursor*'
+fun! s:aug_date(cnt)  " TBD: support 'sobj' argument to allow other objects inof dfl 'date *under cursor*'
   let c = col('.') - 1
   let off = 0
   let L = getline('.')
@@ -26,13 +26,16 @@ fun! s:aug_date()  " TBD: support 'sobj' argument to allow other objects inof df
   let [m, b, e] = matchstrpos(L, '\v<'. g:nou#rgx#Rcal .'>', c-17)
   if len(m)>0 && b <= c
     let z = join(systemlist("date +'%Y-%m-%d-%a-W%W' --date=".m[:9]))
+    let z = join(split(z, '-')[:-1-a:cnt], '-')
   else
     let [m, b, e] = matchstrpos(L, '\v<'. g:nou#rgx#Rymda .'>', c-3)
     if len(m)>0 && b <= c
       let ymd = map(map(split(m[:2], '\zs'), 'char2nr(v:val)'), 'v:val <= 57 ? v:val - 48 : v:val - 87')
       let ymd[0] += 2010
+      " ALT: strftime('%u', strptime('%Y-%m-%d', join(ymd, '-')))
       let w1 = join(systemlist("date +'%u' --date=".join(ymd, '-')))
       let z = m[:2] . 'MTWRFSU'[w1-1]
+      let z = z[:-1-a:cnt]
     else
       let [m, b, e] = matchstrpos(L, '\v<'. g:nou#rgx#Rmcal .'>', c-13)
       if len(m)>0 && b <= c
@@ -42,6 +45,7 @@ fun! s:aug_date()  " TBD: support 'sobj' argument to allow other objects inof df
         let ymd = strftime('%Y-%m-%b', strptime('%Y-%m-%d', m[:6].'-01'))
         let tri = (str2nr(split(ymd, '-')[1]) - 1) / 4 + 1
         let z = ymd .'-T'. tri
+        let z = join(split(z, '-')[:-1-a:cnt], '-')
       else
         let [m, b, e] = matchstrpos(L, '\v'. g:nou#rgx#Rcwkm .'>', c-10)
         if len(m)>0
@@ -75,7 +79,9 @@ fun! s:aug_date()  " TBD: support 'sobj' argument to allow other objects inof df
   " FIXED:(m[:9]): !date confuses trailer in '2023-03-20-Mon-W12' and increments date by +1d
   call setline('.', (b>0 ? L[:b-1] : "") . z . L[e:])
 endf
-nnoremap <Plug>(nou-complement) <Cmd>call <SID>aug_date()<CR>
+" NOTE: "count" works as a number of components to strip
+nnoremap <Plug>(nou-complement) <Cmd>call <SID>aug_date(v:count)<CR>
+nnoremap <Plug>(nou-complement-1) <Cmd>call <SID>aug_date(v:count1)<CR>
 
 runtime ftplugin/nou/abbrev-gen.vim
 runtime ftplugin/nou/abbrev-tags.vim
@@ -206,7 +212,7 @@ nmap <buffer> <Plug>(nou-set-goal-feed) "_c<Plug>(textobj-nou-goal-i)∞<Esc>
 nmap <buffer> <Plug>(nou-set-goal-overlap) "_c<Plug>(textobj-nou-goal-i)/<Esc>
 nmap <buffer> <Plug>(nou-set-goal-aggregate) "_c<Plug>(textobj-nou-goal-i)*<Esc>
 nmap <buffer> <Plug>(nou-set-goal-slightly) "_c<Plug>(textobj-nou-goal-i),<Esc>
-nmap <buffer> <Plug>(nou-set-goal-partial) "_c<Plug>(textobj-nou-goal-i)%<Esc>
+" nmap <buffer> <Plug>(nou-set-goal-partial) "_c<Plug>(textobj-nou-goal-i)%<Esc>
 nmap <buffer> <Plug>(nou-set-goal-halfly) "_c<Plug>(textobj-nou-goal-i);<Esc>
 nmap <buffer> <Plug>(nou-set-goal-low) "_c<Plug>(textobj-nou-goal-i)￬<Esc>
 nmap <buffer> <Plug>(nou-set-goal-high) "_c<Plug>(textobj-nou-goal-i)￪<Esc>
@@ -228,6 +234,8 @@ nmap <buffer> <Plug>(nou-del-alloc) "_d<Plug>(textobj-nou-time-i)"_d<Plug>(texto
 nmap <buffer> <Plug>(nou-del-status) d<Plug>(textobj-nou-status-i)
 nmap <buffer> <Plug>(nou-del-assoc) d<Plug>(textobj-nou-assoc-i)
 nmap <buffer> <Plug>(nou-set-date-today) "_c<Plug>(textobj-nou-date-i)<C-r>=strftime('%Y-%m-%d')<CR><Esc>
+
+nmap <buffer><silent> <Plug>(nou-set-ymd3-today) "_c<Plug>(textobj-nou-date-i)<C-r>=join(map([((strftime('%Y')-2011)%30+1),strftime('%m'),strftime('%d')],'nr2char(v:val+(v:val<=9?48:87))'),'')<CR><Esc>
 
 nmap <buffer> <Plug>(nou-set-time-now-auto)  :<C-u>let b:c=v:count<Esc>"_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(b:c,-1)<CR><Esc>
 nmap <buffer> <Plug>(nou-set-time-now-floor) :<C-u>let b:c=v:count<Esc>"_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(b:c,0)<CR><Esc>
@@ -278,6 +286,7 @@ map <buffer> <Plug>(nou-log-prev) :<C-u>call NouLogAdvance(-1)<CR>
 "   ['n', '<LocalLeader><Space>', '<Plug>(nou-set-goal-todo)'],
 "   ['n', '<LocalLeader><Space>', '<Plug>(nou-del-span)'],
 "   ['n', '<LocalLeader>L', '<Plug>(nou-spdx-header)'],
+"   ['n', '<LocalLeader>%', '<Plug>(nou-set-goal-partial)'],
 "" FAIL: don't work -- because rhs already bound
 "   ['n', '<LocalLeader>;', '<Plug>(nou-set-goal-now)'],
 let s:nou_mappings = [
@@ -290,6 +299,7 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>A', '<Plug>(nou-datew-a)'],
   \ ['n', '<LocalLeader>C', '<Plug>(nou-jump-current)'],
   \ ['n', '<LocalLeader>D', '<Plug>(nou-set-date-today)'],
+  \ ['n', '<LocalLeader>d', '<Plug>(nou-set-ymd3-today)'],
   \ ['n', '<LocalLeader>e', '<Plug>(nou-fix-claimed-floor)'],
   \ ['n', '<LocalLeader>E', '<Plug>(nou-fix-claimed-ceil)'],
   \ ['n', '<LocalLeader>H', '<Plug>(nou-sum-hierarchy)'],
@@ -317,7 +327,6 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>,', '<Plug>(nou-set-goal-slightly)'],
   \ ['n', '<LocalLeader>~', '<Plug>(nou-set-goal-somewhat)'],
   \ ['n', '<LocalLeader>?', '<Plug>(nou-set-goal-unlikely)'],
-  \ ['n', '<LocalLeader>%', '<Plug>(nou-set-goal-partial)'],
   \ ['n', '<LocalLeader>;', '<Plug>(nou-set-goal-halfly)'],
   \ ['n', "<LocalLeader>'", '<Plug>(nou-set-goal-low)'],
   \ ['n', '<LocalLeader>"', '<Plug>(nou-set-goal-high)'],
@@ -337,6 +346,7 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader><Backspace>', '<Plug>(nou-merge-plan)'],
   \ ['n', '<LocalLeader><Del>', '<Plug>(nou-del-alloc)'],
   \ ['n', '<LocalLeader><Tab>', '<Plug>(nou-complement)'],
+  \ ['n', '<LocalLeader><S-Tab>', '<Plug>(nou-complement-1)'],
   \ ['n', '<LocalLeader>w<Space>', '<Plug>(nou-del-assoc)'],
   \]
 
@@ -393,7 +403,7 @@ for i in range(1,9)
     \.' :<C-u>call nou#bar("X'.i.'",'.i.',0)<CR>'
   let s:nou_mappings += [['n', '<LocalLeader>'.i, '<Plug>(nou-barX'.i.')']]
 endfor
-for s in add(split('_$X⪡TBC✗✓', '\zs'), '')
+for s in add(split('_$X%⪡TBC✗✓', '\zs'), '')
   for m in ['n', 'x'] | exe m.'noremap <silent> <Plug>(nou-bar'.s.')'
       \" :<C-u>call nou#bar('".s."',v:count,".(m==#'x').")<CR>"
 endfor | endfor
@@ -413,6 +423,7 @@ let s:nou_mappings += [
   \ ['nx', '<LocalLeader><Space>', '<Plug>(nou-bar_)'],
   \ ['nx', '<LocalLeader>$', '<Plug>(nou-bar$)'],
   \ ['nx', '<LocalLeader>x', '<Plug>(nou-barX)'],
+  \ ['n',  '<LocalLeader>%', '<Plug>(nou-bar%)'],
   \ ['n',  '<LocalLeader>O', '<Plug>(nou-bar⪡)'],
   \ ['nx', '<LocalLeader>b', '<Plug>(nou-barB)'],
   \ ['nx', '<LocalLeader>B', '<Plug>(nou-barC)'],
