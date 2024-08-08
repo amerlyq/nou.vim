@@ -49,12 +49,14 @@ inoreabbr <buffer> l;  #leisure
 inoreabbr <buffer> le; #le:
 inoreabbr <buffer> la; #le:any
 inoreabbr <buffer> lc; #le:comics
+inoreabbr <buffer> lcf; #le:comics,fantasy
 inoreabbr <buffer> lf; #le:fantasy
 inoreabbr <buffer> lg; #le:gaming
 inoreabbr <buffer> ll; #le:comics,fantasy,RSS
 inoreabbr <buffer> lL; #le:comics=0h,fantasy=0h,RSS=0h
 inoreabbr <buffer> lm; #le:misc
 inoreabbr <buffer> lr; #le:RSS
+inoreabbr <buffer> lrf; #le:RSS,fantasy
 inoreabbr <buffer> lv; #le:vtube
 inoreabbr <buffer> ly; #le:youtube
 

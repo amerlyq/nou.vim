@@ -17,6 +17,7 @@ digraph ~= 8773    " ≅ most likely ALT: ?= (approximately)
 digraph <. 10913   " ⪡ before then
 digraph >. 10914   " ⪢ ?delegated? OR after then
 digraph // 11005   " ⫽ during / overlapping
+digraph .* 20102   " ⁂ piecewise (multiple sparse timespans)
 
 "" VIZ: project progress increments (i.e. for top-level task)
 digraph ck 9676    " ◌ = check and wait response again (OR ⚬)

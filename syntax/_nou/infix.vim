@@ -33,7 +33,7 @@ syn match nouEmojiGray display excludenl '[↻📲📩↓🔚終🌵]'
 
 syn cluster nouArtifactEmojiQ add=nouEmojiPurple
 hi nouEmojiPurple ctermfg=61 guifg=#5f5faf
-syn match nouEmojiPurple display excludenl '[ᚹ⋄☘]'
+syn match nouEmojiPurple display excludenl '[ᚹ⋄☘⁂]'
 
 syn cluster nouArtifactEmojiQ add=nouEmojiPink
 hi nouEmojiPink ctermfg=161 guifg=#df1f5f

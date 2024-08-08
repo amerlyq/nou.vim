@@ -230,7 +230,7 @@ nmap <buffer> <Plug>(nou-set-goal-progressB) :<C-u>let b:c=v:count1<Esc>"_c<Plug
 " nmap <buffer> <Plug>(nou-set-goal-todo) c<Plug>(textobj-nou-goal-i)_<Esc>
 " omap <buffer> <Plug>(nou-set-goal-todo) <Plug>(textobj-nou-goal-i)_<Esc>
 
-nmap <buffer> <Plug>(nou-del-alloc) "_d<Plug>(textobj-nou-time-i)"_d<Plug>(textobj-nou-dura-i)
+nmap <buffer> <Plug>(nou-del-alloc) "_d<Plug>(textobj-nou-time-i)"_d<Plug>(textobj-nou-dura-i)"_c<Plug>(textobj-nou-goal-i)_<Esc>
 nmap <buffer> <Plug>(nou-del-status) d<Plug>(textobj-nou-status-i)
 nmap <buffer> <Plug>(nou-del-assoc) d<Plug>(textobj-nou-assoc-i)
 nmap <buffer> <Plug>(nou-set-date-today) "_c<Plug>(textobj-nou-date-i)<C-r>=strftime('%Y-%m-%d')<CR><Esc>
@@ -341,8 +341,8 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>]', '<Plug>(nou-set-goal-progressB)'],
   \
   \ ['nx', '<LocalLeader><CR>', '<Plug>(nou-calc-py)'],
-  \ ['n', '<LocalLeader><Left>', '<Plug>(nou-set-goal-next)'],
-  \ ['n', '<LocalLeader><Right>', '<Plug>(nou-set-goal-waiting)'],
+  \ ['n', '<LocalLeader><Left>', '<Plug>(nou-set-goal-waiting)'],
+  \ ['n', '<LocalLeader><Right>', '<Plug>(nou-set-goal-next)'],
   \ ['n', '<LocalLeader><Backspace>', '<Plug>(nou-merge-plan)'],
   \ ['n', '<LocalLeader><Del>', '<Plug>(nou-del-alloc)'],
   \ ['n', '<LocalLeader><Tab>', '<Plug>(nou-complement)'],
