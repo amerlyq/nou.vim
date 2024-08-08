@@ -249,8 +249,7 @@ nmap <buffer> <Plug>(nou-insert-now-moment) :<C-u>if empty(trim(getline('.')))\|
 
 
 " HACK: merge next task with prev line time
-" nmap <buffer> <Plug>(nou-merge-plan) d<Plug>(textobj-nou-plan-i)kJ
-nmap <buffer> <Plug>(nou-merge-plan) d<Plug>(textobj-nou-goal-i)d<Plug>(textobj-nou-time-i)kJ
+nmap <buffer> <Plug>(nou-merge-plan) d<Plug>(textobj-nou-plan-i)kJ
 nmap <buffer> <Plug>(nou-del-plan) d<Plug>(textobj-nou-plan-i)"_c<Plug>(textobj-nou-goal-i)_<Esc>
 
 " FAIL: can't apply multiple times to visual selection

@@ -209,10 +209,16 @@ fun! nou#util#seek_E(T, elem, ...) abort
 endf
 
 fun! nou#util#merge_E(lhs, rhs) abort
-  return {'m': (a:lhs.m . a:lhs.s . a:rhs.m)
-        \,'s': a:rhs.s, 'S': a:rhs.S
-        \,'B': a:lhs.B, 'b': a:lhs.b
-        \,'e': a:rhs.e, 'E': a:rhs.E}
+  if strlen(a:lhs.m) && strlen(a:rhs.m)
+    return {'m': (a:lhs.m . a:lhs.s . a:rhs.m)
+          \,'s': a:rhs.s, 'S': a:rhs.S
+          \,'B': a:lhs.B, 'b': a:lhs.b
+          \,'e': a:rhs.e, 'E': a:rhs.E}
+  elseif strlen(a:rhs.m)
+    return a:rhs
+  else
+    return a:lhs
+  endif
 endf
 
 fun! nou#util#combo_task(...) abort
