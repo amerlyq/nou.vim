@@ -150,6 +150,9 @@ endfor
 " -- as them are mark-up for notes throughout all text files
 " -- can setup include/exclude ft
 
+"" ATT: must be placed before nouDecision* to allow overridingh hi! at linebeg
+runtime syntax/_nou/infix.vim
+
 " FIXME: must be placed before 'outline' defs (due to patt-match order)
 for i in range(len(g:nou.decision.colors))
   call nou#syntax#decision(i)
@@ -160,7 +163,6 @@ endfor
 ""   FIXED:HACK: add prefix to folder "_nou" to prevent glob auto-loading
 
 runtime syntax/_nou/artf.vim
-runtime syntax/_nou/infix.vim
 "" ATT: must be after nouArtifactKey for correct 'nouNumberXaddr' hi!
 runtime syntax/_nou/number.vim
 runtime syntax/_nou/datetime.vim
