@@ -17,11 +17,15 @@ digraph ~= 8773    " ≅ most likely ALT: ?= (approximately)
 digraph <. 10913   " ⪡ before then
 digraph >. 10914   " ⪢ ?delegated? OR after then
 digraph // 11005   " ⫽ during / overlapping
-digraph .* 20102   " ⁂ piecewise (multiple sparse timespans)
+digraph .* 8258    " ⁂ piecewise (multiple sparse timespans)
+digraph tf 8756    " ∴ = therefore (STD)
+digraph bc 8757    " ∵ = because (STD)
+
 
 "" VIZ: project progress increments (i.e. for top-level task)
 digraph ck 9676    " ◌ = check and wait response again (OR ⚬)
 digraph ca 9676    " ◌ = check and wait response again (OR ⚬)
+digraph cv 8858    " ⊚ = more progress / chunk of immense task (:same-as: <C-k>02)
 digraph cz 8857    " ⊙ = zero done (like only #plans were prepared, e.g. =ᚹ)
 digraph cb 9862    " ⚆ = beginning (like [,] but in terms of total progress)
 digraph cc 9684    " ◔ = partial/continue (𝌙 )

@@ -25,7 +25,7 @@ let nou#ext#switch#nou#groups =
   \, map(split('next home sleep'), '"<".v:val.">"')
   \, map(split('eat tea coffee flax'), '"#b:".v:val')
   \, map(split('comics fantasy RSS'), '"#le:".v:val')
-  \, { '\v<(\d+h\d+m|\d+[hm])>' : {m -> trim(system('just tenjo wk --wk -- '.shellescape(m[0])))} }
+  \, { '\v<(\d+h\d+m|\d+[hm])>' : {m,r -> trim(system('just tenjo wk --'.(r?'my':'wk').' -- '.shellescape(m[0])))} }
   \]
 
   " \, map(split('tracking planning overview timesheet'), '"#taskmgmt:".v:val')
