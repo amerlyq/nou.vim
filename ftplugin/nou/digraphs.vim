@@ -17,7 +17,9 @@ digraph ~= 8773    " ≅ most likely ALT: ?= (approximately)
 digraph <. 10913   " ⪡ before then
 digraph >. 10914   " ⪢ ?delegated? OR after then
 digraph // 11005   " ⫽ during / overlapping
+digraph c* 8258    " ⁂ piecewise (multiple sparse timespans)
 digraph .* 8258    " ⁂ piecewise (multiple sparse timespans)
+digraph 3* 8258    " ⁂ piecewise (multiple sparse timespans)
 digraph tf 8756    " ∴ = therefore (STD)
 digraph bc 8757    " ∵ = because (STD)
 
@@ -46,6 +48,10 @@ digraph cp 5817    " ᚹ = preps / configure / setup
 digraph cr 8635    " ↻ = recurrent/daily ALT=OO
 digraph cs 8902    " ⋆ = task/planned/agenda
 digraph cu 5817    " ᚹ = preps / configure / setup
+digraph up 65514   " ￪ = dislodged from yday e.g. "[?] ￪ #buy"
+digraph dn 65516   " ￬ = most likely *to be moved* to nday
+digraph rh 65515   " ￫ = TBD? ~some derived step~
+digraph lf 65513   " ￩ = TBD? ~some contributing cornerstone~
 
 digraph bl 128274  " 🔒 = :blocked-by-smth:
 digraph lo 128274  " 🔒 = :blocked-by-smth:

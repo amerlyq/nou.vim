@@ -120,7 +120,7 @@ endf
 
 fun! nou#todo_open(path, ...) abort
   let abspath = (strpart(a:path,0,1) == ':')
-    \ ? '/@/todo'.strpart(a:path,1)
+    \ ? '/d/todo'.strpart(a:path,1)
     \ : a:path
   return call('nou#path_open', [abspath] + a:000)
 endf
@@ -168,9 +168,9 @@ fun! nou#path_open(path, ...)
         let p = res[0]
       elseif ymd > strftime('%Y-%m-%d')
         " FIXME: also search for .cal in :/{my,work}/{agenda,upcoming}.nou
-        let p = '/@/todo/planned/'. ymd .'.task'
+        let p = '/d/todo/planned/'. ymd .'.task'
       else
-        let p = '/@/todo/log/'. join(systemlist("date +'%Y/%Y-%m-%d-%a-W%W' -d ".ymd))
+        let p = '/d/todo/log/'. join(systemlist("date +'%Y/%Y-%m-%d-%a-W%W' -d ".ymd))
       endif
     endif
 
@@ -178,8 +178,8 @@ fun! nou#path_open(path, ...)
   " elseif pfx ==#'..' | let p = expand('%:h').'/'.pfx . p " NOTE: rel to 'here'
   elseif pfx ==#'..' | let p = expand('%:p:h:h') . p " NOTE:(../): rel to 'there'
   elseif pfx ==# '~' | let p = $HOME . p
-  elseif pfx ==# '@' | let p = '/@'. p  " NOTE: flat list of symlinks to all features
-  elseif pfx ==# '♆' | let p = map(['', '/.edit', '/setup'], '"/@/airy'.p.'".v:val')
+  elseif pfx ==# '@' | let p = '/d'. p  " NOTE: flat list of symlinks to all features
+  elseif pfx ==# '♆' | let p = map(['', '/.edit', '/setup'], '"/d/airy'.p.'".v:val')
   elseif pfx ==# '☆' | let p = '/x'. p
   elseif pfx ==# '★' | let p = '/x/_fav'. p
   " BET? merge and replace '//' by '%'
@@ -197,7 +197,7 @@ fun! nou#path_open(path, ...)
     " [_] FIXME:BET: allow subpath under repo "@/nou.vim/Makefile" instead of prefix grouping ⌇⡞⣥⣕⡋
     " WARN: prefixes not allowed (i.a. @/miur/kirie) <= indistinguishable from repo subpath
     " ALT:MAYBE: extend ":" syntax ":/file/here" .vs. ":somerepo/file/there"
-    let cmdline = "find -H '/@/aura' -path '*".p."/.git' -execdir pwd \\;"
+    let cmdline = "find -H '/d/aura' -path '*".p."/.git' -execdir pwd \\;"
     let res = systemlist(cmdline)
     let repo = (len(res) > 0) ? res[0] : ($HOME .'/aura'. p)
     " BET? open dir in netrw instead of single file ? BUT: dir is accessible by <,r> anyways
@@ -243,8 +243,8 @@ fun! nou#path_open(path, ...)
     for x in xs| if filereadable(x)| let p = x | break |en |endfor
   elseif type(p) == type("") && p =~# "*"
     " NOTE: find one latest (most recent) file when passing glob(*) in path
-    " ALT: let latest = sort(systemlist("find -H /@/todo/now -mindepth 1 -type f -printf '%T@ %p\n'"))[-1]
-    let p = py3eval('max(__import__("glob").iglob("/@/todo/now/*"), key=__import__("os.path").path.getmtime)')
+    " ALT: let latest = sort(systemlist("find -H /d/todo/now -mindepth 1 -type f -printf '%T@ %p\n'"))[-1]
+    let p = py3eval('max(__import__("glob").iglob("'.p.'"), key=__import__("os.path").path.getmtime)')
   endif
 
   " TODO: if directory -- open in embedded fm/ranger

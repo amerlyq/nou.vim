@@ -12,7 +12,7 @@
 
 syn cluster nouArtifactQ add=nouHashTag
 hi nouHashTag cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=142 guifg=#afaf00
-syn match nouHashTag display excludenl /\v%(^|[(\[{,;|[:space:]]@1<=)%([#]+\k\S{-})%([|;,}\])[:space:]]@1=|$)/
+syn match nouHashTag display excludenl /\v%(^|[(\[{,;|[:space:]]@1<=)%([#]+\k\S{-})%([|;}\])[:space:]]@1=|$)/
 
 
 " OR:(standout): hi nouHashTagPfx cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=130 guifg=#b86f00
@@ -21,7 +21,7 @@ syn match nouHashTag display excludenl /\v%(^|[(\[{,;|[:space:]]@1<=)%([#]+\k\S{
 " OR:(bright): hi nouHashTagPfx cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=172 guifg=#df8700
 " OR:(light): compromise
 hi nouHashTagPfx cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=136 guifg=#bf7f00
-syn match nouHashTagPfx display excludenl contained containedin=nouHashTag '[#.]'
+syn match nouHashTagPfx display excludenl contained containedin=nouHashTag '\W'  " OLD: [#.]
 
 hi nouHashTagParam cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=101 guifg=#958e68
 syn match nouHashTagParam display excludenl contained containedin=nouHashTag keepend ':[^:#[:blank:]]\+'

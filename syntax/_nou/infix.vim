@@ -8,6 +8,11 @@ syn cluster nouArtifactEmojiQ add=nouEmojiRed
 hi nouEmojiRed ctermfg=196 guifg=#ff0000
 syn match nouEmojiRed display excludenl '[✗♡♥🤍🖤💛💜🔝‼😠🍰]'
 
+" VIZ: https://www.color-hex.com/color-palette/77177
+syn cluster nouArtifactEmojiQ add=nouEmojiDarkCherry
+hi nouEmojiDarkCherry ctermfg=196 guifg=#a31525
+syn match nouEmojiDarkCherry display excludenl '[⏻]'
+
 syn cluster nouArtifactEmojiQ add=nouEmojiGreen
 hi nouEmojiGreen ctermfg=40 guifg=#00ff00
 syn match nouEmojiGreen display excludenl '[✓➺⊞➕☺👟]'
