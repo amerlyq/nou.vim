@@ -18,10 +18,26 @@ digraph <. 10913   " ⪡ before then
 digraph >. 10914   " ⪢ ?delegated? OR after then
 digraph // 11005   " ⫽ during / overlapping
 digraph c* 8258    " ⁂ piecewise (multiple sparse timespans)
+digraph cw 8258    " ⁂ piecewise (multiple sparse timespans)
 digraph .* 8258    " ⁂ piecewise (multiple sparse timespans)
 digraph 3* 8258    " ⁂ piecewise (multiple sparse timespans)
 digraph tf 8756    " ∴ = therefore (STD)
 digraph bc 8757    " ∵ = because (STD)
+
+
+"" Flavors of my ":::"
+digraph ;; 8280    " ⁘   my ":::"  ~ gotten  (BET? most intuitive from this bunch | NICE: catches the eye)
+digraph .; 8943    " ⋯   my ":::"  ~ ended up in  (STD .3)  (NICE: very clean looks as decision leader)
+digraph ,; 128256  " 🔀  my ":::"  ~ and so [/at the end/]  (NICE? stands out | BAD? wide)
+digraph =; 10174   " ➾   my ":::"  ~ from everything summarizes to
+digraph *; 10148   " ➤   my ":::"  ~ condenses to conclusion to
+" digraph => 8658  " ⇒   my ":::"  ~ results in  (STD =>)
+digraph >; 8921    " ⋙   my ":::"  ~ follows to
+digraph <; 8920    " ⋘   my ":::"  ~ concluded from
+digraph ~; 8779    " ≋   my ":::"  ~ somehow lead to / caused
+digraph :; 8762    " ∺   my ":::"  (OR ⁜)
+digraph -; 8694    " ⇶   my ":::"  ~ shifts perspective to
+digraph /; 8512    " ⅀   my ":::"  ~ generally summarizes to
 
 
 "" VIZ: project progress increments (i.e. for top-level task)

@@ -3,9 +3,9 @@
 
 %% Tasks
 
-  [🔒] blocked-by-something   |     <LL> L
-  [🔑] key-to-unblock         |     <LL> K
-  […] waiting until event     |     <LL> ,
+  [🔒] blocked-by-something   | lo  <LL> L
+  [🔑] key-to-unblock         | ky  <LL> K
+  […] waiting until event     | ,.  <LL> ,
   [_] todo                    |     <LL> _  | <LL><Space>
   [,] barely started (<18%)   |     <LL x>r,  # =slightly
   [☯] mess / unknown progress |     <LL> |    # =«помурыжил/промусолил/топтался на месте»
@@ -14,8 +14,12 @@
   [X] done (completely)       |     <LL> x
   [^] over-achieved (like[✓✓])|     <LL> ^
   [$] cancelled               |     <LL> $
-  [✗] failed                  |     <LL> X
+  [✗] failed                  | xx  <LL> X
   [*] indirectly done         |     <LL> *
+  [⌇] anything beside it      | xa            # =«I did anything around the task beside its main point»
+~ [⪓]   more or less done     |
+~ [⪤]   intertwined           |
+~ [⸾]   stitched              |
   [99%] progress              |  99 <LL> X
   2020-01-17 date             |     <LL> d
   2020-01-17 [_] created      |     <LL> D
