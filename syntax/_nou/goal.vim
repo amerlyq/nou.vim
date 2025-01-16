@@ -56,7 +56,7 @@ syn match nouTaskFeed display excludenl contained containedin=nouTaskFrame '[∞
 
 " = almost done
 hi! nouTaskPartial cterm=bold gui=bold ctermfg=32 guifg=#0087df
-syn match nouTaskPartial display excludenl contained containedin=nouTaskFrame '[%;]'
+syn match nouTaskPartial display excludenl contained containedin=nouTaskFrame '[%;⌇]'
 
 hi! nouTaskAggregate cterm=bold gui=bold ctermfg=62 guifg=#5f5fdf
 syn match nouTaskAggregate display excludenl contained containedin=nouTaskFrame '\V*'
@@ -91,7 +91,7 @@ syn match nouTaskOverachieved display excludenl contained containedin=nouTaskFra
 " hi! nouTaskBringFwd ctermfg=46 guifg=#00ff00
 " hi! nouTaskBringFwd ctermfg=27 guifg=#1f6fff
 hi! nouTaskBringFwd ctermfg=148 guifg=#bfcf00
-syn match nouTaskBringFwd display excludenl contained containedin=nouTaskFrame '[￪,⌇⪓⪤⸾]'
+syn match nouTaskBringFwd display excludenl contained containedin=nouTaskFrame '[￪,⪓⪤⸾]'
 
 hi! nouTaskPushBwd ctermfg=196 guifg=#ff0000
 syn match nouTaskPushBwd display excludenl contained containedin=nouTaskFrame '￬'

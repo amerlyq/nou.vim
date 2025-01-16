@@ -17,8 +17,8 @@ digraph ~= 8773    " ≅ most likely ALT: ?= (approximately)
 digraph <. 10913   " ⪡ before then
 digraph >. 10914   " ⪢ ?delegated? OR after then
 digraph // 11005   " ⫽ during / overlapping
-digraph c* 8258    " ⁂ piecewise (multiple sparse timespans)
 digraph cw 8258    " ⁂ piecewise (multiple sparse timespans)
+digraph c* 8258    " ⁂ piecewise (multiple sparse timespans)
 digraph .* 8258    " ⁂ piecewise (multiple sparse timespans)
 digraph 3* 8258    " ⁂ piecewise (multiple sparse timespans)
 digraph tf 8756    " ∴ = therefore (STD)
@@ -106,6 +106,7 @@ digraph !. 8623    " ↯ = important/agenda (like a [lightning] bolt from the bl
 digraph II 8623    " ↯ = important/agenda ALT=HH|UU
 digraph uu 9888    " ⚠ = urgent AND important
 digraph nn 9752    " ☘ = nice to have, fickle jimmicks, low prio
+digraph YH 127881  " 🎉 = yahoo! finally! celebrate! (party-popper/fireworks)
 
 
 digraph :( 9785    " ☹  emoji frown

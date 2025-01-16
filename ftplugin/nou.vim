@@ -6,15 +6,31 @@ call nou#opts#init()
 
 """ Mappings
 
+fun! s:ymd3(...)
+  let ymd = join(map([((strftime('%Y')-2011)%30+1),strftime('%m'),strftime('%d')],'nr2char(v:val+(v:val<=9?48:87))'),'')
+  return get(a:,1,''). ymd .get(a:,2,'')
+endf
+
 "" TODO:FUTURE: append timeslot size "2021-06-01-Tue-W22 [-/5h30m|8h]"
 " [_] 45m(40m‥1h20m) TODO 22<LL>I -> aug cur month | 2205<LL>I -> aug current year
 " nnoremap <silent> <Plug>(nou-date) :<C-u>put=strftime('%Y-%m-%d')<CR>
 " xnoremap <Plug>(nou-date) "=strftime('%Y-%m-%d')<CR>P
 inoremap <Plug>(nou-date) <C-R>=strftime('%Y-%m-%d')<CR>
-nnoremap <Plug>(nou-date-i) "=strftime('%Y-%m-%d')<CR>P
-nnoremap <Plug>(nou-datew-i) "=strftime('%Y-%m-%d-%a-W%W')<CR>P
-nnoremap <Plug>(nou-date-a) "=strftime('%Y-%m-%d')<CR>p
-nnoremap <Plug>(nou-datew-a) "=strftime('%Y-%m-%d-%a-W%W')<CR>p
+
+" insert ISO dates
+nnoremap <Plug>(nou-date-i-today) "=strftime('%Y-%m-%d')<CR>P
+nnoremap <Plug>(nou-date-a-today) "=strftime('%Y-%m-%d')<CR>p
+nnoremap <Plug>(nou-datew-i-today) "=strftime('%Y-%m-%d-%a-W%W')<CR>P
+nnoremap <Plug>(nou-datew-i-yday) "=strftime('%Y-%m-%d-%a-W%W',localtime()-86400)<CR>P
+nnoremap <Plug>(nou-datew-i-nday) "=strftime('%Y-%m-%d-%a-W%W',localtime()+86400)<CR>p
+nnoremap <Plug>(nou-date-i-ymd3) "=<SID>ymd3()<CR>P
+nnoremap <Plug>(nou-date-a-ymd3) "=<SID>ymd3()<CR>p
+nnoremap <Plug>(nou-date-postpone-ymd3) $"=<SID>ymd3(' <','>')<CR>p
+
+nmap <buffer> <Plug>(nou-set-date-today) "_c<Plug>(textobj-nou-date-i)<C-r>=strftime('%Y-%m-%d')<CR><Esc>
+nmap <buffer> <Plug>(nou-set-datew-today) "_c<Plug>(textobj-nou-date-i)<C-r>=strftime('%Y-%m-%d-%a-W%W')<CR><Esc>
+nmap <buffer><silent> <Plug>(nou-set-ymd3-today)  "_c<Plug>(textobj-nou-date-i)<C-r>=<SID>ymd3()<CR><Esc>
+
 
 " ENH: augment many other objects beside date
 " nnoremap <Plug>(nou-complement) E"=join(systemlist("date +'-%a-W%W' -d ".expand('<cWORD>')))<CR>p
@@ -214,6 +230,7 @@ nmap <buffer> <Plug>(nou-set-goal-aggregate) "_c<Plug>(textobj-nou-goal-i)*<Esc>
 nmap <buffer> <Plug>(nou-set-goal-slightly) "_c<Plug>(textobj-nou-goal-i),<Esc>
 " nmap <buffer> <Plug>(nou-set-goal-partial) "_c<Plug>(textobj-nou-goal-i)%<Esc>
 nmap <buffer> <Plug>(nou-set-goal-halfly) "_c<Plug>(textobj-nou-goal-i);<Esc>
+nmap <buffer> <Plug>(nou-set-goal-backnforth) "_c<Plug>(textobj-nou-goal-i)⌇<Esc>
 nmap <buffer> <Plug>(nou-set-goal-low) "_c<Plug>(textobj-nou-goal-i)￬<Esc>
 nmap <buffer> <Plug>(nou-set-goal-high) "_c<Plug>(textobj-nou-goal-i)￪<Esc>
 nmap <buffer> <Plug>(nou-set-goal-rephrase) "_c<Plug>(textobj-nou-goal-i)#<Esc>
@@ -233,9 +250,6 @@ nmap <buffer> <Plug>(nou-set-goal-progressB) :<C-u>let b:c=v:count1<Esc>"_c<Plug
 nmap <buffer> <Plug>(nou-del-alloc) "_d<Plug>(textobj-nou-time-i)"_d<Plug>(textobj-nou-dura-i)"_c<Plug>(textobj-nou-goal-i)_<Esc>
 nmap <buffer> <Plug>(nou-del-status) d<Plug>(textobj-nou-status-i)
 nmap <buffer> <Plug>(nou-del-assoc) d<Plug>(textobj-nou-assoc-i)
-nmap <buffer> <Plug>(nou-set-date-today) "_c<Plug>(textobj-nou-date-i)<C-r>=strftime('%Y-%m-%d')<CR><Esc>
-
-nmap <buffer><silent> <Plug>(nou-set-ymd3-today) "_c<Plug>(textobj-nou-date-i)<C-r>=join(map([((strftime('%Y')-2011)%30+1),strftime('%m'),strftime('%d')],'nr2char(v:val+(v:val<=9?48:87))'),'')<CR><Esc>
 
 nmap <buffer> <Plug>(nou-set-time-now-auto)  :<C-u>let b:c=v:count<Esc>"_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(b:c,-1)<CR><Esc>
 nmap <buffer> <Plug>(nou-set-time-now-floor) :<C-u>let b:c=v:count<Esc>"_c<Plug>(textobj-nou-time-i)<C-r>=nou#now(b:c,0)<CR><Esc>
@@ -294,8 +308,9 @@ let s:nou_mappings = [
   \ ['nx', ']g', '<Plug>(nou-log-next)'],
   \ ['n', '<LocalLeader>yx', '<Plug>(nou-task-xts-beg)'],
   \ ['n', '<LocalLeader>yX', '<Plug>(nou-task-xts-end)'],
-  \ ['n', '<LocalLeader>a', '<Plug>(nou-date-a)'],
-  \ ['n', '<LocalLeader>A', '<Plug>(nou-datew-a)'],
+  \ ['n', '<LocalLeader>ad', '<Plug>(nou-date-a-today)'],
+  \ ['n', '<LocalLeader>ai', '<Plug>(nou-date-a-ymd3)'],
+  \ ['n', '<LocalLeader>A', '<Plug>(nou-date-postpone-ymd3)'],
   \ ['n', '<LocalLeader>C', '<Plug>(nou-jump-current)'],
   \ ['n', '<LocalLeader>D', '<Plug>(nou-set-date-today)'],
   \ ['n', '<LocalLeader>d', '<Plug>(nou-set-ymd3-today)'],
@@ -306,8 +321,11 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>g.', '<Plug>(nou-insert-now-moment)'],
   \ ['n', '<LocalLeader>t', '<Plug>(nou-set-time-now-floor)'],
   \ ['n', '<LocalLeader>T', '<Plug>(nou-set-time-now-ceil)'],
-  \ ['n', '<LocalLeader>i', '<Plug>(nou-date-i)'],
-  \ ['n', '<LocalLeader>I', '<Plug>(nou-datew-i)'],
+  \ ['n', '<LocalLeader>id', '<Plug>(nou-date-i-today)'],
+  \ ['n', '<LocalLeader>ii', '<Plug>(nou-date-i-ymd3)'],
+  \ ['n', '<LocalLeader>iD', '<Plug>(nou-datew-i-today)'],
+  \ ['n', '<LocalLeader>iB', '<Plug>(nou-datew-i-yday)'],
+  \ ['n', '<LocalLeader>iA', '<Plug>(nou-datew-i-nday)'],
   \ ['nx','<LocalLeader>n', '<Plug>(nou-task-next)'],
   \ ['n', '<LocalLeader>N', '<Plug>(nou-jump-today)'],
   \
@@ -340,6 +358,7 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>]', '<Plug>(nou-set-goal-progressB)'],
   \
   \ ['nx', '<LocalLeader><CR>', '<Plug>(nou-calc-py)'],
+  \ ['n', '<LocalLeader><Bar>', '<Plug>(nou-set-goal-backnforth)'],
   \ ['n', '<LocalLeader><Left>', '<Plug>(nou-set-goal-waiting)'],
   \ ['n', '<LocalLeader><Right>', '<Plug>(nou-set-goal-next)'],
   \ ['n', '<LocalLeader><Backspace>', '<Plug>(nou-merge-plan)'],

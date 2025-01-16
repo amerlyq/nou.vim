@@ -40,7 +40,7 @@ syn cluster nouArtifactEmojiQ add=nouEmojiPurple
 hi nouEmojiPurple ctermfg=61 guifg=#5f5faf
 "ALT:(:::) "⇒ ⟹   ⟾   ↠ ⤜  ⩷ ⪫ ⫢ ⸖ ⹊ ⸓  ⁖ ⁙ ⁚ ⁛ ∔ ⊡ ⊡ ⚆ ⟇ ᛔ ⮔  ⮞ 🏹 🔀"
 "    " ⤑  ⬸  ➔ ➙ ➛ ➞ ➡ ➜ ➞ ➧ ➢ ➣ ⟶ ➽ ⟹ ⟿ ⤍  ⤏  ⤐  ⤖  ⤳  ⥂ ⥱ ⭃  ⭄  ⭆  ⭬ ⮂"
-syn match nouEmojiPurple display excludenl '[ᚹ⋄☘⁂∷∺⇶≋⋙⅀⋯⇒⁘➤➾🔀]'
+syn match nouEmojiPurple display excludenl '[ᚹ⋄☘⁂∷∺⇶≋⋙⅀⋯⇒⁘➤➾🔀🎉]'
 
 syn cluster nouArtifactEmojiQ add=nouEmojiPink
 hi nouEmojiPink ctermfg=161 guifg=#df1f5f
@@ -49,5 +49,9 @@ syn match nouEmojiPink display excludenl '[≈▶➥±⚠∶]'
 syn cluster nouArtifactEmojiQ add=nouEmojiGold
 hi nouEmojiGold ctermfg=101 guifg=#958e68
 syn match nouEmojiGold display excludenl '[⫽∵]'
+
+syn cluster nouArtifactEmojiQ add=nouEmojiLime
+hi nouEmojiLime ctermfg=101 guifg=#afdf00
+syn match nouEmojiLime display excludenl '[⩨⩩≋]'
 
 " }}}

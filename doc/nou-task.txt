@@ -16,8 +16,8 @@
   [$] cancelled               |     <LL> $
   [✗] failed                  | xx  <LL> X
   [*] indirectly done         |     <LL> *
-  [⌇] anything beside it      | xa            # =«I did anything around the task beside its main point»
-~ [⪓]   more or less done     |
+  [⌇] back'n'forth, beside it | xa            # =«I did anything around the task beside its main point»
+~ [⪓] ⋛ more or less done     |
 ~ [⪤]   intertwined           |
 ~ [⸾]   stitched              |
   [99%] progress              |  99 <LL> X

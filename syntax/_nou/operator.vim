@@ -12,7 +12,7 @@ syn match nouOperatorDot display excludenl contains=@Spell,@nouAccentQ
 " bnf=back'n'forth
 " iow=in other words
 " iav=interactive[ly]
-let s:ops = 'vs as bw b4 t4 iff imm inof orse iow due cmp cvt aka how-to yday ifc tmpl iav'
+let s:ops = 'vs as bw b4 tf t4 iff imm inof orse iow due cmp cvt aka how-to yday ifc tmpl iav'
 exe 'syn match nouOperatorDot display excludenl contains=@Spell,@nouAccentQ'
   \ '/\v%(^|[[:punct:][:blank:]]@1<=)%(' .substitute(s:ops, ' ', '|', 'g'). ')%(\ze[[:punct:][:blank:]]|$)/'
 
