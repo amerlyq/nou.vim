@@ -17,6 +17,7 @@
   [✗] failed                  | xx  <LL> X
   [*] indirectly done         |     <LL> *
   [⌇] back'n'forth, beside it | xa            # =«I did anything around the task beside its main point»
+  [:] INFO stmt/*observation* |               # = «act of noting down the observation» ※⡧⢍⣩⡠
 ~ [⪓] ⋛ more or less done     |
 ~ [⪤]   intertwined           |
 ~ [⸾]   stitched              |

@@ -373,7 +373,6 @@ let s:nou_mappings = [
 let s:nou_assoc =
   \[ 'a agenda A'
   \, 'b bed'
-  \, 'B bothwk W:both'
   \, 'c common W:common'
   \, 'd dev'
   \, 'e env'
@@ -387,7 +386,7 @@ let s:nou_assoc =
   \, 'M me-like W:me'
   \, 'n next'
   \, 'o both'
-  \, 'O overtime OT'
+  \, 'O bothwk W:both'
   \, 'p prevwork prev:W'
   \, 'r refocus'
   \, 'R raw W:raw'
@@ -396,6 +395,7 @@ let s:nou_assoc =
   \, 't TBD'
   \, 'u urgent U'
   \, 'v travel'
+  \, 'V overtime OT'
   \, 'w work W'
   \, 'W workme W+me'
   \, 'x misc'
@@ -468,7 +468,10 @@ if exists('s:nou_mappings')
         continue
       end
       let old = mapcheck(lhs, m)
-      if !empty(old) && old != '<Nop>' && old !~ '"which-key"'
+      " FIXED:(which-key.nvim): it remaps buffer keybinds when jumping to e.g. <g.C>
+      "   ERR: exists=gf --> <Lua 579: /d/plugins/nvim/lazy/pack/ui/start/which-key.nvim/lua/which-key/triggers.lua:43>
+      "   ERR: exists=<LocalLeader>A --> <Lua 523: /d/plugins/nvim/lazy/pack/ui/start/which-key.nvim/lua/which-key/triggers.lua:43>
+      if !empty(old) && old != '<Nop>' && old !~ 'which-key.nvim'
         " FAIL: my own 'xmap' conflicts with textobj dfl 'vmap' keys
         "   << especially when you open second .nou file
         echoe 'Err: exists='.lhs.' --> '.mapcheck(lhs, m)

@@ -6,7 +6,7 @@ syn cluster nouArtifactQ add=@nouArtifactEmojiQ
 " IDEA: prio-emoji: "↥↑⮬⤉⤒⮭￪🔝🢙🮸⮉" | "⮎↪↓⮮⮯￬🮷⮋" | "￩𐇙￫⮩⮫⮊⭮⥁➺➲➛⌁⇴⇝↝→🔜"
 syn cluster nouArtifactEmojiQ add=nouEmojiRed
 hi nouEmojiRed ctermfg=196 guifg=#ff0000
-syn match nouEmojiRed display excludenl '[✗♡♥🤍🖤💛💜🔝‼😠🍰]'
+syn match nouEmojiRed display excludenl '[✗♡♥🤍🖤💛💜🔝‼😠🍰☹]'
 
 " VIZ: https://www.color-hex.com/color-palette/77177
 syn cluster nouArtifactEmojiQ add=nouEmojiDarkCherry
@@ -15,7 +15,7 @@ syn match nouEmojiDarkCherry display excludenl '[⏻]'
 
 syn cluster nouArtifactEmojiQ add=nouEmojiGreen
 hi nouEmojiGreen ctermfg=40 guifg=#00ff00
-syn match nouEmojiGreen display excludenl '[✓➺⊞➕☺👟]'
+syn match nouEmojiGreen display excludenl '[✓➺⊞➕👟]'
 
 " #6060ff #87afff #87dfff
 syn cluster nouArtifactEmojiQ add=nouEmojiCyan
@@ -30,7 +30,7 @@ syn match nouEmojiBlue display excludenl '[↯∴]'
 " nouInfix(source/intent) {{{
 syn cluster nouArtifactEmojiQ add=nouEmojiOrange
 hi nouEmojiOrange ctermfg=172 guifg=#df8700
-syn match nouEmojiOrange display excludenl '[⋆⇴🔜⁇☹🌠⊹]'
+syn match nouEmojiOrange display excludenl '[⋆⇴🔜⁇🌠⊹]'
 
 syn cluster nouArtifactEmojiQ add=nouEmojiGray
 hi nouEmojiGray ctermfg=242 guifg=#707070
@@ -52,6 +52,6 @@ syn match nouEmojiGold display excludenl '[⫽∵]'
 
 syn cluster nouArtifactEmojiQ add=nouEmojiLime
 hi nouEmojiLime ctermfg=101 guifg=#afdf00
-syn match nouEmojiLime display excludenl '[⩨⩩≋]'
+syn match nouEmojiLime display excludenl '[⩨⩩≋☺]'
 
 " }}}
