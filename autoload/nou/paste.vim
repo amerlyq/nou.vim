@@ -90,7 +90,10 @@ fun! nou#paste#ctx_guess_indent(lines)
   "" ALT: use indent of above line
   " let pfx = substitute(getline(i - 1), '^\(\s*\).*', '\1', '')
   let off = &expandtab ? repeat(' ', &tabstop) : "\t"
-  if body =~# '^https\?://' || '^[|¦│]'
+  "" NOTE: don't indent link under link
+  if body =~# '^https\?://' && len(a:lines) == 2 && a:lines[1] =~# '^\s*https\?://'
+    let pfx = substitute(pfx, off.'$', '', '')
+  elseif body =~# '^[|¦│#]'
     let pfx = substitute(pfx, off.'$', '', '')
   elseif body =~# '\V\^[\.]' && a:lines[0] =~# '\V\^[\.] '
     "" don't reindent tasks
@@ -99,6 +102,13 @@ fun! nou#paste#ctx_guess_indent(lines)
   else
     "" use current spaced line as indent
     " if !empty(pfx) | let pfx = pfx
+
+    "" BET?RND: keep indent in outline when pasting
+    "   ALSO: repeat ident with anything contained (e.g. "#" or "|" comment signs)
+    "   NICE: inof skipped->dedent we may position cursor *exactly* on the indent
+    "     we want on the previous line -- and then press insert
+    " let col = getcurpos()[2]
+    " let pfx = (col < 2) ?"": getline(".")[: col - 2]
   end
 
   "" HACK: skip multiple lines before pasting to deindent
@@ -121,12 +131,15 @@ fun! nou#paste#smart(reg, cmd, lvl1) range
     return nou#paste#insert(nou#paste#reindent(Rlines, a:lvl1 - 1), a:cmd)
   end
 
-  if nou#paste#keep_unchanged(Rlines, Rtype)
+  "" DISABLED: somehow multiline clipboard is now always 'V'
+  ""   ALT? let Rtype = empty(pfx) ? Rtype : "v"
+  " if nou#paste#keep_unchanged(Rlines, Rtype)
+  if Rlines[0] =~# '\v^%(\t|\s\s)'
     exe 'norm! "'. a:reg . a:cmd
     return
   end
 
   " [_] FIXME: use newer #reindent() function + guess indent int(lvl) instead of pfx
-  let pfx = nou#paste#ctx_guess_indent(Rlines)
+  let pfx = len(Rlines)<=1 ?"": nou#paste#ctx_guess_indent(Rlines)
   return nou#paste#insert(map(Rlines, "pfx . v:val"), a:cmd, Rtype)
 endf
