@@ -172,6 +172,9 @@ nnoremap <buffer> <Plug>(nou-task-xts-end) :call <SID>yank_xts(1)<CR>
 "     << TRY: current date first, then parse everything,
 "     sort by date/time, and search for nearest to current date/time
 
+"" HACK: jump to next/prev "{"-prefixed section and align to top
+nnoremap <buffer> [[ [[zt
+nnoremap <buffer> ]] ]]zt
 "" HACK: paste with smart indent
 nnoremap <buffer> gp p
 nnoremap <buffer> gP P
@@ -373,7 +376,7 @@ let s:nou_mappings = [
 let s:nou_assoc =
   \[ 'a agenda A'
   \, 'b bed'
-  \, 'c common W:common'
+  \, 'c chill'
   \, 'd dev'
   \, 'e env'
   \, 'E envwk W:env'

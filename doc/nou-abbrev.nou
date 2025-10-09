@@ -6,6 +6,7 @@ Latin/abbrev ※⡧⢈⢟⠢
   ALSO:(syntax): .(by|same|like|and).
 
 
+
 main()
   af/a4 = after  IDEA:(syntax combi): a4yyday="after the day before yesterday"
   bc = because (∵ <<)
@@ -13,8 +14,12 @@ main()
   bnf = back'n'forth
   bw = between
   cpl = compile[ation]
+  # evb = everybody
+  # evd/evy = everyday
+  # ev1 = everyone
 ~ evels = "everything else"
-~ evr = "everything"
+~ evr/evrt/evtg = "everything"
+  # evrw/evr~ = everywhere
   hwr/hwer = however
   iav = interactive[ly]
   iff = if and only if

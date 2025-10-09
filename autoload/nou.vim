@@ -71,7 +71,7 @@ fun! nou#bar(...) range
   let pfx = substitute(pfx, '[0-9]', '', 'g')  " Strip progress lvl
   let pfx = substitute(pfx, 'D', strftime('%Y-%m-%d '), '')
   " ALSO? ⪡TBC✗✓  -- to add v:count percents
-  if pfx =~# '[_$X%;⌇,*<∞#🔒🔑⟫≫]'
+  if pfx =~# '[_$X%;⌇,*<∞#🔒🔑⋆⟫≫]'
     " BET: use separate keys: 50<Space>% and <Space>%50 (inserts cursor at "[|%]")
     " IDEA: use mixed log-xts "[⡟⢝⣣⣔%50]" OR "[50%⡟⢝⣣⣔]" instead of "[50%] s <⡟⢝⣣⣔>"
     let pg = a:2 < 10 ? a:2*10 : a:2 >= 100 ? a:2 % 100 : a:2
@@ -161,7 +161,7 @@ fun! nou#path_open(path, ...)
     "" NOTE: open any date as .cal (past/future)
     let ymd = matchstr(a:path, '\v^'.g:nou#rgx#Rdate)
     if ymd
-      let cmdline = "find -H /@/todo -regextype egrep -type f -regex '.+/".ymd."\\b.*' -print -quit"
+      let cmdline = "find -H /d/todo -regextype egrep -type f -regex '.+/".ymd."\\b.*' -print -quit"
       echom cmdline
       let res = systemlist(cmdline)
       if len(res) > 0
