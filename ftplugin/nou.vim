@@ -277,8 +277,8 @@ nmap <buffer> <Plug>(nou-cvt-task) d<Plug>(textobj-nou-lead-i)"_c<Plug>(textobj-
 nmap <buffer> <Plug>(nou-sum-hierarchy) :call NouSumHierarchy()<CR>
 nmap <buffer> <Plug>(nou-sum-logblock) :call NouSumLogBlock()<CR>
 " HACK: delete previous duration, to recalculate its current .effective as dt=lnow()-time
-nmap <buffer> <Plug>(nou-fix-claimed-floor) d<Plug>(textobj-nou-dura-i)<Cmd>call NouFixClaimed(0)<CR>
-nmap <buffer> <Plug>(nou-fix-claimed-ceil) d<Plug>(textobj-nou-dura-i)<Cmd>call NouFixClaimed(1)<CR>
+nmap <buffer> <Plug>(nou-fix-claimed-floor) <Cmd>call NouFixClaimed(0)<CR>
+nmap <buffer> <Plug>(nou-fix-claimed-ceil) <Cmd>call NouFixClaimed(1)<CR>
 " TRY:BET: simply open next/prev file in dir (sorted by date)
 "   BAD: can't jump between today and archived prevday
 "     MAYBE: directly create new items inside archived dir

@@ -64,6 +64,7 @@ digraph cp 5817    " ᚹ = preps / configure / setup
 digraph cr 8635    " ↻ = recurrent/daily ALT=OO
 digraph cs 8902    " ⋆ = task/planned/agenda
 digraph cu 5817    " ᚹ = preps / configure / setup
+digraph <` 8598    " ↖ = finally done some always postponed low-prio task OR=´
 digraph up 65514   " ￪ = dislodged from yday e.g. "[?] ￪ #buy"
 digraph dn 65516   " ￬ = most likely *to be moved* to nday
 digraph rh 65515   " ￫ = TBD? ~some derived step~

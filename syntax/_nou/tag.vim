@@ -12,7 +12,7 @@
 
 syn cluster nouArtifactQ add=nouHashTag
 hi nouHashTag cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=142 guifg=#afaf00
-syn match nouHashTag display excludenl /\v%(^|[(\[{,;|[:space:]]@1<=)%([#]+\k\S{-})%([|;}\])[:space:]]@1=|$)/
+syn match nouHashTag display excludenl /\v%(^|[(\[{,;|[:space:]\u2000-\u206F\u2190-\u23FF\u25A0-\u2BFF\u2E80-\uD7AF\uE000-\uF8FF]@1<=)%([#]+\k\S{-})%([|;}\])[:space:]]@1=|$)/
 
 
 " OR:(standout): hi nouHashTagPfx cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=130 guifg=#b86f00

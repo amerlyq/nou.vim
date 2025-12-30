@@ -14,6 +14,6 @@ syn match nouOperatorDotH display excludenl contains=@Spell,@nouAccentQ
 
 
 " VIZ:SRC: Latin/abbrev ※⡧⢵⣘⠨
-let s:ops = 'aka as b4 bnf bw cmp cvt due evr evels how-to hwr iav ifc iff imm inof iow orse rec t4 tf tmpl vs yday'
+let s:ops = 'aka as b4 bnf bw cmp cvt due evt evels how-to hwr iav ifc iff imm inof iow orse rec t4 tf tmpl vs yday'
 exe 'syn match nouOperatorDot display excludenl contains=@Spell,@nouAccentQ'
   \ '/\v%(^|[[:punct:][:blank:]]@1<=)%(' .substitute(s:ops, ' ', '|', 'g'). ')%(\ze[[:punct:][:blank:]]|$)/'

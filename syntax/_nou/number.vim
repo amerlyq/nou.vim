@@ -29,7 +29,7 @@ syn cluster nouNumberQ add=nouNumberHex,nouNumberBin
   \,nouNumberOct,nouNumberDec,nouNumberXdata,nouNumberXaddr
 
 " TODO: allow '-/+' before numbers BUT: skip spans like 0x..-0x..
-syn match nouNumberDec display excludenl  '\v<(0|[1-9]\d*)>'
+syn match nouNumberDec display excludenl  '\v<%(0|[1-9]\d*)%(\.[0-9]+)?'
 " syn match nouNumberFPU display excludenl   '\<\d\+\(\.\d*\)\=\(e[-+]\=\d*\)\=\>'
 syn match nouNumberOct display excludenl  '\v<(0\o+o?|\o+o)>'
 syn match nouNumberBin display excludenl  '\v<(0b[01]+|[01]+b)>'

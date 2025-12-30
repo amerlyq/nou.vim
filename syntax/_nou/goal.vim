@@ -47,8 +47,8 @@ syn match nouTaskOverlap display excludenl '\V[/]'
 
 hi! nouTaskFrame cterm=bold gui=bold ctermfg=14 guifg=#586e75
 syn cluster nouTaskQ add=nouTaskFrame
-syn match nouTaskFrame display excludenl '\[[∞◦‣%;,#🔒🔑⋆￪￬⟫≈≫^⌇⪓⪤⸾]\]'
-syn match nouTaskFrame display excludenl '\v\[[∞◦‣%;,#🔒🔑⋆￪￬⟫≈≫*^][\u2800-\u28FF]{2,4}\]'
+syn match nouTaskFrame display excludenl '\[[∞◦‣%;,#🔒🔑⋆↯￪￬⟫≈≫^⌇⪓⪤⸾]\]'
+syn match nouTaskFrame display excludenl '\v\[[∞◦‣%;,#🔒🔑⋆↯￪￬⟫≈≫*^][\u2800-\u28FF]{2,4}\]'
 syn match nouTaskFrame display excludenl '\v\[[*][_%]?\]'
 
 hi! nouTaskFeed cterm=bold gui=bold ctermfg=251 guifg=#c6c6c6
@@ -81,7 +81,7 @@ hi! nouTaskDelegated ctermfg=169 guifg=#af2f8f
 syn match nouTaskDelegated display excludenl contained containedin=nouTaskFrame '[⟫≈]'
 
 hi! nouTaskDeferred ctermfg=27 guifg=#1f6fff
-syn match nouTaskDeferred display excludenl contained containedin=nouTaskFrame '≫'
+syn match nouTaskDeferred display excludenl contained containedin=nouTaskFrame '[≫↯]'
 
 hi! nouTaskOverachieved cterm=bold gui=bold ctermfg=46 guifg=#00ff00
 " hi! nouTaskOverachieved cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=20 guifg=#1f2fcf

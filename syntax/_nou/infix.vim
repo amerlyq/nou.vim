@@ -15,7 +15,7 @@ syn match nouEmojiDarkCherry display excludenl '[⏻]'
 
 syn cluster nouArtifactEmojiQ add=nouEmojiGreen
 hi nouEmojiGreen ctermfg=40 guifg=#00ff00
-syn match nouEmojiGreen display excludenl '[✓➺⊞➕👟]'
+syn match nouEmojiGreen display excludenl '[✓➺⊞➕👟´]'
 
 " #6060ff #87afff #87dfff
 syn cluster nouArtifactEmojiQ add=nouEmojiCyan
@@ -30,7 +30,7 @@ syn match nouEmojiBlue display excludenl '[↯∴]'
 " nouInfix(source/intent) {{{
 syn cluster nouArtifactEmojiQ add=nouEmojiOrange
 hi nouEmojiOrange ctermfg=172 guifg=#df8700
-syn match nouEmojiOrange display excludenl '[⋆⇴🔜⁇🌠⊹]'
+syn match nouEmojiOrange display excludenl '[⋆⇴🔜⁇🌠⊹↖]'
 
 syn cluster nouArtifactEmojiQ add=nouEmojiGray
 hi nouEmojiGray ctermfg=242 guifg=#707070

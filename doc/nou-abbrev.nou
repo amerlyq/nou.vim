@@ -18,7 +18,7 @@ main()
   # evd/evy = everyday
   # ev1 = everyone
 ~ evels = "everything else"
-~ evr/evrt/evtg = "everything"
+~ evt (evr/evg/evrt/evtg/evth/evng) = "everything"
   # evrw/evr~ = everywhere
   hwr/hwer = however
   iav = interactive[ly]
