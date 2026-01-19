@@ -28,6 +28,7 @@ Allowed any indent before '$'
   With end-guard ¦ closed block ¦
   Inlined ¦ snippet into ¦ general text
   Tight¦ coupling ¦with text
+  Kind of ¦inline¦ standout
 
 
 % Text Blocks

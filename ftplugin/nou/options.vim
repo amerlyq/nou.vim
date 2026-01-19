@@ -6,7 +6,8 @@ setl expandtab tabstop=2 shiftwidth=2 softtabstop=2
 "   + intuitive support for embedded text paragraphs
 "   - lose ability to align mixed-indented text
 setl noshiftround
-setl comments=b:#,b:#%,bO:\|,:¦,:│  ",f:'''
+" ALSO: ,:;,::  ",f:'''
+setl comments=b:#,b:#%,bO:\|,:¦,:│,:\
 setl commentstring=#\ %s
 setl formatoptions=ro/qj  " inof DFL=ctqj
 

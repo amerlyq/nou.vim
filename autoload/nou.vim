@@ -130,6 +130,12 @@ fun! nou#path_open(path, ...)
   let bang = get(a:, 1, 0)  "ALT:USE: <count> i.e. <1 g f> == force open non-existent file
   let deref = get(a:, 2, 0)  " NOTE: deref symlinks after resolving FUTURE smart keep symlink dirs
 
+  let _seen = get(a:, 3, {})  " HACK: limit recursion
+  if has_key(_seen, a:path)
+    throw printf('nou: tag recursion cycle at %s', string(a:path))
+  endif
+  let _seen[a:path] = 1
+
   let idx = stridx(p, '/')
   if idx < 0| let idx = 0 |en
   if idx == 0 && strpart(p,1,1) == '/'| let idx = 1 |en
@@ -171,6 +177,21 @@ fun! nou#path_open(path, ...)
         let p = '/d/todo/planned/'. ymd .'.task'
       else
         let p = '/d/todo/log/'. join(systemlist("date +'%Y/%Y-%m-%d-%a-W%W' -d ".ymd))
+      endif
+    endif
+
+    "" NOTE: dispatch any tags/keywords by table
+    " USAGE: let g:nou_tagmap = { '<W>': ':/work/TODO.nou', '#home': ':/my/home/log/!now', '#h': '#home' }
+    if exists('g:nou_tagmap')
+      if type(g:nou_tagmap) != v:t_dict
+        throw 'nou: g:nou_tagmap must be a Dict'
+      endif
+      let pv = get(g:nou_tagmap, a:path, v:null)
+      if pv isnot# v:null
+        if type(pv) != v:t_string || empty(pv)
+          throw printf('g:nou_tagmap: value should be nonempty string for key %s', string(a:path))
+        endif
+        return nou#path_open(pv, bang, deref, _seen)
       endif
     endif
 
