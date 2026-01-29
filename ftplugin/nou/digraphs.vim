@@ -59,7 +59,7 @@ digraph \|> 9654   " ▶ = delegated to
 digraph cf 8900    " ⋄ = repeated daily #frwk
 digraph cn 128284  " 🔜 next prio
 digraph cq 10149   " ➥ = query/request (delegate from) ALT=NN|FF
-digraph `> 10149   " ➥ = query/request (delegate from)
+digraph `> 10149   " ➥ = query/request (delegate from) OR=↳⤷
 digraph cp 5817    " ᚹ = preps / configure / setup
 digraph cr 8635    " ↻ = recurrent/daily ALT=OO
 digraph cs 8902    " ⋆ = task/planned/agenda

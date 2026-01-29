@@ -21,7 +21,7 @@ syn match nouHashTag display excludenl /\v%(^|[(\[{,;|[:space:]\u2000-\u206F\u21
 " OR:(bright): hi nouHashTagPfx cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=172 guifg=#df8700
 " OR:(light): compromise
 hi nouHashTagPfx cterm=bold gui=bold ctermbg=NONE guibg=NONE ctermfg=136 guifg=#bf7f00
-syn match nouHashTagPfx display excludenl contained containedin=nouHashTag '\W'  " OLD: [#.]
+syn match nouHashTagPfx display excludenl contained containedin=nouHashTag '[#.]'  " OLD:(\W):BAD: matches unicode
 
 hi nouHashTagParam cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=101 guifg=#958e68
 syn match nouHashTagParam display excludenl contained containedin=nouHashTag keepend ':[^:#[:blank:]]\+'

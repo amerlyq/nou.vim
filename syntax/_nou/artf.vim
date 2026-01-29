@@ -10,9 +10,11 @@ syn match nouTableDelim display excludenl '|'
 syn cluster nouArtifactQ add=nouArtifactAddressing
 hi nouArtifactAddressing cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=80 guifg=#5fdfdf
 syn match nouArtifactAddressing display excludenl
-  \ '\v%(^|[(\[{,;|[:space:]]@1<=)%([@]+\k{-1,}%(\.\k{-1,})?%(\@[a-z.]+)?)%([|;,}\])[:space:]]@1=|$)'
+  \ '\v%(^|[^@%[:keyword:]]@1<=)%(\@+\%?\k{-1,}%(\.\k{-1,})?%(\@[a-z.]+)?)%([^@%[:keyword:]]@1=|$)'
+" \ '\v%(^|[[:punct:][:space:]]@1<=)%(\@+\%?\k{-1,}%(\.\k{-1,})?%(\@[a-z.]+)?)%([[:punct:][:space:]]@1=|$)'
+" \ '\v%(^|[(\[{,;|[:space:]]@1<=)%([@]+[%]?\k{-1,}%(\.\k{-1,})?%(\@[a-z.]+)?)%([|;,}\])[:space:]]@1=|$)'
 hi nouArtifactAddrName cterm=bold,italic ctermbg=NONE gui=bold,italic guibg=NONE ctermfg=75 guifg=#67afff
-syn match nouArtifactAddrName display excludenl contained containedin=nouArtifactAddressing /\v\@%(\k{-}\.|\u\u@1=)?/
+syn match nouArtifactAddrName display excludenl contained containedin=nouArtifactAddressing /\v\@%(\k{-}\.|\u\u@1=|[%])?/
 
 
 "" user group OR role like <%dev>
