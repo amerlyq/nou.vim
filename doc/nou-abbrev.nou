@@ -20,13 +20,13 @@ main()
   # evd/evy = everyday
   # ev1 = everyone
 ~ evels = "everything else"
-~ evt (evr/evg/evrt/evtg/evth/evng) = "everything"
+~ evg (evr/evt/evg/evrt/evtg/evth/evng) = "everything"
   # evrw/evr~ = everywhere
   hwr/hwer = however
   iav = interactive[ly]
   iff = if and only if
   imm = immediate[ly]
-  inat = in addition to
+  inad = in addition to  # OLD=inat
   inof = instead of
   iow = in other words
   ivt = invariant
