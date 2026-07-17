@@ -242,6 +242,8 @@ nmap <buffer> <Plug>(nou-set-goal-unlocking) "_c<Plug>(textobj-nou-goal-i)🔑<E
 nmap <buffer> <Plug>(nou-set-goal-delegated) "_c<Plug>(textobj-nou-goal-i)⟫<Esc>
 nmap <buffer> <Plug>(nou-set-goal-deferred) "_c<Plug>(textobj-nou-goal-i)≫<Esc>
 nmap <buffer> <Plug>(nou-set-goal-overachieved) "_c<Plug>(textobj-nou-goal-i)^<Esc>
+nmap <buffer> <Plug>(nou-set-goal-abrupt-rush) "_c<Plug>(textobj-nou-goal-i)↯<Esc>
+nmap <buffer> <Plug>(nou-set-goal-inform-only) "_c<Plug>(textobj-nou-goal-i):<Esc>
 
 nmap <buffer> <Plug>(nou-set-goal-progressA) :<C-u>let b:c=v:count1<Esc>"_c<Plug>(textobj-nou-goal-i)-/<C-r>=b:c<CR>h<Esc>
 nmap <buffer> <Plug>(nou-set-goal-progressB) :<C-u>let b:c=v:count1<Esc>"_c<Plug>(textobj-nou-goal-i)<C-r>=b:c<CR>h/-<Esc>
@@ -334,6 +336,7 @@ let s:nou_mappings = [
   \
   \ ['n', '<LocalLeader>_', '<Plug>(nou-set-goal-subtodo)'],
   \ ['nx','<LocalLeader>!', '<Plug>(nou-set-goal-mandatory)'],
+  \ ['n', '<LocalLeader>g!','<Plug>(nou-set-goal-abrupt-rush)'],
   \ ['n', '<LocalLeader>@', '<Plug>(nou-set-goal-today)'],
   \ ['n', '<LocalLeader>#', '<Plug>(nou-set-goal-rephrase)'],
   \ ['n', '<LocalLeader>L', '<Plug>(nou-set-goal-blockedby)'],
@@ -353,6 +356,7 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>.', '<Plug>(nou-set-goal-now)'],
   \ ['n', '<LocalLeader>`', '<Plug>(nou-set-goal-likely)'],
   \ ['n', '<LocalLeader>:', '<Plug>(nou-set-goal-deferred)'],
+  \ ['n', '<LocalLeader>g:','<Plug>(nou-set-goal-inform-only)'],
   \ ['n', '<LocalLeader>^', '<Plug>(nou-set-goal-overachieved)'],
   \ ['n', '<LocalLeader>0', '<Plug>(nou-set-goal-feed)'],
   \ ['n', '<LocalLeader>/', '<Plug>(nou-set-goal-overlap)'],
