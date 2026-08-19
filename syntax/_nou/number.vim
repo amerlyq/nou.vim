@@ -66,3 +66,37 @@ hi def link nouNumberXprf Comment
 syn match nouNumberXaddr display excludenl contains=@nouNumberXaddrQ
   \ '\v%(^|\W)\zs%(0x)?\x{8,}:\ze%(\s|$)'
 hi def link nouNumberXaddr  nouNumber
+
+
+"" Numbers in URL
+" WHY: to make it easier to visually compare column of urls to each other
+" WHY: to visually find faster url in file matching to url tail in browser w/o copying
+
+syn cluster nouDigits add=nouDigit0,nouDigit1,nouDigit2,nouDigit3,nouDigit4,nouDigit5,nouDigit6,nouDigit7,nouDigit8,nouDigit9
+
+
+" ALT:BET? inof individual digits -- highlight whole triplets,
+"   to simply have better boundaries to easier read long numbers
+"   IDEA: #xyz, x - darkness, y - main color/hue, z - variance
+" ALT: use only 4 colors -- for {0, 1-3, 4-6, 7-9}
+syn match nouDigit0 display excludenl contained  '0'
+syn match nouDigit1 display excludenl contained  '1'
+syn match nouDigit2 display excludenl contained  '2'
+syn match nouDigit3 display excludenl contained  '3'
+syn match nouDigit4 display excludenl contained  '4'
+syn match nouDigit5 display excludenl contained  '5'
+syn match nouDigit6 display excludenl contained  '6'
+syn match nouDigit7 display excludenl contained  '7'
+syn match nouDigit8 display excludenl contained  '8'
+syn match nouDigit9 display excludenl contained  '9'
+
+hi! nouDigit0 guifg=#2aa198  " #6c71c4  " #555555
+hi! nouDigit1 guifg=#dc322f  " #6cc184  " #870000
+hi! nouDigit2 guifg=#859900  " #ccc184  " #00b700
+hi! nouDigit3 guifg=#f27711  " #5271c4  " #af8700
+hi! nouDigit4 guifg=#f7a3f7  " #df8700  " #2288cf
+hi! nouDigit5 guifg=#7dbbf0  " #bc81c4  " #df0087
+hi! nouDigit6 guifg=#b58900  " #bcb1b4  " #aaaaaa
+hi! nouDigit7 guifg=#e9cf87  " #2c51c4  " #00cfcf
+hi! nouDigit8 guifg=#5b9e84  " #6461c4  " #5f00cf
+hi! nouDigit9 guifg=#f9a8b1  " #cc2124  " #9f0087

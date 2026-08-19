@@ -53,6 +53,7 @@ inoreabbr <buffer> lc; #le:comics
 inoreabbr <buffer> lcf; #le:comics=,fantasy=
 inoreabbr <buffer> lcr; #le:comics=,RSS=
 inoreabbr <buffer> lf; #le:fantasy
+inoreabbr <buffer> lfc; #le:fantasy=,comics=
 inoreabbr <buffer> lfr; #le:fantasy=,RSS=
 inoreabbr <buffer> lg; #le:gaming
 inoreabbr <buffer> ll; #le:comics,fantasy,RSS

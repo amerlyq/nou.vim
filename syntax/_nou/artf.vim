@@ -66,7 +66,7 @@ syn match nouObjectPfx display excludenl
 " TRY: different color for heading and '[/?=]' in url
 hi! nouArtifactUrl cterm=underline ctermfg=62 gui=underline guifg=#6c71c4
 syn cluster nouArtifactQ add=nouArtifactUrl
-syn match nouArtifactUrl display excludenl
+syn match nouArtifactUrl display excludenl contains=@nouDigits
   \ '\v<%(\w{3,}://|www\.|%(mailto|javascript):)\S*'
 " OR:(exclude trailing): \S{-}\ze%([[:blank:],)]|$)
 
