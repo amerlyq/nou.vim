@@ -2,6 +2,7 @@
 # ALSO: +++ [_] NICE:READ:TRY: Writing and publishing a Python module in Rust ⌇⡡⡅⣿⢑
 # USAGE: open .py file in insert, run :UpdateRemotePlugins, restart vim, :call NouFixClaimed()
 import datetime as DT
+import json
 import re
 from pathlib import Path
 from typing import Any
@@ -75,6 +76,10 @@ class TestPlugin:
     def fixclaimed(self, args: Any) -> tuple[int, int, int, str]:
         return self._entry_replace_spec("logtimediff", args[0])
 
+    @pynvim.function("NouFixClaimedToNextTask", sync=True)
+    def fixclaimedtonexttask(self, args: Any) -> tuple[int, int, int, str]:
+        return self._entry_replace_spec("tasktimediff", args[0])
+
     @pynvim.function("NouSumHierarchy", sync=True)
     def sumhierarchy(self, _args: Any) -> tuple[int, int, int, str]:
         return self._entry_replace_spec("sumtaskhier")
@@ -83,7 +88,9 @@ class TestPlugin:
     def sumlogblock(self, _args: Any) -> tuple[int, int, int, str]:
         return self._entry_replace_spec("sumlogblock")
 
-    def _entry_replace_spec(self, val: str, param: int = 0) -> tuple[int, int, int, str]:
+    def _entry_replace_spec(
+        self, val: str, param: int = 0
+    ) -> tuple[int, int, int, str]:
         buf = self.nvim.current.buffer
         path = buf.name
         row, col = self.nvim.current.window.cursor
@@ -96,7 +103,9 @@ class TestPlugin:
                 param=param,
             )
         except ValueError as exc:
-            self.nvim.command(f"echohl ErrorMsg | echom '{exc}' | echohl None")
+            self.nvim.command(
+                "echohl ErrorMsg | echomsg " + json.dumps(str(exc)) + " | echohl None"
+            )
             return
 
         # FIXME: .col is unicode char, not byte offset

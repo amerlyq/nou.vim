@@ -281,6 +281,7 @@ nmap <buffer> <Plug>(nou-sum-logblock) :call NouSumLogBlock()<CR>
 " HACK: delete previous duration, to recalculate its current .effective as dt=lnow()-time
 nmap <buffer> <Plug>(nou-fix-claimed-floor) <Cmd>call NouFixClaimed(0)<CR>
 nmap <buffer> <Plug>(nou-fix-claimed-ceil) <Cmd>call NouFixClaimed(1)<CR>
+nmap <buffer> <Plug>(nou-fix-claimed-to-next-task) <Cmd>call NouFixClaimedToNextTask(0)<CR>
 " TRY:BET: simply open next/prev file in dir (sorted by date)
 "   BAD: can't jump between today and archived prevday
 "     MAYBE: directly create new items inside archived dir
@@ -321,6 +322,7 @@ let s:nou_mappings = [
   \ ['n', '<LocalLeader>d', '<Plug>(nou-set-ymd3-today)'],
   \ ['n', '<LocalLeader>e', '<Plug>(nou-fix-claimed-floor)'],
   \ ['n', '<LocalLeader>E', '<Plug>(nou-fix-claimed-ceil)'],
+  \ ['n', '<LocalLeader>ge', '<Plug>(nou-fix-claimed-to-next-task)'],
   \ ['n', '<LocalLeader>H', '<Plug>(nou-sum-hierarchy)'],
   \ ['n', '<LocalLeader>G', '<Plug>(nou-sum-logblock)'],
   \ ['n', '<LocalLeader>g.', '<Plug>(nou-insert-now-moment)'],

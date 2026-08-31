@@ -46,7 +46,7 @@ fun! nou#syntax#outline(i)
   " ENH:USE: ALL ALLBUT,{gr} TOP TOP,{gr} CONTAINED CONTAINED,{gr}
   exe 'syn cluster nouOutlineQ add='.nm
   exe 'syn region '.nm.' display keepend excludenl'
-    \.' contains=@nouTextQ,@nouDelimQ,@nouDecisionQ'
+    \.' contains=@nouTextQ,@nouDelimQ,@nouDecisionQ,@nouHeaderQ'
     \.' start='.s:p(nou#syntax#_indent(a:i))
     \.' skip='.s:p('%('. g:nou.outline.wrapby .')$')
     \.' end='.s:p('$')
