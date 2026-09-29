@@ -60,6 +60,8 @@ let s:grps += [
 " g:switch_custom_definitions[0][tsfmts[x]] = {m,r,c -> cvt(m[0], from=x, to=tsring[c?c: (index(tsring)+(r?-1:1))%len(tsring)]},  ... }
 " endfor
 
+"" ALSO: rotate days
+let s:grps += [['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']]
 
 " HACK! nou#rgx s:Rcomment &commentstring should be read only after ftplugin/*
 " autocmd BufReadPost * let g:switch_custom_definitions = s:gen_switch_groups()
